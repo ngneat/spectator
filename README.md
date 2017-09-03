@@ -4,6 +4,8 @@ ngx-easy-test provides two extensions for Angular 4 Testing Framework:
 - a cleaner API for testing
 - a set of custom matchers
 
+## Note
+Currently, it only supports Angular 4+ and jasmine. 
 
 ## Installation
 Using npm by running ```npm install ngx-easy-test --save-dev```
@@ -235,6 +237,7 @@ describe('With Custom Host Component', function () {
   - e.g. `expect(this.query('.alert')).toHaveClass('danger');`
 - `toHaveStyle(style)`
   - e.g. `expect(this.query('.alert')).toHaveStyle({ height: '200px' });`
+  - **Note: Colors only works with rgb(a) and hex (six numbers) values**
 - `toContainText(text)`
   - e.g. `expect(this.query('.alert')).toContainText('Text');`
 - `toHaveValue(value)`
