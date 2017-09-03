@@ -195,7 +195,7 @@ describe('With Custom Host Component', function () {
 });
 ```
 ## API
- - `easyTest<T>( testedType : Type<T>, moduleMetadata : TestModuleMetadata = {} )`
+ - `easyTest<T>( testedType : Type<T>, moduleMetadata? : TestModuleMetadata )`
  - `createHost<T, H>( testedType : Type<T>, hostType?, moduleMetadata? : TestModuleMetadata )`
 
 ### Methods
@@ -228,7 +228,7 @@ describe('With Custom Host Component', function () {
 - `toBeInDOM()`
   - Checks to see if the matched element is attached to the DOM
   - e.g. `expect(this.query('.ngIf')).toBeInDOM()`
-- `toHaveAttr(attributeName, attributeValue)`
+- `toHaveAttr({attr, val})`
     - e.g. `expect(this.testedElement).toHaveAttr({
                                           attr: 'role',
                                           val: 'newRole'
