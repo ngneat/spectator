@@ -210,7 +210,7 @@ describe('With Custom Host Component', function () {
 - `whenOutput<T>( output : string, cb : ( result : T ) => any )`
   - Listen for an @Output() of the tested component and get the result
 - `trigger<T>( event : string, selector : string, eventObj = null  )`
-  - Trigger an event on the element based on the selector
+  - Trigger an event on the selector element
 
 ### Properties
 - `tested` - fixture debug element
