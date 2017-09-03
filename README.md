@@ -208,7 +208,7 @@ describe('With Custom Host Component', function () {
 - `whenInput(input : object | string, inputValue? : any)`
   - Change an @Input() of the tested component
 - `whenOutput<T>( output : string, cb : ( result : T ) => any )`
-  - Listen to an @Output() of the tested component and get the result
+  - Listen for an @Output() of the tested component and get the result
 - `trigger<T>( event : string, selector : string, eventObj = null  )`
   - Trigger an event on the element based on the selector
 
