@@ -75,7 +75,7 @@ describe('AlertComponent', () => {
     expect(this.query('.alert')).toContainText('Alert Works!');
   });
 
-  it('change the text when we change the @Input()', function ( this : Context ) {
+  it('should change the text when we change the @Input()', function ( this : Context ) {
     this.whenInput({
       title: 'Wow!'
     });
@@ -86,7 +86,7 @@ describe('AlertComponent', () => {
     expect(this.query('.alert')).toHaveClass('success');
   });
 
-  it('change the class when we change the @Input()', function ( this : Context ) {
+  it('should change the class when we change the @Input()', function ( this : Context ) {
     this.whenInput('type', 'danger');
     expect(this.query('.alert')).toHaveClass('danger');
   });
