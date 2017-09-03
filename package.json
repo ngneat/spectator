@@ -1,0 +1,38 @@
+{
+  "name": "ngx-easy-test",
+  "version": "1.0.0-beta",
+  "description": "Simplified tests for Angular 4",
+  "main": "lib/index.js",
+  "types": "./lib/index.d.ts",
+  "keywords": [
+    "angular unit test",
+    "angular simplified tests",
+    "jasmine",
+    "angular",
+    "angular tests",
+    "angular easy tests",
+    "angular testing dumb components"
+  ],
+  "devDependencies": {
+    "@angular/common": "^4.4.0-RC.0",
+    "@angular/core": "^4.4.0-RC.0",
+    "@angular/platform-browser": "^4.4.0-RC.0",
+    "@types/jasmine": "^2.5.54",
+    "@types/jasminewd2": "^2.0.3",
+    "rxjs": "^5.4.3"
+  },
+  "homepage": "http://github.com/velesin/jasmine-jquery",
+  "author": {
+    "name": "Netanel Basal",
+    "url": "https://netbasal.com"
+  },
+  "scripts": {
+    "build": "tsc",
+    "prepublish": "tsc"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/NetanelBasal/ngx-easy-test"
+  },
+  "license": "MIT"
+}

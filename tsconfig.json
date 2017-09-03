@@ -1,0 +1,19 @@
+{
+  "compilerOptions": {                     
+    "target": "ES2015",
+    "module": "commonjs",
+    "lib": [
+      "es2016",
+      "dom"
+    ], 
+    "declaration": true,  
+    "outDir": "./lib",    
+    "typeRoots": [
+      "./node_modules/@types",
+      "./lib"
+    ],         
+    "experimentalDecorators": true, 
+    "emitDecoratorMetadata": true
+  },
+  "include":["src/**/*"]                                             
+}
