@@ -1,6 +1,6 @@
 {
   "name": "ngx-easy-test",
-  "version": "1.0.0-beta",
+  "version": "1.0.1-beta",
   "description": "Simplified tests for Angular 4",
   "main": "lib/index.js",
   "types": "./lib/index.d.ts",
