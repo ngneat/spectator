@@ -213,11 +213,11 @@ describe('With Custom Host Component', function () {
   - Trigger an event on the selector element
 
 ### Properties
-- `tested` - fixture debug element
-- `testedComponent` - tested component instance
-- `testedElement` - tested native element
-- `hostComponent` - host component instance (Available only when using `createHost`)
-- `hostFixture` - host fixture (Available only when using `createHost`)
+- `tested` - The fixture debug element
+- `testedComponent` - The tested component instance
+- `testedElement` - The host native element. The component is rendered inside the host.
+- `hostComponent` - The host component instance (Available only when using `createHost`)
+- `hostFixture` - The host fixture (Available only when using `createHost`)
 
 ## Matchers
 - `toBeChecked()`
