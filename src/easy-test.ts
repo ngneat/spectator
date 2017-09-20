@@ -1,4 +1,4 @@
-import { Component, DebugElement, Type } from '@angular/core';
+import { Component, DebugElement, Provider, Type } from '@angular/core';
 import { async, ComponentFixture, TestBed, TestModuleMetadata } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { customMatchers } from './easy-test.matchers';
@@ -138,7 +138,7 @@ export function easyTest<T>( testedType : Type<T>, moduleMetadata : TestModuleMe
 }
 
 @Component({ selector: 'host-for-test', template: '' })
-export class HostComponent {
+class HostComponent {
 }
 
 export function createHost<T, H>( testedType : Type<T>, hostType : Type<H> = HostComponent as Type<H>, moduleMetadata : TestModuleMetadata = {} ) {
@@ -184,4 +184,32 @@ function extendThis() {
   this.whenInput = EasyTest.prototype.whenInput;
   this.whenOutput = EasyTest.prototype.whenOutput;
   this.detectChangesHost = EasyTestWithHost.prototype.detectChangesHost;
+}
+
+export class EasyTestService<S> {
+  service : S
+}
+
+/**
+ *
+ * @param service
+ * @param mock
+ */
+export function testService<S, M = null>( service : Type<S>, mock? : Type<M> ) {
+  beforeEach(function ( this : EasyTestService<M | S> ) {
+    let providers : Provider[];
+
+    if( typeof mock === 'function' ) {
+      providers = [{ provide: service, useClass: mock }];
+    } else {
+      providers = [{ provide: service, useValue: mock }]
+    }
+    if( !mock ) {
+      providers = [{ provide: service, useClass: service }]
+    }
+    TestBed.configureTestingModule({
+      providers
+    });
+    this.service = TestBed.get(service);
+  });
 }
