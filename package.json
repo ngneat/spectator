@@ -38,6 +38,7 @@
     "url": "https://netbasal.com"
   },
   "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
     "build": "rm -rf ./dist && tsc",
     "prepublish": "tsc",
     "setup": "semantic-release-cli setup",
