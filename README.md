@@ -1,11 +1,20 @@
-# ngx-easy-test [![Awesome](https://cdn.rawgit.com/sindresorhus/awesome/d7305f38d29fed78fa85652e3a63e154dd8e8829/media/badge.svg)](https://github.com/sindresorhus/awesome)
+[![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli/)
+[![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg?style=flat-square)](https://github.com/semantic-release/semantic-release)
+[![Awesome](https://cdn.rawgit.com/sindresorhus/awesome/d7305f38d29fed78fa85652e3a63e154dd8e8829/media/badge.svg)](https://github.com/sindresorhus/awesome)
+
+# ngx-easy-test
 ngx-easy-test provides two extensions for Angular 4 Testing Framework:
 
 - a cleaner API for testing
 - a set of custom matchers
 
 ## Note
-Currently, it only supports Angular 4+ and jasmine. 
+Currently, it only supports Angular 4+ and Jasmine. 
+
+## Introduction
+Writing tests for our code is part of our daily routine. When working on large applications with many components, it can take time and effort.
+Although Angular provides us with great tools to deal with these things, it still requires quite a lot of boilerplate work.
+For this reason, I decided to create a library that will make it easier for us to write tests by cutting the boilerplate and add custom Jasmine matchers. 
 
 ## Installation
 Using npm by running ```npm install ngx-easy-test --save-dev```
@@ -15,163 +24,136 @@ Using yarn by running ```yarn add ngx-easy-test --dev```
 
 ## Example
 ```ts
-// alert.component.ts
+// zippy.component.ts
 
 @Component({
-  selector: 'app-alert',
+  selector: 'zippy',
   template: `
-    <div class="{{type}} alert" [ngStyle]="style">
-      {{title}}
+    <div class="zippy">
+      <div (click)="toggle()" class="zippy__title">
+        <span class="arrow">{{ visible ? 'Close' : 'Open' }}</span> {{title}}
+      </div>
+      <div *ngIf="visible" class="zippy__content">
+        <ng-content></ng-content>
+      </div>
     </div>
-    <p class="ngIf" *ngIf="show">Toggle element</p>
-    <button (click)="click()" class="title-changer">Change title</button>
-    <button (click)="toggle()" class="toggle">Toggle element</button>
-    <button class="height-changer" (click)="changeHeight()">Change height</button>
-    <button class="changeRole" (click)="role = 'newRole'">Change role</button>
-    <input type="checkbox" [checked]="checked" (change)="checked = !checked"/>
-    <input type="radio" disabled="true" class="radio">
-    <input type="text" value="Value!!" class="input">
-  `,
-  styles: [`p {
-    height: 100px;
-  }`]
+  `
 })
-export class AlertComponent {
-  @HostBinding('attr.role') role = 'role';
-  @Input() title = 'Alert Works!';
-  @Input() type = 'success';
-  @Output() clicked = new EventEmitter();
-  checked = true;
-  show = true;
-  style = {
-    height: '100px'
-  }
+export class ZippyComponent {
+
+  @Input() title;
+  visible = false;
 
   toggle() {
-    this.show = !this.show;
-  }
-
-  click() {
-    this.title = 'Title after clicked';
-    this.clicked.emit(this.title);
-  }
-
-  changeHeight() {
-    this.style.height = '200px';
+    this.visible = !this.visible;
   }
 }
-
 ```
-
 ```ts
-// alert.component.spec.ts
+// zippy.component.spec.ts
 
-describe('AlertComponent', () => {
-  type Context = EasyTest<AlertComponent>;
+import { createHost, EasyTestWithHost } from 'ngx-easy-test';
 
-  easyTest(AlertComponent);
+describe('ZippyComponent', () => {
+  type Context = EasyTestWithHost<ZippyComponent>;
 
-  it('should display the default text', function ( this : Context ) {
-    expect(this.query('.alert')).toContainText('Alert Works!');
+  createHost(ZippyComponent);
+
+  it('should display the title', function ( this : Context ) {
+    this.create(`<zippy title="Zippy title"></zippy>`);
+    expect(this.query('.zippy__title')).toContainText('Zippy title');
   });
 
-  it('should change the text when we change the @Input()', function ( this : Context ) {
-    this.whenInput({
-      title: 'Wow!'
-    });
-    expect(this.query('.alert')).toContainText('Wow!');
+  it('should display the content', function ( this : Context ) {
+    this.create(`<zippy title="Zippy title">Zippy content</zippy>`);
+    this.trigger('click', '.zippy__title');
+    expect(this.query('.zippy__content')).toContainText('Zippy content');
   });
 
-  it('should have a success class by default', function ( this : Context ) {
-    expect(this.query('.alert')).toHaveClass('success');
+  it('should display the "Open" word if closed', function ( this : Context ) {
+    this.create(`<zippy title="Zippy title">Zippy content</zippy>`);
+    expect(this.query('.arrow')).toContainText('Open');
+    expect(this.query('.arrow')).not.toContainText('Close');
   });
 
-  it('should change the class when we change the @Input()', function ( this : Context ) {
-    this.whenInput('type', 'danger');
-    expect(this.query('.alert')).toHaveClass('danger');
+  it('should display the "Close" word if open', function ( this : Context ) {
+    this.create(`<zippy title="Zippy title">Zippy content</zippy>`);
+    this.trigger('click', '.zippy__title');
+    expect(this.query('.arrow')).toContainText('Close');
+    expect(this.query('.arrow')).not.toContainText('Open');
   });
 
-  it('should change the title on @click', function ( this : Context ) {
-    this.trigger('click', '.title-changer');
-    expect(this.query('.alert')).toContainText('Title after clicked');
+  it('should be closed by default', function ( this : Context ) {
+    this.create(`<zippy title="Zippy title"></zippy>`);
+    expect('.zippy__content').not.toBeInDOM();
   });
 
-  it('should emit the new title on @click', function ( this : Context ) {
-    let output;
-    this.whenOutput<string>('clicked', result => output = result);
-    this.trigger('click', '.title-changer');
-    expect(output).toBe('Title after clicked');
-  });
-
-  it('should change the height on @click', function ( this : Context ) {
-    this.trigger('click', '.height-changer');
-    expect(this.query('.alert')).toHaveStyle({ height: '200px' });
-  });
-
-  it('should be in the DOM', function ( this : Context ) {
-    expect('.ngIf').toBeInDOM();
-  });
-
-  it('should toggle on @cilck', function ( this : Context ) {
-    this.trigger('click', '.toggle');
-    expect('.ngIf').not.toBeInDOM();
-    this.trigger('click', '.toggle');
-    expect(this.query('.ngIf')).toBeInDOM();
-  });
-
-  it('should be checked by default', function ( this : Context ) {
-    expect(this.query('input[type="checkbox"]')).toBeChecked();
-  });
-
-  it('should not be checked on @click', function ( this : Context ) {
-    this.trigger('change', 'input[type="checkbox"]');
-    expect(this.query('input[type="checkbox"]')).not.toBeChecked();
-  });
-
-  it('should be disabled', function ( this : Context ) {
-    expect(this.query('.radio')).toBeDisabled();
-  });
-
-  it('should have the correct value', function ( this : Context ) {
-    expect(this.query('.input')).toHaveValue('Value!!');
-  });
-
-  it('should change the role on @click', function ( this : Context ) {
-    this.trigger('click', '.changeRole');
-    expect(this.testedElement).toHaveAttr({
-      attr: 'role',
-      val: 'newRole'
-    });
+  it('should toggle the content', function ( this : Context ) {
+    this.create(`<zippy title="Zippy title"></zippy>`);
+    this.trigger('click', '.zippy__title');
+    expect('.zippy__content').toBeInDOM();
+    this.trigger('click', '.zippy__title');
+    expect('.zippy__content').not.toBeInDOM();
   });
 
 });
 ```
-## With Host Component
+
+## Without Host
 ```ts
-describe('With Host Component', function () {
-  type Context = EasyTestWithHost<AlertComponent>;
+// button.component.ts
 
-  createHost(AlertComponent);
+@Component({
+  selector: 'app-button',
+  template: `
+    <button class="{{className}}" (click)="onClick($event)">{{title}}</button>
+  `,
+  styles: []
+})
+export class ButtonComponent {
+  @Input() className = 'success';
+  @Input() title = '';
+  @Output() click = new EventEmitter();
 
-  it('should display the default text', function ( this : Context ) {
-    const fixture = this.create(`<app-alert></app-alert>`);
-    expect(this.query('.alert')).toContainText('Alert Works!');
+  onClick( $event ) {
+    this.click.emit($event);
+  }
+}
+```
+
+```ts
+// button.component.spec.ts
+
+
+import { ButtonComponent } from './button.component';
+import { EasyTest, easyTest } from 'ngx-easy-test';
+
+describe('ButtonComponent', () => {
+
+  type Context = EasyTest<ButtonComponent>;
+
+  easyTest(ButtonComponent);
+
+  it('should set the "success" class by default', function ( this : Context ) {
+    expect(this.query('button')).toHaveClass('success');
   });
 
-  it('should change the text when we change the @Input()', function ( this : Context ) {
-    const fixture = this.create(`<app-alert title="Wow!"></app-alert>`);
-    expect(this.query('.alert')).toContainText('Wow!');
+  it('should set the class name according to the [className]', function ( this : Context ) {
+    this.whenInput({ className: 'danger' });
+    expect(this.query('button')).toHaveClass('danger');
+    expect(this.query('button')).not.toHaveClass('success');
   });
 
-  it('should change the class when we change the @Input()', function ( this : Context ) {
-    const fixture = this.create(`<app-alert type="danger"></app-alert>`);
-    expect(this.query('.alert')).toHaveClass('danger');
+  it('should set the title according to the [title]', function ( this : Context ) {
+    this.whenInput('title', 'Click');
+    expect(this.query('button')).toContainText('Click');
   });
 
-  it('should change the height on @click', function ( this : Context ) {
-    const fixture = this.create(`<app-alert></app-alert>`);
-    this.trigger('click', '.height-changer');
-    expect(this.query('.alert')).toHaveStyle({ height: '200px' });
+  it('should emit the $event on click', function ( this : Context ) {
+    let output;
+    this.whenOutput<{ type: string }>('click', result => output = result);
+    this.trigger('click', 'button', { type: 'click' });
+    expect(output).toEqual({ type: 'click' });
   });
 
 });
@@ -194,10 +176,41 @@ describe('With Custom Host Component', function () {
   });
 });
 ```
+
+## Testing Services
+```ts
+import { CounterService } from './counter.service';
+import { EasyTestService, testService } from './ngx-easy-test';
+
+describe('CounterService Without Mock', () => {
+  type Context = EasyTestService<CounterService>;
+
+  testService<CounterService>(CounterService);
+
+  it('should be 0', function ( this : Context ) {
+    expect(this.service.counter).toEqual(0);
+  });
+});
+
+class MockCounterService {
+  counter = 2
+}
+
+describe('CounterService With Mock', () => {
+  type Context = EasyTestService<MockCounterService>;
+
+  testService<CounterService, MockCounterService>(CounterService, MockCounterService);
+
+  it('should be 2', function ( this : Context ) {
+    expect(this.service.counter).toEqual(2);
+  });
+});
+```
+
 ## API
  - `easyTest<T>( testedType : Type<T>, moduleMetadata? : TestModuleMetadata )`
  - `createHost<T, H>( testedType : Type<T>, hostType?, moduleMetadata? : TestModuleMetadata )`
-
+ - `testService<S, M = null>( service : Type<S>, mock? : Type<M> )`
 ### Methods
 - `detectChanges()`
   - Run detect changes on the tested element/host

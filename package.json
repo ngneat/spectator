@@ -1,6 +1,6 @@
 {
   "name": "ngx-easy-test",
-  "version": "1.0.1-beta",
+  "version": "0.0.0-development",
   "description": "Simplified tests for Angular 4",
   "main": "lib/index.js",
   "types": "./lib/index.d.ts",
@@ -11,15 +11,26 @@
     "angular",
     "angular tests",
     "angular easy tests",
+    "angular test services",
     "angular testing dumb components"
   ],
+  "config": {
+    "commitizen": {
+      "path": "node_modules/cz-conventional-changelog"
+    }
+  },
   "devDependencies": {
     "@angular/common": "^4.4.0-RC.0",
     "@angular/core": "^4.4.0-RC.0",
     "@angular/platform-browser": "^4.4.0-RC.0",
     "@types/jasmine": "^2.5.54",
     "@types/jasminewd2": "^2.0.3",
-    "rxjs": "^5.4.3"
+    "commitizen": "^2.9.6",
+    "conventional-changelog-cli": "^1.3.3",
+    "cz-conventional-changelog": "^2.0.0",
+    "rxjs": "^5.4.3",
+    "semantic-release": "^8.0.0",
+    "semantic-release-cli": "^3.2.0"
   },
   "homepage": "http://github.com/velesin/jasmine-jquery",
   "author": {
@@ -27,8 +38,11 @@
     "url": "https://netbasal.com"
   },
   "scripts": {
-    "build": "tsc",
-    "prepublish": "tsc"
+    "build": "rm -rf ./dist && tsc",
+    "prepublish": "tsc",
+    "setup": "semantic-release-cli setup",
+    "commit": "git cz",
+    "semantic-release": "semantic-release pre && npm publish && semantic-release post"
   },
   "repository": {
     "type": "git",
