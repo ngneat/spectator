@@ -138,7 +138,7 @@ export function easyTest<T>( testedType : Type<T>, moduleMetadata : TestModuleMe
 }
 
 @Component({ selector: 'host-for-test', template: '' })
-class HostComponent {
+export class HostComponent {
 }
 
 export function createHost<T, H>( testedType : Type<T>, hostType : Type<H> = HostComponent as Type<H>, moduleMetadata : TestModuleMetadata = {} ) {

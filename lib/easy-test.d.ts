@@ -59,3 +59,12 @@ export declare function easyTest<T>(testedType: Type<T>, moduleMetadata?: TestMo
 export declare class HostComponent {
 }
 export declare function createHost<T, H>(testedType: Type<T>, hostType?: Type<H>, moduleMetadata?: TestModuleMetadata): void;
+export declare class EasyTestService<S> {
+    service: S;
+}
+/**
+ *
+ * @param service
+ * @param mock
+ */
+export declare function testService<S, M = null>(service: Type<S>, mock?: Type<M>): void;
