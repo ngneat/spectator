@@ -28,9 +28,10 @@ export const customMatchers : jasmine.CustomMatcherFactories = {
       compare: function ( actual : any, expected : any ) : jasmine.CustomMatcherResult {
 
         const elementStyles = window.getComputedStyle(actual);
+
         let passed = false;
         Object.keys(expected).forEach(cssKey => {
-          const propValue = elementStyles.getPropertyValue(cssKey);
+          const propValue = elementStyles[cssKey];
           // We are only have support for rgba and Hex values
           if( expected[cssKey].indexOf('rgb') > -1 ) {
             passed = propValue === expected[cssKey];

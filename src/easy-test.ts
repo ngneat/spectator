@@ -14,7 +14,7 @@ export class EasyTest<T> {
    * Run detect changes on the host component
    */
   detectChanges() {
-    this['hostFixture'] ? this['hostFixture'].detectChanges() : this.fixture.detectChanges();
+    this[ 'hostFixture' ] ? this[ 'hostFixture' ].detectChanges() : this.fixture.detectChanges();
   }
 
   /**
@@ -41,11 +41,11 @@ export class EasyTest<T> {
    * @param inputValue
    */
   whenInput( input : object | string, inputValue? : any ) {
-    if( typeof input === 'string' ) {
-      this.testedComponent[input] = inputValue;
+    if ( typeof input === 'string' ) {
+      this.testedComponent[ input ] = inputValue;
     } else {
       Object.keys(input).forEach(inputKey => {
-        this.testedComponent[inputKey] = input[inputKey];
+        this.testedComponent[ inputKey ] = input[ inputKey ];
       });
     }
 
@@ -58,8 +58,8 @@ export class EasyTest<T> {
    * @param cb
    */
   whenOutput<T>( output : string, cb : ( result : T ) => any ) {
-    const observable = this.testedComponent[output];
-    if( typeof observable.subscribe === 'function' ) {
+    const observable = this.testedComponent[ output ];
+    if ( typeof observable.subscribe === 'function' ) {
       observable.subscribe(result => cb(result));
     } else {
       throw new Error(`${output} in not an @Output`);
@@ -72,12 +72,15 @@ export class EasyTest<T> {
    * @param selector
    * @param eventObj
    */
-  trigger( event : string, selector : string, eventObj = null ) {
-    const element = this.tested.query(By.css(selector));
-    if( !element ) {
+  trigger( event : string, selector : string | DebugElement, eventObj = null ) {
+    let element = selector;
+    if ( typeof selector === 'string' ) {
+       element = this.tested.query(By.css(selector));
+    }
+    if ( !element ) {
       console.warn(`Element ${selector} does not exists`);
     } else {
-      element.triggerEventHandler(event, eventObj);
+      (element as DebugElement).triggerEventHandler(event, eventObj);
       this.detectChanges();
     }
   }
@@ -110,11 +113,11 @@ export function easyTest<T>( testedType : Type<T>, moduleMetadata : TestModuleMe
     extendThis.apply(this);
   });
   beforeEach(async(function ( this : EasyTest<T> ) {
-    const declarations = [testedType];
-    if( moduleMetadata && moduleMetadata.declarations ) {
+    const declarations = [ testedType ];
+    if ( moduleMetadata && moduleMetadata.declarations ) {
       declarations.push(...moduleMetadata.declarations);
     }
-    TestBed.configureTestingModule({ ...moduleMetadata, declarations: declarations })
+    TestBed.configureTestingModule({...moduleMetadata, declarations: declarations})
       .compileComponents();
 
   }));
@@ -130,14 +133,14 @@ export function easyTest<T>( testedType : Type<T>, moduleMetadata : TestModuleMe
   });
 
   afterEach(function ( this : EasyTest<T> ) {
-    if( this.fixture ) {
+    if ( this.fixture ) {
       this.fixture.destroy();
       this.fixture.nativeElement.remove();
     }
   });
 }
 
-@Component({ selector: 'host-for-test', template: '' })
+@Component({selector: 'host-for-test', template: ''})
 export class HostComponent {
 }
 
@@ -147,16 +150,17 @@ export function createHost<T, H>( testedType : Type<T>, hostType : Type<H> = Hos
     jasmine.addMatchers(customMatchers);
   });
   beforeEach(async(function ( this : EasyTestWithHost<T, H> ) {
-    const declarations = [testedType, hostType];
-    if( moduleMetadata && moduleMetadata.declarations ) {
+
+    const declarations = [ testedType, hostType ];
+    if ( moduleMetadata && moduleMetadata.declarations ) {
       declarations.push(...moduleMetadata.declarations);
     }
-    TestBed.configureTestingModule({ ...moduleMetadata, declarations: declarations });
+    TestBed.configureTestingModule({...moduleMetadata, declarations: declarations});
   }));
 
   beforeEach(function ( this : EasyTestWithHost<T, H> ) {
     this.create = ( template ) => {
-      TestBed.overrideComponent(hostType, { set: { template: template } });
+      TestBed.overrideComponent(hostType, {set: {template: template}});
       this.hostFixture = TestBed.createComponent(hostType);
       this.hostFixture.detectChanges();
       this.hostComponent = this.hostFixture.componentInstance;
@@ -169,7 +173,7 @@ export function createHost<T, H>( testedType : Type<T>, hostType : Type<H> = Hos
   });
 
   afterEach(function ( this : EasyTestWithHost<T, H> ) {
-    if( this.hostFixture ) {
+    if ( this.hostFixture ) {
       this.hostFixture.destroy();
       this.hostFixture.nativeElement.remove();
     }
@@ -199,13 +203,13 @@ export function testService<S, M = null>( service : Type<S>, mock? : Type<M> ) {
   beforeEach(function ( this : EasyTestService<M | S> ) {
     let providers : Provider[];
 
-    if( typeof mock === 'function' ) {
-      providers = [{ provide: service, useClass: mock }];
+    if ( typeof mock === 'function' ) {
+      providers = [ {provide: service, useClass: mock} ];
     } else {
-      providers = [{ provide: service, useValue: mock }]
+      providers = [ {provide: service, useValue: mock} ]
     }
-    if( !mock ) {
-      providers = [{ provide: service, useClass: service }]
+    if ( !mock ) {
+      providers = [ {provide: service, useClass: service} ]
     }
     TestBed.configureTestingModule({
       providers

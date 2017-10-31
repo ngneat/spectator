@@ -124,7 +124,6 @@ export class ButtonComponent {
 ```ts
 // button.component.spec.ts
 
-
 import { ButtonComponent } from './button.component';
 import { EasyTest, easyTest } from 'ngx-easy-test';
 
@@ -174,6 +173,54 @@ describe('With Custom Host Component', function () {
     const fixture = this.create(`<app-alert [title]="title"></app-alert>`);
     expect(this.query('.alert')).toContainText('Custom HostComponent');
   });
+});
+```
+
+## Testing Directives
+```ts
+@Directive({
+  selector: '[highlight]'
+})
+export class HighlightDirective {
+
+  @HostBinding('style.background-color') backgroundColor : string;
+
+  @HostListener('mouseover')
+  onHover() {
+    this.backgroundColor = '#000000';
+  }
+
+  @HostListener('mouseout')
+  onLeave() {
+    this.backgroundColor = '#ffffff';
+  }
+}
+```
+
+```ts
+import { createHost, EasyTestWithHost } from './easy-test';
+import { HighlightDirective } from './highlight.directive';
+
+describe('HighlightDirective', function () {
+  type Context = EasyTestWithHost<HighlightDirective>;
+
+  createHost(HighlightDirective);
+
+  it('should change the background color', function ( this : Context ) {
+    this.create(`<div highlight>Testing HighlightDirective</div>`);
+    this.trigger('mouseover', this.tested);
+
+    expect(this.testedElement).toHaveStyle({
+      backgroundColor: '#000000'
+    });
+
+    this.trigger('mouseout', this.tested);
+
+    expect(this.testedElement).toHaveStyle({
+      backgroundColor: '#ffffff'
+    });
+  });
+
 });
 ```
 
