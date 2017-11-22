@@ -34,9 +34,9 @@ export const customMatchers : jasmine.CustomMatcherFactories = {
           const propValue = elementStyles[cssKey];
           // We are only have support for rgba and Hex values
           if( expected[cssKey].indexOf('rgb') > -1 ) {
-            passed = propValue === expected[cssKey];
+            passed = propValue.toUpperCase() === expected[cssKey].toUpperCase();
           } else if( expected[cssKey].indexOf('#') > -1 ) {
-            passed = rgbToHex(propValue) === expected[cssKey];
+            passed = rgbToHex(propValue).toUpperCase() === expected[cssKey].toUpperCase();
           } else {
             passed = propValue === expected[cssKey];
           }
