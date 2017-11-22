@@ -6,9 +6,9 @@ import { customMatchers } from './easy-test.matchers';
 // T = Tested component
 export class EasyTest<T> {
   fixture : ComponentFixture<T>;
-  tested : DebugElement;
-  testedComponent : T;
-  testedElement : HTMLElement | any;
+  debugElement : DebugElement;
+  component : T;
+  element : HTMLElement | any;
 
   /**
    * Run detect changes on the host component
@@ -23,7 +23,7 @@ export class EasyTest<T> {
    * @returns {any}
    */
   query( selector : string ) {
-    return this.testedElement.querySelector(selector);
+    return this.element.querySelector(selector);
   }
 
   /**
@@ -32,7 +32,7 @@ export class EasyTest<T> {
    * @returns {any}
    */
   queryAll( selector : string ) {
-    return this.testedElement.querySelectorAll(selector);
+    return this.element.querySelectorAll(selector);
   }
 
   /**
@@ -42,10 +42,10 @@ export class EasyTest<T> {
    */
   whenInput( input : object | string, inputValue? : any ) {
     if ( typeof input === 'string' ) {
-      this.testedComponent[ input ] = inputValue;
+      this.component[ input ] = inputValue;
     } else {
       Object.keys(input).forEach(inputKey => {
-        this.testedComponent[ inputKey ] = input[ inputKey ];
+        this.component[ inputKey ] = input[ inputKey ];
       });
     }
 
@@ -58,7 +58,7 @@ export class EasyTest<T> {
    * @param cb
    */
   whenOutput<T>( output : string, cb : ( result : T ) => any ) {
-    const observable = this.testedComponent[ output ];
+    const observable = this.component[ output ];
     if ( typeof observable.subscribe === 'function' ) {
       observable.subscribe(result => cb(result));
     } else {
@@ -75,7 +75,7 @@ export class EasyTest<T> {
   trigger( event : string, selector : string | DebugElement, eventObj = null ) {
     let element = selector;
     if ( typeof selector === 'string' ) {
-       element = this.tested.query(By.css(selector));
+       element = this.debugElement.query(By.css(selector));
     }
     if ( !element ) {
       console.warn(`Element ${selector} does not exists`);
@@ -88,7 +88,6 @@ export class EasyTest<T> {
 }
 
 export class EasyTestWithHost<T, H = HostComponent> extends EasyTest<T> {
-  create : ( template : string ) => any;
   hostComponent : H;
   hostFixture : ComponentFixture<H>;
 
@@ -105,50 +104,39 @@ export class EasyTestWithHost<T, H = HostComponent> extends EasyTest<T> {
  * @param testedType
  * @param moduleMetadata
  */
-export function easyTest<T>( testedType : Type<T>, moduleMetadata : TestModuleMetadata = {} ) {
-  beforeEach(function () {
-    jasmine.addMatchers(customMatchers);
-    // Check why this is not working after compiling
-    // Object.assign(this, EasyTest.prototype);
-    extendThis.apply(this);
-  });
-  beforeEach(async(function ( this : EasyTest<T> ) {
-    const declarations = [ testedType ];
-    if ( moduleMetadata && moduleMetadata.declarations ) {
-      declarations.push(...moduleMetadata.declarations);
-    }
-    TestBed.configureTestingModule({...moduleMetadata, declarations: declarations})
-      .compileComponents();
+export function createEasyTest<T>( testedType : Type<T>, moduleMetadata : TestModuleMetadata = {} ): EasyTest<T> {
 
-  }));
+  jasmine.addMatchers(customMatchers);
 
-  beforeEach(function ( this : EasyTest<T> ) {
-    this.fixture = TestBed.createComponent(testedType);
-    this.fixture.detectChanges();
-    this.tested = this.fixture.debugElement;
-    // The component instance
-    this.testedComponent = this.tested.componentInstance;
-    // The component native element
-    this.testedElement = this.tested.nativeElement;
-  });
+  const easyTest = new EasyTest<T>();
 
-  afterEach(function ( this : EasyTest<T> ) {
-    if ( this.fixture ) {
-      this.fixture.destroy();
-      this.fixture.nativeElement.remove();
-    }
-  });
+  const declarations = [ testedType ];
+  if ( moduleMetadata && moduleMetadata.declarations ) {
+    declarations.push(...moduleMetadata.declarations);
+  }
+
+  TestBed.configureTestingModule({...moduleMetadata, declarations: declarations}).compileComponents();
+  easyTest.fixture = TestBed.createComponent(testedType);
+  easyTest.fixture.detectChanges();
+  easyTest.debugElement = easyTest.fixture.debugElement;
+  // The component instance
+  easyTest.component = easyTest.debugElement.componentInstance;
+  // The component native element
+  easyTest.element = easyTest.debugElement.nativeElement;
+
+  return easyTest;
 }
 
 @Component({selector: 'host-for-test', template: ''})
 export class HostComponent {
 }
 
-export function createHost<T, H>( testedType : Type<T>, hostType : Type<H> = HostComponent as Type<H>, moduleMetadata : TestModuleMetadata = {} ) {
+export function makeCreateHost<T, H>( testedType : Type<T>, hostType : Type<H> = HostComponent as Type<H>, moduleMetadata : TestModuleMetadata = {} ) {
 
   beforeEach(function () {
     jasmine.addMatchers(customMatchers);
   });
+
   beforeEach(async(function ( this : EasyTestWithHost<T, H> ) {
 
     const declarations = [ testedType, hostType ];
@@ -158,36 +146,17 @@ export function createHost<T, H>( testedType : Type<T>, hostType : Type<H> = Hos
     TestBed.configureTestingModule({...moduleMetadata, declarations: declarations});
   }));
 
-  beforeEach(function ( this : EasyTestWithHost<T, H> ) {
-    this.create = ( template ) => {
-      TestBed.overrideComponent(hostType, {set: {template: template}});
-      this.hostFixture = TestBed.createComponent(hostType);
-      this.hostFixture.detectChanges();
-      this.hostComponent = this.hostFixture.componentInstance;
-      this.tested = this.hostFixture.debugElement.query(By.directive(testedType));
-      this.testedComponent = this.tested.componentInstance;
-      this.testedElement = this.tested.nativeElement;
-      extendThis.apply(this);
-      return this.hostFixture as ComponentFixture<H>;
-    }
-  });
-
-  afterEach(function ( this : EasyTestWithHost<T, H> ) {
-    if ( this.hostFixture ) {
-      this.hostFixture.destroy();
-      this.hostFixture.nativeElement.remove();
-    }
-  });
-}
-
-function extendThis() {
-  this.detectChanges = EasyTest.prototype.detectChanges;
-  this.query = EasyTest.prototype.query;
-  this.queryAll = EasyTest.prototype.queryAll;
-  this.trigger = EasyTest.prototype.trigger;
-  this.whenInput = EasyTest.prototype.whenInput;
-  this.whenOutput = EasyTest.prototype.whenOutput;
-  this.detectChangesHost = EasyTestWithHost.prototype.detectChangesHost;
+  return ( template: string, styles?: any ) : EasyTestWithHost<T, H> => {
+    TestBed.overrideComponent(hostType, {set: {template: template, styles: styles || []}});
+    const eastTest = new EasyTestWithHost<T, H>();
+    eastTest.hostFixture = TestBed.createComponent(hostType);
+    eastTest.hostFixture.detectChanges();
+    eastTest.hostComponent = eastTest.hostFixture.componentInstance;
+    eastTest.debugElement = eastTest.hostFixture.debugElement.query(By.directive(testedType));
+    eastTest.component = eastTest.debugElement.componentInstance;
+    eastTest.element = eastTest.debugElement.nativeElement;
+    return eastTest;
+  }
 }
 
 export class EasyTestService<S> {
