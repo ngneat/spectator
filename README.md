@@ -14,7 +14,7 @@ Currently, it only supports Angular 4+ and Jasmine.
 ## Introduction
 Writing tests for our code is part of our daily routine. When working on large applications with many components, it can take time and effort.
 Although Angular provides us with great tools to deal with these things, it still requires quite a lot of boilerplate work.
-For this reason, I decided to create a library that will make it easier for us to write tests by cutting the boilerplate and add custom Jasmine matchers. 
+For this reason, I decided to create a library that will make it easier for us to write tests by cutting the boilerplate and adding custom Jasmine matchers.
 
 ## Installation
 Using npm by running ```npm install ngx-easy-test --save-dev```
