@@ -17,9 +17,12 @@ Although Angular provides us with great tools to deal with these things, it stil
 For this reason, I decided to create a library that will make it easier for us to write tests by cutting the boilerplate and adding custom Jasmine matchers.
 
 ## Installation
-Using npm by running ```npm install ngx-easy-test --save-dev```
-
-Using yarn by running ```yarn add ngx-easy-test --dev```
+#### NPM
+To install ngx-easy-test via NPM run: 
+```npm install ngx-easy-test --save-dev```
+#### Yarn
+To install ngx-easy-test via Yarn run: 
+```yarn add ngx-easy-test --dev```
 
 
 ## Example
