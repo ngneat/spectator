@@ -3,14 +3,22 @@ import { NgModule } from '@angular/core';
 
 
 import { AppComponent } from './app.component';
+import { ZippyComponent } from './zippy/zippy.component';
+import { ButtonComponent } from './button/button.component';
+import { HttpClientModule } from '@angular/common/http';
+import { HighlightDirective } from './highlight.directive';
 
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    ZippyComponent,
+    ButtonComponent,
+    HighlightDirective
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

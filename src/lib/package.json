@@ -1,0 +1,31 @@
+{
+  "name": "@netbasal/spectator",
+  "version": "0.1.0",
+  "repository": {
+    "type": "git",
+    "url": "url"
+  },
+  "keywords": [
+    "angular unit test",
+    "angular simplified tests",
+    "jasmine",
+    "angular",
+    "angular tests",
+    "angular easy tests",
+    "angular test services",
+    "angular testing dumb components"
+  ],
+  "license": "MIT",
+  "main": "./bundles/spectator.umd.js",
+  "es2015": "./esm2015/spectator.js",
+  "module": "./esm5/spectator.es5.js",
+  "typings": "./spectator.d.ts",
+  "peerDependencies": {
+    "@angular/common": "^5.0.0",
+    "@angular/core": "^5.0.0",
+    "@angular/http": "^5.0.0"
+  },
+  "devDependencies": {
+    "jquery": "^3.3.1"
+  }
+}
