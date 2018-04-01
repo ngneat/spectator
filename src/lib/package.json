@@ -1,7 +1,7 @@
 {
   "name": "@netbasal/spectator",
   "description": "Angular tests made easy",
-  "version": "0.1.0",
+  "version": "0.1.2",
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -28,9 +28,11 @@
   ],
   "main": "dist/index.js",
   "types": "./dist/index.d.ts",
+  "dependencies": {
+    "jquery": "^3.3.1"
+  },
   "devDependencies": {
     "@types/jasmine": "^2.8.6",
-    "jquery": "^3.3.1",
     "standard-version": "^4.3.0",
     "typescript": "^2.8.1"
   }
