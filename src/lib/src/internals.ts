@@ -9,10 +9,11 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { DebugElement, InjectionToken, Type } from '@angular/core';
-import { dispatchFakeEvent, dispatchKeyboardEvent, dispatchMouseEvent, dispatchTouchEvent } from './utils/dispatch-events';
-import { createMouseEvent } from './utils/event-objects';
-import { typeInElement } from './utils/type-in-element';
-import { patchElementFocus } from './utils/element-focus';
+import { dispatchFakeEvent, dispatchKeyboardEvent, dispatchMouseEvent, dispatchTouchEvent } from './dispatch-events';
+import { createMouseEvent } from './event-objects';
+import { typeInElement } from './type-in-element';
+import { patchElementFocus } from './element-focus';
+import { Observable } from 'rxjs/Observable';
 
 export class Spectator<C> {
   fixture: ComponentFixture<C>;
@@ -25,7 +26,7 @@ export class Spectator<C> {
    * @param {Type<T> | InjectionToken<T>} type
    * @returns {T}
    */
-  get<T>( type: Type<T> | InjectionToken<T> ): T {
+  get<T>(type: Type<T> | InjectionToken<T>): T {
     return TestBed.get(type);
   }
 
@@ -41,7 +42,7 @@ export class Spectator<C> {
    * @param selector
    * @returns {any}
    */
-  query( selector: string ) {
+  query(selector: string) {
     return this.element.querySelector(selector);
   }
 
@@ -50,7 +51,7 @@ export class Spectator<C> {
    * @param selector
    * @returns {any}
    */
-  queryAll( selector: string ) {
+  queryAll(selector: string) {
     return this.element.querySelectorAll(selector);
   }
 
@@ -59,11 +60,11 @@ export class Spectator<C> {
    * @param input
    * @param inputValue
    */
-  setInput<T>( input: object | string, inputValue?: T ) {
-    if( typeof input === 'string' ) {
+  setInput<T>(input: object | string, inputValue?: T) {
+    if (typeof input === 'string') {
       this.component[input] = inputValue;
     } else {
-      for( let p in input ) {
+      for (let p in input) {
         this.component[p] = input[p];
       }
     }
@@ -74,12 +75,12 @@ export class Spectator<C> {
   /**
    *
    * @param output
-   * @param cb
+   *
    */
-  whenOutput<T>( output: string, cb: ( result: T ) => any ) {
+  output<T>(output: string): Observable<T> {
     const observable = this.component[output];
-    if( observable && typeof observable.subscribe === 'function' ) {
-      observable.subscribe(result => cb(result));
+    if (observable && typeof observable.subscribe === 'function') {
+      return observable;
     } else {
       throw new Error(`${output} in not an @Output`);
     }
@@ -89,9 +90,9 @@ export class Spectator<C> {
    *
    * @param {string} selector
    */
-  click( selector: string ) {
+  click(selector: string) {
     const element = this.debugElement.query(By.css(selector));
-    if( element ) {
+    if (element) {
       element.nativeElement.click();
       this.detectChanges();
     } else {
@@ -107,8 +108,7 @@ export class Spectator<C> {
    * @param {number} y
    * @param {MouseEvent} event
    */
-  dispatchMouseEvent( node: Node, type: string, x = 0, y = 0,
-                      event = createMouseEvent(type, x, y) ): MouseEvent {
+  dispatchMouseEvent(node: Node, type: string, x = 0, y = 0, event = createMouseEvent(type, x, y)): MouseEvent {
     const _event = dispatchMouseEvent(node, type, x, y, event);
     this.detectChanges();
     return _event;
@@ -122,7 +122,7 @@ export class Spectator<C> {
    * @param {Element} target
    * @returns {KeyboardEvent}
    */
-  dispatchKeyboardEvent( node: Node, type: string, keyCode: number, target?: Element ): KeyboardEvent {
+  dispatchKeyboardEvent(node: Node, type: string, keyCode: number, target?: Element): KeyboardEvent {
     const _event = dispatchKeyboardEvent(node, type, keyCode, target);
     this.detectChanges();
     return _event;
@@ -135,7 +135,7 @@ export class Spectator<C> {
    * @param {boolean} canBubble
    * @returns {Event}
    */
-  dispatchFakeEvent( node: Node | Window, type: string, canBubble?: boolean ): Event {
+  dispatchFakeEvent(node: Node | Window, type: string, canBubble?: boolean): Event {
     const _event = dispatchFakeEvent(node, type, canBubble);
     this.detectChanges();
     return _event;
@@ -149,7 +149,7 @@ export class Spectator<C> {
    * @param {number} y
    * @returns {Event}
    */
-  dispatchTouchEvent( node: Node, type: string, x = 0, y = 0 ) {
+  dispatchTouchEvent(node: Node, type: string, x = 0, y = 0) {
     const _event = dispatchTouchEvent(node, type, x, y);
     this.detectChanges();
     return _event;
@@ -160,7 +160,7 @@ export class Spectator<C> {
    * @param {string} value
    * @param {HTMLInputElement} element
    */
-  typeInElement( value: string, element: HTMLInputElement ) {
+  typeInElement(value: string, element: HTMLInputElement) {
     const _event = typeInElement(value, element);
     this.detectChanges();
     return _event;
@@ -170,9 +170,8 @@ export class Spectator<C> {
    *
    * @param {HTMLElement} element
    */
-  patchElementFocus( element: HTMLElement ) {
+  patchElementFocus(element: HTMLElement) {
     patchElementFocus(element);
     this.detectChanges();
   }
-
 }

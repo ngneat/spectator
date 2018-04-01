@@ -1,12 +1,13 @@
-<p align=“center”>
-[![All Contributors](https://img.shields.io/badge/all_contributors-3-orange.svg?style=flat-square)](#contributors)
- <img width=“640" height=“264” src=“https://preview.ibb.co/hpBgen/spectator.png“>
+<p align="center">
+ <img width="640" height="264" src="https://preview.ibb.co/hpBgen/spectator.png">
 </p>
-[![spectator](https://img.shields.io/badge/tested%20with-spectator-2196F3.svg?style=flat-square)
-[![MIT](https://img.shields.io/packagist/l/doctrine/orm.svg?style=flat-square)
-[![commitizen](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg?style=flat-square)
-[![PRs](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)
-[![styled with prettier](https://img.shields.io/badge/styled_with-prettier-ff69b4.svg)](https://github.com/prettier/prettier?style=flat-square)
+
+[![All Contributors](https://img.shields.io/badge/all_contributors-3-orange.svg?style=flat-square)](#contributors)
+[![spectator](https://img.shields.io/badge/tested%20with-spectator-2196F3.svg?style=flat-square)]()
+[![MIT](https://img.shields.io/packagist/l/doctrine/orm.svg?style=flat-square)]()
+[![commitizen](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg?style=flat-square)]()
+[![PRs](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)]()
+[![styled with prettier](https://img.shields.io/badge/styled_with-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
 
 > Angular Tests Made Easy
 
@@ -25,11 +26,11 @@ For this reason, I decided to create a library that will make it easier for us t
 #### NPM
 To install spectator via NPM run: 
 
-```npm install @basal/spectator --save-dev```
+```npm install @netbasal/spectator --save-dev```
 #### Yarn
 To install spectator via Yarn run: 
 
-```yarn add @basal/spectator --dev```
+```yarn add @netbasal/spectator --dev```
 
 ## Table of Contents
 -  [Testing Components](#testing-components)
@@ -64,7 +65,7 @@ export class ButtonComponent {
 
 ```ts
 import { ButtonComponent } from './button.component';
-import { Spectator, createTestComponentFactory } from '@Netanel Basal/spectator';
+import { Spectator, createTestComponentFactory } from '@netbasal/spectator';
 
 describe('ButtonComponent', () => {
 
@@ -130,7 +131,7 @@ export class ZippyComponent {
 ```ts
 // zippy.component.spec.ts
 import { ZippyComponent } from './zippy.component';
-import { createHostComponentFactory, SpectatorWithHost } from '@Netanel Basal/spectator';
+import { createHostComponentFactory, SpectatorWithHost } from '@netbasal/spectator';
 import { Component } from '@angular/core';
 
 describe('ZippyComponent', () => {
@@ -244,7 +245,7 @@ export class HighlightDirective {
 
 ```ts
 import { HighlightDirective } from './highlight.directive';
-import { createHostComponentFactory, SpectatorWithHost } from '@Netanel Basal/spectator';
+import { createHostComponentFactory, SpectatorWithHost } from '@netbasal/spectator';
 
 describe('HighlightDirective', function () {
   let host: SpectatorWithHost<HighlightDirective>;
@@ -273,7 +274,7 @@ describe('HighlightDirective', function () {
 ## Testing Services
 ```ts
 import { CounterService } from './counter.service';
-import { createService } from '@Netanel Basal/spectator';
+import { createService } from '@netbasal/spectator';
  
 describe('CounterService Without Mock', () => {
   const spectator = createService(service: CounterService);
@@ -287,7 +288,7 @@ describe('CounterService Without Mock', () => {
 ## Testing Services with mocks
 ```ts
 import { CounterService } from './counter.service';
-import { createService } from '@Netanel Basal/spectator';
+import { createService } from '@netbasal/spectator';
 
 describe('TodosService', () => {
   const spectator = createService({ service: TodosService, mocks: [OtherService] });
@@ -303,7 +304,7 @@ describe('TodosService', () => {
 
 ## Typed Mocks
 ```ts
-import { SpyObject, mockProvider } from '@Netanel Basal/spectator';
+import { SpyObject, mockProvider } from '@netbasal/spectator';
  
  let otherService: SpyObject<OtherService>;
  let service: TestedService;
@@ -330,7 +331,7 @@ import { SpyObject, mockProvider } from '@Netanel Basal/spectator';
 ## Testing Data Services
 ```ts
 import { TodosDataService } from './todos-data.service';
-import { createHTTPFactory, HTTPMethod } from '@Netanel Basal/spectator';
+import { createHTTPFactory, HTTPMethod } from '@netbasal/spectator';
 
 describe('HttpClient testing', () => {
   let http = createHTTPFactory<TodosDataService>(TodosDataService);
@@ -459,7 +460,7 @@ Thanks goes to these wonderful people ([emoji key](https://github.com/kentcdodds
 
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
 <!-- prettier-ignore -->
-| [<img src="https://avatars3.githubusercontent.com/u/638818?v=4" width="100px;"/><br /><sub><b>I. Sinai</b></sub>](https://github.com/theblushingcrow)<br />[📖](https://github.com/Netanel Basal/spectator/commits?author=theblushingcrow "Documentation") | [<img src="https://avatars3.githubusercontent.com/u/18645670?v=4" width="100px;"/><br /><sub><b>Valentin Buryakov</b></sub>](https://github.com/valburyakov)<br />[💻](https://github.com/Netanel Basal/spectator/commits?author=valburyakov "Code") | [<img src="https://avatars1.githubusercontent.com/u/6745730?v=4" width="100px;"/><br /><sub><b>Netanel Basal</b></sub>](https://www.netbasal.com)<br />[💻](https://github.com/Netanel Basal/spectator/commits?author=NetanelBasal "Code") |
+| [<img src="https://avatars3.githubusercontent.com/u/638818?v=4" width="100px;"/><br /><sub><b>I. Sinai</b></sub>](https://github.com/theblushingcrow)<br />[📖](https://github.com/NetanelBasal/spectator/commits?author=theblushingcrow "Documentation") [👀](#review-theblushingcrow "Reviewed Pull Requests") [🎨](#design-theblushingcrow "Design") | [<img src="https://avatars3.githubusercontent.com/u/18645670?v=4" width="100px;"/><br /><sub><b>Valentin Buryakov</b></sub>](https://github.com/valburyakov)<br />[💻](https://github.com/NetanelBasal/spectator/commits?author=valburyakov "Code") [🤔](#ideas-valburyakov "Ideas, Planning, & Feedback") | [<img src="https://avatars1.githubusercontent.com/u/6745730?v=4" width="100px;"/><br /><sub><b>Netanel Basal</b></sub>](https://www.netbasal.com)<br />[💻](https://github.com/NetanelBasal/spectator/commits?author=NetanelBasal "Code") [🔧](#tool-NetanelBasal "Tools") |
 | :---: | :---: | :---: |
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 

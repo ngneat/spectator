@@ -1,10 +1,21 @@
 {
-  "name": "@netbasal/spectator",
+  "name": "@basal/spectator",
+  "description": "",
   "version": "0.1.0",
+  "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "url"
+    "url": "https://github.com/NetanelBasal/spectator"
   },
+  "scripts": {
+    "build": "rm -rf ./dist && tsc",
+    "release": "standard-version"
+  },
+  "author": "Netanel Basal <netanel7799s@gmail.com>",
+  "bugs": {
+    "url": "https://github.com/NetanelBasal/spectator/issues"
+  },
+  "homepage": "https://github.com/NetanelBasal/spectatori#readme",
   "keywords": [
     "angular unit test",
     "angular simplified tests",
@@ -15,17 +26,12 @@
     "angular test services",
     "angular testing dumb components"
   ],
-  "license": "MIT",
-  "main": "./bundles/spectator.umd.js",
-  "es2015": "./esm2015/spectator.js",
-  "module": "./esm5/spectator.es5.js",
-  "typings": "./spectator.d.ts",
-  "peerDependencies": {
-    "@angular/common": "^5.0.0",
-    "@angular/core": "^5.0.0",
-    "@angular/http": "^5.0.0"
-  },
+  "main": "dist/index.js",
+  "types": "./dist/index.d.ts",
   "devDependencies": {
-    "jquery": "^3.3.1"
+    "@types/jasmine": "^2.8.6",
+    "jquery": "^3.3.1",
+    "standard-version": "^4.3.0",
+    "typescript": "^2.8.1"
   }
 }

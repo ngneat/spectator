@@ -1,19 +1,21 @@
-import { TodosService } from './todos.service';
-import { createService } from '../lib/src/service';
+import { TodosService } from "./todos.service";
+import { createService } from "../lib/src/service";
+import { of } from "rxjs/observable/of";
 
 class OtherService {
-  add() {
-
-  }
+  add() {}
 }
 
-describe('TodosService', () => {
-  // const spectator = createService({ service: TodosService, mocks: [OtherService]});
-  const spectator = createService<TodosService>(TodosService);
+describe("TodosService", () => {
+  const spectator = createService({
+    service: TodosService,
+    mocks: [OtherService]
+  });
+  // const spectator = createService<TodosService>(TodosService);
 
-  it('should', () => {
+  it("should", () => {
     // let otherService = spectator.get<OtherService>(OtherService);
-    var a = spectator.service.remove()
-    expect();
+    // otherService.add.andReturn(of(true));
+    spectator.service.remove();
   });
 });

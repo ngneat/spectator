@@ -1,6 +1,6 @@
 {
   "projectName": "spectator",
-  "projectOwner": "Netanel Basal",
+  "projectOwner": "NetanelBasal",
   "repoType": "github",
   "repoHost": "https://github.com",
   "files": [
@@ -15,7 +15,9 @@
       "avatar_url": "https://avatars3.githubusercontent.com/u/638818?v=4",
       "profile": "https://github.com/theblushingcrow",
       "contributions": [
-        "doc"
+        "doc",
+        "review",
+        "design"
       ]
     },
     {
@@ -24,7 +26,8 @@
       "avatar_url": "https://avatars3.githubusercontent.com/u/18645670?v=4",
       "profile": "https://github.com/valburyakov",
       "contributions": [
-        "code"
+        "code",
+        "ideas"
       ]
     },
     {
@@ -33,7 +36,8 @@
       "avatar_url": "https://avatars1.githubusercontent.com/u/6745730?v=4",
       "profile": "https://www.netbasal.com",
       "contributions": [
-        "code"
+        "code",
+        "tool"
       ]
     }
   ]

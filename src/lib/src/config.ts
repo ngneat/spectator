@@ -13,14 +13,13 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 @Component({
   template: ''
 })
-export class HostComponent {
-}
+export class HostComponent {}
 
 export type SpectatorOptions<T = any, H = HostComponent> = TestModuleMetadata & {
   component?: Type<T>;
   shallow?: boolean;
   disableAnimations?: boolean;
-  host: Type<H>
+  host: Type<H>;
 };
 
 const defaultOptions: SpectatorOptions<any, any> = {
@@ -29,24 +28,24 @@ const defaultOptions: SpectatorOptions<any, any> = {
   host: HostComponent
 };
 
-export function initialModule<T, C = HostComponent>( options: SpectatorOptions<T, C> | Type<T>, withHost = false ) {
+export function initialModule<T, C = HostComponent>(options: SpectatorOptions<T, C> | Type<T>, withHost = false) {
   Object.assign(defaultOptions, options);
   let moduleMetadata: TestModuleMetadata;
   let component;
   let host;
 
-  if( typeof options === 'function' ) {
+  if (typeof options === 'function') {
     component = options;
     host = HostComponent;
     moduleMetadata = {
       declarations: [component, withHost ? host : []],
-      imports: [],
+      imports: [NoopAnimationsModule],
       schemas: [],
       providers: []
     };
   } else {
     component = options.component;
-    host = options.host
+    host = options.host;
 
     moduleMetadata = {
       declarations: [component, withHost ? options.host : [], ...(options.declarations || [])],
@@ -60,5 +59,5 @@ export function initialModule<T, C = HostComponent>( options: SpectatorOptions<T
     moduleMetadata,
     component,
     host
-  }
+  };
 }

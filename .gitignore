@@ -5,10 +5,10 @@
 /dist-server
 /tmp
 /out-tsc
-
+src/lib/dist
+src/lib/yarn-error.log
 # dependencies
 /node_modules
-
 # IDEs and editors
 /.idea
 .project

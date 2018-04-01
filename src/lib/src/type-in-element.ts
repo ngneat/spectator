@@ -8,7 +8,7 @@ import { dispatchFakeEvent } from './dispatch-events';
  *
  * typeInElement('al', input);
  */
-export function typeInElement( value: string, element: HTMLInputElement ) {
+export function typeInElement(value: string, element: HTMLInputElement) {
   element.focus();
   element.value = value;
   dispatchFakeEvent(element, 'input');

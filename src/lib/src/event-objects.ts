@@ -1,30 +1,16 @@
 /** Credit - Angular Material **/
 
 /** Creates a browser MouseEvent with the specified options. */
-export function createMouseEvent( type: string, x = 0, y = 0 ) {
+export function createMouseEvent(type: string, x = 0, y = 0) {
   const event = document.createEvent('MouseEvent');
 
-  event.initMouseEvent(type,
-    false, /* canBubble */
-    false, /* cancelable */
-    window, /* view */
-    0, /* detail */
-    x, /* screenX */
-    y, /* screenY */
-    x, /* clientX */
-    y, /* clientY */
-    false, /* ctrlKey */
-    false, /* altKey */
-    false, /* shiftKey */
-    false, /* metaKey */
-    0, /* button */
-    null /* relatedTarget */);
+  event.initMouseEvent(type, false /* canBubble */, false /* cancelable */, window /* view */, 0 /* detail */, x /* screenX */, y /* screenY */, x /* clientX */, y /* clientY */, false /* ctrlKey */, false /* altKey */, false /* shiftKey */, false /* metaKey */, 0 /* button */, null /* relatedTarget */);
 
   return event;
 }
 
 /** Creates a browser TouchEvent with the specified pointer coordinates. */
-export function createTouchEvent( type: string, pageX = 0, pageY = 0 ) {
+export function createTouchEvent(type: string, pageX = 0, pageY = 0) {
   // In favor of creating events that work for most of the browsers, the event is created
   // as a basic UI Event. The necessary details for the event will be set manually.
   const event = document.createEvent('UIEvent');
@@ -42,7 +28,7 @@ export function createTouchEvent( type: string, pageX = 0, pageY = 0 ) {
 }
 
 /** Dispatches a keydown event from an element. */
-export function createKeyboardEvent( type: string, keyCode: number, target?: Element, key?: string ) {
+export function createKeyboardEvent(type: string, keyCode: number, target?: Element, key?: string) {
   let event = document.createEvent('KeyboardEvent') as any;
   // Firefox does not support `initKeyboardEvent`, but supports `initKeyEvent`.
   let initEventFn = (event.initKeyEvent || event.initKeyboardEvent).bind(event);
@@ -59,7 +45,7 @@ export function createKeyboardEvent( type: string, keyCode: number, target?: Ele
   });
 
   // IE won't set `defaultPrevented` on synthetic events so we need to do it manually.
-  event.preventDefault = function () {
+  event.preventDefault = function() {
     Object.defineProperty(event, 'defaultPrevented', { get: () => true });
     return originalPreventDefault.apply(this, arguments);
   };
@@ -68,7 +54,7 @@ export function createKeyboardEvent( type: string, keyCode: number, target?: Ele
 }
 
 /** Creates a fake event object with any desired event type. */
-export function createFakeEvent( type: string, canBubble = false, cancelable = true ) {
+export function createFakeEvent(type: string, canBubble = false, cancelable = true) {
   const event = document.createEvent('Event');
   event.initEvent(type, canBubble, cancelable);
   return event;

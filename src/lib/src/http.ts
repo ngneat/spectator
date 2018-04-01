@@ -22,18 +22,18 @@ export class SpectatorHTTP<T> {
   httpClient: HttpClient;
   controller: HttpTestingController;
   dataService: T;
-  expectOne: ( url: string, method: HTTPMethod ) => TestRequest;
+  expectOne: (url: string, method: HTTPMethod) => TestRequest;
 }
 
-export function createHTTPFactory<T>( dataService: Type<T>, providers = [] ) {
-  beforeEach(async(() => {
-
-    TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule],
-      providers: [dataService, ...providers]
-    });
-
-  }));
+export function createHTTPFactory<T>(dataService: Type<T>, providers = []) {
+  beforeEach(
+    async(() => {
+      TestBed.configureTestingModule({
+        imports: [HttpClientTestingModule],
+        providers: [dataService, ...providers]
+      });
+    })
+  );
 
   afterEach(() => {
     TestBed.get(HttpTestingController).verify();
@@ -45,12 +45,12 @@ export function createHTTPFactory<T>( dataService: Type<T>, providers = [] ) {
     http.dataService = TestBed.get(dataService);
     http.httpClient = TestBed.get(HttpClient);
 
-    http.expectOne = ( url: string, method: HTTPMethod ) => {
+    http.expectOne = (url: string, method: HTTPMethod) => {
       const req = http.controller.expectOne(url);
       expect(req.request.method).toEqual(method);
       return req;
-    }
+    };
 
     return http;
-  }
+  };
 }
