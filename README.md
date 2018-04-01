@@ -304,7 +304,7 @@ import { CounterService } from './counter.service';
 import { createService } from '@netbasal/spectator';
  
 describe('CounterService Without Mock', () => {
-  const spectator = createService(service: CounterService);
+  const spectator = createService(CounterService);
  
   it('should be 0', () => {
     expect(spectator.service.counter).toEqual(0);
