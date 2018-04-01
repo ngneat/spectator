@@ -1,5 +1,5 @@
 <p align="center">
- <img width="640" height="264" src="https://preview.ibb.co/hpBgen/spectator.png">
+ <img width="640" height="264" src="https://preview.ibb.co/ef2RUn/01_righteous_clear.png">
 </p>
 
 [![All Contributors](https://img.shields.io/badge/all_contributors-3-orange.svg?style=flat-square)](#contributors)
