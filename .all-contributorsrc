@@ -1,0 +1,22 @@
+{
+  "projectName": "spectator",
+  "projectOwner": "Netanel Basal",
+  "repoType": "github",
+  "repoHost": "https://github.com",
+  "files": [
+    "README.md"
+  ],
+  "imageSize": 100,
+  "commit": true,
+  "contributors": [
+    {
+      "login": "theblushingcrow",
+      "name": "I. Sinai",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/638818?v=4",
+      "profile": "https://github.com/theblushingcrow",
+      "contributions": [
+        "doc"
+      ]
+    }
+  ]
+}
