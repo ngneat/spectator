@@ -17,7 +17,7 @@ src/lib/yarn-error.log
 *.launch
 .settings/
 *.sublime-workspace
-
+src/lib/node_modules
 # IDE - VSCode
 .vscode/*
 !.vscode/settings.json

@@ -2,6 +2,7 @@
   "name": "spectator",
   "version": "0.0.0",
   "license": "MIT",
+  "description": "Angular tests made easy",
   "scripts": {
     "format": "prettier --write src/lib/src/*.ts",
     "commit": "git-cz",

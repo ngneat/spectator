@@ -1,6 +1,6 @@
 {
-  "name": "@basal/spectator",
-  "description": "",
+  "name": "@netbasal/spectator",
+  "description": "Angular tests made easy",
   "version": "0.1.0",
   "license": "MIT",
   "repository": {
