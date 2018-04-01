@@ -129,8 +129,7 @@ export class ZippyComponent {
     this.visible = !this.visible;
   }
 }
-```
-```ts
+
 // zippy.component.spec.ts
 import { ZippyComponent } from './zippy.component';
 import { createHostComponentFactory, SpectatorWithHost } from '@netbasal/spectator';
