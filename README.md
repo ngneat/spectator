@@ -137,7 +137,7 @@ describe("CalcComponent", () => {
 });
 ```
 
-## Testing Components with host
+## Testing Components with Host
 ```ts
 // zippy.component.ts
 
@@ -236,7 +236,7 @@ describe('ZippyComponent', () => {
 });
 ```
 
-## Testing Components with custom host component
+## Testing Components with Custom Host Component
 ```ts
 @Component({ selector: 'custom-host', template: '' })
 class CustomHostComponent {
@@ -320,7 +320,7 @@ describe('CounterService Without Mock', () => {
 });
 ```
 
-## Testing Services with mocks
+## Testing Services with Mocks
 ```ts
 import { CounterService } from './counter.service';
 import { createService } from '@netbasal/spectator';
