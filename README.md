@@ -1,5 +1,5 @@
 <p align="center">
- <img width="640" height="264" src="https://preview.ibb.co/hpBgen/spectator.png">
+ <img width="640" height="264" src="https://preview.ibb.co/ef2RUn/01_righteous_clear.png">
 </p>
 
 [![All Contributors](https://img.shields.io/badge/all_contributors-3-orange.svg?style=flat-square)](#contributors)
@@ -63,7 +63,8 @@ export class ButtonComponent {
   }
 }
 
-```ts
+// button.component.spec.ts
+
 import { ButtonComponent } from './button.component';
 import { Spectator, createTestComponentFactory } from '@netbasal/spectator';
 
@@ -108,6 +109,31 @@ describe('ButtonComponent', () => {
 });
 ```
 
+```ts
+describe("CalcComponent", () => {
+  let spectator: Spectator<CalcComponent>;
+  const createComponent = createTestComponentFactory(CalcComponent);
+
+  it("should be defined", () => {
+    spectator = createComponent();
+    expect(spectator.component).toBeTruthy();
+  });
+
+  it("should concat the value", () => {
+    spectator = createComponent();
+    const a = spectator.query(".a");
+    const b = spectator.query(".b");
+    a.value = "1";
+    b.value = "2";
+
+    spectator.dispatchFakeEvent(a, "input");
+    spectator.dispatchFakeEvent(b, "input");
+
+    expect(spectator.query(".result")).toHaveText("12");
+  });
+});
+```
+
 ## Testing Components with host
 ```ts
 // zippy.component.ts
@@ -134,8 +160,7 @@ export class ZippyComponent {
     this.visible = !this.visible;
   }
 }
-```
-```ts
+
 // zippy.component.spec.ts
 import { ZippyComponent } from './zippy.component';
 import { createHostComponentFactory, SpectatorWithHost } from '@netbasal/spectator';
@@ -284,7 +309,7 @@ import { CounterService } from './counter.service';
 import { createService } from '@netbasal/spectator';
  
 describe('CounterService Without Mock', () => {
-  const spectator = createService(service: CounterService);
+  const spectator = createService(CounterService);
  
   it('should be 0', () => {
     expect(spectator.service.counter).toEqual(0);
