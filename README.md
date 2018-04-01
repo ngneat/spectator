@@ -1,5 +1,5 @@
 <p align=“center”>
-[![All Contributors](https://img.shields.io/badge/all_contributors-2-orange.svg?style=flat-square)](#contributors)
+[![All Contributors](https://img.shields.io/badge/all_contributors-3-orange.svg?style=flat-square)](#contributors)
  <img width=“640" height=“264” src=“https://preview.ibb.co/hpBgen/spectator.png“>
 </p>
 [![spectator](https://img.shields.io/badge/tested%20with-spectator-2196F3.svg?style=flat-square)
@@ -459,8 +459,8 @@ Thanks goes to these wonderful people ([emoji key](https://github.com/kentcdodds
 
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
 <!-- prettier-ignore -->
-| [<img src="https://avatars3.githubusercontent.com/u/638818?v=4" width="100px;"/><br /><sub><b>I. Sinai</b></sub>](https://github.com/theblushingcrow)<br />[📖](https://github.com/Netanel Basal/spectator/commits?author=theblushingcrow "Documentation") | [<img src="https://avatars3.githubusercontent.com/u/18645670?v=4" width="100px;"/><br /><sub><b>Valentin Buryakov</b></sub>](https://github.com/valburyakov)<br />[💻](https://github.com/Netanel Basal/spectator/commits?author=valburyakov "Code") |
-| :---: | :---: |
+| [<img src="https://avatars3.githubusercontent.com/u/638818?v=4" width="100px;"/><br /><sub><b>I. Sinai</b></sub>](https://github.com/theblushingcrow)<br />[📖](https://github.com/Netanel Basal/spectator/commits?author=theblushingcrow "Documentation") | [<img src="https://avatars3.githubusercontent.com/u/18645670?v=4" width="100px;"/><br /><sub><b>Valentin Buryakov</b></sub>](https://github.com/valburyakov)<br />[💻](https://github.com/Netanel Basal/spectator/commits?author=valburyakov "Code") | [<img src="https://avatars1.githubusercontent.com/u/6745730?v=4" width="100px;"/><br /><sub><b>Netanel Basal</b></sub>](https://www.netbasal.com)<br />[💻](https://github.com/Netanel Basal/spectator/commits?author=NetanelBasal "Code") |
+| :---: | :---: | :---: |
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
 This project follows the [all-contributors](https://github.com/kentcdodds/all-contributors) specification. Contributions of any kind welcome!
