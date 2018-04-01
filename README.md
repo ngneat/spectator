@@ -33,6 +33,9 @@ To install spectator via Yarn run:
 
 ```yarn add @netbasal/spectator --dev```
 
+## Spectator CLI
+Auto generate specs with the [cli](https://github.com/NetanelBasal/spectator-cli)
+
 ## Table of Contents
 -  [Testing Components](#testing-components)
 -  [Testing Components with Host](#testing-components-with-host)
