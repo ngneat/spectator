@@ -51,8 +51,7 @@ To install spectator via Yarn run:
   selector: 'app-button',
   template: `
     <button class="{{className}}" (click)="onClick($event)">{{title}}</button>
-  `,
-  styles: []
+  `
 })
 export class ButtonComponent {
   @Input() className = 'success';
@@ -92,11 +91,13 @@ describe('ButtonComponent', () => {
   });
 
   it('should emit the $event on click', () => {
-    spectator = createComponent();
+    const detectChanges = false;
+    spectator = createComponent({}, detectChanges);
     let output;
     spectator.output<{ type: string }>('click').subscribe(result => output = result);
 
     spectator.component.onClick({ type: 'click' });
+    spectator.detectChanges();
     expect(output).toEqual({ type: 'click' });
   });
 });
@@ -109,7 +110,7 @@ describe('ButtonComponent', () => {
 @Component({
   selector: 'zippy',
   template: `
-    <div class="zippy" id="zippy">
+    <div class="zippy">
       <div (click)="toggle()" class="zippy__title">
         <span class="arrow">{{ visible ? 'Close' : 'Open' }}</span> {{title}}
       </div>
@@ -297,6 +298,10 @@ describe('TodosService', () => {
   it('should', () => {
     let otherService = spectator.get<OtherService>(OtherService);
     otherService.someMethod.andReturn(customValue);
+    otherService.someMethod.and.callThrough();
+    otherService.someMethod.and.callFake(() => fake);
+    otherService.someMethod.and.throwError('Error');
+    otherService.someMethod.andCallFake(() => fake);
     spectator.service.remove();
     expect(spectator.service.someProp).toBeTruthy();
   });
