@@ -8,6 +8,7 @@
 [![commitizen](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg?style=flat-square)]()
 [![PRs](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)]()
 [![styled with prettier](https://img.shields.io/badge/styled_with-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
+[![Build Status](https://semaphoreci.com/api/v1/netanel7799/spectator/branches/master/badge.svg)](https://semaphoreci.com/netanel7799/spectator)
 
 > Angular Tests Made Easy
 
