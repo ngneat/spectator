@@ -19,7 +19,7 @@ export type SpectatorOptions<T = any, H = HostComponent> = TestModuleMetadata & 
   component?: Type<T>;
   shallow?: boolean;
   disableAnimations?: boolean;
-  host: Type<H>;
+  host?: Type<H>;
 };
 
 const defaultOptions: SpectatorOptions<any, any> = {
