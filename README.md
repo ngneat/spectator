@@ -63,7 +63,6 @@ export class ButtonComponent {
   }
 }
 
-```ts
 import { ButtonComponent } from './button.component';
 import { Spectator, createTestComponentFactory } from '@netbasal/spectator';
 
