@@ -104,6 +104,31 @@ describe('ButtonComponent', () => {
 });
 ```
 
+```ts
+describe("CalcComponent", () => {
+  let spectator: Spectator<CalcComponent>;
+  const createComponent = createTestComponentFactory(CalcComponent);
+
+  it("should be defined", () => {
+    spectator = createComponent();
+    expect(spectator.component).toBeTruthy();
+  });
+
+  it("should concat the value", () => {
+    spectator = createComponent();
+    const a = spectator.query(".a");
+    const b = spectator.query(".b");
+    a.value = "1";
+    b.value = "2";
+
+    spectator.dispatchFakeEvent(a, "input");
+    spectator.dispatchFakeEvent(b, "input");
+
+    expect(spectator.query(".result")).toHaveText("12");
+  });
+});
+```
+
 ## Testing Components with host
 ```ts
 // zippy.component.ts
