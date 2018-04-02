@@ -88,16 +88,28 @@ export class Spectator<C> {
 
   /**
    *
-   * @param {string} selector
+   * @param selector string | Element | DebugElement
    */
-  click(selector: string) {
-    const element = this.debugElement.query(By.css(selector));
-    if (element) {
-      element.nativeElement.click();
-      this.detectChanges();
+  click(selector: string | Element | DebugElement) {
+    let element;
+
+    if (typeof selector === 'string') {
+      const checkExists = this.debugElement.query(By.css(selector));
+      if (checkExists) {
+        element = checkExists.nativeElement;
+      } else {
+        throw new Error(`${selector} does not exists`);
+      }
     } else {
-      throw new Error(`${selector} does not exists`);
+      if (selector instanceof DebugElement) {
+        element = selector.nativeElement;
+      } else {
+        element = selector;
+      }
     }
+
+    element.click();
+    this.detectChanges();
   }
 
   /**
