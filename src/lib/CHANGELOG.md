@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.2.0"></a>
+# [0.2.0](https://github.com/NetanelBasal/spectator/compare/v0.1.5...v0.2.0) (2018-04-03)
+
+
+### Features
+
+* **internals.js:** additional parameters for event emitting functions ([2f562fb](https://github.com/NetanelBasal/spectator/commit/2f562fb))
+* **query:** add the option to query by directive ([c4a6e63](https://github.com/NetanelBasal/spectator/commit/c4a6e63))
+* **query:** add the option to query by directive ([9d54c42](https://github.com/NetanelBasal/spectator/commit/9d54c42))
+
+
+
 <a name="0.1.5"></a>
 ## [0.1.5](https://github.com/NetanelBasal/spectator/compare/v0.1.4...v0.1.5) (2018-04-02)
 
