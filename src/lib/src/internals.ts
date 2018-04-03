@@ -15,6 +15,8 @@ import { typeInElement } from './type-in-element';
 import { patchElementFocus } from './element-focus';
 import { Observable } from 'rxjs/Observable';
 
+export type SpectatorElement = string | Element | DebugElement;
+
 export class Spectator<C> {
   fixture: ComponentFixture<C>;
   debugElement: DebugElement;
@@ -97,9 +99,20 @@ export class Spectator<C> {
 
   /**
    *
-   * @param selector string | Element | DebugElement
+   * @param {SpectatorElement} selector
    */
-  click(selector: string | Element | DebugElement) {
+  click(selector: SpectatorElement) {
+    const element = this.getNativeElement(selector);
+    element.click();
+    this.detectChanges();
+  }
+
+  /**
+   * returns the native element from an SpectatorElement
+   * @param {SpectatorElement | Window} selector
+   * @returns {any}
+   */
+  getNativeElement(selector: SpectatorElement | Window) {
     let element;
 
     if (typeof selector === 'string') {
@@ -117,61 +130,60 @@ export class Spectator<C> {
       }
     }
 
-    element.click();
-    this.detectChanges();
+    return element;
   }
 
   /**
    *
-   * @param {Node} node
+   * @param {SpectatorElement} selector
    * @param {string} type
    * @param {number} x
    * @param {number} y
    * @param {MouseEvent} event
    */
-  dispatchMouseEvent(node: Node, type: string, x = 0, y = 0, event = createMouseEvent(type, x, y)): MouseEvent {
-    const _event = dispatchMouseEvent(node, type, x, y, event);
+  dispatchMouseEvent(selector: SpectatorElement, type: string, x = 0, y = 0, event = createMouseEvent(type, x, y)): MouseEvent {
+    const _event = dispatchMouseEvent(this.getNativeElement(selector), type, x, y, event);
     this.detectChanges();
     return _event;
   }
 
   /**
    *
-   * @param {Node} node
+   * @param {SpectatorElement} selector
    * @param {string} type
    * @param {number} keyCode
    * @param {Element} target
    * @returns {KeyboardEvent}
    */
-  dispatchKeyboardEvent(node: Node, type: string, keyCode: number, target?: Element): KeyboardEvent {
-    const _event = dispatchKeyboardEvent(node, type, keyCode, target);
+  dispatchKeyboardEvent(selector: SpectatorElement, type: string, keyCode: number, target?: Element): KeyboardEvent {
+    const _event = dispatchKeyboardEvent(this.getNativeElement(selector), type, keyCode, target);
     this.detectChanges();
     return _event;
   }
 
   /**
    *
-   * @param {Node | Window} node
+   * @param {SpectatorElement | Window} selector
    * @param {string} type
    * @param {boolean} canBubble
    * @returns {Event}
    */
-  dispatchFakeEvent(node: Node | Window, type: string, canBubble?: boolean): Event {
-    const _event = dispatchFakeEvent(node, type, canBubble);
+  dispatchFakeEvent(selector: SpectatorElement | Window, type: string, canBubble?: boolean): Event {
+    const _event = dispatchFakeEvent(this.getNativeElement(selector), type, canBubble);
     this.detectChanges();
     return _event;
   }
 
   /**
    *
-   * @param {Node} node
+   * @param {SpectatorElement} selector
    * @param {string} type
    * @param {number} x
    * @param {number} y
    * @returns {Event}
    */
-  dispatchTouchEvent(node: Node, type: string, x = 0, y = 0) {
-    const _event = dispatchTouchEvent(node, type, x, y);
+  dispatchTouchEvent(selector: SpectatorElement, type: string, x = 0, y = 0) {
+    const _event = dispatchTouchEvent(this.getNativeElement(selector), type, x, y);
     this.detectChanges();
     return _event;
   }
