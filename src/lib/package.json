@@ -9,7 +9,7 @@
   },
   "scripts": {
     "build": "rm -rf ./dist && tsc",
-    "release": "standard-version"
+    "release": "npm run build && standard-version"
   },
   "author": "Netanel Basal <netanel7799s@gmail.com>",
   "bugs": {

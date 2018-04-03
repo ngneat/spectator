@@ -19,6 +19,15 @@ export class SpectatorWithHost<C, H = HostComponent> extends Spectator<C> {
   hostFixture: ComponentFixture<H>;
   hostElement: HTMLElement;
   hostDebugElement: DebugElement;
+
+  /**
+   *
+   * @param {Type<any>} directive
+   * @returns {DebugElement}
+   */
+  byDirective<T>(directive: Type<any>): DebugElement {
+    return this.hostDebugElement.query(By.directive(directive));
+  }
 }
 
 export function createHostComponentFactory<T, H>(component: Type<T>): (template: string, detectChanges?: boolean) => SpectatorWithHost<T, H>;
