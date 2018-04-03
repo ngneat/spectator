@@ -10,7 +10,7 @@
   "scripts": {
     "build": "rm -rf ./dist && tsc",
     "copy:changelog": "copy CHANGELOG.md ../../",
-    "release": "standard-version && npm run copy:changelog"
+    "release": "npm run build && standard-version && npm run copy:changelog"
   },
   "author": "Netanel Basal <netanel7799s@gmail.com>",
   "bugs": {
