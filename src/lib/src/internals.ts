@@ -59,6 +59,15 @@ export class Spectator<C> {
 
   /**
    *
+   * @param {Type<any>} directive
+   * @returns {DebugElement}
+   */
+  byDirective<T>(directive: Type<any>): DebugElement {
+    return this.debugElement.query(By.directive(directive));
+  }
+
+  /**
+   *
    * @param input
    * @param inputValue
    */
