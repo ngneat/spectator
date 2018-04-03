@@ -91,6 +91,12 @@ export class Spectator<C> {
    * @param selector string | Element | DebugElement
    */
   click(selector: string | Element | DebugElement) {
+    const element = this.getNativeElement(selector);
+    element.click();
+    this.detectChanges();
+  }
+
+  getNativeElement(selector: string | Element | DebugElement | Window) {
     let element;
 
     if (typeof selector === 'string') {
@@ -108,8 +114,7 @@ export class Spectator<C> {
       }
     }
 
-    element.click();
-    this.detectChanges();
+    return element;
   }
 
   /**
@@ -120,8 +125,8 @@ export class Spectator<C> {
    * @param {number} y
    * @param {MouseEvent} event
    */
-  dispatchMouseEvent(node: Node, type: string, x = 0, y = 0, event = createMouseEvent(type, x, y)): MouseEvent {
-    const _event = dispatchMouseEvent(node, type, x, y, event);
+  dispatchMouseEvent(selector: string | Element | DebugElement, type: string, x = 0, y = 0, event = createMouseEvent(type, x, y)): MouseEvent {
+    const _event = dispatchMouseEvent(this.getNativeElement(selector), type, x, y, event);
     this.detectChanges();
     return _event;
   }
@@ -134,8 +139,8 @@ export class Spectator<C> {
    * @param {Element} target
    * @returns {KeyboardEvent}
    */
-  dispatchKeyboardEvent(node: Node, type: string, keyCode: number, target?: Element): KeyboardEvent {
-    const _event = dispatchKeyboardEvent(node, type, keyCode, target);
+  dispatchKeyboardEvent(selector: string | Element | DebugElement, type: string, keyCode: number, target?: Element): KeyboardEvent {
+    const _event = dispatchKeyboardEvent(this.getNativeElement(selector), type, keyCode, target);
     this.detectChanges();
     return _event;
   }
@@ -147,8 +152,8 @@ export class Spectator<C> {
    * @param {boolean} canBubble
    * @returns {Event}
    */
-  dispatchFakeEvent(node: Node | Window, type: string, canBubble?: boolean): Event {
-    const _event = dispatchFakeEvent(node, type, canBubble);
+  dispatchFakeEvent(selector: string | Element | DebugElement | Window, type: string, canBubble?: boolean): Event {
+    const _event = dispatchFakeEvent(this.getNativeElement(selector), type, canBubble);
     this.detectChanges();
     return _event;
   }
@@ -161,8 +166,8 @@ export class Spectator<C> {
    * @param {number} y
    * @returns {Event}
    */
-  dispatchTouchEvent(node: Node, type: string, x = 0, y = 0) {
-    const _event = dispatchTouchEvent(node, type, x, y);
+  dispatchTouchEvent(selector: string | Element | DebugElement, type: string, x = 0, y = 0) {
+    const _event = dispatchTouchEvent(this.getNativeElement(selector), type, x, y);
     this.detectChanges();
     return _event;
   }
