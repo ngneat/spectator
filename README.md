@@ -78,7 +78,8 @@ describe('ButtonComponent', () => {
   
   // const createComponent = createTestComponentFactory({
   //   component: ButtonComponent,
-  //   imports: [OtherModule]
+  //   imports: [OtherModule],
+  //   providers: [...]
   // });
   
   it('should set the "success" class by default', () => {

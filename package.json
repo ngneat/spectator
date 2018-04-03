@@ -70,6 +70,7 @@
     "karma-jasmine": "~1.1.0",
     "karma-jasmine-html-reporter": "^0.2.2",
     "karma-mocha-reporter": "^2.2.5",
+    "lint-staged": "^7.0.2",
     "path": "^0.12.7",
     "prettier": "^1.11.1",
     "protractor": "~5.1.2",

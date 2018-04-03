@@ -29,7 +29,7 @@ const defaultOptions: SpectatorOptions<any, any> = {
 };
 
 export function initialModule<T, C = HostComponent>(options: SpectatorOptions<T, C> | Type<T>, withHost = false) {
-  Object.assign(defaultOptions, options);
+  const merged = Object.assign({}, defaultOptions, options);
   let moduleMetadata: TestModuleMetadata;
   let component;
   let host;
@@ -44,14 +44,14 @@ export function initialModule<T, C = HostComponent>(options: SpectatorOptions<T,
       providers: []
     };
   } else {
-    component = options.component;
-    host = options.host;
+    component = merged.component;
+    host = merged.host;
 
     moduleMetadata = {
-      declarations: [component, withHost ? options.host : [], ...(options.declarations || [])],
-      imports: [options.disableAnimations ? NoopAnimationsModule : [], ...(options.imports || [])],
-      schemas: [options.shallow ? NO_ERRORS_SCHEMA : []],
-      providers: [...(options.providers || [])]
+      declarations: [component, withHost ? host : [], ...(merged.declarations || [])],
+      imports: [merged.disableAnimations ? NoopAnimationsModule : [], ...(merged.imports || [])],
+      schemas: [merged.shallow ? NO_ERRORS_SCHEMA : []],
+      providers: [...(merged.providers || [])]
     };
   }
 
