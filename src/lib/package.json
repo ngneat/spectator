@@ -1,7 +1,7 @@
 {
   "name": "@netbasal/spectator",
   "description": "Angular tests made easy",
-  "version": "0.4.0",
+  "version": "0.4.1",
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -12,7 +12,7 @@
     "copy:changelog": "copy CHANGELOG.md ../../",
     "pub": "npm publish --access public",
     "tag": "git push --follow-tags origin master",
-    "release": "npm run build && standard-version && npm run copy:changelog && npm run tag && npm run pub"
+    "release": "npm run build && standard-version && npm run copy:changelog && npm run tag"
   },
   "author": "Netanel Basal <netanel7799s@gmail.com>",
   "bugs": {
