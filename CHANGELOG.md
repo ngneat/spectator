@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.3.0"></a>
+# [0.3.0](https://github.com/NetanelBasal/spectator/compare/v0.2.2...v0.3.0) (2018-04-04)
+
+
+### Features
+
+* **host:** add the option to pass complex inputs ([45de5e1](https://github.com/NetanelBasal/spectator/commit/45de5e1)), closes [#5](https://github.com/NetanelBasal/spectator/issues/5)
+
+
+
 <a name="0.2.2"></a>
 ## [0.2.2](https://github.com/NetanelBasal/spectator/compare/v0.2.1...v0.2.2) (2018-04-04)
 
