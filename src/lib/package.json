@@ -10,7 +10,9 @@
   "scripts": {
     "build": "rm -rf ./dist && tsc",
     "copy:changelog": "copy CHANGELOG.md ../../",
-    "release": "npm run build && standard-version && npm run copy:changelog"
+    "pub": "npm publish --access public",
+    "tag": "git push --follow-tags origin master",
+    "release": "npm run build && standard-version && npm run copy:changelog && npm run tag && npm run pub"
   },
   "author": "Netanel Basal <netanel7799s@gmail.com>",
   "bugs": {
