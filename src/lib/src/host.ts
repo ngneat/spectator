@@ -30,10 +30,10 @@ export class SpectatorWithHost<C, H = HostComponent> extends Spectator<C> {
   }
 }
 
-export function createHostComponentFactory<T, H>(component: Type<T>): (template: string, detectChanges?: boolean) => SpectatorWithHost<T, H>;
-export function createHostComponentFactory<T, H>(options: SpectatorOptions<T, H>): (template: string, detectChanges?: boolean) => SpectatorWithHost<T, H>;
-export function createHostComponentFactory<T, H = HostComponent>(options: SpectatorOptions<T, H> | Type<T>): (template: string, detectChanges?: boolean) => SpectatorWithHost<T, H> {
-  const { component, moduleMetadata, host } = initialModule<T>(options, true);
+export function createHostComponentFactory<C, H>(component: Type<C>): (template: string, detectChanges?: boolean, complexInputs?: Partial<C>) => SpectatorWithHost<C, H>;
+export function createHostComponentFactory<C, H>(options: SpectatorOptions<C, H>): (template: string, detectChanges?: boolean, complexInputs?: Partial<C>) => SpectatorWithHost<C, H>;
+export function createHostComponentFactory<C, H = HostComponent>(options: SpectatorOptions<C, H> | Type<C>): (template: string, detectChanges?: boolean, complexInputs?: Partial<C>) => SpectatorWithHost<C, H> {
+  const { component, moduleMetadata, host } = initialModule<C>(options, true);
 
   beforeEach(() => {
     jasmine.addMatchers(customMatchers as any);
@@ -43,14 +43,10 @@ export function createHostComponentFactory<T, H = HostComponent>(options: Specta
     TestBed.configureTestingModule(moduleMetadata);
   });
 
-  return (template: string, detectChanges = true) => {
+  return (template: string, detectChanges = true, complexInputs: Partial<C> = {}) => {
     TestBed.overrideComponent(host, { set: { template: template } });
-    const spectatorWithHost = new SpectatorWithHost<T, H>();
+    const spectatorWithHost = new SpectatorWithHost<C, H>();
     spectatorWithHost.hostFixture = TestBed.createComponent(host);
-
-    if (detectChanges) {
-      spectatorWithHost.hostFixture.detectChanges();
-    }
 
     //  The host component instance
     spectatorWithHost.hostComponent = spectatorWithHost.hostFixture.componentInstance;
@@ -61,6 +57,14 @@ export function createHostComponentFactory<T, H = HostComponent>(options: Specta
     // The tested component instance, rendered inside the host
     spectatorWithHost.component = spectatorWithHost.debugElement.componentInstance;
     spectatorWithHost.element = spectatorWithHost.debugElement.nativeElement;
+
+    if (complexInputs) {
+      spectatorWithHost.setInput(complexInputs);
+    }
+
+    if (detectChanges) {
+      spectatorWithHost.hostFixture.detectChanges();
+    }
 
     return spectatorWithHost;
   };

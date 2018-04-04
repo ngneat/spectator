@@ -1,7 +1,7 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input } from "@angular/core";
 
 @Component({
-  selector: 'zippy',
+  selector: "zippy",
   template: `
     <div class="zippy" id="zippy">
       <div (click)="toggle()" class="zippy__title">
@@ -11,12 +11,16 @@ import { Component, Input } from '@angular/core';
         <ng-content></ng-content>
       </div>
       <input type="checkbox" checked="true" class="checkbox">
+      <div class="color">{{options.color}}</div>
     </div>
   `
 })
 export class ZippyComponent {
-
   @Input() title;
+  @Input()
+  options = {
+    color: "red"
+  };
   visible = false;
   updatedAsync = false;
 
@@ -29,5 +33,4 @@ export class ZippyComponent {
       this.updatedAsync = true;
     }, 5000);
   }
-
 }

@@ -17,6 +17,13 @@ describe("ZippyComponent", () => {
     expect(host.query(".zippy__title")).toHaveText(text => "Zippy title");
   });
 
+  it("should support objects", () => {
+    const options = { color: "blue" };
+    host = createHost(`<zippy title="Zippy title"></zippy>`, true, { options });
+
+    expect(host.query(".color")).toHaveText("blue");
+  });
+
   it("should have attribute", () => {
     host = createHost(`<zippy title="Zippy title">Zippy content</zippy>`);
 
@@ -73,6 +80,7 @@ describe("ZippyComponent", () => {
 @Component({ selector: "custom-host", template: "" })
 class CustomHostComponent {
   title = "Custom HostComponent";
+  options = { color: "blue" };
 }
 
 describe("With Custom Host Component", function() {
@@ -87,6 +95,12 @@ describe("With Custom Host Component", function() {
     host = createHost(`<zippy [title]="title"></zippy>`);
 
     expect(host.query(".zippy__title")).toHaveText("Custom HostComponent");
+  });
+
+  it("should display the host component title", () => {
+    host = createHost(`<zippy [title]="title" [options]="options"></zippy>`);
+
+    expect(host.query(".color")).toHaveText("blue");
   });
 
   it(
