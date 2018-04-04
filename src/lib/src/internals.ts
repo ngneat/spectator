@@ -60,8 +60,8 @@ export class Spectator<C> {
    * @returns {any}
    */
   queryAll(selector: string, debugElement: true): DebugElement[];
-  queryAll(selector: string, debugElement?: false): Element;
-  queryAll(selector: string, debugElement = false): Element | DebugElement[] {
+  queryAll(selector: string, debugElement?: false): NodeListOf<Element>;
+  queryAll(selector: string, debugElement = false): NodeListOf<Element> | DebugElement[] {
     if (debugElement) {
       return this.debugElement.queryAll(By.css(selector));
     }
