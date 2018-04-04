@@ -21,20 +21,14 @@ Spectator is written on top of the Angular Testing Framework and provides two th
 Spectator helps you get rid of all the boilerplate grunt work, leaving you with readable, sleek and streamlined unit tests.
 
 ## Installation
-#### NPM
-To install Spectator via NPM run: 
 
-```npm install @netbasal/spectator --save-dev```
-#### Yarn
-To install Spectator via Yarn run: 
-
-```yarn add @netbasal/spectator --dev```
-
-## Spectator CLI
-Auto generate specs with the [CLI](https://github.com/NetanelBasal/spectator-cli)
+`npm install @netbasal/spectator --save-dev`
 
 ## Documentation
 Learn about it on the [docs site](https://netbasal.gitbooks.io/spectator/content/)
+
+## Spectator CLI
+Auto generate specs with the [CLI](https://github.com/NetanelBasal/spectator-cli)
 
 ## A Taste of Spectator
 ```ts
