@@ -19,13 +19,16 @@ describe("ZippyComponent", () => {
 
   it("should support objects", () => {
     const options = { color: "blue" };
-    host = createHost(`<zippy title="Zippy title"></zippy>`, true, { options });
+    host = createHost(`<zippy></zippy>`, true, { options });
 
     expect(host.query(".color")).toHaveText("blue");
   });
 
   it("should have attribute", () => {
     host = createHost(`<zippy title="Zippy title">Zippy content</zippy>`);
+    const a = document.querySelectorAll(".fiv");
+    const b = host.query(".color", true);
+    console.log(b);
 
     expect(host.query(".zippy")).toHaveAttr({ attr: "id", val: "zippy" });
   });

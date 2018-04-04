@@ -13,8 +13,8 @@ describe("CalcComponent", () => {
 
   it("should calc the value", () => {
     spectator = createComponent();
-    const a = spectator.query(".a");
-    const b = spectator.query(".b");
+    const a = spectator.query(".a") as HTMLInputElement;
+    const b = spectator.query(".b") as HTMLInputElement;
     a.value = "1";
     b.value = "2";
 

@@ -44,7 +44,13 @@ export class Spectator<C> {
    * @param selector
    * @returns {any}
    */
-  query(selector: string) {
+  query(selector: string, debugElement: true): DebugElement;
+  query(selector: string, debugElement?: false): Element;
+  query(selector: string, debugElement = false): Element | DebugElement {
+    if (debugElement) {
+      return this.debugElement.query(By.css(selector));
+    }
+
     return this.element.querySelector(selector);
   }
 
@@ -53,7 +59,13 @@ export class Spectator<C> {
    * @param selector
    * @returns {any}
    */
-  queryAll(selector: string) {
+  queryAll(selector: string, debugElement: true): DebugElement[];
+  queryAll(selector: string, debugElement?: false): Element;
+  queryAll(selector: string, debugElement = false): Element | DebugElement[] {
+    if (debugElement) {
+      return this.debugElement.queryAll(By.css(selector));
+    }
+
     return this.element.querySelectorAll(selector);
   }
 
