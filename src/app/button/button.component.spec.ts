@@ -12,8 +12,8 @@ describe("ButtonComponent", () => {
   });
 
   it("should set the class name according to the [className]", () => {
-    spectator = createComponent({ className: "danger" });
-
+    spectator = createComponent();
+    spectator.setInput("className", "danger");
     expect(spectator.query("button")).toHaveClass("danger");
     expect(spectator.query("button")).not.toHaveClass("success");
   });

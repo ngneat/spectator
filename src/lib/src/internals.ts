@@ -62,16 +62,25 @@ export class Spectator<C> {
    * @param {Type<any>} directive
    * @returns {DebugElement}
    */
-  byDirective<T>(directive: Type<any>): DebugElement {
+  byDirective<T>(directive: Type<T>): DebugElement {
     return this.debugElement.query(By.directive(directive));
   }
 
   /**
    *
-   * @param input
-   * @param inputValue
+   * Set component @Input()
+   *
+   * spectator.setInput('className', 'danger');
+   *
+   * spectator.setInput({
+   *   className: 'danger',
+   *   title: 'title'
+   * });
+   * @param {Partial<C>} input
    */
-  setInput<T>(input: object | string, inputValue?: T) {
+  setInput<K extends keyof C>(input: Partial<C>);
+  setInput<K extends keyof C>(input: K, inputValue: C[K]);
+  setInput<K extends keyof C>(input: Partial<C> | K, inputValue?: C[K]) {
     if (typeof input === 'string') {
       this.component[input] = inputValue;
     } else {
@@ -79,19 +88,23 @@ export class Spectator<C> {
         this.component[p] = input[p];
       }
     }
-
     this.detectChanges();
   }
 
   /**
    *
-   * @param output
+   * Subscribe to component @Output()
    *
+   *  spectator.output<{ type: string }>('click')
+   *    .subscribe(result => (output = result));
+   *
+   * @param {K} output
+   * @returns {Observable<T>}
    */
-  output<T>(output: string): Observable<T> {
+  output<T, K extends keyof C = keyof C>(output: K): Observable<T> {
     const observable = this.component[output];
-    if (observable && typeof observable.subscribe === 'function') {
-      return observable;
+    if (observable instanceof Observable) {
+      return observable as Observable<T>;
     } else {
       throw new Error(`${output} in not an @Output`);
     }
