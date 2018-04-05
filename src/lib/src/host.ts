@@ -78,6 +78,7 @@ export function createHostComponentFactory<C, H = HostComponent>(options: Specta
 
   return (template: string, detectChanges = true, complexInputs: Partial<C> = {}) => {
     TestBed.overrideComponent(host, { set: { template: template } });
+
     TestBed.overrideModule(BrowserDynamicTestingModule, {
       set: {
         entryComponents: moduleMetadata.entryComponents

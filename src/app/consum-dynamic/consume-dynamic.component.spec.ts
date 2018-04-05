@@ -5,7 +5,7 @@ import {
 import { ConsumeDynamicComponent } from "./consume-dynamic.component";
 import { DynamicComponent } from "../dynamic/dynamic.component";
 
-fdescribe("ConsumeDynamicComponent", () => {
+describe("ConsumeDynamicComponent", () => {
   let host: SpectatorWithHost<ConsumeDynamicComponent>;
 
   const createHost = createHostComponentFactory({

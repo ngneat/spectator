@@ -55,7 +55,7 @@ export function initialModule<T, C = HostComponent>(options: SpectatorOptions<T,
       imports: [merged.disableAnimations ? NoopAnimationsModule : [], ...(merged.imports || [])],
       schemas: [merged.shallow ? NO_ERRORS_SCHEMA : []],
       providers: [...(merged.providers || [])],
-      entryComponents: [options.entryComponents]
+      entryComponents: [merged.entryComponents]
     };
   }
 
