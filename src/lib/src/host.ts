@@ -12,6 +12,8 @@ import { Spectator } from './internals';
 import * as customMatchers from './matchers';
 import { By } from '@angular/platform-browser';
 import { HostComponent, initialModule, SpectatorOptions } from './config';
+import { BrowserDynamicTestingModule } from '@angular/platform-browser-dynamic/testing';
+import { DynamicComponent } from '../../app/dynamic/dynamic.component';
 
 export class SpectatorWithHost<C, H = HostComponent> extends Spectator<C> {
   hostComponent: H;
@@ -27,6 +29,37 @@ export class SpectatorWithHost<C, H = HostComponent> extends Spectator<C> {
    */
   byDirective<T>(directive: Type<any>): DebugElement {
     return this.hostDebugElement.query(By.directive(directive));
+  }
+
+  /**
+   *
+   * @param {string} selector
+   * @param {true} debugElement
+   * @returns {DebugElement}
+   */
+  queryHost(selector: string, debugElement: true): DebugElement;
+  queryHost(selector: string, debugElement?: false): Element;
+  queryHost(selector: string, debugElement = false): Element | DebugElement {
+    if (debugElement) {
+      return this.hostDebugElement.query(By.css(selector));
+    }
+
+    return this.hostElement.querySelector(selector);
+  }
+
+  /**
+   * Query a DOM elements from the tested element
+   * @param selector
+   * @returns {any}
+   */
+  queryAllHost(selector: string, debugElement: true): DebugElement[];
+  queryAllHost(selector: string, debugElement?: false): NodeListOf<Element>;
+  queryAllHost(selector: string, debugElement = false): NodeListOf<Element> | DebugElement[] {
+    if (debugElement) {
+      return this.debugElement.queryAll(By.css(selector));
+    }
+
+    return this.element.querySelectorAll(selector);
   }
 }
 
@@ -45,6 +78,11 @@ export function createHostComponentFactory<C, H = HostComponent>(options: Specta
 
   return (template: string, detectChanges = true, complexInputs: Partial<C> = {}) => {
     TestBed.overrideComponent(host, { set: { template: template } });
+    TestBed.overrideModule(BrowserDynamicTestingModule, {
+      set: {
+        entryComponents: moduleMetadata.entryComponents
+      }
+    });
     const spectatorWithHost = new SpectatorWithHost<C, H>();
     spectatorWithHost.hostFixture = TestBed.createComponent(host);
 

@@ -7,6 +7,8 @@ import { ButtonComponent } from "./button/button.component";
 import { HttpClientModule } from "@angular/common/http";
 import { HighlightDirective } from "./highlight.directive";
 import { CalcComponent } from "./calc/calc.component";
+import { DynamicComponent } from "./dynamic/dynamic.component";
+import { ConsumeDynamicComponent } from "./consum-dynamic/consume-dynamic.component";
 
 @NgModule({
   declarations: [
@@ -14,8 +16,11 @@ import { CalcComponent } from "./calc/calc.component";
     ZippyComponent,
     ButtonComponent,
     HighlightDirective,
-    CalcComponent
+    CalcComponent,
+    DynamicComponent,
+    ConsumeDynamicComponent
   ],
+  entryComponents: [DynamicComponent],
   imports: [BrowserModule, HttpClientModule],
   providers: [],
   bootstrap: [AppComponent]

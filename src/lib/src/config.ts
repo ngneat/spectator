@@ -20,17 +20,19 @@ export type SpectatorOptions<T = any, H = HostComponent> = TestModuleMetadata & 
   shallow?: boolean;
   disableAnimations?: boolean;
   host?: Type<H>;
+  entryComponents?: any[];
 };
 
 const defaultOptions: SpectatorOptions<any, any> = {
   disableAnimations: true,
   shallow: false,
-  host: HostComponent
+  host: HostComponent,
+  entryComponents: []
 };
 
 export function initialModule<T, C = HostComponent>(options: SpectatorOptions<T, C> | Type<T>, withHost = false) {
   const merged = Object.assign({}, defaultOptions, options);
-  let moduleMetadata: TestModuleMetadata;
+  let moduleMetadata: TestModuleMetadata & { entryComponents: any[] };
   let component;
   let host;
 
@@ -41,7 +43,8 @@ export function initialModule<T, C = HostComponent>(options: SpectatorOptions<T,
       declarations: [component, withHost ? host : []],
       imports: [NoopAnimationsModule],
       schemas: [],
-      providers: []
+      providers: [],
+      entryComponents: []
     };
   } else {
     component = merged.component;
@@ -51,7 +54,8 @@ export function initialModule<T, C = HostComponent>(options: SpectatorOptions<T,
       declarations: [component, withHost ? host : [], ...(merged.declarations || [])],
       imports: [merged.disableAnimations ? NoopAnimationsModule : [], ...(merged.imports || [])],
       schemas: [merged.shallow ? NO_ERRORS_SCHEMA : []],
-      providers: [...(merged.providers || [])]
+      providers: [...(merged.providers || [])],
+      entryComponents: [options.entryComponents]
     };
   }
 
