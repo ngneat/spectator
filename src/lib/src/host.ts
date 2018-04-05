@@ -13,7 +13,6 @@ import * as customMatchers from './matchers';
 import { By } from '@angular/platform-browser';
 import { HostComponent, initialModule, SpectatorOptions } from './config';
 import { BrowserDynamicTestingModule } from '@angular/platform-browser-dynamic/testing';
-import { DynamicComponent } from '../../app/dynamic/dynamic.component';
 
 export class SpectatorWithHost<C, H = HostComponent> extends Spectator<C> {
   hostComponent: H;
