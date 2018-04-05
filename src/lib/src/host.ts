@@ -56,10 +56,10 @@ export class SpectatorWithHost<C, H = HostComponent> extends Spectator<C> {
   queryAllHost(selector: string, debugElement?: false): NodeListOf<Element>;
   queryAllHost(selector: string, debugElement = false): NodeListOf<Element> | DebugElement[] {
     if (debugElement) {
-      return this.debugElement.queryAll(By.css(selector));
+      return this.hostDebugElement.queryAll(By.css(selector));
     }
 
-    return this.element.querySelectorAll(selector);
+    return this.hostElement.querySelectorAll(selector);
   }
 }
 
