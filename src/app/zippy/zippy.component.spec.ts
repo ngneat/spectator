@@ -27,7 +27,7 @@ describe("ZippyComponent", () => {
   it("should have attribute", () => {
     host = createHost(`<zippy title="Zippy title">Zippy content</zippy>`);
     const a = document.querySelectorAll(".fiv");
-    const b = host.query(".color", true);
+    const b = host.query(".color");
 
     expect(host.query(".zippy")).toHaveAttr({ attr: "id", val: "zippy" });
   });

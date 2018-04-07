@@ -8,12 +8,13 @@
 
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { DebugElement, InjectionToken, Type } from '@angular/core';
+import { DebugElement, ElementRef, InjectionToken, Type, ViewContainerRef } from '@angular/core';
 import { dispatchFakeEvent, dispatchKeyboardEvent, dispatchMouseEvent, dispatchTouchEvent } from './dispatch-events';
 import { createMouseEvent } from './event-objects';
 import { typeInElement } from './type-in-element';
 import { patchElementFocus } from './element-focus';
 import { Observable } from 'rxjs/Observable';
+import { SpectatorError } from './errors';
 
 export type SpectatorElement = string | Element | DebugElement;
 
@@ -40,42 +41,27 @@ export class Spectator<C> {
   }
 
   /**
-   * Query a DOM element from the tested element
-   * @param selector
-   * @returns {any}
+   *
+   * @param {Type<T> | string} directiveOrSelector
+   * @param {{read}} options
+   * @returns {T}
    */
-  query(selector: string, debugElement: true): DebugElement;
-  query(selector: string, debugElement?: false): Element;
-  query(selector: string, debugElement = false): Element | DebugElement {
-    if (debugElement) {
-      return this.debugElement.query(By.css(selector));
-    }
-
-    return this.element.querySelector(selector);
-  }
-
-  /**
-   * Query a DOM elements from the tested element
-   * @param selector
-   * @returns {any}
-   */
-  queryAll(selector: string, debugElement: true): DebugElement[];
-  queryAll(selector: string, debugElement?: false): NodeListOf<Element>;
-  queryAll(selector: string, debugElement = false): NodeListOf<Element> | DebugElement[] {
-    if (debugElement) {
-      return this.debugElement.queryAll(By.css(selector));
-    }
-
-    return this.element.querySelectorAll(selector);
+  query<T>(directiveOrSelector: string, options?: { read }): Element;
+  query<T>(directiveOrSelector: Type<T>, options?: { read }): T;
+  query<T>(directiveOrSelector: Type<T> | string, options: { read } = { read: undefined }): T {
+    return _getChild(this.debugElement)(directiveOrSelector, options);
   }
 
   /**
    *
-   * @param {Type<any>} directive
-   * @returns {DebugElement}
+   * @param {Type<T> | string} directiveOrSelector
+   * @param {{read}} options
+   * @returns {T[]}
    */
-  byDirective<T>(directive: Type<T>): DebugElement {
-    return this.debugElement.query(By.directive(directive));
+  queryAll<T>(directiveOrSelector: string, options?: { read }): Element[];
+  queryAll<T>(directiveOrSelector: Type<T>, options?: { read }): T[];
+  queryAll<T>(directiveOrSelector: Type<T> | string, options: { read } = { read: undefined }): T[] {
+    return _getChildren(this.debugElement)(directiveOrSelector, options);
   }
 
   /**
@@ -232,4 +218,62 @@ export class Spectator<C> {
     patchElementFocus(element);
     this.detectChanges();
   }
+}
+
+/**
+ *
+ * @param {DebugElement} debugElementRoot
+ * @returns {<T>(directiveOrSelector: (Type<T> | string), options?: {read}) => T}
+ * @private
+ */
+export function _getChild(debugElementRoot: DebugElement) {
+  return function<T>(directiveOrSelector: Type<T> | string, options: { read } = { read: undefined }): T {
+    let debugElement: DebugElement;
+
+    if (typeof directiveOrSelector === 'string') {
+      debugElement = debugElementRoot.query(By.css(directiveOrSelector));
+      return debugElement && debugElement.nativeElement;
+    } else {
+      debugElement = debugElementRoot.query(By.directive(directiveOrSelector));
+    }
+
+    if (!debugElement) {
+      throw new SpectatorError(`Cannot find a debug element for ${directiveOrSelector}`);
+    }
+
+    if (options.read) {
+      return debugElement.injector.get(options.read);
+    }
+
+    return debugElement.componentInstance;
+  };
+}
+
+/**
+ *
+ * @param {DebugElement} debugElementRoot
+ * @returns {<T>(directiveOrSelector: (Type<T> | string), options?: {read}) => T[]}
+ * @private
+ */
+export function _getChildren(debugElementRoot: DebugElement) {
+  return function<T>(directiveOrSelector: Type<T> | string, options: { read } = { read: undefined }): T[] {
+    let debugElement: DebugElement[];
+
+    if (typeof directiveOrSelector === 'string') {
+      debugElement = debugElementRoot.queryAll(By.css(directiveOrSelector));
+      return debugElement && debugElement.map(debug => debug.nativeElement);
+    } else {
+      debugElement = debugElementRoot.queryAll(By.directive(directiveOrSelector));
+    }
+
+    if (!debugElement) {
+      throw new SpectatorError(`Cannot find a debug element for ${directiveOrSelector}`);
+    }
+
+    if (options.read) {
+      return debugElement.map(debug => debug.injector.get(options.read));
+    }
+
+    return debugElement.map(debug => debug.componentInstance);
+  };
 }

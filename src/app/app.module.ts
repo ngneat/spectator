@@ -9,6 +9,9 @@ import { HighlightDirective } from "./highlight.directive";
 import { CalcComponent } from "./calc/calc.component";
 import { DynamicComponent } from "./dynamic/dynamic.component";
 import { ConsumeDynamicComponent } from "./consum-dynamic/consume-dynamic.component";
+import { ViewChildrenComponent } from "./view-children/view-children.component";
+import { ChildComponent } from "./child/child.component";
+import { ChildServiceService } from "./child-service.service";
 
 @NgModule({
   declarations: [
@@ -18,11 +21,13 @@ import { ConsumeDynamicComponent } from "./consum-dynamic/consume-dynamic.compon
     HighlightDirective,
     CalcComponent,
     DynamicComponent,
-    ConsumeDynamicComponent
+    ConsumeDynamicComponent,
+    ViewChildrenComponent,
+    ChildComponent
   ],
   entryComponents: [DynamicComponent],
   imports: [BrowserModule, HttpClientModule],
-  providers: [],
+  providers: [ChildServiceService],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

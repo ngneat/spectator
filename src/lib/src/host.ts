@@ -8,7 +8,7 @@
 
 import { DebugElement, Type } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { Spectator } from './internals';
+import { _getChild, _getChildren, Spectator } from './internals';
 import * as customMatchers from './matchers';
 import { By } from '@angular/platform-browser';
 import { HostComponent, initialModule, SpectatorOptions } from './config';
@@ -23,42 +23,26 @@ export class SpectatorWithHost<C, H = HostComponent> extends Spectator<C> {
 
   /**
    *
-   * @param {Type<any>} directive
-   * @returns {DebugElement}
+   * @param {Type<T> | string} directiveOrSelector
+   * @param {{read}} options
+   * @returns {T}
    */
-  byDirective<T>(directive: Type<any>): DebugElement {
-    return this.hostDebugElement.query(By.directive(directive));
+  queryHost<T>(directiveOrSelector: string, options?: { read }): Element;
+  queryHost<T>(directiveOrSelector: Type<T>, options?: { read }): T;
+  queryHost<T>(directiveOrSelector: Type<T> | string, options: { read } = { read: undefined }): T {
+    return _getChild(this.hostDebugElement)(directiveOrSelector, options);
   }
 
   /**
    *
-   * @param {string} selector
-   * @param {true} debugElement
-   * @returns {DebugElement}
+   * @param {Type<T> | string} directiveOrSelector
+   * @param {{read}} options
+   * @returns {T[]}
    */
-  queryHost(selector: string, debugElement: true): DebugElement;
-  queryHost(selector: string, debugElement?: false): Element;
-  queryHost(selector: string, debugElement = false): Element | DebugElement {
-    if (debugElement) {
-      return this.hostDebugElement.query(By.css(selector));
-    }
-
-    return this.hostElement.querySelector(selector);
-  }
-
-  /**
-   * Query a DOM elements from the tested element
-   * @param selector
-   * @returns {any}
-   */
-  queryAllHost(selector: string, debugElement: true): DebugElement[];
-  queryAllHost(selector: string, debugElement?: false): NodeListOf<Element>;
-  queryAllHost(selector: string, debugElement = false): NodeListOf<Element> | DebugElement[] {
-    if (debugElement) {
-      return this.hostDebugElement.queryAll(By.css(selector));
-    }
-
-    return this.hostElement.querySelectorAll(selector);
+  queryHostAll<T>(directiveOrSelector: string, options?: { read }): Element[];
+  queryHostAll<T>(directiveOrSelector: Type<T>, options?: { read }): T[];
+  queryHostAll<T>(directiveOrSelector: Type<T> | string, options: { read } = { read: undefined }): T[] {
+    return _getChildren(this.hostDebugElement)(directiveOrSelector, options);
   }
 }
 
