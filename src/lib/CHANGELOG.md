@@ -8,12 +8,13 @@ All notable changes to this project will be documented in this file. See [standa
 
 ### Features
 
-* **query:** query and queryall now supports more options ([a309f3c](https://github.com/NetanelBasal/spectator/commit/a309f3c))
+* **query:** query() and queryAll() now supports more options (component/directives) and read ([a309f3c](https://github.com/NetanelBasal/spectator/commit/a309f3c))
 
 
 ### BREAKING CHANGES
 
-* **query:** 1. ByDirective no longer exists - use query/all
+* **spectator:** Remove `ByDirective()` in favor of `query()` or `queryAll()`
+* **query:** The second parameter for getting the `debugElement` removed  
 
 
 
