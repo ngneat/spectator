@@ -82,7 +82,7 @@ describe("ZippyComponent", () => {
     host = createHost(`<zippy title="Zippy title"></zippy>`);
 
     const pressEnter = () => {
-      host.dispatchKeyboardEvent('.zippy__title', 'keyup', /* Enter key */ 13);
+      host.dispatchKeyboardEvent('.zippy__title', 'keyup', 'Enter');
     };
 
     pressEnter();
@@ -90,7 +90,7 @@ describe("ZippyComponent", () => {
 
     pressEnter();
     expect(".zippy__content").not.toExist();
-  })
+  });
 });
 
 @Component({ selector: "custom-host", template: "" })
