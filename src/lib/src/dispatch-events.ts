@@ -17,13 +17,13 @@ export function dispatchFakeEvent(node: Node | Window, type: string, canBubble?:
   return dispatchEvent(node, createFakeEvent(type, canBubble));
 }
 
-/** Shorthand to dispatch a keyboard event with a specified key code.
+/** Shorthand to dispatch a keyboard event with a specified key.
  *
- *  dispatchKeyboardEvent(calendarBodyEl, 'keydown', LEFT_ARROW);
+ *  dispatchKeyboardEvent(calendarBodyEl, 'keydown', 'LEFT_ARROW');
  *
  * */
-export function dispatchKeyboardEvent(node: Node, type: string, keyCode: number, target?: Element): KeyboardEvent {
-  return dispatchEvent(node, createKeyboardEvent(type, keyCode, target)) as KeyboardEvent;
+export function dispatchKeyboardEvent(node: Node, type: string, keyOrKeyCode: string | number, target?: Element): KeyboardEvent {
+  return dispatchEvent(node, createKeyboardEvent(type, keyOrKeyCode, target)) as KeyboardEvent;
 }
 
 /** Shorthand to dispatch a mouse event on the specified coordinates.

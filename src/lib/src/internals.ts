@@ -166,8 +166,10 @@ export class Spectator<C> {
    * @param {Element} target
    * @returns {KeyboardEvent}
    */
-  dispatchKeyboardEvent(selector: SpectatorElement, type: string, keyCode: number, target?: Element): KeyboardEvent {
-    const _event = dispatchKeyboardEvent(this.getNativeElement(selector), type, keyCode, target);
+  dispatchKeyboardEvent(selector: SpectatorElement, type: string, keyCode: number, target?: Element): KeyboardEvent;
+  dispatchKeyboardEvent(selector: SpectatorElement, type: string, key: string, target?: Element): KeyboardEvent;
+  dispatchKeyboardEvent(selector: SpectatorElement, type: string, keyOrKeyCode: string | number, target?: Element): KeyboardEvent {
+    const _event = dispatchKeyboardEvent(this.getNativeElement(selector), type, keyOrKeyCode, target);
     this.detectChanges();
     return _event;
   }
@@ -227,7 +229,7 @@ export class Spectator<C> {
  * @private
  */
 export function _getChild(debugElementRoot: DebugElement) {
-  return function<T>(directiveOrSelector: Type<T> | string, options: { read } = { read: undefined }): T {
+  return function <T>(directiveOrSelector: Type<T> | string, options: { read } = { read: undefined }): T {
     let debugElement: DebugElement;
 
     if (typeof directiveOrSelector === 'string') {
@@ -256,7 +258,7 @@ export function _getChild(debugElementRoot: DebugElement) {
  * @private
  */
 export function _getChildren(debugElementRoot: DebugElement) {
-  return function<T>(directiveOrSelector: Type<T> | string, options: { read } = { read: undefined }): T[] {
+  return function <T>(directiveOrSelector: Type<T> | string, options: { read } = { read: undefined }): T[] {
     let debugElement: DebugElement[];
 
     if (typeof directiveOrSelector === 'string') {
