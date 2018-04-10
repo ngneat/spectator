@@ -80,15 +80,19 @@ describe("ZippyComponent", () => {
 
   it('should toggle the content when pressing "Enter"', () => {
     host = createHost(`<zippy title="Zippy title"></zippy>`);
-
-    const pressEnter = () => {
-      host.dispatchKeyboardEvent('.zippy__title', 'keyup', 'Enter');
-    };
-
-    pressEnter();
+    host.keyboard.pressEnter(".zippy__title");
     expect(host.query(".zippy__content")).toExist();
 
-    pressEnter();
+    host.keyboard.pressEnter(".zippy__title");
+    expect(".zippy__content").not.toExist();
+  });
+
+  it('should toggle the content when pressing "Escape"', () => {
+    host = createHost(`<zippy title="Zippy title"></zippy>`);
+    host.keyboard.pressEscape(".zippy__title");
+    expect(host.query(".zippy__content")).toExist();
+
+    host.keyboard.pressEscape(".zippy__title");
     expect(".zippy__content").not.toExist();
   });
 });
@@ -99,10 +103,13 @@ class CustomHostComponent {
   options = { color: "blue" };
 }
 
-describe("With Custom Host Component", function () {
+describe("With Custom Host Component", function() {
   let host: SpectatorWithHost<ZippyComponent, CustomHostComponent>;
 
-  const createHost = createHostComponentFactory<ZippyComponent, CustomHostComponent>({
+  const createHost = createHostComponentFactory<
+    ZippyComponent,
+    CustomHostComponent
+  >({
     component: ZippyComponent,
     host: CustomHostComponent
   });

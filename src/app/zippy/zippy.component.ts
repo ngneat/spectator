@@ -4,7 +4,7 @@ import { Component, Input } from "@angular/core";
   selector: "zippy",
   template: `
     <div class="zippy" id="zippy">
-      <div (click)="toggle()" class="zippy__title" (keyup.enter)="toggle()">
+      <div (click)="toggle()" class="zippy__title" (keyup.enter)="toggle()" (keyup.esc)="toggle()">
         <span class="arrow">{{ visible ? 'Close' : 'Open' }}</span> {{title}}
       </div>
       <div *ngIf="visible" class="zippy__content">

@@ -15,11 +15,8 @@ describe("CalcComponent", () => {
     spectator = createComponent();
     const a = spectator.query(".a") as HTMLInputElement;
     const b = spectator.query(".b") as HTMLInputElement;
-    a.value = "1";
-    b.value = "2";
-
-    spectator.dispatchFakeEvent(a, "input");
-    spectator.dispatchFakeEvent(b, "input");
+    spectator.typeInElement("1", a);
+    spectator.typeInElement("2", b);
 
     expect(spectator.query(".result")).toHaveText("12");
   });

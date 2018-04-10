@@ -18,6 +18,8 @@ import { SpectatorError } from './errors';
 
 export type SpectatorElement = string | Element | DebugElement;
 
+const KEY_UP = 'keyup';
+
 export class Spectator<C> {
   fixture: ComponentFixture<C>;
   debugElement: DebugElement;
@@ -123,8 +125,13 @@ export class Spectator<C> {
    * @param {SpectatorElement | Window} selector
    * @returns {any}
    */
-  private getNativeElement(selector: SpectatorElement | Window) {
+  private getNativeElement(selector: SpectatorElement | Window | Document) {
     let element;
+
+    /** Support global objects window and document **/
+    if (selector === window || selector === document) {
+      return selector;
+    }
 
     if (typeof selector === 'string') {
       const checkExists = this.debugElement.query(By.css(selector));
@@ -187,6 +194,23 @@ export class Spectator<C> {
     return _event;
   }
 
+  get keyboard() {
+    return {
+      pressEscape: (selector: SpectatorElement, event = KEY_UP) => {
+        this.dispatchKeyboardEvent(selector, event, 'Escape');
+      },
+      pressEnter: (selector: SpectatorElement, event = KEY_UP) => {
+        this.dispatchKeyboardEvent(selector, event, 'Enter');
+      },
+      pressTab: (selector: SpectatorElement, event = KEY_UP) => {
+        this.dispatchKeyboardEvent(selector, event, 'Tab');
+      },
+      pressBackspace: (selector: SpectatorElement, event = KEY_UP) => {
+        this.dispatchKeyboardEvent(selector, event, 'Backspace');
+      }
+    };
+  }
+
   /**
    *
    * @param {SpectatorElement} selector
@@ -206,8 +230,8 @@ export class Spectator<C> {
    * @param {string} value
    * @param {HTMLInputElement} element
    */
-  typeInElement(value: string, element: HTMLInputElement) {
-    const _event = typeInElement(value, element);
+  typeInElement(value: string, selector: SpectatorElement) {
+    const _event = typeInElement(value, this.getNativeElement(selector));
     this.detectChanges();
     return _event;
   }
