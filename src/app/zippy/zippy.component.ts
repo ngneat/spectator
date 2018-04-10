@@ -1,7 +1,8 @@
-import { Component, Input } from "@angular/core";
+import { Component, HostListener, Input } from "@angular/core";
 
 @Component({
   selector: "zippy",
+  styles: [`:host{display: block;}`],
   template: `
     <div class="zippy" id="zippy">
       <div (click)="toggle()" class="zippy__title" (keyup.enter)="toggle()" (keyup.esc)="toggle()">
@@ -16,6 +17,12 @@ import { Component, Input } from "@angular/core";
   `
 })
 export class ZippyComponent {
+  @HostListener("keyup.esc")
+  onEsc() {
+    this.toggle();
+    console.log(11);
+  }
+
   @Input() title;
   @Input()
   options = {

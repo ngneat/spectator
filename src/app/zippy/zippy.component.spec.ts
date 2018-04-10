@@ -87,12 +87,12 @@ describe("ZippyComponent", () => {
     expect(".zippy__content").not.toExist();
   });
 
-  it('should toggle the content when pressing "Escape"', () => {
+  it("should work on the host", () => {
     host = createHost(`<zippy title="Zippy title"></zippy>`);
-    host.keyboard.pressEscape(".zippy__title");
+    host.keyboard.pressEscape();
     expect(host.query(".zippy__content")).toExist();
 
-    host.keyboard.pressEscape(".zippy__title");
+    host.keyboard.pressEscape();
     expect(".zippy__content").not.toExist();
   });
 });

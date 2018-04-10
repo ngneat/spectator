@@ -196,16 +196,16 @@ export class Spectator<C> {
 
   get keyboard() {
     return {
-      pressEscape: (selector: SpectatorElement, event = KEY_UP) => {
+      pressEscape: (selector: SpectatorElement = this.element, event = KEY_UP) => {
         this.dispatchKeyboardEvent(selector, event, 'Escape');
       },
-      pressEnter: (selector: SpectatorElement, event = KEY_UP) => {
+      pressEnter: (selector: SpectatorElement = this.element, event = KEY_UP) => {
         this.dispatchKeyboardEvent(selector, event, 'Enter');
       },
-      pressTab: (selector: SpectatorElement, event = KEY_UP) => {
+      pressTab: (selector: SpectatorElement = this.element, event = KEY_UP) => {
         this.dispatchKeyboardEvent(selector, event, 'Tab');
       },
-      pressBackspace: (selector: SpectatorElement, event = KEY_UP) => {
+      pressBackspace: (selector: SpectatorElement = this.element, event = KEY_UP) => {
         this.dispatchKeyboardEvent(selector, event, 'Backspace');
       }
     };
