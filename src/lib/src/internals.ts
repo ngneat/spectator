@@ -123,7 +123,7 @@ export class Spectator<C> {
    * @param {SpectatorElement | Window} selector
    * @returns {any}
    */
-  getNativeElement(selector: SpectatorElement | Window) {
+  private getNativeElement(selector: SpectatorElement | Window) {
     let element;
 
     if (typeof selector === 'string') {
@@ -229,7 +229,7 @@ export class Spectator<C> {
  * @private
  */
 export function _getChild(debugElementRoot: DebugElement) {
-  return function <T>(directiveOrSelector: Type<T> | string, options: { read } = { read: undefined }): T {
+  return function<T>(directiveOrSelector: Type<T> | string, options: { read } = { read: undefined }): T {
     let debugElement: DebugElement;
 
     if (typeof directiveOrSelector === 'string') {
@@ -258,7 +258,7 @@ export function _getChild(debugElementRoot: DebugElement) {
  * @private
  */
 export function _getChildren(debugElementRoot: DebugElement) {
-  return function <T>(directiveOrSelector: Type<T> | string, options: { read } = { read: undefined }): T[] {
+  return function<T>(directiveOrSelector: Type<T> | string, options: { read } = { read: undefined }): T[] {
     let debugElement: DebugElement[];
 
     if (typeof directiveOrSelector === 'string') {
