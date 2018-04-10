@@ -9,7 +9,7 @@ import { fakeAsync, tick } from "@angular/core/testing";
 describe("ZippyComponent", () => {
   let host: SpectatorWithHost<ZippyComponent>;
 
-  const createHost = createHostComponentFactory(ZippyComponent);
+  const createHost = createHostComponentFactory<ZippyComponent>(ZippyComponent);
 
   it("should display the title", () => {
     host = createHost(`<zippy title="Zippy title"></zippy>`);
@@ -68,13 +68,27 @@ describe("ZippyComponent", () => {
     expect(".zippy__content").not.toExist();
   });
 
-  it("should toggle the content", () => {
+  it("should toggle the content when clicked", () => {
     host = createHost(`<zippy title="Zippy title"></zippy>`);
 
     host.click(".zippy__title");
     expect(host.query(".zippy__content")).toExist();
 
     host.click(".zippy__title");
+    expect(".zippy__content").not.toExist();
+  });
+
+  it('should toggle the content when pressing "Enter"', () => {
+    host = createHost(`<zippy title="Zippy title"></zippy>`);
+
+    const pressEnter = () => {
+      host.dispatchKeyboardEvent('.zippy__title', 'keyup', 'Enter');
+    };
+
+    pressEnter();
+    expect(host.query(".zippy__content")).toExist();
+
+    pressEnter();
     expect(".zippy__content").not.toExist();
   });
 });
@@ -85,10 +99,10 @@ class CustomHostComponent {
   options = { color: "blue" };
 }
 
-describe("With Custom Host Component", function() {
+describe("With Custom Host Component", function () {
   let host: SpectatorWithHost<ZippyComponent, CustomHostComponent>;
 
-  const createHost = createHostComponentFactory({
+  const createHost = createHostComponentFactory<ZippyComponent, CustomHostComponent>({
     component: ZippyComponent,
     host: CustomHostComponent
   });
