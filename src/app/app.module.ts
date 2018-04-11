@@ -12,6 +12,9 @@ import { ConsumeDynamicComponent } from "./consum-dynamic/consume-dynamic.compon
 import { ViewChildrenComponent } from "./view-children/view-children.component";
 import { ChildComponent } from "./child/child.component";
 import { ChildServiceService } from "./child-service.service";
+import { WidgetComponent } from "./widget/widget.component";
+import { WidgetService } from "./widget.service";
+import { WidgetDataService } from "./widget-data.service";
 
 @NgModule({
   declarations: [
@@ -23,11 +26,12 @@ import { ChildServiceService } from "./child-service.service";
     DynamicComponent,
     ConsumeDynamicComponent,
     ViewChildrenComponent,
-    ChildComponent
+    ChildComponent,
+    WidgetComponent
   ],
   entryComponents: [DynamicComponent],
   imports: [BrowserModule, HttpClientModule],
-  providers: [ChildServiceService],
+  providers: [ChildServiceService, WidgetService, WidgetDataService],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

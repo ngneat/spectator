@@ -20,7 +20,6 @@ export class ZippyComponent {
   @HostListener("keyup.esc")
   onEsc() {
     this.toggle();
-    console.log(11);
   }
 
   @Input() title;

@@ -9,6 +9,7 @@
 import { TestModuleMetadata } from '@angular/core/testing';
 import { Component, NO_ERRORS_SCHEMA, Type } from '@angular/core';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { mockProvider } from './mock';
 
 @Component({
   template: ''
@@ -21,13 +22,15 @@ export type SpectatorOptions<T = any, H = HostComponent> = TestModuleMetadata & 
   disableAnimations?: boolean;
   host?: Type<H>;
   entryComponents?: any[];
+  mocks?: Type<any>[];
 };
 
 const defaultOptions: SpectatorOptions<any, any> = {
   disableAnimations: true,
   shallow: false,
   host: HostComponent,
-  entryComponents: []
+  entryComponents: [],
+  mocks: []
 };
 
 export function initialModule<T, C = HostComponent>(options: SpectatorOptions<T, C> | Type<T>, withHost = false) {
@@ -57,6 +60,8 @@ export function initialModule<T, C = HostComponent>(options: SpectatorOptions<T,
       providers: [...(merged.providers || [])],
       entryComponents: [merged.entryComponents]
     };
+
+    (merged.mocks || []).forEach(type => moduleMetadata.providers.push(mockProvider(type)));
   }
 
   return {
