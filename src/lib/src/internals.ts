@@ -16,6 +16,8 @@ import { patchElementFocus } from './element-focus';
 import { Observable } from 'rxjs/Observable';
 import { SpectatorError } from './errors';
 
+const $ = require('jquery');
+
 export type SpectatorElement = string | Element | DebugElement | ElementRef;
 
 const KEY_UP = 'keyup';
@@ -64,6 +66,22 @@ export class Spectator<C> {
   queryAll<R>(directiveOrSelector: Type<any>, options?: { read }): R[];
   queryAll<R>(directiveOrSelector: Type<any> | string, options: { read } = { read: undefined }): R[] {
     return _getChildren(this.debugElement)(directiveOrSelector, options);
+  }
+
+  /**
+   * Helper for getting the last value
+   * @param {string} directiveOrSelector
+   * @param {{read}} options
+   * @returns {Element[]}
+   */
+  queryLast<R>(directiveOrSelector: string, options?: { read }): Element;
+  queryLast<R>(directiveOrSelector: Type<any>, options?: { read }): R;
+  queryLast<R>(directiveOrSelector: Type<any> | string, options: { read } = { read: undefined }): R {
+    const result = _getChildren(this.debugElement)(directiveOrSelector, options);
+    if (result && result.length) {
+      return result[result.length - 1] as R;
+    }
+    return null;
   }
 
   /**
