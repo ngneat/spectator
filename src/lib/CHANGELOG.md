@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="1.2.1"></a>
+## [1.2.1](https://github.com/NetanelBasal/spectator/compare/v1.2.0...v1.2.1) (2018-04-13)
+
+
+### Bug Fixes
+
+* **query:** query now returns the right generic ([2e69a09](https://github.com/NetanelBasal/spectator/commit/2e69a09))
+
+
+
 <a name="1.2.0"></a>
 # [1.2.0](https://github.com/NetanelBasal/spectator/compare/v1.1.1...v1.2.0) (2018-04-11)
 
