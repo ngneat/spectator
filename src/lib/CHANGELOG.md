@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="1.3.0"></a>
+# [1.3.0](https://github.com/NetanelBasal/spectator/compare/v1.2.3...v1.3.0) (2018-04-13)
+
+
+### Features
+
+* **query:** add free style jquery support ([25ddf9d](https://github.com/NetanelBasal/spectator/commit/25ddf9d))
+* **query:** add query last alias ([7887d6c](https://github.com/NetanelBasal/spectator/commit/7887d6c))
+
+
+
 <a name="1.2.3"></a>
 ## [1.2.3](https://github.com/NetanelBasal/spectator/compare/v1.2.2...v1.2.3) (2018-04-13)
 
