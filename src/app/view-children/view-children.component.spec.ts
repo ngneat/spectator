@@ -7,6 +7,7 @@ import {
   createHostComponentFactory,
   SpectatorWithHost
 } from "../../lib/src/host";
+import { ElementRef } from "@angular/core";
 
 describe("ViewChildrenComponent", () => {
   let spectator: Spectator<ViewChildrenComponent>;
@@ -28,6 +29,10 @@ describe("ViewChildrenComponent", () => {
     );
     const div = spectator.query("div");
     const component = spectator.query<ChildComponent>(ChildComponent);
+    const { nativeElement } = spectator.query<ElementRef>(ChildComponent, {
+      read: ElementRef
+    });
+
     const button = spectator.query("button");
 
     expect(serviceFromChild).toBeDefined();
