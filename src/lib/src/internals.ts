@@ -85,6 +85,15 @@ export class Spectator<C> {
   }
 
   /**
+   * Free style JQuery support
+   * @param selector
+   * @returns {any}
+   */
+  $$(selector) {
+    return $(selector);
+  }
+
+  /**
    *
    * Set component @Input()
    *
