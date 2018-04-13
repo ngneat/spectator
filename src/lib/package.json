@@ -35,7 +35,9 @@
     "jquery": "^3.3.1"
   },
   "files": [
-    "dist/"
+    "dist/",
+    "index.ts",
+    "public_api.ts"
   ],
   "devDependencies": {
     "@types/jasmine": "^2.8.6",
