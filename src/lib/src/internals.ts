@@ -8,7 +8,7 @@
 
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { DebugElement, ElementRef, InjectionToken, Type, ViewContainerRef } from '@angular/core';
+import { DebugElement, ElementRef, InjectionToken, Type } from '@angular/core';
 import { dispatchFakeEvent, dispatchKeyboardEvent, dispatchMouseEvent, dispatchTouchEvent } from './dispatch-events';
 import { createMouseEvent } from './event-objects';
 import { typeInElement } from './type-in-element';
@@ -16,6 +16,7 @@ import { patchElementFocus } from './element-focus';
 import { Observable } from 'rxjs/Observable';
 import { SpectatorError } from './errors';
 
+declare const require: Function;
 const $ = require('jquery');
 
 export type SpectatorElement = string | Element | DebugElement | ElementRef;
