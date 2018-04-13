@@ -16,7 +16,7 @@ import { patchElementFocus } from './element-focus';
 import { Observable } from 'rxjs/Observable';
 import { SpectatorError } from './errors';
 
-export type SpectatorElement = string | Element | DebugElement;
+export type SpectatorElement = string | Element | DebugElement | ElementRef;
 
 const KEY_UP = 'keyup';
 
@@ -141,7 +141,7 @@ export class Spectator<C> {
         throw new Error(`${selector} does not exists`);
       }
     } else {
-      if (selector instanceof DebugElement) {
+      if (selector instanceof DebugElement || selector instanceof ElementRef) {
         element = selector.nativeElement;
       } else {
         element = selector;
