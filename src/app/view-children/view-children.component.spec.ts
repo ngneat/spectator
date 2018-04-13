@@ -32,7 +32,6 @@ describe("ViewChildrenComponent", () => {
     const { nativeElement } = spectator.query<ElementRef>(ChildComponent, {
       read: ElementRef
     });
-
     const button = spectator.query("button");
 
     expect(serviceFromChild).toBeDefined();

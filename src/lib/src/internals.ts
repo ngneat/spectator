@@ -253,7 +253,7 @@ export class Spectator<C> {
  * @private
  */
 export function _getChild(debugElementRoot: DebugElement) {
-  return function<T, R>(directiveOrSelector: Type<T> | string, options: { read } = { read: undefined }): R {
+  return function<R>(directiveOrSelector: Type<any> | string, options: { read } = { read: undefined }): R {
     let debugElement: DebugElement;
 
     if (typeof directiveOrSelector === 'string') {
@@ -282,7 +282,7 @@ export function _getChild(debugElementRoot: DebugElement) {
  * @private
  */
 export function _getChildren(debugElementRoot: DebugElement) {
-  return function<T>(directiveOrSelector: Type<T> | string, options: { read } = { read: undefined }): T[] {
+  return function<R>(directiveOrSelector: Type<any> | string, options: { read } = { read: undefined }): R[] {
     let debugElement: DebugElement[];
 
     if (typeof directiveOrSelector === 'string') {
