@@ -19,7 +19,7 @@ import { SpectatorError } from './errors';
 declare const require: Function;
 const $ = require('jquery');
 
-export type SpectatorElement = string | Element | DebugElement | ElementRef;
+export type SpectatorElement = string | Element | DebugElement | ElementRef | Window | Document;
 
 const KEY_UP = 'keyup';
 
