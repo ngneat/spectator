@@ -12,7 +12,7 @@ import { HttpClient } from '@angular/common/http';
 import { Provider, Type } from '@angular/core';
 import { SpyObject } from './mock';
 
-export const enum HTTPMethod {
+export enum HTTPMethod {
   GET = 'GET',
   POST = 'POST',
   DELETE = 'DELETE',
