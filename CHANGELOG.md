@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="1.4.0"></a>
+# [1.4.0](https://github.com/NetanelBasal/spectator/compare/v1.3.4...v1.4.0) (2018-04-17)
+
+
+### Features
+
+* **http:** expose get method for getting the service ([400c082](https://github.com/NetanelBasal/spectator/commit/400c082))
+
+
+
 <a name="1.3.4"></a>
 ## [1.3.4](https://github.com/NetanelBasal/spectator/compare/v1.3.3...v1.3.4) (2018-04-14)
 
