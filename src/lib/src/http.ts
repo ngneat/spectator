@@ -9,7 +9,8 @@
 import { async, TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController, TestRequest } from '@angular/common/http/testing';
 import { HttpClient } from '@angular/common/http';
-import { Type } from '@angular/core';
+import { Provider, Type } from '@angular/core';
+import { SpyObject } from './mock';
 
 export const enum HTTPMethod {
   GET = 'GET',
@@ -22,6 +23,7 @@ export class SpectatorHTTP<T> {
   httpClient: HttpClient;
   controller: HttpTestingController;
   dataService: T;
+  get: <S>(service: Type<S>) => S & SpyObject<S>;
   expectOne: (url: string, method: HTTPMethod) => TestRequest;
 }
 
@@ -44,10 +46,18 @@ export function createHTTPFactory<T>(dataService: Type<T>, providers = []) {
     http.controller = TestBed.get(HttpTestingController);
     http.dataService = TestBed.get(dataService);
     http.httpClient = TestBed.get(HttpClient);
+    http.get = function<S>(provider: Type<S>): S & SpyObject<S> {
+      return TestBed.get(provider);
+    };
 
     http.expectOne = (url: string, method: HTTPMethod) => {
-      const req = http.controller.expectOne(url);
-      expect(req.request.method).toEqual(method);
+      const req = http.controller.expectOne({
+        url,
+        method
+      });
+      // assert that there are no outstanding requests.
+      http.controller.verify();
+
       return req;
     };
 
