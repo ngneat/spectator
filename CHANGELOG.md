@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="1.4.1"></a>
+## [1.4.1](https://github.com/NetanelBasal/spectator/compare/v1.4.0...v1.4.1) (2018-04-17)
+
+
+### Bug Fixes
+
+* **http:** remove const enum ([cf90619](https://github.com/NetanelBasal/spectator/commit/cf90619))
+
+
+
 <a name="1.4.0"></a>
 # [1.4.0](https://github.com/NetanelBasal/spectator/compare/v1.3.4...v1.4.0) (2018-04-17)
 
