@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="1.4.2"></a>
+## [1.4.2](https://github.com/NetanelBasal/spectator/compare/v1.4.1...v1.4.2) (2018-04-22)
+
+
+### Bug Fixes
+
+* **docs:** update changelog ([8f75440](https://github.com/NetanelBasal/spectator/commit/8f75440))
+* **mock:** change arrow function ([9d6e28d](https://github.com/NetanelBasal/spectator/commit/9d6e28d))
+
+
+
 <a name="1.4.1"></a>
 ## [1.4.1](https://github.com/NetanelBasal/spectator/compare/v1.4.0...v1.4.1) (2018-04-17)
 
