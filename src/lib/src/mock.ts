@@ -53,6 +53,8 @@ export function createSpyObject<T>(type: Type<T>): SpyObject<T> {
 export function mockProvider<T>(type: Type<T>): Provider {
   return {
     provide: type,
-    useFactory: () => createSpyObject(type)
+    useFactory: function() {
+      return createSpyObject(type);
+    }
   };
 }
