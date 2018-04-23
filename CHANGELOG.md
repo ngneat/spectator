@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="1.4.3"></a>
+## [1.4.3](https://github.com/NetanelBasal/spectator/compare/v1.4.2...v1.4.3) (2018-04-23)
+
+
+### Bug Fixes
+
+* **build:** downgrade to es5 ([0eee88c](https://github.com/NetanelBasal/spectator/commit/0eee88c))
+
+
+
 <a name="1.4.2"></a>
 ## [1.4.2](https://github.com/NetanelBasal/spectator/compare/v1.4.1...v1.4.2) (2018-04-22)
 
