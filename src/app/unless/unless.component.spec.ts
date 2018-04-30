@@ -8,7 +8,7 @@ import { By } from "@angular/platform-browser";
 
 import { AppUnlessDirective } from "./unless.component";
 
-fdescribe("HelloComponent", () => {
+describe("HelloComponent", () => {
   let host: SpectatorWithHost<AppUnlessDirective>;
 
   const createHost = createHostComponentFactory({
