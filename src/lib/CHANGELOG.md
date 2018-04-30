@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="1.4.4"></a>
+## [1.4.4](https://github.com/NetanelBasal/spectator/compare/v1.4.3...v1.4.4) (2018-04-30)
+
+
+### Bug Fixes
+
+* **changelog:** update ([798824a](https://github.com/NetanelBasal/spectator/commit/798824a))
+* **host:** add support for structural directives ([341afe2](https://github.com/NetanelBasal/spectator/commit/341afe2))
+
+
+
 <a name="1.4.3"></a>
 ## [1.4.3](https://github.com/NetanelBasal/spectator/compare/v1.4.2...v1.4.3) (2018-04-23)
 
