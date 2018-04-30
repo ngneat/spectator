@@ -15,6 +15,7 @@ import { ChildServiceService } from "./child-service.service";
 import { WidgetComponent } from "./widget/widget.component";
 import { WidgetService } from "./widget.service";
 import { WidgetDataService } from "./widget-data.service";
+import { AppUnlessDirective } from "./unless/unless.component";
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { WidgetDataService } from "./widget-data.service";
     ConsumeDynamicComponent,
     ViewChildrenComponent,
     ChildComponent,
-    WidgetComponent
+    WidgetComponent,
+    AppUnlessDirective
   ],
   entryComponents: [DynamicComponent],
   imports: [BrowserModule, HttpClientModule],
