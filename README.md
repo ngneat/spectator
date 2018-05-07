@@ -20,7 +20,7 @@ Spectator is written on top of the Angular Testing Framework and provides two th
 
 Spectator helps you get rid of all the boilerplate grunt work, leaving you with readable, sleek and streamlined unit tests.
 
-[![Datorama](https://image.ibb.co/i6AC17/dt_logo_black.png)]
+![Datorama](https://image.ibb.co/i6AC17/dt_logo_black.png "Datorama")
 
 Spectator is regularly used and maintained by [Datorama](https://datorama.com/). 
 
