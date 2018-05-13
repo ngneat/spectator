@@ -6,7 +6,7 @@ All notable changes to this project will be documented in this file. See [standa
 # [1.5.0](https://github.com/NetanelBasal/spectator/compare/v1.4.0...v1.5.0) (2018-05-13)
 ### Features
 
-* **host:** add setHostInput method ([749dfb8](https://github.com/NetanelBasal/spectator/commit/749dfb8)
+* **host:** add setHostInput method ([749dfb8](https://github.com/NetanelBasal/spectator/commit/749dfb8))
 
 <a name="1.4.4"></a>
 ## [1.4.4](https://github.com/NetanelBasal/spectator/compare/v1.4.3...v1.4.4) (2018-04-30)
