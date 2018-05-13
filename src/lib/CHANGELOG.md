@@ -2,6 +2,25 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="1.5.0"></a>
+# [1.5.0](https://github.com/NetanelBasal/spectator/compare/v1.4.0...v1.5.0) (2018-05-13)
+
+
+### Bug Fixes
+
+* **build:** downgrade to es5 ([0eee88c](https://github.com/NetanelBasal/spectator/commit/0eee88c))
+* **changelog:** update ([798824a](https://github.com/NetanelBasal/spectator/commit/798824a))
+* **docs:** update changelog ([8f75440](https://github.com/NetanelBasal/spectator/commit/8f75440))
+* **http:** remove const enum ([cf90619](https://github.com/NetanelBasal/spectator/commit/cf90619))
+* **mock:** change arrow function ([9d6e28d](https://github.com/NetanelBasal/spectator/commit/9d6e28d))
+
+
+### Features
+
+* **host:** add setHostInput method ([749dfb8](https://github.com/NetanelBasal/spectator/commit/749dfb8))
+
+
+
 <a name="1.4.3"></a>
 ## [1.4.3](https://github.com/NetanelBasal/spectator/compare/v1.4.2...v1.4.3) (2018-04-23)
 
