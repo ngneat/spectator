@@ -15,6 +15,8 @@ import { ChildServiceService } from "./child-service.service";
 import { WidgetComponent } from "./widget/widget.component";
 import { WidgetService } from "./widget.service";
 import { WidgetDataService } from "./widget-data.service";
+import { ClickComponent } from './click/click.component';
+import { AutoFocusDirective } from './auto-focus.directive';
 
 @NgModule({
   declarations: [
@@ -27,7 +29,9 @@ import { WidgetDataService } from "./widget-data.service";
     ConsumeDynamicComponent,
     ViewChildrenComponent,
     ChildComponent,
-    WidgetComponent
+    WidgetComponent,
+    ClickComponent,
+    AutoFocusDirective
   ],
   entryComponents: [DynamicComponent],
   imports: [BrowserModule, HttpClientModule],

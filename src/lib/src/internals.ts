@@ -34,7 +34,7 @@ export class Spectator<C> {
    * @param {Type<T> | InjectionToken<T>} type
    * @returns {T}
    */
-  get<T>(type: Type<T> | InjectionToken<T>): T {
+  get<T>( type: Type<T> | InjectionToken<T> ): T {
     return TestBed.get(type);
   }
 
@@ -51,9 +51,9 @@ export class Spectator<C> {
    * @param {{read}} options
    * @returns {T}
    */
-  query<R>(directiveOrSelector: string, options?: { read }): Element;
-  query<R>(directiveOrSelector: Type<any>, options?: { read }): R;
-  query<R>(directiveOrSelector: Type<any> | string, options: { read } = { read: undefined }): R {
+  query<R>( directiveOrSelector: string, options?: { read } ): Element;
+  query<R>( directiveOrSelector: Type<any>, options?: { read } ): R;
+  query<R>( directiveOrSelector: Type<any> | string, options: { read } = { read: undefined } ): R {
     return _getChild(this.debugElement)(directiveOrSelector, options);
   }
 
@@ -63,9 +63,9 @@ export class Spectator<C> {
    * @param {{read}} options
    * @returns {T[]}
    */
-  queryAll<R>(directiveOrSelector: string, options?: { read }): Element[];
-  queryAll<R>(directiveOrSelector: Type<any>, options?: { read }): R[];
-  queryAll<R>(directiveOrSelector: Type<any> | string, options: { read } = { read: undefined }): R[] {
+  queryAll<R>( directiveOrSelector: string, options?: { read } ): Element[];
+  queryAll<R>( directiveOrSelector: Type<any>, options?: { read } ): R[];
+  queryAll<R>( directiveOrSelector: Type<any> | string, options: { read } = { read: undefined } ): R[] {
     return _getChildren(this.debugElement)(directiveOrSelector, options);
   }
 
@@ -75,11 +75,11 @@ export class Spectator<C> {
    * @param {{read}} options
    * @returns {Element[]}
    */
-  queryLast<R>(directiveOrSelector: string, options?: { read }): Element;
-  queryLast<R>(directiveOrSelector: Type<any>, options?: { read }): R;
-  queryLast<R>(directiveOrSelector: Type<any> | string, options: { read } = { read: undefined }): R {
+  queryLast<R>( directiveOrSelector: string, options?: { read } ): Element;
+  queryLast<R>( directiveOrSelector: Type<any>, options?: { read } ): R;
+  queryLast<R>( directiveOrSelector: Type<any> | string, options: { read } = { read: undefined } ): R {
     const result = _getChildren(this.debugElement)(directiveOrSelector, options);
-    if (result && result.length) {
+    if( result && result.length ) {
       return result[result.length - 1] as R;
     }
     return null;
@@ -90,7 +90,7 @@ export class Spectator<C> {
    * @param selector
    * @returns {any}
    */
-  $$(selector) {
+  $$( selector ) {
     return $(selector);
   }
 
@@ -106,16 +106,10 @@ export class Spectator<C> {
    * });
    * @param {Partial<C>} input
    */
-  setInput<K extends keyof C>(input: Partial<C>);
-  setInput<K extends keyof C>(input: K, inputValue: C[K]);
-  setInput<K extends keyof C>(input: Partial<C> | K, inputValue?: C[K]) {
-    if (typeof input === 'string') {
-      this.component[input] = inputValue;
-    } else {
-      for (let p in input) {
-        this.component[p] = input[p];
-      }
-    }
+  setInput<K extends keyof C>( input: Partial<C> );
+  setInput<K extends keyof C>( input: K, inputValue: C[K] );
+  setInput<K extends keyof C>( input: Partial<C> | K, inputValue?: C[K] ) {
+    _setInput(input, inputValue, this.component);
     this.detectChanges();
   }
 
@@ -129,9 +123,9 @@ export class Spectator<C> {
    * @param {K} output
    * @returns {Observable<T>}
    */
-  output<T, K extends keyof C = keyof C>(output: K): Observable<T> {
+  output<T, K extends keyof C = keyof C>( output: K ): Observable<T> {
     const observable = this.component[output];
-    if (observable instanceof Observable) {
+    if( observable instanceof Observable ) {
       return observable as Observable<T>;
     } else {
       throw new Error(`${output} in not an @Output`);
@@ -142,7 +136,7 @@ export class Spectator<C> {
    *
    * @param {SpectatorElement} selector
    */
-  click(selector: SpectatorElement) {
+  click( selector: SpectatorElement ) {
     const element = this.getNativeElement(selector);
     element.click();
     this.detectChanges();
@@ -153,23 +147,23 @@ export class Spectator<C> {
    * @param {SpectatorElement | Window} selector
    * @returns {any}
    */
-  private getNativeElement(selector: SpectatorElement | Window | Document) {
+  private getNativeElement( selector: SpectatorElement | Window | Document ) {
     let element;
 
     /** Support global objects window and document **/
-    if (selector === window || selector === document) {
+    if( selector === window || selector === document ) {
       return selector;
     }
 
-    if (typeof selector === 'string') {
+    if( typeof selector === 'string' ) {
       const checkExists = this.debugElement.query(By.css(selector));
-      if (checkExists) {
+      if( checkExists ) {
         element = checkExists.nativeElement;
       } else {
         throw new Error(`${selector} does not exists`);
       }
     } else {
-      if (selector instanceof DebugElement || selector instanceof ElementRef) {
+      if( selector instanceof DebugElement || selector instanceof ElementRef ) {
         element = selector.nativeElement;
       } else {
         element = selector;
@@ -187,7 +181,7 @@ export class Spectator<C> {
    * @param {number} y
    * @param {MouseEvent} event
    */
-  dispatchMouseEvent(selector: SpectatorElement, type: string, x = 0, y = 0, event = createMouseEvent(type, x, y)): MouseEvent {
+  dispatchMouseEvent( selector: SpectatorElement, type: string, x = 0, y = 0, event = createMouseEvent(type, x, y) ): MouseEvent {
     const _event = dispatchMouseEvent(this.getNativeElement(selector), type, x, y, event);
     this.detectChanges();
     return _event;
@@ -201,9 +195,9 @@ export class Spectator<C> {
    * @param {Element} target
    * @returns {KeyboardEvent}
    */
-  dispatchKeyboardEvent(selector: SpectatorElement, type: string, keyCode: number, target?: Element): KeyboardEvent;
-  dispatchKeyboardEvent(selector: SpectatorElement, type: string, key: string, target?: Element): KeyboardEvent;
-  dispatchKeyboardEvent(selector: SpectatorElement, type: string, keyOrKeyCode: string | number, target?: Element): KeyboardEvent {
+  dispatchKeyboardEvent( selector: SpectatorElement, type: string, keyCode: number, target?: Element ): KeyboardEvent;
+  dispatchKeyboardEvent( selector: SpectatorElement, type: string, key: string, target?: Element ): KeyboardEvent;
+  dispatchKeyboardEvent( selector: SpectatorElement, type: string, keyOrKeyCode: string | number, target?: Element ): KeyboardEvent {
     const _event = dispatchKeyboardEvent(this.getNativeElement(selector), type, keyOrKeyCode, target);
     this.detectChanges();
     return _event;
@@ -216,7 +210,7 @@ export class Spectator<C> {
    * @param {boolean} canBubble
    * @returns {Event}
    */
-  dispatchFakeEvent(selector: SpectatorElement | Window, type: string, canBubble?: boolean): Event {
+  dispatchFakeEvent( selector: SpectatorElement | Window, type: string, canBubble?: boolean ): Event {
     const _event = dispatchFakeEvent(this.getNativeElement(selector), type, canBubble);
     this.detectChanges();
     return _event;
@@ -224,16 +218,16 @@ export class Spectator<C> {
 
   get keyboard() {
     return {
-      pressEscape: (selector: SpectatorElement = this.element, event = KEY_UP) => {
+      pressEscape: ( selector: SpectatorElement = this.element, event = KEY_UP ) => {
         this.dispatchKeyboardEvent(selector, event, 'Escape');
       },
-      pressEnter: (selector: SpectatorElement = this.element, event = KEY_UP) => {
+      pressEnter: ( selector: SpectatorElement = this.element, event = KEY_UP ) => {
         this.dispatchKeyboardEvent(selector, event, 'Enter');
       },
-      pressTab: (selector: SpectatorElement = this.element, event = KEY_UP) => {
+      pressTab: ( selector: SpectatorElement = this.element, event = KEY_UP ) => {
         this.dispatchKeyboardEvent(selector, event, 'Tab');
       },
-      pressBackspace: (selector: SpectatorElement = this.element, event = KEY_UP) => {
+      pressBackspace: ( selector: SpectatorElement = this.element, event = KEY_UP ) => {
         this.dispatchKeyboardEvent(selector, event, 'Backspace');
       }
     };
@@ -247,7 +241,7 @@ export class Spectator<C> {
    * @param {number} y
    * @returns {Event}
    */
-  dispatchTouchEvent(selector: SpectatorElement, type: string, x = 0, y = 0) {
+  dispatchTouchEvent( selector: SpectatorElement, type: string, x = 0, y = 0 ) {
     const _event = dispatchTouchEvent(this.getNativeElement(selector), type, x, y);
     this.detectChanges();
     return _event;
@@ -258,7 +252,7 @@ export class Spectator<C> {
    * @param {string} value
    * @param {HTMLInputElement} element
    */
-  typeInElement(value: string, selector: SpectatorElement) {
+  typeInElement( value: string, selector: SpectatorElement ) {
     const _event = typeInElement(value, this.getNativeElement(selector));
     this.detectChanges();
     return _event;
@@ -268,7 +262,7 @@ export class Spectator<C> {
    *
    * @param {HTMLElement} element
    */
-  patchElementFocus(element: HTMLElement) {
+  patchElementFocus( element: HTMLElement ) {
     patchElementFocus(element);
     this.detectChanges();
   }
@@ -280,22 +274,22 @@ export class Spectator<C> {
  * @returns {<T>(directiveOrSelector: (Type<T> | string), options?: {read}) => T}
  * @private
  */
-export function _getChild(debugElementRoot: DebugElement) {
-  return function<R>(directiveOrSelector: Type<any> | string, options: { read } = { read: undefined }): R {
+export function _getChild( debugElementRoot: DebugElement ) {
+  return function <R>( directiveOrSelector: Type<any> | string, options: { read } = { read: undefined } ): R {
     let debugElement: DebugElement;
 
-    if (typeof directiveOrSelector === 'string') {
+    if( typeof directiveOrSelector === 'string' ) {
       debugElement = debugElementRoot.query(By.css(directiveOrSelector));
       return debugElement && debugElement.nativeElement;
     } else {
       debugElement = debugElementRoot.query(By.directive(directiveOrSelector));
     }
 
-    if (!debugElement) {
+    if( !debugElement ) {
       throw new SpectatorError(`Cannot find a debug element for ${directiveOrSelector}`);
     }
 
-    if (options.read) {
+    if( options.read ) {
       return debugElement.injector.get(options.read);
     }
 
@@ -309,25 +303,42 @@ export function _getChild(debugElementRoot: DebugElement) {
  * @returns {<T>(directiveOrSelector: (Type<T> | string), options?: {read}) => T[]}
  * @private
  */
-export function _getChildren(debugElementRoot: DebugElement) {
-  return function<R>(directiveOrSelector: Type<any> | string, options: { read } = { read: undefined }): R[] {
+export function _getChildren( debugElementRoot: DebugElement ) {
+  return function <R>( directiveOrSelector: Type<any> | string, options: { read } = { read: undefined } ): R[] {
     let debugElement: DebugElement[];
 
-    if (typeof directiveOrSelector === 'string') {
+    if( typeof directiveOrSelector === 'string' ) {
       debugElement = debugElementRoot.queryAll(By.css(directiveOrSelector));
       return debugElement && debugElement.map(debug => debug.nativeElement);
     } else {
       debugElement = debugElementRoot.queryAll(By.directive(directiveOrSelector));
     }
 
-    if (!debugElement) {
+    if( !debugElement ) {
       throw new SpectatorError(`Cannot find a debug element for ${directiveOrSelector}`);
     }
 
-    if (options.read) {
+    if( options.read ) {
       return debugElement.map(debug => debug.injector.get(options.read));
     }
 
     return debugElement.map(debug => debug.componentInstance);
   };
+}
+
+/**
+ *
+ * @param input
+ * @param inputValue
+ * @param component
+ * @private
+ */
+export function _setInput( input, inputValue, component ) {
+  if( typeof input === 'string' ) {
+    component[input] = inputValue;
+  } else {
+    for( let p in input ) {
+      component[p] = input[p];
+    }
+  }
 }

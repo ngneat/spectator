@@ -8,7 +8,7 @@
 
 import { DebugElement, Type } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { _getChild, _getChildren, Spectator } from './internals';
+import { _getChild, _getChildren, _setInput, Spectator } from './internals';
 import * as customMatchers from './matchers';
 import { By } from '@angular/platform-browser';
 import { HostComponent, initialModule, SpectatorOptions } from './config';
@@ -27,9 +27,9 @@ export class SpectatorWithHost<C, H = HostComponent> extends Spectator<C> {
    * @param {{read}} options
    * @returns {T}
    */
-  queryHost<T>(directiveOrSelector: string, options?: { read }): Element;
-  queryHost<T>(directiveOrSelector: Type<T>, options?: { read }): T;
-  queryHost<T>(directiveOrSelector: Type<T> | string, options: { read } = { read: undefined }): T {
+  queryHost<T>( directiveOrSelector: string, options?: { read } ): Element;
+  queryHost<T>( directiveOrSelector: Type<T>, options?: { read } ): T;
+  queryHost<T>( directiveOrSelector: Type<T> | string, options: { read } = { read: undefined } ): T {
     return _getChild(this.hostDebugElement)(directiveOrSelector, options);
   }
 
@@ -39,16 +39,23 @@ export class SpectatorWithHost<C, H = HostComponent> extends Spectator<C> {
    * @param {{read}} options
    * @returns {T[]}
    */
-  queryHostAll<T>(directiveOrSelector: string, options?: { read }): Element[];
-  queryHostAll<T>(directiveOrSelector: Type<T>, options?: { read }): T[];
-  queryHostAll<T>(directiveOrSelector: Type<T> | string, options: { read } = { read: undefined }): T[] {
+  queryHostAll<T>( directiveOrSelector: string, options?: { read } ): Element[];
+  queryHostAll<T>( directiveOrSelector: Type<T>, options?: { read } ): T[];
+  queryHostAll<T>( directiveOrSelector: Type<T> | string, options: { read } = { read: undefined } ): T[] {
     return _getChildren(this.hostDebugElement)(directiveOrSelector, options);
+  }
+
+  setHostInput<K extends keyof H>( input: Partial<H> );
+  setHostInput<K extends keyof H>( input: K, inputValue: H[K] );
+  setHostInput<K extends keyof H>( input: Partial<H> | K, inputValue?: H[K] ) {
+    _setInput(input, inputValue, this.hostComponent);
+    this.hostFixture.detectChanges();
   }
 }
 
-export function createHostComponentFactory<C, H = HostComponent>(component: Type<C>): (template: string, detectChanges?: boolean, complexInputs?: Partial<C>) => SpectatorWithHost<C, H>;
-export function createHostComponentFactory<C, H = HostComponent>(options: SpectatorOptions<C, H>): (template: string, detectChanges?: boolean, complexInputs?: Partial<C>) => SpectatorWithHost<C, H>;
-export function createHostComponentFactory<C, H = HostComponent>(options: SpectatorOptions<C, H> | Type<C>): (template: string, detectChanges?: boolean, complexInputs?: Partial<C>) => SpectatorWithHost<C, H> {
+export function createHostComponentFactory<C, H = HostComponent>( component: Type<C> ): ( template: string, detectChanges?: boolean, complexInputs?: Partial<C> ) => SpectatorWithHost<C, H>;
+export function createHostComponentFactory<C, H = HostComponent>( options: SpectatorOptions<C, H> ): ( template: string, detectChanges?: boolean, complexInputs?: Partial<C> ) => SpectatorWithHost<C, H>;
+export function createHostComponentFactory<C, H = HostComponent>( options: SpectatorOptions<C, H> | Type<C> ): ( template: string, detectChanges?: boolean, complexInputs?: Partial<C> ) => SpectatorWithHost<C, H> {
   const { component, moduleMetadata, host } = initialModule<C>(options, true);
 
   beforeEach(() => {
@@ -59,7 +66,7 @@ export function createHostComponentFactory<C, H = HostComponent>(options: Specta
     TestBed.configureTestingModule(moduleMetadata);
   });
 
-  return (template: string, detectChanges = true, complexInputs: Partial<C> = {}) => {
+  return ( template: string, detectChanges = true, complexInputs: Partial<C> = {} ) => {
     TestBed.overrideComponent(host, { set: { template: template } });
 
     TestBed.overrideModule(BrowserDynamicTestingModule, {
@@ -80,11 +87,11 @@ export function createHostComponentFactory<C, H = HostComponent>(options: Specta
     spectatorWithHost.component = spectatorWithHost.debugElement.componentInstance;
     spectatorWithHost.element = spectatorWithHost.debugElement.nativeElement;
 
-    if (complexInputs) {
+    if( complexInputs ) {
       spectatorWithHost.setInput(complexInputs);
     }
 
-    if (detectChanges) {
+    if( detectChanges ) {
       spectatorWithHost.hostFixture.detectChanges();
     }
 
