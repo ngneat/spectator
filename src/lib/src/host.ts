@@ -76,7 +76,6 @@ export function createHostComponentFactory<C, H = HostComponent>( options: Spect
     });
     const spectatorWithHost = new SpectatorWithHost<C, H>();
     spectatorWithHost.hostFixture = TestBed.createComponent(host);
-
     //  The host component instance
     spectatorWithHost.hostComponent = spectatorWithHost.hostFixture.componentInstance;
     spectatorWithHost.hostDebugElement = spectatorWithHost.hostFixture.debugElement;
@@ -84,8 +83,10 @@ export function createHostComponentFactory<C, H = HostComponent>( options: Spect
     // The tested component debug element
     spectatorWithHost.debugElement = spectatorWithHost.hostFixture.debugElement.query(By.directive(component));
     // The tested component instance, rendered inside the host
-    spectatorWithHost.component = spectatorWithHost.debugElement.componentInstance;
-    spectatorWithHost.element = spectatorWithHost.debugElement.nativeElement;
+    if (spectatorWithHost.debugElement) {
+      spectatorWithHost.component = spectatorWithHost.debugElement.componentInstance;
+      spectatorWithHost.element = spectatorWithHost.debugElement.nativeElement;
+    }
 
     if( complexInputs ) {
       spectatorWithHost.setInput(complexInputs);

@@ -117,6 +117,10 @@ describe('ZippyComponent', () => {
 });
 ```
 
+![Datorama](https://image.ibb.co/i6AC17/dt_logo_black.png "Datorama")
+
+Spectator is regularly used and maintained by [Datorama](https://datorama.com/).
+
 ## Contributors
 
 Thanks goes to these wonderful people ([emoji key](https://github.com/kentcdodds/all-contributors#emoji-key)):

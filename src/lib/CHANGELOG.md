@@ -4,20 +4,18 @@ All notable changes to this project will be documented in this file. See [standa
 
 <a name="1.5.0"></a>
 # [1.5.0](https://github.com/NetanelBasal/spectator/compare/v1.4.0...v1.5.0) (2018-05-13)
+### Features
+
+* **host:** add setHostInput method ([749dfb8](https://github.com/NetanelBasal/spectator/commit/749dfb8)
+
+<a name="1.4.4"></a>
+## [1.4.4](https://github.com/NetanelBasal/spectator/compare/v1.4.3...v1.4.4) (2018-04-30)
 
 
 ### Bug Fixes
 
-* **build:** downgrade to es5 ([0eee88c](https://github.com/NetanelBasal/spectator/commit/0eee88c))
 * **changelog:** update ([798824a](https://github.com/NetanelBasal/spectator/commit/798824a))
-* **docs:** update changelog ([8f75440](https://github.com/NetanelBasal/spectator/commit/8f75440))
-* **http:** remove const enum ([cf90619](https://github.com/NetanelBasal/spectator/commit/cf90619))
-* **mock:** change arrow function ([9d6e28d](https://github.com/NetanelBasal/spectator/commit/9d6e28d))
-
-
-### Features
-
-* **host:** add setHostInput method ([749dfb8](https://github.com/NetanelBasal/spectator/commit/749dfb8))
+* **host:** add support for structural directives ([341afe2](https://github.com/NetanelBasal/spectator/commit/341afe2))
 
 
 

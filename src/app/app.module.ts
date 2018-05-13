@@ -15,6 +15,7 @@ import { ChildServiceService } from "./child-service.service";
 import { WidgetComponent } from "./widget/widget.component";
 import { WidgetService } from "./widget.service";
 import { WidgetDataService } from "./widget-data.service";
+import { AppUnlessDirective } from "./unless/unless.component";
 import { ClickComponent } from './click/click.component';
 import { AutoFocusDirective } from './auto-focus.directive';
 
@@ -29,6 +30,8 @@ import { AutoFocusDirective } from './auto-focus.directive';
     ConsumeDynamicComponent,
     ViewChildrenComponent,
     ChildComponent,
+    WidgetComponent,
+    AppUnlessDirective
     WidgetComponent,
     ClickComponent,
     AutoFocusDirective
