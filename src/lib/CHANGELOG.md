@@ -10,12 +10,7 @@ All notable changes to this project will be documented in this file. See [standa
 
 * **detectchanges:** run detect changes on the component instead host ([77c77a1](https://github.com/NetanelBasal/spectator/commit/77c77a1))
 
-
-
 <a name="1.5.1"></a>
-# [1.6.0](https://github.com/NetanelBasal/spectator/compare/v1.4.4...v1.6.0) (2018-05-14)
-
-
 ### Bug Fixes
 * **setinput:** run component detect changes instead host ([0bb73d4](https://github.com/NetanelBasal/spectator/commit/0bb73d4))
 
