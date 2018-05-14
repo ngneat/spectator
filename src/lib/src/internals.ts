@@ -8,7 +8,7 @@
 
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { DebugElement, ElementRef, InjectionToken, Type } from '@angular/core';
+import { DebugElement, ElementRef, InjectionToken, Type, ChangeDetectorRef } from '@angular/core';
 import { dispatchFakeEvent, dispatchKeyboardEvent, dispatchMouseEvent, dispatchTouchEvent } from './dispatch-events';
 import { createMouseEvent } from './event-objects';
 import { typeInElement } from './type-in-element';
@@ -49,8 +49,10 @@ export class Spectator<C> {
    * Run detect changes explictly on the tested componet
    */
   detectComponentChanges() {
-    if (this.fixture) {
-      this.fixture.detectChanges();
+    if (this.debugElement) {
+      this.debugElement.injector.get(ChangeDetectorRef).detectChanges();
+    } else {
+      this.detectChanges();
     }
   }
 
