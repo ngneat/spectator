@@ -16,8 +16,10 @@ import { WidgetComponent } from "./widget/widget.component";
 import { WidgetService } from "./widget.service";
 import { WidgetDataService } from "./widget-data.service";
 import { AppUnlessDirective } from "./unless/unless.component";
-import { ClickComponent } from './click/click.component';
-import { AutoFocusDirective } from './auto-focus.directive';
+import { ClickComponent } from "./click/click.component";
+import { AutoFocusDirective } from "./auto-focus.directive";
+import { FgComponent } from "./fg/fg.component";
+import { ReactiveFormsModule } from "@angular/forms";
 
 @NgModule({
   declarations: [
@@ -31,13 +33,14 @@ import { AutoFocusDirective } from './auto-focus.directive';
     ViewChildrenComponent,
     ChildComponent,
     WidgetComponent,
-    AppUnlessDirective
+    AppUnlessDirective,
     WidgetComponent,
     ClickComponent,
-    AutoFocusDirective
+    AutoFocusDirective,
+    FgComponent
   ],
   entryComponents: [DynamicComponent],
-  imports: [BrowserModule, HttpClientModule],
+  imports: [BrowserModule, HttpClientModule, ReactiveFormsModule],
   providers: [ChildServiceService, WidgetService, WidgetDataService],
   bootstrap: [AppComponent]
 })
