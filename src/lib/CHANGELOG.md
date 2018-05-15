@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="1.5.3"></a>
+## [1.5.3](https://github.com/NetanelBasal/spectator/compare/v1.5.2...v1.5.3) (2018-05-15)
+
+
+### Bug Fixes
+
+* **host:** remove default object value ([cadb8c3](https://github.com/NetanelBasal/spectator/commit/cadb8c3))
+
+
+
 <a name="1.5.2"></a>
 ## [1.5.2](https://github.com/NetanelBasal/spectator/compare/v1.6.0...v1.5.2) (2018-05-14)
 
