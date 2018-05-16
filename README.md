@@ -2,6 +2,7 @@
  <img width="640" height="264" src="https://preview.ibb.co/ef2RUn/01_righteous_clear.png">
 </p>
 
+[![Downloads](https://img.shields.io/npm/dt/@netbasal/spectator.svg?style=flat-square)]()
 [![All Contributors](https://img.shields.io/badge/all_contributors-4-orange.svg?style=flat-square)](#contributors)
 [![spectator](https://img.shields.io/badge/tested%20with-spectator-2196F3.svg?style=flat-square)]()
 [![MIT](https://img.shields.io/packagist/l/doctrine/orm.svg?style=flat-square)]()
