@@ -1,7 +1,7 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { concatMap } from "rxjs/operators";
-import { defer } from "rxjs/observable/defer";
+import { defer } from "rxjs";
 
 export class UserService {
   getUser() {

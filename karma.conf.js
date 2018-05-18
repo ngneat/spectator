@@ -5,12 +5,12 @@ const build = process.env.NODE_ENV === 'build';
 module.exports = function( config ) {
   config.set({
     basePath  : '',
-    frameworks: ['jasmine', '@angular/cli'],
+    frameworks: ['jasmine', '@angular-devkit/build-angular'],
     plugins   : [
       require('karma-jasmine'),
       require('karma-chrome-launcher'),
       require('karma-mocha-reporter'),
-      require('@angular/cli/plugins/karma')
+      require('@angular-devkit/build-angular/plugins/karma')
     ],
     client    : {
       clearContext: false

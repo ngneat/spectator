@@ -39,5 +39,9 @@
     "copy": "^0.3.1",
     "standard-version": "^4.3.0",
     "typescript": "^2.8.1"
+  },
+  "peerDependencies": {
+    "@angular/common": "^6.0.0",
+    "@angular/core": "^6.0.0"
   }
 }

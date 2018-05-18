@@ -13,8 +13,8 @@ import { dispatchFakeEvent, dispatchKeyboardEvent, dispatchMouseEvent, dispatchT
 import { createMouseEvent } from './event-objects';
 import { typeInElement } from './type-in-element';
 import { patchElementFocus } from './element-focus';
-import { Observable } from 'rxjs/Observable';
 import { SpectatorError } from './errors';
+import { Observable } from 'rxjs';
 
 declare const require: Function;
 const $ = require('jquery');

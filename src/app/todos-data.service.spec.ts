@@ -1,7 +1,7 @@
 import { TodosDataService, UserService } from "./todos-data.service";
 import { createHTTPFactory, HTTPMethod } from "../lib/src/http";
 import { mockProvider } from "../lib/src";
-import { defer } from "rxjs/observable/defer";
+import { defer } from "rxjs";
 import { fakeAsync, tick } from "@angular/core/testing";
 
 describe("HttpClient testing", () => {
