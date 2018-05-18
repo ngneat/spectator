@@ -65,7 +65,7 @@ export class Spectator<C> {
   query<R>(directiveOrSelector: string, options?: { read }): Element;
   query<R>(directiveOrSelector: Type<any>, options?: { read }): R;
   query<R>(directiveOrSelector: Type<any> | string, options: { read } = { read: undefined }): R {
-    return _getChild(this.debugElement)(directiveOrSelector, options);
+    return _getChild(this.debugElement, this.element)(directiveOrSelector, options);
   }
 
   /**
@@ -77,7 +77,7 @@ export class Spectator<C> {
   queryAll<R>(directiveOrSelector: string, options?: { read }): Element[];
   queryAll<R>(directiveOrSelector: Type<any>, options?: { read }): R[];
   queryAll<R>(directiveOrSelector: Type<any> | string, options: { read } = { read: undefined }): R[] {
-    return _getChildren(this.debugElement)(directiveOrSelector, options);
+    return _getChildren(this.debugElement, this.element)(directiveOrSelector, options);
   }
 
   /**
@@ -89,7 +89,7 @@ export class Spectator<C> {
   queryLast<R>(directiveOrSelector: string, options?: { read }): Element;
   queryLast<R>(directiveOrSelector: Type<any>, options?: { read }): R;
   queryLast<R>(directiveOrSelector: Type<any> | string, options: { read } = { read: undefined }): R {
-    const result = _getChildren(this.debugElement)(directiveOrSelector, options);
+    const result = _getChildren(this.debugElement, this.element)(directiveOrSelector, options);
     if (result && result.length) {
       return result[result.length - 1] as R;
     }
@@ -285,13 +285,12 @@ export class Spectator<C> {
  * @returns {<T>(directiveOrSelector: (Type<T> | string), options?: {read}) => T}
  * @private
  */
-export function _getChild(debugElementRoot: DebugElement) {
+export function _getChild(debugElementRoot: DebugElement, element) {
   return function<R>(directiveOrSelector: Type<any> | string, options: { read } = { read: undefined }): R {
     let debugElement: DebugElement;
 
     if (typeof directiveOrSelector === 'string') {
-      debugElement = debugElementRoot.query(By.css(directiveOrSelector));
-      return debugElement && debugElement.nativeElement;
+      return element.querySelector(directiveOrSelector);
     } else {
       debugElement = debugElementRoot.query(By.directive(directiveOrSelector));
     }
@@ -314,13 +313,12 @@ export function _getChild(debugElementRoot: DebugElement) {
  * @returns {<T>(directiveOrSelector: (Type<T> | string), options?: {read}) => T[]}
  * @private
  */
-export function _getChildren(debugElementRoot: DebugElement) {
+export function _getChildren(debugElementRoot: DebugElement, element) {
   return function<R>(directiveOrSelector: Type<any> | string, options: { read } = { read: undefined }): R[] {
     let debugElement: DebugElement[];
 
     if (typeof directiveOrSelector === 'string') {
-      debugElement = debugElementRoot.queryAll(By.css(directiveOrSelector));
-      return debugElement && debugElement.map(debug => debug.nativeElement);
+      return [].slice.call(element.querySelectorAll(directiveOrSelector));
     } else {
       debugElement = debugElementRoot.queryAll(By.directive(directiveOrSelector));
     }
