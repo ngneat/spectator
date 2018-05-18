@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="1.5.4"></a>
+## [1.5.4](https://github.com/NetanelBasal/spectator/compare/v1.5.0...v1.5.4) (2018-05-18)
+
+
+### Bug Fixes
+
+* **detectchanges:** run detect changes on the component instead host ([77c77a1](https://github.com/NetanelBasal/spectator/commit/77c77a1))
+* **host:** add support for structural directives ([341afe2](https://github.com/NetanelBasal/spectator/commit/341afe2))
+* **host:** remove default object value ([cadb8c3](https://github.com/NetanelBasal/spectator/commit/cadb8c3))
+* **query:** prefer native js over angular api ([e0fe656](https://github.com/NetanelBasal/spectator/commit/e0fe656))
+* **setinput:** run component detect changes instead host ([0bb73d4](https://github.com/NetanelBasal/spectator/commit/0bb73d4))
+
+
+
 <a name="1.5.3"></a>
 ## [1.5.3](https://github.com/NetanelBasal/spectator/compare/v1.5.2...v1.5.3) (2018-05-15)
 
