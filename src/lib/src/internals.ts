@@ -290,7 +290,8 @@ export function _getChild(debugElementRoot: DebugElement, element) {
     let debugElement: DebugElement;
 
     if (typeof directiveOrSelector === 'string') {
-      return element.querySelector(directiveOrSelector);
+      debugElement = debugElementRoot.query(By.css(directiveOrSelector));
+      return debugElement && debugElement.nativeElement;
     } else {
       debugElement = debugElementRoot.query(By.directive(directiveOrSelector));
     }
@@ -318,7 +319,8 @@ export function _getChildren(debugElementRoot: DebugElement, element) {
     let debugElement: DebugElement[];
 
     if (typeof directiveOrSelector === 'string') {
-      return [].slice.call(element.querySelectorAll(directiveOrSelector));
+      debugElement = debugElementRoot.queryAll(By.css(directiveOrSelector));
+      return debugElement && debugElement.map(debug => debug.nativeElement);
     } else {
       debugElement = debugElementRoot.queryAll(By.directive(directiveOrSelector));
     }
