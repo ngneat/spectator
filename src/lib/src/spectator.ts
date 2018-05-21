@@ -6,11 +6,12 @@
  * found in the LICENSE file at https://github.com/NetanelBasal/spectator/blob/master/LICENSE
  */
 
-import { Type } from '@angular/core';
+import { Type, NgModule } from '@angular/core';
 import { async, TestBed } from '@angular/core/testing';
 import * as customMatchers from './matchers';
 import { Spectator } from './internals';
 import { initialModule, SpectatorOptions } from './config';
+import { BrowserDynamicTestingModule } from '@angular/platform-browser-dynamic/testing';
 
 /**
  * Create factory-function for tested component
@@ -29,6 +30,12 @@ export function createTestComponentFactory<T>(options: SpectatorOptions<T> | Typ
 
   beforeEach(
     async(() => {
+      @NgModule({
+        entryComponents: [moduleMetadata.entryComponents ? moduleMetadata.entryComponents : []]
+      })
+      class EntryComponentModule {}
+
+      moduleMetadata.imports = [moduleMetadata.imports ? moduleMetadata.imports : [], EntryComponentModule];
       TestBed.configureTestingModule(moduleMetadata).compileComponents();
     })
   );
