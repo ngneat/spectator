@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="1.7.0"></a>
+# [1.7.0](https://github.com/NetanelBasal/spectator/compare/1.6.1...1.7.0) (2018-05-22)
+
+
+### Features
+
+* **mocks:** add mock component function ([ce20d26](https://github.com/NetanelBasal/spectator/commit/ce20d26))
+
+
+
 <a name="1.6.0"></a>
 # [1.6.0](https://github.com/NetanelBasal/spectator/compare/v1.5.5...v1.6.0) (2018-05-21)
 
