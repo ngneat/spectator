@@ -94,6 +94,8 @@ export function createHostComponentFactory<C, H = HostComponent>(options: Specta
 
     if (detectChanges) {
       spectatorWithHost.hostFixture.detectChanges();
+      /** Detect changes on the component - useful for onPushComponents */
+      spectatorWithHost.detectComponentChanges();
     }
 
     return spectatorWithHost;
