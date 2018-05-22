@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="1.7.1"></a>
+## [1.7.1](https://github.com/NetanelBasal/spectator/compare/v1.7.0...v1.7.1) (2018-05-22)
+
+
+### Bug Fixes
+
+* **host:** add change detection component on init ([d22e53d](https://github.com/NetanelBasal/spectator/commit/d22e53d))
+
+
+
 <a name="1.7.0"></a>
 # [1.7.0](https://github.com/NetanelBasal/spectator/compare/1.6.1...1.7.0) (2018-05-22)
 
