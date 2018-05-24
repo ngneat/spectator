@@ -15,6 +15,7 @@ import { typeInElement } from './type-in-element';
 import { patchElementFocus } from './element-focus';
 import { Observable } from 'rxjs/Observable';
 import { SpectatorError } from './errors';
+import { SpyObject } from './mock';
 
 declare const require: Function;
 const $ = require('jquery');
@@ -34,7 +35,7 @@ export class Spectator<C> {
    * @param {Type<T> | InjectionToken<T>} type
    * @returns {T}
    */
-  get<T>(type: Type<T> | InjectionToken<T>): T {
+  get<T>(type: Type<T> | InjectionToken<T>): T & SpyObject<T> {
     return TestBed.get(type);
   }
 
