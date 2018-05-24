@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="1.7.3"></a>
+## [1.7.3](https://github.com/NetanelBasal/spectator/compare/v1.7.2...v1.7.3) (2018-05-24)
+
+
+### Bug Fixes
+
+* **types:** add spyobject type to get method ([87b5c5b](https://github.com/NetanelBasal/spectator/commit/87b5c5b))
+
+
+
 <a name="1.7.2"></a>
 ## [1.7.2](https://github.com/NetanelBasal/spectator/compare/v1.7.1...v1.7.2) (2018-05-22)
 
