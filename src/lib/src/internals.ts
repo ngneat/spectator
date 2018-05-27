@@ -69,7 +69,7 @@ export class Spectator<C> {
   query<R>(directiveOrSelector: string, options?: { read }): Element;
   query<R>(directiveOrSelector: Type<any>, options?: { read }): R;
   query<R>(directiveOrSelector: Type<any> | string, options: { read } = { read: undefined }): R {
-    return _getChild(this.debugElement, this.element)(directiveOrSelector, options);
+    return _getChild(this.debugElement)(directiveOrSelector, options);
   }
 
   /**

@@ -30,7 +30,7 @@ export class SpectatorWithHost<C, H = HostComponent> extends Spectator<C> {
   queryHost<T>(directiveOrSelector: string, options?: { read }): Element;
   queryHost<T>(directiveOrSelector: Type<T>, options?: { read }): T;
   queryHost<T>(directiveOrSelector: Type<T> | string, options: { read } = { read: undefined }): T {
-    return _getChild(this.hostDebugElement, this.hostElement)(directiveOrSelector, options);
+    return _getChild(this.hostDebugElement)(directiveOrSelector, options);
   }
 
   /**
