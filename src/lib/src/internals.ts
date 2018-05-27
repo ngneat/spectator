@@ -13,9 +13,9 @@ import { dispatchFakeEvent, dispatchKeyboardEvent, dispatchMouseEvent, dispatchT
 import { createMouseEvent } from './event-objects';
 import { typeInElement } from './type-in-element';
 import { patchElementFocus } from './element-focus';
+import { Observable } from 'rxjs/Observable';
 import { SpectatorError } from './errors';
 import { SpyObject } from './mock';
-import { Observable } from 'rxjs/Observable';
 
 declare const require: Function;
 const $ = require('jquery');
@@ -289,7 +289,7 @@ export class Spectator<C> {
  * @returns {<T>(directiveOrSelector: (Type<T> | string), options?: {read}) => T}
  * @private
  */
-export function _getChild(debugElementRoot: DebugElement, element) {
+export function _getChild(debugElementRoot: DebugElement) {
   return function<R>(directiveOrSelector: Type<any> | string, options: { read } = { read: undefined }): R {
     let debugElement: DebugElement;
 
