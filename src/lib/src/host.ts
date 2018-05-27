@@ -30,7 +30,7 @@ export class SpectatorWithHost<C, H = HostComponent> extends Spectator<C> {
   queryHost<T>(directiveOrSelector: string, options?: { read }): Element;
   queryHost<T>(directiveOrSelector: Type<T>, options?: { read }): T;
   queryHost<T>(directiveOrSelector: Type<T> | string, options: { read } = { read: undefined }): T {
-    return _getChild(this.hostDebugElement, this.hostElement)(directiveOrSelector, options);
+    return _getChild(this.hostDebugElement)(directiveOrSelector, options);
   }
 
   /**
@@ -42,7 +42,7 @@ export class SpectatorWithHost<C, H = HostComponent> extends Spectator<C> {
   queryHostAll<T>(directiveOrSelector: string, options?: { read }): Element[];
   queryHostAll<T>(directiveOrSelector: Type<T>, options?: { read }): T[];
   queryHostAll<T>(directiveOrSelector: Type<T> | string, options: { read } = { read: undefined }): T[] {
-    return _getChildren(this.hostDebugElement, this.hostElement)(directiveOrSelector, options);
+    return _getChildren(this.hostDebugElement)(directiveOrSelector, options);
   }
 
   setHostInput<K extends keyof H>(input: Partial<H>);
@@ -67,13 +67,14 @@ export function createHostComponentFactory<C, H = HostComponent>(options: Specta
   });
 
   return (template: string, detectChanges = true, initialInputs?: Partial<C>) => {
-    TestBed.overrideComponent(host, { set: { template: template } });
-
     TestBed.overrideModule(BrowserDynamicTestingModule, {
       set: {
         entryComponents: moduleMetadata.entryComponents
       }
     });
+
+    TestBed.overrideComponent(host, { set: { template: template, providers: [moduleMetadata.componentProviders] } });
+
     const spectatorWithHost = new SpectatorWithHost<C, H>();
     spectatorWithHost.hostFixture = TestBed.createComponent(host);
     //  The host component instance

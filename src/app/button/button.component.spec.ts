@@ -1,10 +1,16 @@
 import { ButtonComponent } from "./button.component";
 import { createTestComponentFactory } from "../../lib/src/spectator";
 import { Spectator } from "../../lib/src/internals";
+import { QueryService } from "../query.service";
 
 describe("ButtonComponent", () => {
   let spectator: Spectator<ButtonComponent>;
-  const createComponent = createTestComponentFactory(ButtonComponent);
+
+  const createComponent = createTestComponentFactory<ButtonComponent>({
+    component: ButtonComponent,
+    componentProviders: [{ provide: QueryService, useValue: "Netanel" }],
+    mocks: [QueryService]
+  });
 
   it('should set the "success" class by default', () => {
     spectator = createComponent();

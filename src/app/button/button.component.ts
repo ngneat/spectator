@@ -1,18 +1,22 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from "@angular/core";
+import { QueryService } from "../query.service";
 
 @Component({
-  selector: 'app-button',
+  selector: "app-button",
   template: `
     <button class="{{className}}" (click)="onClick($event)">{{title}}</button>
   `,
+  providers: [QueryService],
   styles: []
 })
 export class ButtonComponent {
-  @Input() className = 'success';
-  @Input() title = '';
+  @Input() className = "success";
+  @Input() title = "";
   @Output() click = new EventEmitter();
 
-  onClick( $event ) {
+  constructor(private queryService: QueryService) {}
+
+  onClick($event) {
     this.click.emit($event);
   }
 }

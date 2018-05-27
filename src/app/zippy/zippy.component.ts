@@ -1,4 +1,5 @@
 import { Component, HostListener, Input } from "@angular/core";
+import { QueryService } from "../query.service";
 
 @Component({
   selector: "zippy",
@@ -29,6 +30,8 @@ export class ZippyComponent {
   };
   visible = false;
   updatedAsync = false;
+
+  constructor(private queryService: QueryService) {}
 
   toggle() {
     this.visible = !this.visible;

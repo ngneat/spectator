@@ -36,7 +36,13 @@ export function createTestComponentFactory<T>(options: SpectatorOptions<T> | Typ
       class EntryComponentModule {}
 
       moduleMetadata.imports = [moduleMetadata.imports ? moduleMetadata.imports : [], EntryComponentModule];
-      TestBed.configureTestingModule(moduleMetadata).compileComponents();
+      TestBed.configureTestingModule(moduleMetadata)
+        .overrideComponent(component, {
+          set: {
+            providers: [moduleMetadata.componentProviders]
+          }
+        })
+        .compileComponents();
     })
   );
 

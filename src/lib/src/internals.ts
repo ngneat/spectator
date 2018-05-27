@@ -35,7 +35,10 @@ export class Spectator<C> {
    * @param {Type<T> | InjectionToken<T>} type
    * @returns {T}
    */
-  get<T>(type: Type<T> | InjectionToken<T>): T & SpyObject<T> {
+  get<T>(type: Type<T> | InjectionToken<T>, fromComponentInjector = false): T & SpyObject<T> {
+    if (fromComponentInjector) {
+      return this.debugElement.injector.get(type) as T & SpyObject<T>;
+    }
     return TestBed.get(type);
   }
 
@@ -66,7 +69,7 @@ export class Spectator<C> {
   query<R>(directiveOrSelector: string, options?: { read }): Element;
   query<R>(directiveOrSelector: Type<any>, options?: { read }): R;
   query<R>(directiveOrSelector: Type<any> | string, options: { read } = { read: undefined }): R {
-    return _getChild(this.debugElement, this.element)(directiveOrSelector, options);
+    return _getChild(this.debugElement)(directiveOrSelector, options);
   }
 
   /**
@@ -78,7 +81,7 @@ export class Spectator<C> {
   queryAll<R>(directiveOrSelector: string, options?: { read }): Element[];
   queryAll<R>(directiveOrSelector: Type<any>, options?: { read }): R[];
   queryAll<R>(directiveOrSelector: Type<any> | string, options: { read } = { read: undefined }): R[] {
-    return _getChildren(this.debugElement, this.element)(directiveOrSelector, options);
+    return _getChildren(this.debugElement)(directiveOrSelector, options);
   }
 
   /**
@@ -90,7 +93,7 @@ export class Spectator<C> {
   queryLast<R>(directiveOrSelector: string, options?: { read }): Element;
   queryLast<R>(directiveOrSelector: Type<any>, options?: { read }): R;
   queryLast<R>(directiveOrSelector: Type<any> | string, options: { read } = { read: undefined }): R {
-    const result = _getChildren(this.debugElement, this.element)(directiveOrSelector, options);
+    const result = _getChildren(this.debugElement)(directiveOrSelector, options);
     if (result && result.length) {
       return result[result.length - 1] as R;
     }
@@ -286,7 +289,7 @@ export class Spectator<C> {
  * @returns {<T>(directiveOrSelector: (Type<T> | string), options?: {read}) => T}
  * @private
  */
-export function _getChild(debugElementRoot: DebugElement, element) {
+export function _getChild(debugElementRoot: DebugElement) {
   return function<R>(directiveOrSelector: Type<any> | string, options: { read } = { read: undefined }): R {
     let debugElement: DebugElement;
 
@@ -315,7 +318,7 @@ export function _getChild(debugElementRoot: DebugElement, element) {
  * @returns {<T>(directiveOrSelector: (Type<T> | string), options?: {read}) => T[]}
  * @private
  */
-export function _getChildren(debugElementRoot: DebugElement, element) {
+export function _getChildren(debugElementRoot: DebugElement) {
   return function<R>(directiveOrSelector: Type<any> | string, options: { read } = { read: undefined }): R[] {
     let debugElement: DebugElement[];
 
