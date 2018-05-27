@@ -1,7 +1,7 @@
 {
   "name": "@netbasal/spectator",
   "description": "Angular tests made easy",
-  "version": "1.5.4",
+  "version": "1.7.3",
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -18,7 +18,7 @@
   "bugs": {
     "url": "https://github.com/NetanelBasal/spectator/issues"
   },
-  "homepage": "https://github.com/NetanelBasal/spectatori#readme",
+  "homepage": "https://github.com/NetanelBasal/spectator#readme",
   "keywords": [
     "angular unit test",
     "angular simplified tests",

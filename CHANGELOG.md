@@ -2,6 +2,67 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="1.7.3"></a>
+## [1.7.3](https://github.com/NetanelBasal/spectator/compare/v1.7.2...v1.7.3) (2018-05-24)
+
+
+### Bug Fixes
+
+* **types:** add spyobject type to get method ([87b5c5b](https://github.com/NetanelBasal/spectator/commit/87b5c5b))
+
+
+
+<a name="1.7.2"></a>
+## [1.7.2](https://github.com/NetanelBasal/spectator/compare/v1.7.1...v1.7.2) (2018-05-22)
+
+
+### Bug Fixes
+
+* **readme:** update ([0390bc0](https://github.com/NetanelBasal/spectator/commit/0390bc0))
+
+
+
+<a name="1.7.1"></a>
+## [1.7.1](https://github.com/NetanelBasal/spectator/compare/v1.7.0...v1.7.1) (2018-05-22)
+
+
+### Bug Fixes
+
+* **host:** add change detection component on init ([d22e53d](https://github.com/NetanelBasal/spectator/commit/d22e53d))
+
+
+
+<a name="1.7.0"></a>
+# [1.7.0](https://github.com/NetanelBasal/spectator/compare/1.6.1...1.7.0) (2018-05-22)
+
+
+### Features
+
+* **mocks:** add mock component function ([ce20d26](https://github.com/NetanelBasal/spectator/commit/ce20d26))
+
+
+
+<a name="1.6.0"></a>
+# [1.6.0](https://github.com/NetanelBasal/spectator/compare/v1.5.5...v1.6.0) (2018-05-21)
+
+
+### Features
+
+* **spectator:** entry component and query selector ([8397295](https://github.com/NetanelBasal/spectator/commit/8397295))
+
+
+
+<a name="1.5.5"></a>
+## [1.5.5](https://github.com/NetanelBasal/spectator/compare/v1.5.3...v1.5.5) (2018-05-21)
+
+
+### Bug Fixes
+
+* **internal:** revert to angular selector ([81f5308](https://github.com/NetanelBasal/spectator/commit/81f5308))
+* **query:** prefer native js over angular api ([e0fe656](https://github.com/NetanelBasal/spectator/commit/e0fe656))
+
+
+
 <a name="1.5.4"></a>
 ## [1.5.4](https://github.com/NetanelBasal/spectator/compare/v1.5.0...v1.5.4) (2018-05-18)
 

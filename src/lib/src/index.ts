@@ -11,3 +11,5 @@ export * from './rgb-to-hex';
 export * from './service';
 export * from './spectator';
 export * from './type-in-element';
+export * from './globals';
+export * from './mock-component';

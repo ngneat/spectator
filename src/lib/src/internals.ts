@@ -14,7 +14,8 @@ import { createMouseEvent } from './event-objects';
 import { typeInElement } from './type-in-element';
 import { patchElementFocus } from './element-focus';
 import { SpectatorError } from './errors';
-import { Observable } from 'rxjs';
+import { SpyObject } from './mock';
+import { Observable } from 'rxjs/Observable';
 
 declare const require: Function;
 const $ = require('jquery');
@@ -34,7 +35,10 @@ export class Spectator<C> {
    * @param {Type<T> | InjectionToken<T>} type
    * @returns {T}
    */
-  get<T>(type: Type<T> | InjectionToken<T>): T {
+  get<T>(type: Type<T> | InjectionToken<T>, fromComponentInjector = false): T & SpyObject<T> {
+    if (fromComponentInjector) {
+      return this.debugElement.injector.get(type) as T & SpyObject<T>;
+    }
     return TestBed.get(type);
   }
 
@@ -77,7 +81,7 @@ export class Spectator<C> {
   queryAll<R>(directiveOrSelector: string, options?: { read }): Element[];
   queryAll<R>(directiveOrSelector: Type<any>, options?: { read }): R[];
   queryAll<R>(directiveOrSelector: Type<any> | string, options: { read } = { read: undefined }): R[] {
-    return _getChildren(this.debugElement, this.element)(directiveOrSelector, options);
+    return _getChildren(this.debugElement)(directiveOrSelector, options);
   }
 
   /**
@@ -89,7 +93,7 @@ export class Spectator<C> {
   queryLast<R>(directiveOrSelector: string, options?: { read }): Element;
   queryLast<R>(directiveOrSelector: Type<any>, options?: { read }): R;
   queryLast<R>(directiveOrSelector: Type<any> | string, options: { read } = { read: undefined }): R {
-    const result = _getChildren(this.debugElement, this.element)(directiveOrSelector, options);
+    const result = _getChildren(this.debugElement)(directiveOrSelector, options);
     if (result && result.length) {
       return result[result.length - 1] as R;
     }
@@ -290,7 +294,8 @@ export function _getChild(debugElementRoot: DebugElement, element) {
     let debugElement: DebugElement;
 
     if (typeof directiveOrSelector === 'string') {
-      return element.querySelector(directiveOrSelector);
+      debugElement = debugElementRoot.query(By.css(directiveOrSelector));
+      return debugElement && debugElement.nativeElement;
     } else {
       debugElement = debugElementRoot.query(By.directive(directiveOrSelector));
     }
@@ -313,12 +318,13 @@ export function _getChild(debugElementRoot: DebugElement, element) {
  * @returns {<T>(directiveOrSelector: (Type<T> | string), options?: {read}) => T[]}
  * @private
  */
-export function _getChildren(debugElementRoot: DebugElement, element) {
+export function _getChildren(debugElementRoot: DebugElement) {
   return function<R>(directiveOrSelector: Type<any> | string, options: { read } = { read: undefined }): R[] {
     let debugElement: DebugElement[];
 
     if (typeof directiveOrSelector === 'string') {
-      return [].slice.call(element.querySelectorAll(directiveOrSelector));
+      debugElement = debugElementRoot.queryAll(By.css(directiveOrSelector));
+      return debugElement && debugElement.map(debug => debug.nativeElement);
     } else {
       debugElement = debugElementRoot.queryAll(By.directive(directiveOrSelector));
     }

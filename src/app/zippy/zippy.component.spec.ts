@@ -5,15 +5,23 @@ import {
 } from "../../lib/src/host";
 import { Component } from "@angular/core";
 import { fakeAsync, tick } from "@angular/core/testing";
+import { QueryService } from "../query.service";
 
 describe("ZippyComponent", () => {
   let host: SpectatorWithHost<ZippyComponent>;
 
-  const createHost = createHostComponentFactory<ZippyComponent>(ZippyComponent);
+  const createHost = createHostComponentFactory<ZippyComponent>({
+    component: ZippyComponent,
+    mocks: [QueryService],
+    componentProviders: [
+      { provide: QueryService, useValue: "componentProviders" }
+    ]
+  });
 
   it("should display the title", () => {
     host = createHost(`<zippy title="Zippy title"></zippy>`);
-
+    console.log(host.get(QueryService, true));
+    console.log(host.get(QueryService));
     expect(host.query(".zippy__title")).toHaveText(text => "Zippy title");
   });
 
@@ -111,6 +119,9 @@ describe("With Custom Host Component", function() {
     CustomHostComponent
   >({
     component: ZippyComponent,
+    componentProviders: [
+      { provide: QueryService, useValue: "componentProviders" }
+    ],
     host: CustomHostComponent
   });
 

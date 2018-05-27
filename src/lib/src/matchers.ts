@@ -67,7 +67,7 @@ const comparator = func => () => ({
 export const toExist = comparator((el: string | Element) => {
   const actual = $(el).length;
   const pass = actual > 0;
-  const message = () => `Expected element${pass ? ' not' : ''} to exist`;
+  const message = () => `Expected ${el} element${pass ? ' not' : ''} to exist`;
   return { pass, message };
 });
 
