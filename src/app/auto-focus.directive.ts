@@ -1,7 +1,7 @@
-import { Directive, ElementRef, Input } from '@angular/core';
+import { Directive, ElementRef, Input } from "@angular/core";
 
 @Directive({
-  selector: '[datoAutoFocus]'
+  selector: "[datoAutoFocus]"
 })
 export class AutoFocusDirective {
   @Input()
@@ -12,4 +12,8 @@ export class AutoFocusDirective {
   }
 
   public constructor(private host: ElementRef) {}
+
+  public method() {
+    console.log();
+  }
 }
