@@ -66,7 +66,7 @@ export class Spectator<C> {
    * @param {{read}} options
    * @returns {T}
    */
-  query<R>(directiveOrSelector: string, options?: { read }): Element;
+  query<R = Element>(directiveOrSelector: string, options?: { read }): R;
   query<R>(directiveOrSelector: Type<any>, options?: { read }): R;
   query<R>(directiveOrSelector: Type<any> | string, options: { read } = { read: undefined }): R {
     return _getChild(this.debugElement)(directiveOrSelector, options);
@@ -78,7 +78,7 @@ export class Spectator<C> {
    * @param {{read}} options
    * @returns {T[]}
    */
-  queryAll<R>(directiveOrSelector: string, options?: { read }): Element[];
+  queryAll<R = Element[]>(directiveOrSelector: string, options?: { read }): R;
   queryAll<R>(directiveOrSelector: Type<any>, options?: { read }): R[];
   queryAll<R>(directiveOrSelector: Type<any> | string, options: { read } = { read: undefined }): R[] {
     return _getChildren(this.debugElement)(directiveOrSelector, options);
@@ -90,7 +90,7 @@ export class Spectator<C> {
    * @param {{read}} options
    * @returns {Element[]}
    */
-  queryLast<R>(directiveOrSelector: string, options?: { read }): Element;
+  queryLast<R = Element>(directiveOrSelector: string, options?: { read }): R;
   queryLast<R>(directiveOrSelector: Type<any>, options?: { read }): R;
   queryLast<R>(directiveOrSelector: Type<any> | string, options: { read } = { read: undefined }): R {
     const result = _getChildren(this.debugElement)(directiveOrSelector, options);
