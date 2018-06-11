@@ -26,7 +26,7 @@ Spectator helps you get rid of all the boilerplate grunt work, leaving you with 
 `npm install @netbasal/spectator --save-dev`
 
 ## Documentation
-Learn about it on the [docs site](https://netbasal.gitbooks.io/spectator/content/)
+Learn about it on the [docs site](https://netbasal.gitbook.io/spectator/)
 
 ## Spectator CLI
 Auto generate specs with the [CLI](https://github.com/NetanelBasal/spectator-cli)
