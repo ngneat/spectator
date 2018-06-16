@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="1.10.0"></a>
+# [1.10.0](https://github.com/NetanelBasal/spectator/compare/v1.9.1...v1.10.0) (2018-06-16)
+
+
+### Features
+
+* **changelog:** update ([30ed3da](https://github.com/NetanelBasal/spectator/commit/30ed3da))
+* **matchers:** add `toHaveProperty` and `toHaveAttribute` matchers ([303ae6d](https://github.com/NetanelBasal/spectator/commit/303ae6d)), closes [#21](https://github.com/NetanelBasal/spectator/issues/21)
+
+
+
 <a name="1.9.1"></a>
 ## [1.9.1](https://github.com/NetanelBasal/spectator/compare/v1.9.0...v1.9.1) (2018-06-01)
 
