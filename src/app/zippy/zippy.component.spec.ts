@@ -36,13 +36,13 @@ describe("ZippyComponent", () => {
     const a = document.querySelectorAll(".fiv");
     const b = host.query(".color");
 
-    expect(host.query(".zippy")).toHaveAttr({ attr: "id", val: "zippy" });
+    expect(host.query(".zippy")).toHaveAttribute("id", "zippy");
   });
 
   it("should be checked", () => {
     host = createHost(`<zippy title="Zippy title">Zippy content</zippy>`);
 
-    expect(host.query(".checkbox")).toHaveProp({ prop: "checked", val: true });
+    expect(host.query(".checkbox")).toHaveProperty("checked", true);
   });
 
   it("should display the content", () => {
