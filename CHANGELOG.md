@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="1.11.0"></a>
+# [1.11.0](https://github.com/NetanelBasal/spectator/compare/v1.10.0...v1.11.0) (2018-06-20)
+
+
+### Features
+
+* **directive:** add MockDirective helper function ([842f0a7](https://github.com/NetanelBasal/spectator/commit/842f0a7))
+
+
+
 <a name="1.10.0"></a>
 # [1.10.0](https://github.com/NetanelBasal/spectator/compare/v1.9.1...v1.10.0) (2018-06-16)
 

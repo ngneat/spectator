@@ -49,6 +49,15 @@
         "bug",
         "code"
       ]
+    },
+    {
+      "login": "benelliott",
+      "name": "Ben Elliott",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/4996462?v=4",
+      "profile": "http://benjaminelliott.co.uk",
+      "contributions": [
+        "code"
+      ]
     }
   ]
 }
