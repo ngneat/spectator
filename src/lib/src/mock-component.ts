@@ -9,7 +9,7 @@ import { Component, EventEmitter } from '@angular/core';
 export function MockComponent(options: Component): Component {
   const metadata: Component = {
     selector: options.selector,
-    template: options.template || '',
+    template: options.template || '<ng-content></ng-content>',
     inputs: options.inputs,
     outputs: options.outputs || [],
     exportAs: options.exportAs || ''
