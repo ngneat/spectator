@@ -41,6 +41,7 @@
     "@angular/platform-browser-dynamic": "^5.2.10",
     "@angular/router": "^5.2.10",
     "core-js": "^2.4.1",
+    "dom-testing-library": "2.1.0",
     "helpful-decorators": "^1.7.2",
     "jquery": "^3.3.1",
     "npm": "^6.1.0",

@@ -27,10 +27,10 @@ export class SpectatorWithHost<C, H = HostComponent> extends Spectator<C> {
    * @param {{read}} options
    * @returns {T}
    */
-  queryHost<T>(directiveOrSelector: string, options?: { read }): Element;
+  queryHost<T extends Element>(directiveOrSelector: string): T;
   queryHost<T>(directiveOrSelector: Type<T>, options?: { read }): T;
   queryHost<T>(directiveOrSelector: Type<T> | string, options: { read } = { read: undefined }): T {
-    return _getChild(this.hostDebugElement)(directiveOrSelector, options);
+    return _getChild<T>(this.hostDebugElement)(directiveOrSelector, options);
   }
 
   /**
@@ -39,10 +39,10 @@ export class SpectatorWithHost<C, H = HostComponent> extends Spectator<C> {
    * @param {{read}} options
    * @returns {T[]}
    */
-  queryHostAll<T>(directiveOrSelector: string, options?: { read }): Element[];
+  queryHostAll<T extends Element>(directiveOrSelector: string): T[];
   queryHostAll<T>(directiveOrSelector: Type<T>, options?: { read }): T[];
   queryHostAll<T>(directiveOrSelector: Type<T> | string, options: { read } = { read: undefined }): T[] {
-    return _getChildren(this.hostDebugElement)(directiveOrSelector, options);
+    return _getChildren<T>(this.hostDebugElement)(directiveOrSelector, options);
   }
 
   setHostInput<K extends keyof H>(input: Partial<H>);
