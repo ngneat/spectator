@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="1.8.1"></a>
+## [1.8.1](https://github.com/NetanelBasal/spectator/compare/v1.8.0...v1.8.1) (2018-06-26)
+
+
+### Bug Fixes
+
+* **host:** don't override input changes ([054a3c2](https://github.com/NetanelBasal/spectator/commit/054a3c2)), closes [#31](https://github.com/NetanelBasal/spectator/issues/31)
+
+
+
 <a name="1.8.0"></a>
 # [1.8.0](https://github.com/NetanelBasal/spectator/compare/v1.7.3...v1.8.0) (2018-05-27)
 
