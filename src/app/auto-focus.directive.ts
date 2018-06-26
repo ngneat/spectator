@@ -13,5 +13,7 @@ export class AutoFocusDirective {
 
   public constructor(private host: ElementRef) {}
 
-  method() {}
+  public method() {
+    console.log();
+  }
 }

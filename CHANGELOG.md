@@ -2,13 +2,53 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<<<<<<< HEAD
 <a name="1.8.1"></a>
 ## [1.8.1](https://github.com/NetanelBasal/spectator/compare/v1.8.0...v1.8.1) (2018-06-26)
+=======
+<a name="1.11.0"></a>
+# [1.11.0](https://github.com/NetanelBasal/spectator/compare/v1.10.0...v1.11.0) (2018-06-20)
+
+
+### Features
+
+* **directive:** add MockDirective helper function ([842f0a7](https://github.com/NetanelBasal/spectator/commit/842f0a7))
+
+
+
+<a name="1.10.0"></a>
+# [1.10.0](https://github.com/NetanelBasal/spectator/compare/v1.9.1...v1.10.0) (2018-06-16)
+
+
+### Features
+
+* **changelog:** update ([30ed3da](https://github.com/NetanelBasal/spectator/commit/30ed3da))
+* **matchers:** add `toHaveProperty` and `toHaveAttribute` matchers ([303ae6d](https://github.com/NetanelBasal/spectator/commit/303ae6d)), closes [#21](https://github.com/NetanelBasal/spectator/issues/21)
+
+
+
+<a name="1.9.1"></a>
+## [1.9.1](https://github.com/NetanelBasal/spectator/compare/v1.9.0...v1.9.1) (2018-06-01)
+>>>>>>> 2856a80c867657e5d6a8c520e08876d20ccc7737
 
 
 ### Bug Fixes
 
+<<<<<<< HEAD
 * **host:** don't override input changes ([054a3c2](https://github.com/NetanelBasal/spectator/commit/054a3c2)), closes [#31](https://github.com/NetanelBasal/spectator/issues/31)
+=======
+* **query:** query now can accept a generic to define the return value ([acd3b4a](https://github.com/NetanelBasal/spectator/commit/acd3b4a))
+
+
+
+<a name="1.9.0"></a>
+# [1.9.0](https://github.com/NetanelBasal/spectator/compare/v1.8.0...v1.9.0) (2018-05-28)
+
+
+### Features
+
+* **directive:** add getDirectiveInstance to host ([9b2ffc6](https://github.com/NetanelBasal/spectator/commit/9b2ffc6))
+>>>>>>> 2856a80c867657e5d6a8c520e08876d20ccc7737
 
 
 

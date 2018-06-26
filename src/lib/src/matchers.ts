@@ -106,7 +106,7 @@ export const toHaveClass = comparator((el, expected: string) => {
 });
 
 /**
- *
+ * @deprecated
  * expect(host.query('.zippy')).toHaveAttr({ attr: 'id', val: 'zippy' });
  */
 export const toHaveAttr = comparator((el, { attr, val }) => {
@@ -118,10 +118,29 @@ export const toHaveAttr = comparator((el, { attr, val }) => {
 });
 
 /**
- *
+ * expect(host.query('.zippy')).toHaveAttr({ attr: 'id', val: 'zippy' });
+ */
+export const toHaveAttribute = comparator((el, attr, val) => {
+  const actual = $(el).attr(attr);
+  const addendum = val !== undefined ? ` with value '${val}'` : '';
+  const pass = hasProperty(actual, val);
+  const message = () => `Expected element${pass ? ' not' : ''} to have attribute '${attr}'${addendum}, but had '${actual}'`;
+  return { pass, message };
+});
+
+/**
+ *  @deprecated
  *  expect(host.query('.checkbox')).toHaveProp({ prop: 'checked', val: true });
  */
 export const toHaveProp = comparator((el, { prop, val }) => {
+  const actual = $(el).prop(prop);
+  const addendum = val !== undefined ? ` with value '${val}'` : '';
+  const pass = hasProperty(actual, val);
+  const message = () => `Expected element${pass ? ' not' : ''} to have property '${prop}'${addendum}, but had '${actual}'`;
+  return { pass, message };
+});
+
+export const toHaveProperty = comparator((el, prop, val) => {
   const actual = $(el).prop(prop);
   const addendum = val !== undefined ? ` with value '${val}'` : '';
   const pass = hasProperty(actual, val);
