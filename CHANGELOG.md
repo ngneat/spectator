@@ -10,8 +10,6 @@ All notable changes to this project will be documented in this file. See [standa
 
 * **host:** don't override component inputs ([814e0b0](https://github.com/NetanelBasal/spectator/commit/814e0b0))
 
-
-
 <a name="1.11.0"></a>
 # [1.11.0](https://github.com/NetanelBasal/spectator/compare/v1.10.0...v1.11.0) (2018-06-20)
 
@@ -39,17 +37,7 @@ All notable changes to this project will be documented in this file. See [standa
 
 ### Bug Fixes
 
-* **query:** query now can accept a generic to define the return value ([acd3b4a](https://github.com/NetanelBasal/spectator/commit/acd3b4a))
-
-
-
-<a name="1.9.0"></a>
-# [1.9.0](https://github.com/NetanelBasal/spectator/compare/v1.8.0...v1.9.0) (2018-05-28)
-
-
-### Features
-
-* **directive:** add getDirectiveInstance to host ([9b2ffc6](https://github.com/NetanelBasal/spectator/commit/9b2ffc6))
+* **host:** don't override input changes ([054a3c2](https://github.com/NetanelBasal/spectator/commit/054a3c2)), closes [#31](https://github.com/NetanelBasal/spectator/issues/31)
 
 
 
