@@ -89,12 +89,15 @@ export function createHostComponentFactory<C, H = HostComponent>(options: Specta
       spectatorWithHost.element = spectatorWithHost.debugElement.nativeElement;
     }
 
+    if (detectChanges) {
+      spectatorWithHost.hostFixture.detectChanges();
+    }
+
     if (initialInputs) {
       spectatorWithHost.setInput(initialInputs);
     }
 
     if (detectChanges) {
-      spectatorWithHost.hostFixture.detectChanges();
       /** Detect changes on the component - useful for onPushComponents */
       spectatorWithHost.detectComponentChanges();
     }
