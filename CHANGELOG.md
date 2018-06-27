@@ -2,6 +2,28 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="1.12.0"></a>
+# [1.12.0](https://github.com/NetanelBasal/spectator/compare/v1.11.1...v1.12.0) (2018-06-27)
+
+
+### Features
+
+* **query:** add dom-testing-library query tools ([82a42e2](https://github.com/NetanelBasal/spectator/commit/82a42e2))
+
+
+
+<a name="1.8.1"></a>
+## [1.8.1](https://github.com/NetanelBasal/spectator/compare/v1.11.0...v1.8.1) (2018-06-26)
+
+
+### Bug Fixes
+
+* **dev:** add missing jQuery dependency ([11e4234](https://github.com/NetanelBasal/spectator/commit/11e4234))
+* **dev:** remove node_modules ([e42443d](https://github.com/NetanelBasal/spectator/commit/e42443d))
+* **host:** don't override input changes ([054a3c2](https://github.com/NetanelBasal/spectator/commit/054a3c2)), closes [#31](https://github.com/NetanelBasal/spectator/issues/31)
+
+
+
 <a name="1.11.1"></a>
 ## [1.11.1](https://github.com/NetanelBasal/spectator/compare/v1.11.0...v1.11.1) (2018-06-26)
 
