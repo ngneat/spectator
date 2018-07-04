@@ -79,7 +79,7 @@ export class Spectator<C> {
    * @param {{read}} options
    * @returns {T[]}
    */
-  queryAll<R extends Element[]>(directiveOrSelector: string | DOMSelector): R[];
+  queryAll<R extends Element[]>(directiveOrSelector: string | DOMSelector): R;
   queryAll<R>(directiveOrSelector: Type<any>, options?: { read }): R[];
   queryAll<R>(directiveOrSelector: Type<any> | DOMSelector | string, options: { read } = { read: undefined }): R[] {
     return _getChildren<R>(this.debugElement)(directiveOrSelector, options);
