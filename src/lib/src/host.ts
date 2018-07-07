@@ -27,10 +27,10 @@ export class SpectatorWithHost<C, H = HostComponent> extends Spectator<C> {
    * @param {{read}} options
    * @returns {T}
    */
-  queryHost<T>(directiveOrSelector: string, options?: { read }): Element;
+  queryHost<T extends Element>(directiveOrSelector: string): T;
   queryHost<T>(directiveOrSelector: Type<T>, options?: { read }): T;
   queryHost<T>(directiveOrSelector: Type<T> | string, options: { read } = { read: undefined }): T {
-    return _getChild(this.hostDebugElement)(directiveOrSelector, options);
+    return _getChild<T>(this.hostDebugElement)(directiveOrSelector, options);
   }
 
   /**
@@ -39,10 +39,10 @@ export class SpectatorWithHost<C, H = HostComponent> extends Spectator<C> {
    * @param {{read}} options
    * @returns {T[]}
    */
-  queryHostAll<T>(directiveOrSelector: string, options?: { read }): Element[];
+  queryHostAll<T extends Element>(directiveOrSelector: string): T[];
   queryHostAll<T>(directiveOrSelector: Type<T>, options?: { read }): T[];
   queryHostAll<T>(directiveOrSelector: Type<T> | string, options: { read } = { read: undefined }): T[] {
-    return _getChildren(this.hostDebugElement)(directiveOrSelector, options);
+    return _getChildren<T>(this.hostDebugElement)(directiveOrSelector, options);
   }
 
   setHostInput<K extends keyof H>(input: Partial<H>);
@@ -50,6 +50,16 @@ export class SpectatorWithHost<C, H = HostComponent> extends Spectator<C> {
   setHostInput<K extends keyof H>(input: Partial<H> | K, inputValue?: H[K]) {
     _setInput(input, inputValue, this.hostComponent);
     this.hostFixture.detectChanges();
+  }
+
+  getDirectiveInstance<T>(directive: Type<any>, all?: false): T;
+  getDirectiveInstance<T>(directive: Type<any>, all?: true): T[];
+  getDirectiveInstance<T>(directive: Type<any>, all = false): T | T[] {
+    if (all) {
+      return this.hostFixture.debugElement.queryAll(By.directive(directive)).map(d => d.injector.get(directive));
+    }
+
+    return this.hostFixture.debugElement.query(By.directive(directive)).injector.get(directive);
   }
 }
 
@@ -95,6 +105,9 @@ export function createHostComponentFactory<C, H = HostComponent>(options: Specta
 
     if (detectChanges) {
       spectatorWithHost.hostFixture.detectChanges();
+    }
+
+    if (detectChanges) {
       /** Detect changes on the component - useful for onPushComponents */
       spectatorWithHost.detectComponentChanges();
     }

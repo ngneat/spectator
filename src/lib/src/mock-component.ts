@@ -1,4 +1,4 @@
-import { Component, EventEmitter } from '@angular/core';
+import { Component, EventEmitter, Type } from '@angular/core';
 
 /**
  * Examples:
@@ -6,9 +6,10 @@ import { Component, EventEmitter } from '@angular/core';
  * MockComponent({ selector: 'some-component', inputs: ['some-input', 'some-other-input'] });
  *
  */
-export function MockComponent(options: Component): Component {
-  const metadata: Component = {
+export function MockComponent(options: Component & { identifier?: Type<any> }): Component {
+  const metadata: Component & { identifier?: Type<any> } = {
     selector: options.selector,
+    identifier: options.identifier,
     template: options.template || '',
     inputs: options.inputs,
     outputs: options.outputs || [],
@@ -20,6 +21,10 @@ export function MockComponent(options: Component): Component {
   metadata.outputs.forEach(method => {
     Mock.prototype[method] = new EventEmitter<any>();
   });
+
+  if (options.identifier) {
+    metadata.providers = [{ provide: options.identifier, useClass: Mock }];
+  }
 
   return Component(metadata)(Mock as any);
 }

@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { of } from "rxjs/observable/of";
+import { of } from "rxjs";
 import { WidgetService } from "./widget.service";
 
 @Injectable()

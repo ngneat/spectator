@@ -3,9 +3,10 @@ import {
   createHostComponentFactory,
   SpectatorWithHost
 } from "../../lib/src/host";
-import { Component } from "@angular/core";
-import { fakeAsync, tick } from "@angular/core/testing";
+
 import { QueryService } from "../query.service";
+import { fakeAsync, tick } from "@angular/core/testing";
+import { Component } from "@angular/core";
 
 describe("ZippyComponent", () => {
   let host: SpectatorWithHost<ZippyComponent>;
@@ -20,8 +21,6 @@ describe("ZippyComponent", () => {
 
   it("should display the title", () => {
     host = createHost(`<zippy title="Zippy title"></zippy>`);
-    console.log(host.get(QueryService, true));
-    console.log(host.get(QueryService));
     expect(host.query(".zippy__title")).toHaveText(text => "Zippy title");
   });
 
@@ -37,13 +36,13 @@ describe("ZippyComponent", () => {
     const a = document.querySelectorAll(".fiv");
     const b = host.query(".color");
 
-    expect(host.query(".zippy")).toHaveAttr({ attr: "id", val: "zippy" });
+    expect(host.query(".zippy")).toHaveAttribute("id", "zippy");
   });
 
   it("should be checked", () => {
     host = createHost(`<zippy title="Zippy title">Zippy content</zippy>`);
 
-    expect(host.query(".checkbox")).toHaveProp({ prop: "checked", val: true });
+    expect(host.query(".checkbox")).toHaveProperty("checked", true);
   });
 
   it("should display the content", () => {

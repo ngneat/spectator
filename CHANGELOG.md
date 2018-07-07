@@ -2,6 +2,97 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="1.13.0"></a>
+# [1.13.0](https://github.com/NetanelBasal/spectator/compare/v1.12.1...v1.13.0) (2018-07-06)
+
+
+### Features
+
+* **mock-component:** add identifier option for easier query ([cd32554](https://github.com/NetanelBasal/spectator/commit/cd32554)), closes [#34](https://github.com/NetanelBasal/spectator/issues/34)
+
+
+
+<a name="1.12.1"></a>
+## [1.12.1](https://github.com/NetanelBasal/spectator/compare/v1.12.0...v1.12.1) (2018-07-05)
+
+
+### Bug Fixes
+
+* **query:** correct return type for queryAll ([a5c86d5](https://github.com/NetanelBasal/spectator/commit/a5c86d5))
+
+
+
+<a name="1.12.0"></a>
+# [1.12.0](https://github.com/NetanelBasal/spectator/compare/v1.11.1...v1.12.0) (2018-06-27)
+
+
+### Features
+
+* **query:** add dom-testing-library query tools ([82a42e2](https://github.com/NetanelBasal/spectator/commit/82a42e2))
+
+
+
+<a name="1.8.1"></a>
+## [1.8.1](https://github.com/NetanelBasal/spectator/compare/v1.11.0...v1.8.1) (2018-06-26)
+
+
+### Bug Fixes
+
+* **dev:** add missing jQuery dependency ([11e4234](https://github.com/NetanelBasal/spectator/commit/11e4234))
+* **dev:** remove node_modules ([e42443d](https://github.com/NetanelBasal/spectator/commit/e42443d))
+* **host:** don't override input changes ([054a3c2](https://github.com/NetanelBasal/spectator/commit/054a3c2)), closes [#31](https://github.com/NetanelBasal/spectator/issues/31)
+
+
+
+<a name="1.11.1"></a>
+## [1.11.1](https://github.com/NetanelBasal/spectator/compare/v1.11.0...v1.11.1) (2018-06-26)
+
+
+### Bug Fixes
+
+* **host:** don't override component inputs ([814e0b0](https://github.com/NetanelBasal/spectator/commit/814e0b0))
+
+<a name="1.11.0"></a>
+# [1.11.0](https://github.com/NetanelBasal/spectator/compare/v1.10.0...v1.11.0) (2018-06-20)
+
+
+### Features
+
+* **directive:** add MockDirective helper function ([842f0a7](https://github.com/NetanelBasal/spectator/commit/842f0a7))
+
+
+
+<a name="1.10.0"></a>
+# [1.10.0](https://github.com/NetanelBasal/spectator/compare/v1.9.1...v1.10.0) (2018-06-16)
+
+
+### Features
+
+* **changelog:** update ([30ed3da](https://github.com/NetanelBasal/spectator/commit/30ed3da))
+* **matchers:** add `toHaveProperty` and `toHaveAttribute` matchers ([303ae6d](https://github.com/NetanelBasal/spectator/commit/303ae6d)), closes [#21](https://github.com/NetanelBasal/spectator/issues/21)
+
+
+
+<a name="1.9.1"></a>
+## [1.9.1](https://github.com/NetanelBasal/spectator/compare/v1.9.0...v1.9.1) (2018-06-01)
+
+
+### Bug Fixes
+
+* **host:** don't override input changes ([054a3c2](https://github.com/NetanelBasal/spectator/commit/054a3c2)), closes [#31](https://github.com/NetanelBasal/spectator/issues/31)
+
+
+
+<a name="1.8.0"></a>
+# [1.8.0](https://github.com/NetanelBasal/spectator/compare/v1.7.3...v1.8.0) (2018-05-27)
+
+
+### Features
+
+* **providers:** add component providers option ([832c770](https://github.com/NetanelBasal/spectator/commit/832c770))
+
+
+
 <a name="1.7.3"></a>
 ## [1.7.3](https://github.com/NetanelBasal/spectator/compare/v1.7.2...v1.7.3) (2018-05-24)
 

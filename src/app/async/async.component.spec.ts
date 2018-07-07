@@ -2,7 +2,7 @@ import { AsyncComponent } from "./async.component";
 import { SpectatorWithHost } from "../../lib/src";
 import { createHostComponentFactory } from "../../lib/src/host";
 import { QueryService } from "../query.service";
-import { of } from "rxjs/observable/of";
+import { of } from "rxjs";
 
 describe("ZippyComponent", () => {
   let host: SpectatorWithHost<AsyncComponent>;

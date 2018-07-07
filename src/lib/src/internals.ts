@@ -13,9 +13,10 @@ import { dispatchFakeEvent, dispatchKeyboardEvent, dispatchMouseEvent, dispatchT
 import { createMouseEvent } from './event-objects';
 import { typeInElement } from './type-in-element';
 import { patchElementFocus } from './element-focus';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import { SpectatorError } from './errors';
 import { SpyObject } from './mock';
+import { DOMSelector } from './dom-selectors';
 
 declare const require: Function;
 const $ = require('jquery');
@@ -66,10 +67,10 @@ export class Spectator<C> {
    * @param {{read}} options
    * @returns {T}
    */
-  query<R>(directiveOrSelector: string, options?: { read }): Element;
+  query<R extends Element>(directiveOrSelector: string | DOMSelector): R;
   query<R>(directiveOrSelector: Type<any>, options?: { read }): R;
-  query<R>(directiveOrSelector: Type<any> | string, options: { read } = { read: undefined }): R {
-    return _getChild(this.debugElement)(directiveOrSelector, options);
+  query<R>(directiveOrSelector: Type<any> | DOMSelector | string, options: { read } = { read: undefined }): R {
+    return _getChild<R>(this.debugElement)(directiveOrSelector, options);
   }
 
   /**
@@ -78,10 +79,10 @@ export class Spectator<C> {
    * @param {{read}} options
    * @returns {T[]}
    */
-  queryAll<R>(directiveOrSelector: string, options?: { read }): Element[];
+  queryAll<R extends Element[]>(directiveOrSelector: string | DOMSelector): R;
   queryAll<R>(directiveOrSelector: Type<any>, options?: { read }): R[];
-  queryAll<R>(directiveOrSelector: Type<any> | string, options: { read } = { read: undefined }): R[] {
-    return _getChildren(this.debugElement)(directiveOrSelector, options);
+  queryAll<R>(directiveOrSelector: Type<any> | DOMSelector | string, options: { read } = { read: undefined }): R[] {
+    return _getChildren<R>(this.debugElement)(directiveOrSelector, options);
   }
 
   /**
@@ -90,12 +91,12 @@ export class Spectator<C> {
    * @param {{read}} options
    * @returns {Element[]}
    */
-  queryLast<R>(directiveOrSelector: string, options?: { read }): Element;
+  queryLast<R extends Element>(directiveOrSelector: string | DOMSelector): R;
   queryLast<R>(directiveOrSelector: Type<any>, options?: { read }): R;
-  queryLast<R>(directiveOrSelector: Type<any> | string, options: { read } = { read: undefined }): R {
-    const result = _getChildren(this.debugElement)(directiveOrSelector, options);
+  queryLast<R>(directiveOrSelector: Type<any> | DOMSelector | string, options: { read } = { read: undefined }): R {
+    const result = _getChildren<R>(this.debugElement)(directiveOrSelector, options);
     if (result && result.length) {
-      return result[result.length - 1] as R;
+      return result[result.length - 1];
     }
     return null;
   }
@@ -289,13 +290,15 @@ export class Spectator<C> {
  * @returns {<T>(directiveOrSelector: (Type<T> | string), options?: {read}) => T}
  * @private
  */
-export function _getChild(debugElementRoot: DebugElement) {
-  return function<R>(directiveOrSelector: Type<any> | string, options: { read } = { read: undefined }): R {
+export function _getChild<R>(debugElementRoot: DebugElement) {
+  return function(directiveOrSelector: Type<any> | DOMSelector | string, options: { read } = { read: undefined }): R {
     let debugElement: DebugElement;
 
     if (typeof directiveOrSelector === 'string') {
       debugElement = debugElementRoot.query(By.css(directiveOrSelector));
       return debugElement && debugElement.nativeElement;
+    } else if (directiveOrSelector instanceof DOMSelector) {
+      return directiveOrSelector.execute(debugElementRoot.nativeElement)[0] as any;
     } else {
       debugElement = debugElementRoot.query(By.directive(directiveOrSelector));
     }
@@ -318,13 +321,15 @@ export function _getChild(debugElementRoot: DebugElement) {
  * @returns {<T>(directiveOrSelector: (Type<T> | string), options?: {read}) => T[]}
  * @private
  */
-export function _getChildren(debugElementRoot: DebugElement) {
-  return function<R>(directiveOrSelector: Type<any> | string, options: { read } = { read: undefined }): R[] {
+export function _getChildren<R>(debugElementRoot: DebugElement) {
+  return function(directiveOrSelector: Type<any> | DOMSelector | string, options: { read } = { read: undefined }): R[] {
     let debugElement: DebugElement[];
 
     if (typeof directiveOrSelector === 'string') {
       debugElement = debugElementRoot.queryAll(By.css(directiveOrSelector));
       return debugElement && debugElement.map(debug => debug.nativeElement);
+    } else if (directiveOrSelector instanceof DOMSelector) {
+      return directiveOrSelector.execute(debugElementRoot.nativeElement) as any[];
     } else {
       debugElement = debugElementRoot.queryAll(By.directive(directiveOrSelector));
     }

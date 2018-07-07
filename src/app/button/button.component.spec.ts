@@ -5,7 +5,8 @@ import { QueryService } from "../query.service";
 
 describe("ButtonComponent", () => {
   let spectator: Spectator<ButtonComponent>;
-  const createComponent = createTestComponentFactory({
+
+  const createComponent = createTestComponentFactory<ButtonComponent>({
     component: ButtonComponent,
     componentProviders: [{ provide: QueryService, useValue: "Netanel" }],
     mocks: [QueryService]

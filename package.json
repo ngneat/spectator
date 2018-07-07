@@ -4,7 +4,6 @@
   "license": "MIT",
   "description": "Angular tests made easy",
   "scripts": {
-    "rxjs": "rxjs-5-to-6-migrate -p src/tsconfig.app.json",
     "format": "prettier --write src/lib/src/*.ts",
     "commit": "git-cz",
     "commitmsg": "commitlint -e $GIT_PARAMS",
@@ -42,7 +41,10 @@
     "@angular/platform-browser-dynamic": "6.0.2",
     "@angular/router": "6.0.2",
     "core-js": "^2.4.1",
+    "dom-testing-library": "2.1.0",
     "helpful-decorators": "^1.7.2",
+    "jquery": "^3.3.1",
+    "npm": "^6.1.0",
     "rxjs": "^6.1.0",
     "zone.js": "^0.8.26"
   },
@@ -80,7 +82,6 @@
     "rimraf": "^2.6.2",
     "rollup": "^0.54.0",
     "run-sequence": "^2.2.1",
-    "rxjs-compat": "^6.1.0",
     "rxjs-tslint": "^0.1.4",
     "sorcery": "^0.10.0",
     "sync-json": "^1.0.2",
