@@ -10,7 +10,6 @@ export function MockComponent(options: Component & { identifier?: Type<any> }): 
   const metadata: Component & { identifier?: Type<any> } = {
     selector: options.selector,
     identifier: options.identifier,
-    template: options.template || '',
     template: options.template || '<ng-content></ng-content>',
     inputs: options.inputs,
     outputs: options.outputs || [],
