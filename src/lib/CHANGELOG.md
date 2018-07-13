@@ -2,6 +2,25 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="3.0.0"></a>
+# [3.0.0](https://github.com/NetanelBasal/spectator/compare/v1.13.0...v3.0.0) (2018-07-13)
+
+
+### Features
+
+* **mock-component:** content projection for default MockComponent ([7c3ba52](https://github.com/NetanelBasal/spectator/commit/7c3ba52))
+* **providers:** allow passing component providers ([bcb235b](https://github.com/NetanelBasal/spectator/commit/bcb235b))
+* **upgrade:** upgrade to angular 6 ([2a2ee0a](https://github.com/NetanelBasal/spectator/commit/2a2ee0a)), closes [#20](https://github.com/NetanelBasal/spectator/issues/20) [#14](https://github.com/NetanelBasal/spectator/issues/14)
+* **upgrade:** upgrade to latest versions of angular and rxjs ([8fff888](https://github.com/NetanelBasal/spectator/commit/8fff888))
+
+
+### BREAKING CHANGES
+
+* **upgrade:** Upgrade to Angular 6 and RxJS 6
+* **upgrade:** the library depends on latest version of angular and rxjs
+
+
+
 <a name="1.13.0"></a>
 # [1.13.0](https://github.com/NetanelBasal/spectator/compare/v1.12.1...v1.13.0) (2018-07-06)
 
