@@ -22,6 +22,8 @@ import { FgComponent } from "./fg/fg.component";
 import { ReactiveFormsModule } from "@angular/forms";
 import { AsyncComponent } from "./async/async.component";
 import { DomSelectorsComponent } from "./dom-selectors/dom-selectors.component";
+import { HelloComponent } from "./hello/hello.component";
+import { AsyncInputComponent } from "./async-input/async-input.component";
 
 @NgModule({
   declarations: [
@@ -41,7 +43,9 @@ import { DomSelectorsComponent } from "./dom-selectors/dom-selectors.component";
     AutoFocusDirective,
     FgComponent,
     AsyncComponent,
-    DomSelectorsComponent
+    DomSelectorsComponent,
+    HelloComponent,
+    AsyncInputComponent
   ],
   entryComponents: [DynamicComponent],
   imports: [BrowserModule, HttpClientModule, ReactiveFormsModule],

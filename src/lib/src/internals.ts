@@ -51,7 +51,7 @@ export class Spectator<C> {
   }
 
   /**
-   * Run detect changes explictly on the tested componet
+   * Run detect changes explicitly on the tested component
    */
   detectComponentChanges() {
     if (this.debugElement) {

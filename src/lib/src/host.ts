@@ -107,11 +107,6 @@ export function createHostComponentFactory<C, H = HostComponent>(options: Specta
       spectatorWithHost.setInput(initialInputs);
     }
 
-    if (detectChanges) {
-      /** Detect changes on the component - useful for onPushComponents */
-      spectatorWithHost.detectComponentChanges();
-    }
-
     return spectatorWithHost;
   };
 }

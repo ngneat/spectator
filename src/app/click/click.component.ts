@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { debounce } from 'helpful-decorators';
+import { Component, OnInit } from "@angular/core";
+import { debounce } from "helpful-decorators";
 
 @Component({
-  selector: 'app-click',
+  selector: "app-click",
   template: `
     <button (click)="onClick()">Change</button>
     <p>{{name}}</p>
@@ -10,18 +10,14 @@ import { debounce } from 'helpful-decorators';
   styles: []
 })
 export class ClickComponent implements OnInit {
-  name = 'init';
+  name = "init";
 
-  constructor() {
-  }
+  constructor() {}
 
-  ngOnInit() {
-    console.log('init');
-  }
+  ngOnInit() {}
 
   @debounce(100)
   onClick() {
-    this.name = 'changed';
+    this.name = "changed";
   }
-
 }
