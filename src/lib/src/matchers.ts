@@ -118,7 +118,7 @@ export const toHaveAttr = comparator((el, { attr, val }) => {
 });
 
 /**
- * expect(host.query('.zippy')).toHaveAttr({ attr: 'id', val: 'zippy' });
+ * expect(host.query('.zippy')).toHaveAttribute('id', 'zippy');
  */
 export const toHaveAttribute = comparator((el, attr, val) => {
   const actual = $(el).attr(attr);
@@ -140,6 +140,9 @@ export const toHaveProp = comparator((el, { prop, val }) => {
   return { pass, message };
 });
 
+/**
+ *  expect(host.query('.checkbox')).toHaveProperty('checked', true);
+ */
 export const toHaveProperty = comparator((el, prop, val) => {
   const actual = $(el).prop(prop);
   const addendum = val !== undefined ? ` with value '${val}'` : '';
