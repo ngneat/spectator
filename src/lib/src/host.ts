@@ -70,9 +70,6 @@ export function createHostComponentFactory<C, H = HostComponent>(options: Specta
 
   beforeEach(() => {
     jasmine.addMatchers(customMatchers as any);
-  });
-
-  beforeEach(() => {
     TestBed.configureTestingModule(moduleMetadata);
   });
 
@@ -83,7 +80,13 @@ export function createHostComponentFactory<C, H = HostComponent>(options: Specta
       }
     });
 
-    TestBed.overrideComponent(host, { set: { template: template, providers: [moduleMetadata.componentProviders] } });
+    TestBed.overrideComponent(host, { set: { template: template } });
+
+    TestBed.overrideComponent(component, {
+      set: {
+        providers: [moduleMetadata.componentProviders]
+      }
+    });
 
     const spectatorWithHost = new SpectatorWithHost<C, H>();
     spectatorWithHost.hostFixture = TestBed.createComponent(host);
