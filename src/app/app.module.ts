@@ -24,6 +24,7 @@ import { AsyncComponent } from "./async/async.component";
 import { DomSelectorsComponent } from "./dom-selectors/dom-selectors.component";
 import { HelloComponent } from "./hello/hello.component";
 import { AsyncInputComponent } from "./async-input/async-input.component";
+import { ComponentWithoutOverwrittenProvidersComponent } from "./no-overwritten-providers/no-overwritten-providers.component";
 
 @NgModule({
   declarations: [
@@ -45,7 +46,8 @@ import { AsyncInputComponent } from "./async-input/async-input.component";
     AsyncComponent,
     DomSelectorsComponent,
     HelloComponent,
-    AsyncInputComponent
+    AsyncInputComponent,
+    ComponentWithoutOverwrittenProvidersComponent
   ],
   entryComponents: [DynamicComponent],
   imports: [BrowserModule, HttpClientModule, ReactiveFormsModule],

@@ -82,11 +82,13 @@ export function createHostComponentFactory<C, H = HostComponent>(options: Specta
 
     TestBed.overrideComponent(host, { set: { template: template } });
 
-    TestBed.overrideComponent(component, {
-      set: {
-        providers: [moduleMetadata.componentProviders]
-      }
-    });
+    if (moduleMetadata.componentProviders) {
+      TestBed.overrideComponent(component, {
+        set: {
+          providers: [moduleMetadata.componentProviders]
+        }
+      });
+    }
 
     const spectatorWithHost = new SpectatorWithHost<C, H>();
     spectatorWithHost.hostFixture = TestBed.createComponent(host);

@@ -31,7 +31,6 @@ const defaultOptions: SpectatorOptions<any, any> = {
   shallow: false,
   host: HostComponent,
   entryComponents: [],
-  componentProviders: [],
   mocks: []
 };
 
@@ -49,7 +48,6 @@ export function initialModule<T, C = HostComponent>(options: SpectatorOptions<T,
       imports: [NoopAnimationsModule],
       schemas: [],
       providers: [],
-      componentProviders: [],
       entryComponents: []
     };
   } else {
@@ -61,7 +59,7 @@ export function initialModule<T, C = HostComponent>(options: SpectatorOptions<T,
       imports: [merged.disableAnimations ? NoopAnimationsModule : [], ...(merged.imports || [])],
       schemas: [merged.shallow ? NO_ERRORS_SCHEMA : []],
       providers: [...(merged.providers || [])],
-      componentProviders: [merged.componentProviders || []],
+      componentProviders: merged.componentProviders ? [merged.componentProviders] : undefined,
       entryComponents: [merged.entryComponents]
     };
 

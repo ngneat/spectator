@@ -28,23 +28,21 @@ export function createTestComponentFactory<T>(options: SpectatorOptions<T> | Typ
     jasmine.addMatchers(customMatchers as any);
   });
 
-  beforeEach(
-    async(() => {
-      @NgModule({
-        entryComponents: [moduleMetadata.entryComponents ? moduleMetadata.entryComponents : []]
-      })
-      class EntryComponentModule {}
-
-      moduleMetadata.imports = [moduleMetadata.imports ? moduleMetadata.imports : [], EntryComponentModule];
-      TestBed.configureTestingModule(moduleMetadata)
-        .overrideComponent(component, {
-          set: {
-            providers: [moduleMetadata.componentProviders]
-          }
-        })
-        .compileComponents();
+  beforeEach(async(() => {
+    @NgModule({
+      entryComponents: [moduleMetadata.entryComponents ? moduleMetadata.entryComponents : []]
     })
-  );
+    class EntryComponentModule {}
+
+    moduleMetadata.imports = [moduleMetadata.imports ? moduleMetadata.imports : [], EntryComponentModule];
+    TestBed.configureTestingModule(moduleMetadata)
+      .overrideComponent(component, {
+        set: {
+          providers: moduleMetadata.componentProviders ? [moduleMetadata.componentProviders] : undefined
+        }
+      })
+      .compileComponents();
+  }));
 
   return (componentParameters: Partial<T> = {}, detectChanges = true) => {
     const spectator = new Spectator<T>();
