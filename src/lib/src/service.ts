@@ -47,8 +47,8 @@ export function createService<S>(options: Params<S> | Type<S>): SpectatorService
     get service(): S {
       return TestBed.get(service);
     },
-    get<T>(provider: Provider): T & SpyObject<T> {
-      return TestBed.get(provider);
+    get<T>(token: any): T & SpyObject<T> {
+      return TestBed.get(token);
     }
   };
 }
