@@ -36,7 +36,7 @@ export function createService<S>(options: Params<S> | Type<S>): SpectatorService
   if (typeof options !== 'function') {
     (options.mocks || []).forEach(type => module.providers.push(mockProvider(type)));
     (options.providers || []).forEach(type => module.providers.push(type));
-    module.imports.concat(options.imports || []);
+    module.imports = module.imports.concat(options.imports || []);
   }
 
   beforeEach(() => {
