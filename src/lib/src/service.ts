@@ -13,7 +13,7 @@ import { mockProvider, SpyObject } from './mock';
 export interface SpectatorService<S> {
   service: S;
 
-  get<T>(provider: Provider): T & SpyObject<T>;
+  get<T>(token: any): T & SpyObject<T>;
 }
 
 export type Params<S> = {
