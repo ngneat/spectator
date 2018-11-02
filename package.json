@@ -10,7 +10,7 @@
     "test": "npx ng test",
     "lint": "npx ng lint",
     "e2e": "npx ng e2e",
-    "format": "npx prettier \"{projects,src}/**/*.ts\"",
+    "format": "npx prettier --write \"{projects,src}/**/*.ts\"",
     "commit": "git-cz",
     "commitmsg": "commitlint -e $GIT_PARAMS",
     "precommit": "lint-staged",

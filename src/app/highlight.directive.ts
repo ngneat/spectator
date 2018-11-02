@@ -4,8 +4,8 @@ import { Directive, HostBinding, HostListener } from '@angular/core';
   selector: '[highlight]'
 })
 export class HighlightDirective {
-
-  @HostBinding('style.background-color') backgroundColor: string;
+  @HostBinding('style.background-color')
+  backgroundColor: string;
 
   @HostListener('mouseover')
   onHover() {
