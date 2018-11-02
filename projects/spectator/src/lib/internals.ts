@@ -33,8 +33,8 @@ export class Spectator<C> {
 
   /**
    * Wrapper for TestBed.get()
-   * @param {Type<T> | InjectionToken<T>} type
-   * @returns {T}
+   * @param type
+   * @returns
    */
   get<T>(type: Type<T> | InjectionToken<T>, fromComponentInjector = false): T & SpyObject<T> {
     if (fromComponentInjector) {
@@ -63,9 +63,9 @@ export class Spectator<C> {
 
   /**
    *
-   * @param {Type<T> | string} directiveOrSelector
-   * @param {{read}} options
-   * @returns {T}
+   * @param directiveOrSelector
+   * @param options
+   * @returns
    */
   query<R extends Element>(directiveOrSelector: string | DOMSelector): R;
   query<R>(directiveOrSelector: Type<any>, options?: { read }): R;
@@ -75,9 +75,9 @@ export class Spectator<C> {
 
   /**
    *
-   * @param {Type<T> | string} directiveOrSelector
-   * @param {{read}} options
-   * @returns {T[]}
+   * @param directiveOrSelector
+   * @param options
+   * @returns
    */
   queryAll<R extends Element[]>(directiveOrSelector: string | DOMSelector): R;
   queryAll<R>(directiveOrSelector: Type<any>, options?: { read }): R[];
@@ -87,9 +87,9 @@ export class Spectator<C> {
 
   /**
    * Helper for getting the last value
-   * @param {string} directiveOrSelector
-   * @param {{read}} options
-   * @returns {Element[]}
+   * @param directiveOrSelector
+   * @param options
+   * @returns
    */
   queryLast<R extends Element>(directiveOrSelector: string | DOMSelector): R;
   queryLast<R>(directiveOrSelector: Type<any>, options?: { read }): R;
@@ -104,7 +104,7 @@ export class Spectator<C> {
   /**
    * Free style JQuery support
    * @param selector
-   * @returns {any}
+   * @returns
    */
   $$(selector) {
     return $(selector);
@@ -120,7 +120,7 @@ export class Spectator<C> {
    *   className: 'danger',
    *   title: 'title'
    * });
-   * @param {Partial<C>} input
+   * @param input
    */
   setInput<K extends keyof C>(input: Partial<C>);
   setInput<K extends keyof C>(input: K, inputValue: C[K]);
@@ -136,8 +136,8 @@ export class Spectator<C> {
    *  spectator.output<{ type: string }>('click')
    *    .subscribe(result => (output = result));
    *
-   * @param {K} output
-   * @returns {Observable<T>}
+   * @param output
+   * @returns
    */
   output<T, K extends keyof C = keyof C>(output: K): Observable<T> {
     const observable = this.component[output];
@@ -150,7 +150,7 @@ export class Spectator<C> {
 
   /**
    *
-   * @param {SpectatorElement} selector
+   * @param selector
    */
   click(selector: SpectatorElement) {
     const element = this.getNativeElement(selector);
@@ -160,8 +160,8 @@ export class Spectator<C> {
 
   /**
    * returns the native element from an SpectatorElement
-   * @param {SpectatorElement | Window} selector
-   * @returns {any}
+   * @param selector
+   * @returns
    */
   private getNativeElement(selector: SpectatorElement | Window | Document) {
     let element;
@@ -191,11 +191,11 @@ export class Spectator<C> {
 
   /**
    *
-   * @param {SpectatorElement} selector
-   * @param {string} type
-   * @param {number} x
-   * @param {number} y
-   * @param {MouseEvent} event
+   * @param selector
+   * @param type
+   * @param x
+   * @param y
+   * @param event
    */
   dispatchMouseEvent(selector: SpectatorElement, type: string, x = 0, y = 0, event = createMouseEvent(type, x, y)): MouseEvent {
     const _event = dispatchMouseEvent(this.getNativeElement(selector), type, x, y, event);
@@ -205,11 +205,11 @@ export class Spectator<C> {
 
   /**
    *
-   * @param {SpectatorElement} selector
-   * @param {string} type
-   * @param {number} keyCode
-   * @param {Element} target
-   * @returns {KeyboardEvent}
+   * @param selector
+   * @param type
+   * @param keyCode
+   * @param target
+   * @returns
    */
   dispatchKeyboardEvent(selector: SpectatorElement, type: string, keyCode: number, target?: Element): KeyboardEvent;
   dispatchKeyboardEvent(selector: SpectatorElement, type: string, key: string, target?: Element): KeyboardEvent;
@@ -221,10 +221,10 @@ export class Spectator<C> {
 
   /**
    *
-   * @param {SpectatorElement | Window} selector
-   * @param {string} type
-   * @param {boolean} canBubble
-   * @returns {Event}
+   * @param selector
+   * @param type
+   * @param canBubble
+   * @returns
    */
   dispatchFakeEvent(selector: SpectatorElement | Window, type: string, canBubble?: boolean): Event {
     const _event = dispatchFakeEvent(this.getNativeElement(selector), type, canBubble);
@@ -251,11 +251,11 @@ export class Spectator<C> {
 
   /**
    *
-   * @param {SpectatorElement} selector
-   * @param {string} type
-   * @param {number} x
-   * @param {number} y
-   * @returns {Event}
+   * @param selector
+   * @param type
+   * @param x
+   * @param y
+   * @returns
    */
   dispatchTouchEvent(selector: SpectatorElement, type: string, x = 0, y = 0) {
     const _event = dispatchTouchEvent(this.getNativeElement(selector), type, x, y);
@@ -265,8 +265,8 @@ export class Spectator<C> {
 
   /**
    *
-   * @param {string} value
-   * @param {HTMLInputElement} element
+   * @param value
+   * @param element
    */
   typeInElement(value: string, selector: SpectatorElement) {
     const _event = typeInElement(value, this.getNativeElement(selector));
@@ -276,7 +276,7 @@ export class Spectator<C> {
 
   /**
    *
-   * @param {HTMLElement} element
+   * @param element
    */
   patchElementFocus(element: HTMLElement) {
     patchElementFocus(element);
@@ -286,9 +286,9 @@ export class Spectator<C> {
 
 /**
  *
- * @param {DebugElement} debugElementRoot
- * @returns {<T>(directiveOrSelector: (Type<T> | string), options?: {read}) => T}
- * @private
+ * @param debugElementRoot
+ * @returns
+ * @internal
  */
 export function _getChild<R>(debugElementRoot: DebugElement) {
   return function(directiveOrSelector: Type<any> | DOMSelector | string, options: { read } = { read: undefined }): R {
@@ -317,9 +317,9 @@ export function _getChild<R>(debugElementRoot: DebugElement) {
 
 /**
  *
- * @param {DebugElement} debugElementRoot
- * @returns {<T>(directiveOrSelector: (Type<T> | string), options?: {read}) => T[]}
- * @private
+ * @param debugElementRoot
+ * @returns
+ * @internal
  */
 export function _getChildren<R>(debugElementRoot: DebugElement) {
   return function(directiveOrSelector: Type<any> | DOMSelector | string, options: { read } = { read: undefined }): R[] {
@@ -351,7 +351,7 @@ export function _getChildren<R>(debugElementRoot: DebugElement) {
  * @param input
  * @param inputValue
  * @param component
- * @private
+ * @internal
  */
 export function _setInput(input, inputValue, component) {
   if (typeof input === 'string') {

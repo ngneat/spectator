@@ -1,11 +1,8 @@
-import { Directive, Input, ViewContainerRef, TemplateRef } from "@angular/core";
+import { Directive, Input, TemplateRef, ViewContainerRef } from '@angular/core';
 
-@Directive({ selector: "[appUnless]" })
+@Directive({ selector: '[appUnless]' })
 export class AppUnlessDirective {
-  constructor(
-    private templateRef: TemplateRef<any>,
-    private viewContainer: ViewContainerRef
-  ) {}
+  constructor(private templateRef: TemplateRef<any>, private viewContainer: ViewContainerRef) {}
 
   @Input()
   set appUnless(condition: boolean) {

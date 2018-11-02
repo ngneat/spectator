@@ -1,8 +1,8 @@
-import { Component, OnInit } from "@angular/core";
-import { ChildServiceService } from "../child-service.service";
+import { Component, OnInit } from '@angular/core';
+import { ChildServiceService } from '../child-service.service';
 
 @Component({
-  selector: "app-child",
+  selector: 'app-child',
   template: `
     <p>
       child works!

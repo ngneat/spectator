@@ -1,8 +1,8 @@
-import { Component, OnInit } from "@angular/core";
-import { WidgetService } from "../widget.service";
+import { Component, OnInit } from '@angular/core';
+import { WidgetService } from '../widget.service';
 
 @Component({
-  selector: "app-widget",
+  selector: 'app-widget',
   template: `
     <button (click)="onClick()">Click</button>
   `,

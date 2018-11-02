@@ -1,8 +1,8 @@
-import { ChangeDetectionStrategy, Component, OnInit } from "@angular/core";
-import { QueryService } from "../query.service";
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { QueryService } from '../query.service';
 
 @Component({
-  selector: "app-async",
+  selector: 'app-async',
   template: `
     <p *ngIf="show$ | async">
       async works!

@@ -1,8 +1,8 @@
-import { ChangeDetectionStrategy, Component } from "@angular/core";
-import { DummyService } from "./dummy.service";
+import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { DummyService } from './dummy.service';
 
 @Component({
-  selector: "app-component-without-overwritten-providers",
+  selector: 'app-component-without-overwritten-providers',
   template: ``,
   changeDetection: ChangeDetectionStrategy.OnPush,
   styles: [],

@@ -1,4 +1,5 @@
 {
+  "$schema": "../../node_modules/ng-packagr/package.schema.json",
   "name": "@netbasal/spectator",
   "description": "Angular tests made easy",
   "version": "2.0.2",
@@ -7,12 +8,6 @@
     "type": "git",
     "url": "https://github.com/NetanelBasal/spectator"
   },
-  "scripts": {
-    "build": "rm -rf ./dist && tsc",
-    "pub": "npm publish --access public",
-    "tag": "git push --follow-tags origin master"
-  },
-  "author": "Netanel Basal <netanel7799s@gmail.com>",
   "bugs": {
     "url": "https://github.com/NetanelBasal/spectator/issues"
   },
@@ -27,20 +22,19 @@
     "angular test services",
     "angular testing dumb components"
   ],
-  "main": "dist/index.js",
-  "types": "./dist/index.d.ts",
+  "author": "Netanel Basal <netanel7799s@gmail.com>",
+  "peerDependencies": {
+    "@angular/common": "^7.0.0",
+    "@angular/core": "^7.0.0"
+  },
   "dependencies": {
     "dom-testing-library": "2.1.0",
     "jquery": "^3.3.1"
   },
-  "devDependencies": {
-    "@types/jasmine": "^2.8.6",
-    "copy": "^0.3.1",
-    "standard-version": "^4.3.0",
-    "typescript": "^2.8.1"
-  },
-  "peerDependencies": {
-    "@angular/common": "^6.0.0",
-    "@angular/core": "^6.0.0"
+  "ngPackage": {
+    "whitelistedNonPeerDependencies": [
+      "dom-testing-library",
+      "jquery"
+    ]
   }
 }

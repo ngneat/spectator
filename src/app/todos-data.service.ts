@@ -1,7 +1,7 @@
-import { HttpClient } from "@angular/common/http";
-import { Injectable } from "@angular/core";
-import { concatMap } from "rxjs/operators";
-import { defer } from "rxjs";
+import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { defer } from 'rxjs';
+import { concatMap } from 'rxjs/operators';
 
 export class UserService {
   getUser() {
@@ -14,17 +14,17 @@ export class TodosDataService {
   constructor(private http: HttpClient, private userService: UserService) {}
 
   get() {
-    return this.http.get("url");
+    return this.http.get('url');
   }
 
   post(id: number) {
-    return this.http.post("url", { id });
+    return this.http.post('url', { id });
   }
 
   twoRequests() {
-    return this.http.post("one", {}).pipe(
+    return this.http.post('one', {}).pipe(
       concatMap(() => {
-        return this.http.get("two");
+        return this.http.get('two');
       })
     );
   }
@@ -32,7 +32,7 @@ export class TodosDataService {
   requestWithExternalService() {
     return this.userService.getUser().pipe(
       concatMap(() => {
-        return this.http.get("two");
+        return this.http.get('two');
       })
     );
   }

@@ -1,6 +1,6 @@
-import { Injectable } from "@angular/core";
-import { of } from "rxjs";
-import { WidgetService } from "./widget.service";
+import { Injectable } from '@angular/core';
+import { of } from 'rxjs';
+import { WidgetService } from './widget.service';
 
 @Injectable()
 export class QueryService {

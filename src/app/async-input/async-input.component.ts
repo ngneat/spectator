@@ -1,7 +1,7 @@
-import { Component, Input, OnInit } from "@angular/core";
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
-  selector: "app-async-input",
+  selector: 'app-async-input',
   template: `
     <div *ngIf="show">Hello</div>
   `
