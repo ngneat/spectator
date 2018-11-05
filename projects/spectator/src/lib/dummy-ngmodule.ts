@@ -6,4 +6,4 @@ import { HostComponent } from './config';
 @NgModule({
   declarations: [HostComponent]
 })
-export class DummyNgModule {}
+export class __DummyNgModule {}
