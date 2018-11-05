@@ -1,5 +1,5 @@
 {
-  "name": "spectator-app",
+  "name": "spectator-src",
   "version": "0.0.0",
   "license": "MIT",
   "description": "Angular tests made easy",
@@ -11,13 +11,13 @@
     "lint": "npx ng lint",
     "e2e": "npx ng e2e",
     "format": "npx prettier --write \"{projects,src}/**/*.ts\"",
-    "commit": "git-cz",
-    "commitmsg": "commitlint -e $GIT_PARAMS",
-    "precommit": "lint-staged",
-    "contributors:add": "all-contributors add",
-    "contributors:generate": "all-contributors generate",
-    "test:ci": "cross-env NODE_ENV=build npm test",
-    "build:lib": "ng build spectator"
+    "commit": "npx git-cz",
+    "commitmsg": "npx commitlint -e $GIT_PARAMS",
+    "precommit": "npx lint-staged",
+    "contributors:add": "npx all-contributors add",
+    "contributors:generate": "npx all-contributors generate",
+    "test:ci": "npx cross-env NODE_ENV=build npm test",
+    "build:lib": "npx ng build spectator"
   },
   "private": true,
   "dependencies": {
