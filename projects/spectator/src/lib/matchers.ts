@@ -17,7 +17,7 @@ import { hex2rgb, isHex, trim } from './rgb-to-hex';
  *
  * @param actual
  * @param expected
- * @returns {boolean}
+ * @returns
  */
 const hasProperty = (actual, expected) => {
   return expected === undefined ? actual !== undefined : actual === expected;
@@ -26,7 +26,7 @@ const hasProperty = (actual, expected) => {
  *
  * @param el
  * @param css
- * @returns {boolean}
+ * @returns
  */
 const hasCss = (el, css) => {
   let prop;

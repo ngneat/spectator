@@ -1,7 +1,7 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: "app-dom-selectors",
+  selector: 'app-dom-selectors',
   template: `
     <p id="by-text-p">By text</p>
 

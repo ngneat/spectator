@@ -1,18 +1,15 @@
-import { TestBed, inject } from "@angular/core/testing";
+import { inject, TestBed } from '@angular/core/testing';
 
-import { ChildServiceService } from "./child-service.service";
+import { ChildServiceService } from './child-service.service';
 
-describe("ChildServiceService", () => {
+describe('ChildServiceService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       providers: [ChildServiceService]
     });
   });
 
-  it(
-    "should be created",
-    inject([ChildServiceService], (service: ChildServiceService) => {
-      expect(service).toBeTruthy();
-    })
-  );
+  it('should be created', inject([ChildServiceService], (service: ChildServiceService) => {
+    expect(service).toBeTruthy();
+  }));
 });

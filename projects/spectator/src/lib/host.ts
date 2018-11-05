@@ -23,9 +23,9 @@ export class SpectatorWithHost<C, H = HostComponent> extends Spectator<C> {
 
   /**
    *
-   * @param {Type<T> | string} directiveOrSelector
-   * @param {{read}} options
-   * @returns {T}
+   * @param directiveOrSelector
+   * @param options
+   * @returns
    */
   queryHost<T extends Element>(directiveOrSelector: string): T;
   queryHost<T>(directiveOrSelector: Type<T>, options?: { read }): T;
@@ -35,9 +35,9 @@ export class SpectatorWithHost<C, H = HostComponent> extends Spectator<C> {
 
   /**
    *
-   * @param {Type<T> | string} directiveOrSelector
-   * @param {{read}} options
-   * @returns {T[]}
+   * @param directiveOrSelector
+   * @param options
+   * @returns
    */
   queryHostAll<T extends Element>(directiveOrSelector: string): T[];
   queryHostAll<T>(directiveOrSelector: Type<T>, options?: { read }): T[];

@@ -1,7 +1,7 @@
+import { createHostComponentFactory, SpectatorWithHost } from '../../projects/spectator/src/lib/host';
 import { HighlightDirective } from './highlight.directive';
-import { createHostComponentFactory, SpectatorWithHost } from '../lib/src/host';
 
-describe('HighlightDirective', function () {
+describe('HighlightDirective', function() {
   let host: SpectatorWithHost<HighlightDirective>;
 
   const createHost = createHostComponentFactory(HighlightDirective);
@@ -20,5 +20,4 @@ describe('HighlightDirective', function () {
       backgroundColor: '#fff'
     });
   });
-
 });

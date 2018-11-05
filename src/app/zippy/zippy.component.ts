@@ -1,9 +1,15 @@
-import { Component, HostListener, Input } from "@angular/core";
-import { QueryService } from "../query.service";
+import { Component, HostListener, Input } from '@angular/core';
+import { QueryService } from '../query.service';
 
 @Component({
-  selector: "zippy",
-  styles: [`:host{display: block;}`],
+  selector: 'zippy',
+  styles: [
+    `
+      :host {
+        display: block;
+      }
+    `
+  ],
   template: `
     <div class="zippy" id="zippy">
       <div (click)="toggle()" class="zippy__title" (keyup.enter)="toggle()" (keyup.esc)="toggle()">
@@ -18,15 +24,16 @@ import { QueryService } from "../query.service";
   `
 })
 export class ZippyComponent {
-  @HostListener("keyup.esc")
+  @HostListener('keyup.esc')
   onEsc() {
     this.toggle();
   }
 
-  @Input() title;
+  @Input()
+  title;
   @Input()
   options = {
-    color: "red"
+    color: 'red'
   };
   visible = false;
   updatedAsync = false;

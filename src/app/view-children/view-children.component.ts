@@ -1,14 +1,8 @@
-import {
-  Component,
-  OnInit,
-  QueryList,
-  ViewChild,
-  ViewChildren
-} from "@angular/core";
-import { ChildComponent } from "../child/child.component";
+import { Component, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
+import { ChildComponent } from '../child/child.component';
 
 @Component({
-  selector: "app-view-children",
+  selector: 'app-view-children',
   template: `
     <section>
       <app-child></app-child>
@@ -21,11 +15,19 @@ import { ChildComponent } from "../child/child.component";
       <ng-content></ng-content>
     </section>
   `,
-  styles: [`:host {display: inline-block}`]
+  styles: [
+    `
+      :host {
+        display: inline-block;
+      }
+    `
+  ]
 })
 export class ViewChildrenComponent implements OnInit {
-  @ViewChild(ChildComponent) child: ChildComponent;
-  @ViewChildren(ChildComponent) children: QueryList<ChildComponent>;
+  @ViewChild(ChildComponent)
+  child: ChildComponent;
+  @ViewChildren(ChildComponent)
+  children: QueryList<ChildComponent>;
 
   constructor() {}
 

@@ -1,8 +1,8 @@
-import { FormGroup, FormControl } from "@angular/forms";
-import { Component, OnInit, Input } from "@angular/core";
+import { Component, Input, OnInit } from '@angular/core';
+import { FormGroup } from '@angular/forms';
 
 @Component({
-  selector: "app-fg",
+  selector: 'app-fg',
   template: `
     <form [formGroup]="group">
       <input formControlName="name">
@@ -11,7 +11,8 @@ import { Component, OnInit, Input } from "@angular/core";
   styles: []
 })
 export class FgComponent implements OnInit {
-  @Input() group: FormGroup;
+  @Input()
+  group: FormGroup;
 
   constructor() {}
 

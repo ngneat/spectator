@@ -28,14 +28,12 @@ export class SpectatorHTTP<T> {
 }
 
 export function createHTTPFactory<T>(dataService: Type<T>, providers = []) {
-  beforeEach(
-    async(() => {
-      TestBed.configureTestingModule({
-        imports: [HttpClientTestingModule],
-        providers: [dataService, ...providers]
-      });
-    })
-  );
+  beforeEach(async(() => {
+    TestBed.configureTestingModule({
+      imports: [HttpClientTestingModule],
+      providers: [dataService, ...providers]
+    });
+  }));
 
   afterEach(() => {
     TestBed.get(HttpTestingController).verify();

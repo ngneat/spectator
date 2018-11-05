@@ -1,6 +1,7 @@
 export * from './config';
 export * from './dispatch-events';
 export * from './dom-selectors';
+export * from './dummy-ngmodule';
 export * from './element-focus';
 export * from './event-objects';
 export * from './host';

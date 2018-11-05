@@ -9,7 +9,7 @@
 /**
  *
  * @param hex
- * @returns {string}
+ * @returns
  */
 export function hex2rgb(hex) {
   var h = hex.replace('#', '');
@@ -22,8 +22,8 @@ export function hex2rgb(hex) {
 
 /**
  *
- * @param {string} value
- * @returns {boolean}
+ * @param value
+ * @returns
  */
 export function isHex(value: string) {
   return /^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/.test(value);
@@ -31,8 +31,8 @@ export function isHex(value: string) {
 
 /**
  *
- * @param {string} value
- * @returns {string}
+ * @param value
+ * @returns
  */
 export function trim(value: string) {
   return value.replace(/\s/g, '');

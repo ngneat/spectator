@@ -1,7 +1,7 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: "app-calc",
+  selector: 'app-calc',
   template: `
     <input type="text" #a class="a">
     <input type="text" #b class="b">

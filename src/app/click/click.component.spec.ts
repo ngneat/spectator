@@ -13,8 +13,7 @@ describe('ClickComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ClickComponent]
-    })
-      .compileComponents();
+    }).compileComponents();
   }));
 
   beforeEach(() => {

@@ -1,7 +1,7 @@
-import { ChangeDetectionStrategy, Component, Input } from "@angular/core";
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 
 @Component({
-  selector: "hello",
+  selector: 'hello',
   template: `
     <div [style.width]="width">
       <h1>{{ title }}</h1>
@@ -13,15 +13,15 @@ import { ChangeDetectionStrategy, Component, Input } from "@angular/core";
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class HelloComponent {
-  @Input() title: string;
-  @Input() widthRaw: string | number;
+  @Input()
+  title: string;
+  @Input()
+  widthRaw: string | number;
 
   ngOnChanges(s) {
-    console.log("ngOnChanges", s);
+    console.log('ngOnChanges', s);
   }
   get width() {
-    return typeof this.widthRaw === "number"
-      ? `${this.widthRaw}px`
-      : this.widthRaw;
+    return typeof this.widthRaw === 'number' ? `${this.widthRaw}px` : this.widthRaw;
   }
 }

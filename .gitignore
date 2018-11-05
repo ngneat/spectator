@@ -2,13 +2,13 @@
 
 # compiled output
 /dist
-/dist-server
 /tmp
 /out-tsc
-src/lib/dist
-src/lib/yarn-error.log
+/projects/spectator/dist
+
 # dependencies
 /node_modules
+
 # IDEs and editors
 /.idea
 .project
@@ -17,7 +17,7 @@ src/lib/yarn-error.log
 *.launch
 .settings/
 *.sublime-workspace
-src/lib/node_modules
+
 # IDE - VSCode
 .vscode/*
 !.vscode/settings.json
@@ -34,10 +34,6 @@ npm-debug.log
 yarn-error.log
 testem.log
 /typings
-
-# e2e
-/e2e/*.js
-/e2e/*.map
 
 # System Files
 .DS_Store

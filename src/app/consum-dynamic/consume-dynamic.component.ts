@@ -1,13 +1,8 @@
-import {
-  Component,
-  ComponentFactoryResolver,
-  OnInit,
-  ViewContainerRef
-} from "@angular/core";
-import { DynamicComponent } from "../dynamic/dynamic.component";
+import { Component, ComponentFactoryResolver, OnInit, ViewContainerRef } from '@angular/core';
+import { DynamicComponent } from '../dynamic/dynamic.component';
 
 @Component({
-  selector: "app-consume-dynamic",
+  selector: 'app-consume-dynamic',
   template: `
     <p>
       consume-dynamic works!
@@ -16,10 +11,7 @@ import { DynamicComponent } from "../dynamic/dynamic.component";
   styles: []
 })
 export class ConsumeDynamicComponent implements OnInit {
-  constructor(
-    private resolver: ComponentFactoryResolver,
-    private ref: ViewContainerRef
-  ) {}
+  constructor(private resolver: ComponentFactoryResolver, private ref: ViewContainerRef) {}
 
   ngOnInit() {
     const factory = this.resolver.resolveComponentFactory(DynamicComponent);
