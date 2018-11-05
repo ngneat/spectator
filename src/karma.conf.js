@@ -22,12 +22,12 @@ module.exports = function (config) {
       reports: ['html', 'lcovonly'],
       fixWebpackSourcePaths: true
     },
-    reporters : ['mocha'],
+    reporters: ['mocha'],
     port: 9876,
     colors: true,
     logLevel: config.LOG_INFO,
     autoWatch: true,
-    browsers  : [build ? 'ChromeHeadless' : 'Chrome'],
-    singleRun : build
+    browsers: [build ? 'ChromeHeadless' : 'Chrome'],
+    singleRun: build
   });
 };
