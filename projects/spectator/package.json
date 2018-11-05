@@ -2,7 +2,8 @@
   "$schema": "../../node_modules/ng-packagr/package.schema.json",
   "name": "@netbasal/spectator",
   "description": "Angular tests made easy",
-  "version": "2.0.2",
+  "author": "Netanel Basal <netanel7799s@gmail.com>",
+  "version": "2.0.7",
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -22,7 +23,6 @@
     "angular test services",
     "angular testing dumb components"
   ],
-  "author": "Netanel Basal <netanel7799s@gmail.com>",
   "peerDependencies": {
     "@angular/common": "^7.0.0",
     "@angular/core": "^7.0.0"
