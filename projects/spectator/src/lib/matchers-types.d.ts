@@ -10,15 +10,15 @@ declare namespace jasmine {
     /**
      * @deprecated
      */
-    toHaveAttr({ attr, val }): boolean;
-    toHaveAttribute(attr, val): boolean;
+    toHaveAttr({ attr, val }: { attr: string; val: string }): boolean;
+    toHaveAttribute(attr: string, val: string): boolean;
     /**
      * @deprecated
      */
-    toHaveProp({ prop, val }): boolean;
-    toHaveProperty(prop, val): boolean;
+    toHaveProp({ prop, val }: { prop: string; val: string }): boolean;
+    toHaveProperty(prop: string, val: string | boolean): boolean;
 
-    toHaveProperty(prop, val): boolean;
+    toHaveProperty(prop: string, val: string | boolean): boolean;
 
     toHaveText(text: string | Function): boolean;
 
@@ -26,7 +26,7 @@ declare namespace jasmine {
 
     toHaveStyle(style: { [styleKey: string]: any }): boolean;
 
-    toHaveData({ data, val }): boolean;
+    toHaveData({ data, val }: { data: string; val: string }): boolean;
 
     toBeChecked(): boolean;
 
@@ -46,6 +46,6 @@ declare namespace jasmine {
 
     toHaveDescendant(selector: string | Element): boolean;
 
-    toHaveDescendantWithText({ selector, text }): boolean;
+    toHaveDescendantWithText({ selector, text }: { selector: string; text: string }): boolean;
   }
 }
