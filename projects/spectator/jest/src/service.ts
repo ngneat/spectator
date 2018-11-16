@@ -7,7 +7,7 @@
  */
 
 import { Type } from '@angular/core';
-import { Params, SpectatorService as BaseSpectatorService, createService as baseCreateService } from '@netbasal/spectator';
+import { Params, SpectatorService as BaseSpectatorService, createService as baseCreateService, isType } from '@netbasal/spectator';
 
 import { mockProvider, SpyObject } from './mock';
 
@@ -16,7 +16,7 @@ export interface SpectatorService<S> extends BaseSpectatorService<S> {
 }
 
 export function createService<S>(options: Params<S> | Type<S>): SpectatorService<S> {
-  if (typeof options !== 'function') {
+  if (!isType(options)) {
     options.providers = options.providers || [];
     (options.mocks || []).forEach(type => options.providers.push(mockProvider(type)));
     options.mocks = [];

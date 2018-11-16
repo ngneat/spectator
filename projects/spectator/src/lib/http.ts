@@ -27,7 +27,7 @@ export class SpectatorHTTP<T> {
   expectOne: (url: string, method: HTTPMethod) => TestRequest;
 }
 
-export function createHTTPFactory<T>(dataService: Type<T>, providers = []) {
+export function createHTTPFactory<T>(dataService: Type<T>, providers = []): () => SpectatorHTTP<T> {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [HttpClientTestingModule],

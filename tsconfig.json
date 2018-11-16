@@ -18,6 +18,9 @@
       "dom"
     ],
     "paths": {
+      "@netbasal/spectator/jest": [
+        "dist/spectator/jest"
+      ],
       "@netbasal/spectator": [
         "dist/spectator"
       ]

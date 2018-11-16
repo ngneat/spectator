@@ -64,7 +64,7 @@ export class SpectatorWithHost<C, H = HostComponent> extends Spectator<C> {
 }
 
 export function createHostComponentFactory<C, H = HostComponent>(options: SpectatorOptions<C, H> | Type<C>): (template: string, detectChanges?: boolean, complexInputs?: Partial<C>) => SpectatorWithHost<C, H> {
-  const { component, moduleMetadata, host } = initialModule<C>(options, true);
+  const { component, moduleMetadata, host } = initialModule<C, H>(options, true);
 
   beforeEach(() => {
     jasmine.addMatchers(customMatchers as any);

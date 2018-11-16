@@ -10,6 +10,7 @@ import { TestModuleMetadata } from '@angular/core/testing';
 import { Component, NO_ERRORS_SCHEMA, Type } from '@angular/core';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { mockProvider } from './mock';
+import { isType } from './is-type';
 
 @Component({
   template: ''
@@ -34,13 +35,20 @@ const defaultOptions: SpectatorOptions<any, any> = {
   mocks: []
 };
 
-export function initialModule<T, C = HostComponent>(options: SpectatorOptions<T, C> | Type<T>, withHost = false) {
+export function initialModule<T, C = HostComponent>(
+  options: SpectatorOptions<T, C> | Type<T>,
+  withHost = false
+): {
+  moduleMetadata: TestModuleMetadata & SpectatorOptions<T, C>;
+  component: Type<T>;
+  host: Type<C>;
+} {
   const merged = Object.assign({}, defaultOptions, options);
   let moduleMetadata: TestModuleMetadata & Partial<SpectatorOptions<T, C>>;
   let component;
   let host;
 
-  if (typeof options === 'function') {
+  if (isType(options)) {
     component = options;
     host = HostComponent;
     moduleMetadata = {

@@ -15,6 +15,6 @@ export class SpectatorHTTP<T> extends BaseSpectatorHTTP<T> {
   get: <S>(service: Type<S>) => S & SpyObject<S>;
 }
 
-export function createHTTPFactory<T>(dataService: Type<T>, providers = []) {
+export function createHTTPFactory<T>(dataService: Type<T>, providers = []): () => SpectatorHTTP<T> {
   return baseCreateHTTPFactory(dataService, providers) as () => SpectatorHTTP<T>;
 }

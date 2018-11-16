@@ -7,7 +7,7 @@
  */
 
 import { InjectionToken, Type } from '@angular/core';
-import { SpectatorWithHost as BaseSpectatorWithHost, createHostComponentFactory as baseCreateHostComponentFactory, HostComponent, SpectatorOptions } from '@netbasal/spectator';
+import { SpectatorWithHost as BaseSpectatorWithHost, createHostComponentFactory as baseCreateHostComponentFactory, HostComponent, SpectatorOptions, isType } from '@netbasal/spectator';
 
 import { mockProvider, SpyObject } from './mock';
 
@@ -21,7 +21,7 @@ export class SpectatorWithHost<C, H = HostComponent> extends BaseSpectatorWithHo
 }
 
 export function createHostComponentFactory<C, H = HostComponent>(options: SpectatorOptions<C, H> | Type<C>): (template: string, detectChanges?: boolean, complexInputs?: Partial<C>) => SpectatorWithHost<C, H> {
-  if (typeof options !== 'function') {
+  if (!isType(options)) {
     options.providers = options.providers || [];
     (options.mocks || []).forEach(type => options.providers.push(mockProvider(type)));
     options.mocks = [];
