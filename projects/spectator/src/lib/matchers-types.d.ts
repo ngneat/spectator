@@ -20,7 +20,59 @@ declare namespace jasmine {
 
     toHaveProperty(prop: string, val: string | boolean): boolean;
 
-    toHaveText(text: string | Function): boolean;
+    toHaveText(text: string | ((_: string) => boolean)): boolean;
+
+    toHaveValue(value: string): boolean;
+
+    toHaveStyle(style: { [styleKey: string]: any }): boolean;
+
+    toHaveData({ data, val }: { data: string; val: string }): boolean;
+
+    toBeChecked(): boolean;
+
+    toBeDisabled(): boolean;
+
+    toBeEmpty(): boolean;
+
+    toBeHidden(): boolean;
+
+    toBeSelected(): boolean;
+
+    toBeVisible(): boolean;
+
+    toBeFocused(): boolean;
+
+    toBeMatchedBy(selector: string | Element): boolean;
+
+    toHaveDescendant(selector: string | Element): boolean;
+
+    toHaveDescendantWithText({ selector, text }: { selector: string; text: string }): boolean;
+  }
+}
+
+declare namespace jest {
+  interface Matchers<R> {
+    toExist(): boolean;
+
+    toHaveLength(expected: number): boolean;
+
+    toHaveId(id: string | number): boolean;
+
+    toHaveClass(className: string): boolean;
+    /**
+     * @deprecated
+     */
+    toHaveAttr({ attr, val }: { attr: string; val: string }): boolean;
+    toHaveAttribute(attr: string, val: string): boolean;
+    /**
+     * @deprecated
+     */
+    toHaveProp({ prop, val }: { prop: string; val: string }): boolean;
+    toHaveProperty(prop: string, val: string | boolean): boolean;
+
+    toHaveProperty(prop: string, val: string | boolean): boolean;
+
+    toHaveText(text: string | ((_: string) => boolean)): boolean;
 
     toHaveValue(value: string): boolean;
 

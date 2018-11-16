@@ -1,5 +1,4 @@
-import { Spectator } from '../../../projects/spectator/src/lib/internals';
-import { createTestComponentFactory } from '../../../projects/spectator/src/lib/spectator';
+import { createTestComponentFactory, Spectator } from '@netbasal/spectator';
 import { QueryService } from '../query.service';
 import { ButtonComponent } from './button.component';
 

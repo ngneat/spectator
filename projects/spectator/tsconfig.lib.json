@@ -12,7 +12,7 @@
     "experimentalDecorators": true,
     "importHelpers": true,
     "types": [
-      "@types/jasmine"
+      "@types/jest"
     ],
     "lib": [
       "dom",

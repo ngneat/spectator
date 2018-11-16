@@ -18,11 +18,8 @@
       "dom"
     ],
     "paths": {
-      "spectator": [
+      "@netbasal/spectator": [
         "dist/spectator"
-      ],
-      "spectator/*": [
-        "dist/spectator/*"
       ]
     }
   }

@@ -23,8 +23,6 @@ export type Params<S> = {
   imports?: any[];
 };
 
-export function createService<S>(options: Type<S>): SpectatorService<S>;
-export function createService<S>(options: Params<S>): SpectatorService<S>;
 export function createService<S>(options: Params<S> | Type<S>): SpectatorService<S> {
   const service = typeof options === 'function' ? options : options.service;
 

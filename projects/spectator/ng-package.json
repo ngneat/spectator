@@ -3,5 +3,9 @@
   "dest": "../../dist/spectator",
   "lib": {
     "entryFile": "src/public_api.ts"
-  }
+  },
+  "whitelistedNonPeerDependencies": [
+    "dom-testing-library",
+    "jquery"
+  ]
 }

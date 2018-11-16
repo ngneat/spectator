@@ -1,6 +1,5 @@
-import { SpectatorWithHost } from '../../../projects/spectator/src/lib';
+import { createHostComponentFactory, SpectatorWithHost } from '@netbasal/spectator';
 import { fakeAsync, tick } from '@angular/core/testing';
-import { createHostComponentFactory } from '../../../projects/spectator/src/lib/host';
 import { AsyncInputComponent } from './async-input.component';
 
 describe('ZippyComponent', () => {

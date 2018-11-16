@@ -1,4 +1,4 @@
-import { createHostComponentFactory } from '../../../projects/spectator/src/lib/host';
+import { createHostComponentFactory } from '@netbasal/spectator';
 import { ComponentWithoutOverwrittenProvidersComponent } from './no-overwritten-providers.component';
 
 describe('ComponentWithoutOverwrittenProvidersComponent', () => {

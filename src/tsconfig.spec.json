@@ -2,10 +2,20 @@
   "extends": "../tsconfig.json",
   "compilerOptions": {
     "outDir": "../out-tsc/spec",
+    "module": "commonjs",
+    "baseUrl": "./",
     "types": [
-      "jasmine",
+      "jest",
       "node"
-    ]
+    ],
+    "paths": {
+      "@netbasal/spectator": [
+        "../projects/spectator/src/lib"
+      ],
+      "@netbasal/spectator/jest": [
+        "../projects/spectator/jest/src"
+      ]
+    }
   },
   "files": [
     "test.ts",
@@ -13,6 +23,7 @@
   ],
   "include": [
     "**/*.spec.ts",
+    "**/*.jest.ts",
     "**/*.d.ts",
     "../projects/spectator/src/lib/matchers-types.d.ts"
   ]

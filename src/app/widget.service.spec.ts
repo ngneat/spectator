@@ -1,4 +1,4 @@
-import { createService } from '../../projects/spectator/src/lib/service';
+import { createService } from '@netbasal/spectator';
 import { WidgetDataService } from './widget-data.service';
 import { WidgetService } from './widget.service';
 

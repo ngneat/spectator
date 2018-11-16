@@ -63,8 +63,6 @@ export class SpectatorWithHost<C, H = HostComponent> extends Spectator<C> {
   }
 }
 
-export function createHostComponentFactory<C, H = HostComponent>(component: Type<C>): (template: string, detectChanges?: boolean, complexInputs?: Partial<C>) => SpectatorWithHost<C, H>;
-export function createHostComponentFactory<C, H = HostComponent>(options: SpectatorOptions<C, H>): (template: string, detectChanges?: boolean, complexInputs?: Partial<C>) => SpectatorWithHost<C, H>;
 export function createHostComponentFactory<C, H = HostComponent>(options: SpectatorOptions<C, H> | Type<C>): (template: string, detectChanges?: boolean, complexInputs?: Partial<C>) => SpectatorWithHost<C, H> {
   const { component, moduleMetadata, host } = initialModule<C>(options, true);
 

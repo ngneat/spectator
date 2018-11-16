@@ -1,4 +1,4 @@
-import { createHostComponentFactory, SpectatorWithHost } from '../../../projects/spectator/src/lib/host';
+import { createHostComponentFactory, SpectatorWithHost } from '@netbasal/spectator';
 import { DynamicComponent } from '../dynamic/dynamic.component';
 import { ConsumeDynamicComponent } from './consume-dynamic.component';
 
