@@ -19,6 +19,9 @@ import { initialModule, SpectatorOptions } from './config';
 export function createTestComponentFactory<T>(typeOrOptions: SpectatorOptions<T> | Type<T>): (componentParameters?: Partial<T>, detectChanges?: boolean) => Spectator<T> {
   const { component, moduleMetadata } = initialModule<T>(typeOrOptions);
 
+  const dc = (options as SpectatorOptions<T>).detectChanges;
+  (options as SpectatorOptions<T>).detectChanges = dc === undefined ? true : dc;
+
   beforeEach(() => {
     jasmine.addMatchers(customMatchers as any);
   });
@@ -39,7 +42,7 @@ export function createTestComponentFactory<T>(typeOrOptions: SpectatorOptions<T>
       .compileComponents();
   }));
 
-  return (componentParameters: Partial<T> = {}, detectChanges = true) => {
+  return (inputs: Partial<T> = {}, detectChanges = true) => {
     const spectator = new Spectator<T>();
     spectator.fixture = TestBed.createComponent(component);
     spectator.debugElement = spectator.fixture.debugElement;
@@ -47,10 +50,12 @@ export function createTestComponentFactory<T>(typeOrOptions: SpectatorOptions<T>
     spectator.component = spectator.debugElement.componentInstance;
     // The component native element
     spectator.element = spectator.debugElement.nativeElement;
-    for (let p in componentParameters) {
-      spectator.component[p] = componentParameters[p];
-    }
-    if (detectChanges) {
+
+    Object.keys(inputs).forEach(input => {
+      spectator.component[input] = inputs[input];
+    });
+
+    if ((options as SpectatorOptions<T>).detectChanges && detectChanges) {
       spectator.detectChanges();
     }
     return spectator;

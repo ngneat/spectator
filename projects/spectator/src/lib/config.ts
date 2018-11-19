@@ -25,6 +25,7 @@ export type SpectatorOptions<T = any, H = HostComponent> = TestModuleMetadata & 
   entryComponents?: any[];
   componentProviders?: any[];
   mocks?: Type<any>[];
+  detectChanges?: boolean;
 };
 
 const defaultOptions: SpectatorOptions<any, any> = {

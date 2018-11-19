@@ -5,9 +5,7 @@ import { AppUnlessDirective } from './unless.component';
 describe('HelloComponent', () => {
   let host: SpectatorWithHost<AppUnlessDirective>;
 
-  const createHost = createHostComponentFactory({
-    component: AppUnlessDirective
-  });
+  const createHost = createHostComponentFactory(AppUnlessDirective);
 
   it('should work', () => {
     host = createHost(`<div *appUnless="false">Hello world</div>`);
