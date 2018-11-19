@@ -6,6 +6,10 @@ import { WidgetService } from './widget.service';
 export class QueryService {
   constructor(private service: WidgetService) {}
 
+  selectName() {
+    return of('Netanel');
+  }
+
   select() {
     return of(false);
   }

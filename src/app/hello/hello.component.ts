@@ -9,8 +9,8 @@ import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 
     <div *ngIf="!widthRaw" style="color:red">widthRaw is not set</div>
     <div>Width is: {{ width }}</div>
-  `,
-  changeDetection: ChangeDetectionStrategy.OnPush
+  `
+  // changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class HelloComponent {
   @Input()
@@ -22,6 +22,7 @@ export class HelloComponent {
     console.log('ngOnChanges', s);
   }
   get width() {
+    debugger;
     return typeof this.widthRaw === 'number' ? `${this.widthRaw}px` : this.widthRaw;
   }
 }

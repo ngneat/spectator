@@ -10,7 +10,7 @@ describe('HelloComponent', () => {
   it('should display the title', () => {
     host = createHost(
       `
-      <hello [title]="title" [widthRaw]="widthRaw"></hello>
+      <hello></hello>
     `,
       true,
       {

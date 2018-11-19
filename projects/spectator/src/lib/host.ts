@@ -68,6 +68,9 @@ export function createHostComponentFactory<C, H = HostComponent>(options: Specta
 export function createHostComponentFactory<C, H = HostComponent>(options: SpectatorOptions<C, H> | Type<C>): (template: string, detectChanges?: boolean, complexInputs?: Partial<C>) => SpectatorWithHost<C, H> {
   const { component, moduleMetadata, host } = initialModule<C>(options, true);
 
+  const dc = (options as SpectatorOptions<C, H>).detectChanges;
+  (options as SpectatorOptions<C, H>).detectChanges = dc === undefined ? true : dc;
+
   beforeEach(() => {
     jasmine.addMatchers(customMatchers as any);
     TestBed.configureTestingModule(moduleMetadata);
@@ -104,12 +107,14 @@ export function createHostComponentFactory<C, H = HostComponent>(options: Specta
       spectatorWithHost.element = spectatorWithHost.debugElement.nativeElement;
     }
 
-    if (detectChanges) {
-      spectatorWithHost.hostFixture.detectChanges();
+    if (initialInputs) {
+      Object.keys(initialInputs).forEach(key => {
+        spectatorWithHost.component[key] = initialInputs[key];
+      });
     }
 
-    if (initialInputs) {
-      spectatorWithHost.setInput(initialInputs);
+    if ((options as SpectatorOptions<C, H>).detectChanges && detectChanges) {
+      spectatorWithHost.hostFixture.detectChanges();
     }
 
     return spectatorWithHost;

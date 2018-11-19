@@ -11,7 +11,6 @@ import { async, TestBed } from '@angular/core/testing';
 import * as customMatchers from './matchers';
 import { Spectator } from './internals';
 import { initialModule, SpectatorOptions } from './config';
-import { BrowserDynamicTestingModule } from '@angular/platform-browser-dynamic/testing';
 
 /**
  * Create factory-function for tested component
@@ -23,6 +22,9 @@ export function createTestComponentFactory<T>(component: Type<T>): (componentPar
 export function createTestComponentFactory<T>(options: SpectatorOptions<T>): (componentParameters?: Partial<T>, detectChanges?: boolean) => Spectator<T>;
 export function createTestComponentFactory<T>(options: SpectatorOptions<T> | Type<T>): (componentParameters?: Partial<T>, detectChanges?: boolean) => Spectator<T> {
   const { component, moduleMetadata } = initialModule<T>(options);
+
+  const dc = (options as SpectatorOptions<T>).detectChanges;
+  (options as SpectatorOptions<T>).detectChanges = dc === undefined ? true : dc;
 
   beforeEach(() => {
     jasmine.addMatchers(customMatchers as any);
@@ -44,7 +46,7 @@ export function createTestComponentFactory<T>(options: SpectatorOptions<T> | Typ
       .compileComponents();
   }));
 
-  return (componentParameters: Partial<T> = {}, detectChanges = true) => {
+  return (inputs: Partial<T> = {}, detectChanges = true) => {
     const spectator = new Spectator<T>();
     spectator.fixture = TestBed.createComponent(component);
     spectator.debugElement = spectator.fixture.debugElement;
@@ -52,10 +54,12 @@ export function createTestComponentFactory<T>(options: SpectatorOptions<T> | Typ
     spectator.component = spectator.debugElement.componentInstance;
     // The component native element
     spectator.element = spectator.debugElement.nativeElement;
-    for (let p in componentParameters) {
-      spectator.component[p] = componentParameters[p];
-    }
-    if (detectChanges) {
+
+    Object.keys(inputs).forEach(input => {
+      spectator.component[input] = inputs[input];
+    });
+
+    if ((options as SpectatorOptions<T>).detectChanges && detectChanges) {
       spectator.detectChanges();
     }
     return spectator;
