@@ -22,7 +22,6 @@ export class HelloComponent {
     console.log('ngOnChanges', s);
   }
   get width() {
-    debugger;
     return typeof this.widthRaw === 'number' ? `${this.widthRaw}px` : this.widthRaw;
   }
 }
