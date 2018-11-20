@@ -20,7 +20,7 @@ declare namespace jasmine {
 
     toHaveProperty(prop: string, val: string | boolean): boolean;
 
-    toHaveText(text: string | ((_: string) => boolean)): boolean;
+    toHaveText(text: string | Function): boolean;
 
     toHaveValue(value: string): boolean;
 
@@ -72,7 +72,7 @@ declare namespace jest {
 
     toHaveProperty(prop: string, val: string | boolean): boolean;
 
-    toHaveText(text: string | ((_: string) => boolean)): boolean;
+    toHaveText(text: string | Function): boolean;
 
     toHaveValue(value: string): boolean;
 
