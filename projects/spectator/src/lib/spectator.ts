@@ -11,6 +11,7 @@ import { async, TestBed } from '@angular/core/testing';
 import * as customMatchers from './matchers';
 import { Spectator } from './internals';
 import { initialModule, SpectatorOptions } from './config';
+import { isType } from './is-type';
 
 /**
  * Create factory-function for tested component
@@ -19,8 +20,7 @@ import { initialModule, SpectatorOptions } from './config';
 export function createTestComponentFactory<T>(typeOrOptions: SpectatorOptions<T> | Type<T>): (componentParameters?: Partial<T>, detectChanges?: boolean) => Spectator<T> {
   const { component, moduleMetadata } = initialModule<T>(typeOrOptions);
 
-  const dc = (options as SpectatorOptions<T>).detectChanges;
-  (options as SpectatorOptions<T>).detectChanges = dc === undefined ? true : dc;
+  const dc = isType(typeOrOptions) || typeOrOptions.detectChanges === undefined ? true : typeOrOptions.detectChanges;
 
   beforeEach(() => {
     jasmine.addMatchers(customMatchers as any);
@@ -55,7 +55,7 @@ export function createTestComponentFactory<T>(typeOrOptions: SpectatorOptions<T>
       spectator.component[input] = inputs[input];
     });
 
-    if ((options as SpectatorOptions<T>).detectChanges && detectChanges) {
+    if (dc && detectChanges) {
       spectator.detectChanges();
     }
     return spectator;

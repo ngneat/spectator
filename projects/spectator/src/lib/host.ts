@@ -13,6 +13,7 @@ import * as customMatchers from './matchers';
 import { By } from '@angular/platform-browser';
 import { HostComponent, initialModule, SpectatorOptions } from './config';
 import { BrowserDynamicTestingModule } from '@angular/platform-browser-dynamic/testing';
+import { isType } from './is-type';
 
 export class SpectatorWithHost<C, H = HostComponent> extends Spectator<C> {
   hostComponent: H;
@@ -63,11 +64,10 @@ export class SpectatorWithHost<C, H = HostComponent> extends Spectator<C> {
   }
 }
 
-export function createHostComponentFactory<C, H = HostComponent>(options: SpectatorOptions<C, H> | Type<C>): (template: string, detectChanges?: boolean, complexInputs?: Partial<C>) => SpectatorWithHost<C, H> {
-  const { component, moduleMetadata, host } = initialModule<C, H>(options, true);
+export function createHostComponentFactory<C, H = HostComponent>(typeOrOptions: SpectatorOptions<C, H> | Type<C>): (template: string, detectChanges?: boolean, complexInputs?: Partial<C>) => SpectatorWithHost<C, H> {
+  const { component, moduleMetadata, host } = initialModule<C, H>(typeOrOptions, true);
 
-  const dc = (options as SpectatorOptions<C, H>).detectChanges;
-  (options as SpectatorOptions<C, H>).detectChanges = dc === undefined ? true : dc;
+  const dc = isType(typeOrOptions) || typeOrOptions.detectChanges === undefined ? true : typeOrOptions.detectChanges;
 
   beforeEach(() => {
     jasmine.addMatchers(customMatchers as any);
@@ -111,7 +111,7 @@ export function createHostComponentFactory<C, H = HostComponent>(options: Specta
       });
     }
 
-    if ((options as SpectatorOptions<C, H>).detectChanges && detectChanges) {
+    if (dc && detectChanges) {
       spectatorWithHost.hostFixture.detectChanges();
     }
 
