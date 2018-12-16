@@ -1,4 +1,4 @@
-import { SpectatorWithHost, createHostComponentFactory } from '../../../projects/spectator/src/lib';
+import { SpectatorWithHost, createHostComponentFactory } from '@netbasal/spectator';
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { FgComponent } from './fg.component';

@@ -1,6 +1,4 @@
-import { byAltText, byLabel, byPlaceholder, byText, byTitle, byValue } from '../../../projects/spectator/src/lib/dom-selectors';
-import { Spectator } from '../../../projects/spectator/src/lib/internals';
-import { createTestComponentFactory } from '../../../projects/spectator/src/lib/spectator';
+import { byAltText, byLabel, byPlaceholder, byText, byTitle, byValue, createTestComponentFactory, Spectator } from '@netbasal/spectator';
 import { DomSelectorsComponent } from './dom-selectors.component';
 
 describe('DomSelectorsComponent', () => {

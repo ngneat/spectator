@@ -1,7 +1,6 @@
-import { createHostComponentFactory, SpectatorWithHost } from '../../../projects/spectator/src/lib/host';
+import { createHostComponentFactory, SpectatorWithHost, SpyObject } from '@netbasal/spectator';
 import { WidgetService } from '../widget.service';
 import { WidgetComponent } from './widget.component';
-import { SpyObject } from '../../../projects/spectator/src/lib';
 
 describe('WidgetComponent', () => {
   let host: SpectatorWithHost<WidgetComponent>;

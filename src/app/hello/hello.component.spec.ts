@@ -1,6 +1,5 @@
-import { createHostComponentFactory } from '../../../projects/spectator/src/lib/host';
+import { createHostComponentFactory, SpectatorWithHost } from '@netbasal/spectator';
 import { HelloComponent } from './hello.component';
-import { SpectatorWithHost } from '../../../projects/spectator/src/lib';
 
 describe('HelloComponent', () => {
   let host: SpectatorWithHost<HelloComponent>;

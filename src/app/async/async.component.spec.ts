@@ -1,5 +1,5 @@
 import { of } from 'rxjs';
-import { createHostComponentFactory, SpectatorWithHost } from '../../../projects/spectator/src/lib';
+import { createHostComponentFactory, SpectatorWithHost } from '@netbasal/spectator';
 import { QueryService } from '../query.service';
 import { AsyncComponent } from './async.component';
 

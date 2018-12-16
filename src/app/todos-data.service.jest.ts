@@ -1,7 +1,8 @@
 import { fakeAsync, tick } from '@angular/core/testing';
 import { defer } from 'rxjs';
-import { createHTTPFactory, HTTPMethod, mockProvider } from '@netbasal/spectator';
+import { HTTPMethod } from '@netbasal/spectator';
 import { TodosDataService, UserService } from './todos-data.service';
+import { createHTTPFactory, mockProvider } from '@netbasal/spectator/jest';
 
 describe('HttpClient testing', () => {
   const http = createHTTPFactory<TodosDataService>(TodosDataService, [mockProvider(UserService)]);

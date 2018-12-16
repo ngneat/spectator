@@ -7,6 +7,7 @@ export * from './event-objects';
 export * from './host';
 export * from './http';
 export * from './internals';
+export * from './is-type';
 export * from './matchers';
 export * from './mock';
 export * from './rgb-to-hex';

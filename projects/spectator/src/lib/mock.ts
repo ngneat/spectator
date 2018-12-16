@@ -8,7 +8,7 @@ export interface CompatibleSpy extends jasmine.Spy {
 
   /** By chaining the spy with and.callFake, all calls to the spy will delegate to the supplied
    * function. */
-  andCallFake(fn: Function): CompatibleSpy;
+  andCallFake(fn: Function): this;
 
   /** removes all recorded calls */
   reset();
@@ -16,10 +16,28 @@ export interface CompatibleSpy extends jasmine.Spy {
 
 export type SpyObject<T> = T & { [P in keyof T]: T[P] & CompatibleSpy };
 
+export function installProtoMethods(mock: any, proto: any, createSpyFn: Function) {
+  if (proto === null || proto === Object.prototype) {
+    return;
+  }
+
+  for (const key of Object.getOwnPropertyNames(proto)) {
+    const descriptor = Object.getOwnPropertyDescriptor(proto, key);
+
+    if (typeof descriptor.value === 'function' && key !== 'constructor') {
+      mock[key] = createSpyFn(key);
+    }
+  }
+
+  installProtoMethods(mock, Object.getPrototypeOf(proto), createSpyFn);
+
+  return mock;
+}
+
 export function createSpyObject<T>(type: Type<T>): SpyObject<T> {
   const mock: any = {};
 
-  function createGuinnessCompatibleSpy(name): CompatibleSpy {
+  return installProtoMethods(mock, type.prototype, name => {
     const newSpy: CompatibleSpy = jasmine.createSpy(name) as any;
     newSpy.andCallFake = <any>newSpy.and.callFake;
     newSpy.andReturn = <any>newSpy.and.returnValue;
@@ -27,27 +45,7 @@ export function createSpyObject<T>(type: Type<T>): SpyObject<T> {
     // revisit return null here (previously needed for rtts_assert).
     newSpy.and.returnValue(null);
     return newSpy;
-  }
-
-  function installProtoMethods(proto: any) {
-    if (proto === null || proto === Object.prototype) {
-      return;
-    }
-
-    for (const key of Object.getOwnPropertyNames(proto)) {
-      const descriptor = Object.getOwnPropertyDescriptor(proto, key);
-
-      if (typeof descriptor.value === 'function' && key !== 'constructor') {
-        mock[key] = createGuinnessCompatibleSpy(key);
-      }
-    }
-
-    installProtoMethods(Object.getPrototypeOf(proto));
-  }
-
-  installProtoMethods(type.prototype);
-
-  return mock;
+  });
 }
 
 export function mockProvider<T>(type: Type<T>): Provider {

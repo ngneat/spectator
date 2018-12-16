@@ -1,5 +1,6 @@
-import { createHostComponentFactory, SpectatorWithHost } from '@netbasal/spectator';
+import { SpectatorWithHost } from '@netbasal/spectator';
 import { HighlightDirective } from './highlight.directive';
+import { createHostComponentFactory } from '@netbasal/spectator/jest';
 
 describe('HighlightDirective', function() {
   let host: SpectatorWithHost<HighlightDirective>;

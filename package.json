@@ -8,6 +8,8 @@
     "start": "npx ng serve",
     "build": "npx ng build",
     "test": "npx ng test",
+    "test:jest": "npx ng run spectator-app:test-jest",
+    "test:jest:watch": "npx ng run spectator-app:test-jest --watch",
     "lint": "npx ng lint",
     "e2e": "npx ng e2e",
     "format": "npx prettier --write \"{projects,src}/**/*.ts\"",
@@ -16,7 +18,7 @@
     "precommit": "npx lint-staged",
     "contributors:add": "npx all-contributors add",
     "contributors:generate": "npx all-contributors generate",
-    "test:ci": "npx cross-env NODE_ENV=build npm test",
+    "test:ci": "npx cross-env NODE_ENV=build npm run test && npm run test:jest",
     "build:lib": "npx ng build spectator"
   },
   "private": true,
@@ -38,6 +40,7 @@
     "zone.js": "~0.8.26"
   },
   "devDependencies": {
+    "@angular-builders/jest": "^1.0.4",
     "@angular-devkit/build-angular": "~0.10.0",
     "@angular-devkit/build-ng-packagr": "~0.10.0",
     "@angular/cli": "~7.0.3",
@@ -46,6 +49,7 @@
     "@commitlint/cli": "^6.1.3",
     "@commitlint/config-angular": "^6.1.3",
     "@commitlint/config-conventional": "^6.1.3",
+    "@types/jest": "^23.3.1",
     "@types/node": "~8.9.4",
     "@types/jasmine": "~2.8.8",
     "@types/jasminewd2": "~2.0.3",
@@ -57,6 +61,7 @@
     "husky": "^0.14.3",
     "jasmine-core": "~2.99.1",
     "jasmine-spec-reporter": "~4.2.1",
+    "jest": "^23.5.0",
     "karma": "~3.0.0",
     "karma-chrome-launcher": "~2.2.0",
     "karma-coverage-istanbul-reporter": "~2.0.1",

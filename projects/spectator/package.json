@@ -1,5 +1,4 @@
 {
-  "$schema": "../../node_modules/ng-packagr/package.schema.json",
   "name": "@netbasal/spectator",
   "description": "Angular tests made easy",
   "author": "Netanel Basal <netanel7799s@gmail.com>",
@@ -26,11 +25,5 @@
   "dependencies": {
     "dom-testing-library": "2.1.0",
     "jquery": "^3.3.1"
-  },
-  "ngPackage": {
-    "whitelistedNonPeerDependencies": [
-      "dom-testing-library",
-      "jquery"
-    ]
   }
 }

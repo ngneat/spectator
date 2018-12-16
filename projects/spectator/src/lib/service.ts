@@ -9,6 +9,7 @@
 import { TestBed } from '@angular/core/testing';
 import { Provider, Type } from '@angular/core';
 import { mockProvider, SpyObject } from './mock';
+import { isType } from './is-type';
 
 export interface SpectatorService<S> {
   service: S;
@@ -23,17 +24,15 @@ export type Params<S> = {
   imports?: any[];
 };
 
-export function createService<S>(options: Type<S>): SpectatorService<S>;
-export function createService<S>(options: Params<S>): SpectatorService<S>;
 export function createService<S>(options: Params<S> | Type<S>): SpectatorService<S> {
-  const service = typeof options === 'function' ? options : options.service;
+  const service = isType(options) ? options : options.service;
 
-  let module: Partial<Params<S>> = {
+  const module: Params<S> = {
     providers: [service],
     imports: []
   };
 
-  if (typeof options !== 'function') {
+  if (!isType(options)) {
     (options.mocks || []).forEach(type => module.providers.push(mockProvider(type)));
     (options.providers || []).forEach(type => module.providers.push(type));
     module.imports = module.imports.concat(options.imports || []);

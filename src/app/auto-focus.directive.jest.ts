@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { SpectatorWithHost, createHostComponentFactory } from '@netbasal/spectator';
+import { SpectatorWithHost, createHostComponentFactory } from '@netbasal/spectator/jest';
 import { AutoFocusDirective } from './auto-focus.directive';
 
 @Component({ selector: 'custom-host', template: '' })

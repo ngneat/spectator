@@ -1,6 +1,6 @@
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { FormInputComponent } from './form-input.component';
-import { createHostComponentFactory, SpectatorWithHost, Spectator, createTestComponentFactory } from 'projects/spectator/src/lib';
+import { createHostComponentFactory, SpectatorWithHost, Spectator, createTestComponentFactory } from '@netbasal/spectator';
 
 describe('FormInputComponent', () => {
   let host: SpectatorWithHost<FormInputComponent>;
