@@ -2,7 +2,7 @@
   "name": "@netbasal/spectator",
   "description": "Angular tests made easy",
   "author": "Netanel Basal <netanel7799s@gmail.com>",
-  "version": "2.2.0-rc.1",
+  "version": "3.0.0",
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -23,7 +23,7 @@
     "angular testing dumb components"
   ],
   "dependencies": {
-    "dom-testing-library": "2.1.0",
+    "dom-testing-library": "^3.16.0",
     "jquery": "^3.3.1"
   }
 }

@@ -21,7 +21,6 @@
     "test:ci": "npx cross-env NODE_ENV=build npm run test && npm run test:jest",
     "build:lib": "npx ng build spectator"
   },
-  "private": true,
   "dependencies": {
     "@angular/animations": "~7.0.0",
     "@angular/common": "~7.0.0",
@@ -33,7 +32,7 @@
     "@angular/platform-browser-dynamic": "~7.0.0",
     "@angular/router": "~7.0.0",
     "core-js": "^2.5.4",
-    "dom-testing-library": "2.1.0",
+    "dom-testing-library": "^3.16.0",
     "jquery": "^3.3.1",
     "helpful-decorators": "^1.7.2",
     "rxjs": "~6.3.3",
