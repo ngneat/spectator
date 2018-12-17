@@ -6,7 +6,11 @@ import { Subject } from 'rxjs';
 describe('ConsumerService', () => {
   const spectator = createService({
     service: ConsumerService,
-    providers: [mockProvider(ProviderService)]
+    providers: [
+      mockProvider(ProviderService, {
+        obs$: new Subject()
+      })
+    ]
   });
 
   it('should consume mocked service with properties', () => {
