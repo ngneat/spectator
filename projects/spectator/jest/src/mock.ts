@@ -3,8 +3,8 @@ import { CompatibleSpy, SpyObject as BaseSpyObject, installProtoMethods } from '
 
 export type SpyObject<T> = BaseSpyObject<T> & { [P in keyof T]: T[P] & jest.Mock<T> };
 
-export function createSpyObject<T>(type: Type<T>): SpyObject<T> {
-  const mock: any = {};
+export function createSpyObject<T>(type: Type<T>, template?: Partial<Record<keyof T, any>>): SpyObject<T> {
+  const mock: any = template || {};
 
   installProtoMethods(mock, type.prototype, () => {
     const jestFn = jest.fn();
@@ -30,11 +30,11 @@ export function createSpyObject<T>(type: Type<T>): SpyObject<T> {
   return mock;
 }
 
-export function mockProvider<T>(type: Type<T>): Provider {
+export function mockProvider<T>(type: Type<T>, properties?: Partial<Record<keyof T, any>>): Provider {
   return {
     provide: type,
     useFactory: function() {
-      return createSpyObject(type);
+      return createSpyObject(type, properties);
     }
   };
 }
