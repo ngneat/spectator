@@ -13,7 +13,7 @@
 
 > Angular Tests Made Easy
 
-# 😎 Spectator 
+# 😎 Spectator
 Spectator is written on top of the Angular Testing Framework and provides two things:
 
 - A cleaner API for testing.
@@ -31,92 +31,68 @@ Learn about it on the [docs site](https://netbasal.gitbook.io/spectator/)
 ## Spectator CLI
 Auto generate specs with the [CLI](https://github.com/NetanelBasal/spectator-cli)
 
-## A Taste of Spectator
+## Testing in Angular
 ```ts
-// zippy.component.ts
+import { TestBed, async, ComponentFixture } from '@angular/core/testing';
+import { ButtonComponent } from './button.component';
+import { Component, DebugElement } from "@angular/core";
+import { By } from "@angular/platform-browser";
 
-@Component({
-  selector: 'zippy',
-  template: `
-    <div class="zippy">
-      <div (click)="toggle()" class="zippy__title">
-        <span class="arrow">{{ visible ? 'Close' : 'Open' }}</span> {{title}}
-      </div>
-      <div *ngIf="visible" class="zippy__content">
-        <ng-content></ng-content>
-      </div>
-    </div>
-  `
-})
-export class ZippyComponent {
+describe('ButtonComponent', () => {
+  let fixture: ComponentFixture<ButtonComponent>;
+  let instance: ButtonComponent;
+  let debugElement: DebugElement;
 
-  @Input() title;
-  visible = false;
+  beforeEach(async(() => {
+    TestBed.configureTestingModule({
+      declarations: [ ButtonComponent ]
+    })
+    .compileComponents();
 
-  toggle() {
-    this.visible = !this.visible;
-  }
-}
+    fixture = TestBed.createComponent(ButtonComponent);
+    instance = fixture.componentInstance;
+    debugElement = fixture.debugElement;
+  }));
 
-// zippy.component.spec.ts
-import { ZippyComponent } from './zippy.component';
-import { createHostComponentFactory, SpectatorWithHost } from '@netbasal/spectator';
-import { Component } from '@angular/core';
-
-describe('ZippyComponent', () => {
-  let host: SpectatorWithHost<ZippyComponent>;
-
-  const createHost = createHostComponentFactory(ZippyComponent);
-
-  it('should display the title', () => {
-    host = createHost(`<zippy title="Zippy title"></zippy>`);
-
-    expect(host.query('.zippy__title')).toHaveText(( text ) => 'Zippy title');
-  });
-
-  it('should display the content', () => {
-    host = createHost(`<zippy title="Zippy title">Zippy content</zippy>`);
-
-    host.click('.zippy__title');
-
-    expect(host.query('.zippy__content')).toHaveText('Zippy content');
-  });
-
-  it('should display the "Open" word if closed', () => {
-    host = createHost(`<zippy title="Zippy title">Zippy content</zippy>`);
-
-    expect(host.query('.arrow')).toHaveText('Open');
-    expect(host.query('.arrow')).not.toHaveText('Close');
-  });
-
-  it('should display the "Close" word if open', () => {
-      host = createHost(`<zippy title="Zippy title">Zippy content</zippy>`);
-
-      host.click('.zippy__title');
-
-      expect(host.query('.arrow')).toHaveText('Close');
-      expect(host.query('.arrow')).not.toHaveText('Open');
-    }
-  );
-
-  it('should be closed by default', () => {
-    host = createHost(`<zippy title="Zippy title"></zippy>`);
-
-    expect('.zippy__content').not.toExist();
-  });
-
-  it('should toggle the content', () => {
-    host = createHost(`<zippy title="Zippy title"></zippy>`);
-
-    host.click('.zippy__title');
-    expect(host.query('.zippy__content')).toExist();
-
-    host.click('.zippy__title');
-    expect('.zippy__content').not.toExist();
+  it('should set the class name according to the [className] input', () => {
+    instance.className = 'danger';
+    fixture.detectChanges();
+    const button = debugElement.query(By.css('button')).nativeElement as HTMLButtonElement;
+    expect(button.classList.contains('danger')).toBeTruthy();
+    expect(button.classList.contains('success')).toBeFalsy();
   });
 
 });
 ```
+
+## Testing in Spectator
+```ts
+import { ButtonComponent } from './button.component';
+import { Spectator, createTestComponentFactory } from '@netbasal/spectator';
+​
+describe('ButtonComponent', () => {
+​
+  let spectator: Spectator<ButtonComponent>;
+  const createComponent = createTestComponentFactory(ButtonComponent);
+
+  beforeEach(() => spectator = createComponent());
+
+  it('should set the class name according to the [className] input', () => {
+    spectator.setInput('className', 'danger');
+    expect(spectator.query('button')).toHaveClass('danger');
+    expect(spectator.query('button')).not.toHaveClass('success');
+  });
+});
+```
+
+## Features
+- ng-content testing
+- Custom Jasmine Matchers (toHaveClass, toBeDisabled..)
+- Built-in support for entry components
+- Support for triggering keyboard/mouse/touch events
+- Support for component providers
+- Support for services/component/directives mocks
+- Support for http service
 
 ![Datorama](https://image.ibb.co/i6AC17/dt_logo_black.png "Datorama")
 
