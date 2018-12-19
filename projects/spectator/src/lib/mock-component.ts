@@ -5,6 +5,7 @@ import { Component, EventEmitter, Type } from '@angular/core';
  * MockComponent({ selector: 'some-component' });
  * MockComponent({ selector: 'some-component', inputs: ['some-input', 'some-other-input'] });
  *
+ * @deprecated Deprecated in favour of the `ng-mocks` implementation of `MockComponent`. To be be removed in the next major version.
  */
 export function MockComponent(options: Component & { identifier?: Type<any> }): Component {
   const metadata: Component & { identifier?: Type<any> } = {
