@@ -5,4 +5,4 @@ export * from './internals';
 export * from './mock';
 export * from './service';
 export * from './spectator';
-export * from '../../src/lib/dom-selectors';
+export * from './dom-selectors';
