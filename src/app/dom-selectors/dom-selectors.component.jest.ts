@@ -1,5 +1,4 @@
-import { byAltText, byLabel, byPlaceholder, byText, byTitle, byValue } from '@netbasal/spectator';
-import { createTestComponentFactory, Spectator } from '@netbasal/spectator/jest';
+import { createTestComponentFactory, Spectator, byAltText, byLabel, byPlaceholder, byText, byTitle, byValue } from '@netbasal/spectator/jest';
 import { DomSelectorsComponent } from './dom-selectors.component';
 
 describe('DomSelectorsComponent', () => {

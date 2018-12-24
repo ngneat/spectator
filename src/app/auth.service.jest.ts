@@ -7,7 +7,6 @@ describe('AuthService', () => {
     service: AuthService,
     mocks: [DateService]
   });
-
   it('should not be logged in', () => {
     const dateService = spectator.get<DateService>(DateService);
     dateService.isExpired.mockReturnValue(true);

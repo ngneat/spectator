@@ -10,20 +10,20 @@
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "target": "es5",
+    "paths": {
+      "@netbasal/spectator/jest": [
+        "./projects/spectator/jest/src/index.ts"
+      ],
+      "@netbasal/spectator": [
+        "./projects/spectator/src/public_api.ts"
+      ]
+    },
     "typeRoots": [
       "node_modules/@types"
     ],
     "lib": [
       "es2018",
       "dom"
-    ],
-    "paths": {
-      "@netbasal/spectator/jest": [
-        "dist/spectator/jest"
-      ],
-      "@netbasal/spectator": [
-        "dist/spectator"
-      ]
-    }
+    ]
   }
 }

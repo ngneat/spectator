@@ -2,7 +2,15 @@
   "extends": "../tsconfig.json",
   "compilerOptions": {
     "outDir": "../out-tsc/app",
-    "types": []
+    "baseUrl": ".",
+    "paths": {
+      "@netbasal/spectator/jest": [
+        "../projects/spectator/jest/src/index.ts"
+      ],
+      "@netbasal/spectator": [
+        "../projects/spectator/src/public_api.ts"
+      ]
+    }
   },
   "exclude": [
     "test.ts",
