@@ -1,3 +1,4 @@
+/// <reference path="./matchers-types.d.ts" />
 export * from './config';
 export * from './host';
 export * from './http';

@@ -1,5 +1,5 @@
-declare namespace jasmine {
-  interface Matchers<T> {
+declare namespace jest {
+  interface Matchers<R> {
     toExist(): boolean;
 
     toHaveLength(expected: number): boolean;
