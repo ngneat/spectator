@@ -11,9 +11,8 @@
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "importHelpers": true,
-    "types": [
-      "@types/jest"
-    ],
+    "typeRoots" : ["./typings"],
+    "types": ["jasmine", "jest"],
     "lib": [
       "dom",
       "es2018"
