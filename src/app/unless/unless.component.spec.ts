@@ -16,9 +16,4 @@ describe('HelloComponent', () => {
     host = createHost(`<div *appUnless="true">Hello world</div>`);
     expect(host.hostElement).not.toHaveText('Hello world');
   });
-
-  it('should use hostElement when using query to find element', () => {
-    host = createHost(`<div *appUnless="true">Hello world</div>`);
-    expect(host.query('div')).not.toHaveText('Hello world');
-  });
 });

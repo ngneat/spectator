@@ -29,14 +29,7 @@ export class Spectator<C> {
   fixture: ComponentFixture<C>;
   component: C;
   element: HTMLElement | Node | any;
-
-  private _debugElement: DebugElement;
-  get debugElement() {
-    return this._debugElement || this['hostDebugElement'];
-  }
-  set debugElement(value) {
-    this._debugElement = value;
-  }
+  debugElement: DebugElement;
 
   /**
    * Wrapper for TestBed.get()
