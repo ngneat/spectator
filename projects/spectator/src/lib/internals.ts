@@ -27,9 +27,16 @@ const KEY_UP = 'keyup';
 
 export class Spectator<C> {
   fixture: ComponentFixture<C>;
-  debugElement: DebugElement;
   component: C;
   element: HTMLElement | Node | any;
+
+  private _debugElement: DebugElement;
+  get debugElement() {
+    return this._debugElement || this['hostDebugElement'];
+  }
+  set debugElement(value) {
+    this._debugElement = value;
+  }
 
   /**
    * Wrapper for TestBed.get()
