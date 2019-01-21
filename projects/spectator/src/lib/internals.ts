@@ -44,10 +44,10 @@ export class Spectator<C> {
   }
 
   /**
-   * Run detect changes on the host component
+   * Run detect changes on the component
    */
   detectChanges() {
-    this['hostFixture'] ? this['hostFixture'].detectChanges() : this.fixture.detectChanges();
+    this.fixture.detectChanges();
   }
 
   /**

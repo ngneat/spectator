@@ -22,6 +22,21 @@ export class SpectatorWithHost<C, H = HostComponent> extends Spectator<C> {
   hostElement: HTMLElement;
   hostDebugElement: DebugElement;
 
+  private _debugElement: DebugElement;
+  get debugElement() {
+    return this._debugElement || this.hostDebugElement;
+  }
+  set debugElement(value) {
+    this._debugElement = value;
+  }
+
+  /**
+   * Run detect changes on the host component
+   */
+  detectChanges() {
+    this.hostFixture.detectChanges();
+  }
+
   /**
    *
    * @param directiveOrSelector
