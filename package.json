@@ -19,8 +19,9 @@
     "contributors:add": "npx all-contributors add",
     "contributors:generate": "npx all-contributors generate",
     "test:ci": "npx cross-env NODE_ENV=build npm run test && npm run test:jest",
-    "build:lib": "npx ng build spectator && npm run build:schematics",
-    "build:schematics": "tsc -p projects/spectator/schematics/tsconfig.json && cp projects/spectator/schematics/src/collection.json dist/spectator/schematics/ && cp projects/spectator/schematics/src/ng-add/schema.json dist/spectator/schematics/ng-add/"
+    "build:lib": "npx ng build spectator && npm run build:schematics && npm run copy:schematics",
+    "build:schematics": "tsc -p projects/spectator/schematics/tsconfig.json",
+    "copy:schematics": "cp -r projects/spectator/schematics/src/ dist/spectator/schematics"
   },
   "dependencies": {
     "@angular/animations": "~7.0.0",

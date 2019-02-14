@@ -10,7 +10,6 @@
     "noImplicitThis": true,
     "noUnusedParameters": true,
     "noUnusedLocals": true,
-    "outDir": "../../../dist/spectator/schematics",
     "rootDir": "src/",
     "skipDefaultLibCheck": true,
     "skipLibCheck": true,
