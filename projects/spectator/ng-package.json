@@ -6,6 +6,7 @@
   },
   "whitelistedNonPeerDependencies": [
     "dom-testing-library",
-    "jquery"
+    "jquery",
+    "schematics-utilities"
   ]
 }

@@ -1,0 +1,24 @@
+{
+  "$schema": "http://json-schema.org/schema",
+  "id": "SchematicsNetbasalSpectatorNgAdd",
+  "title": "Install the @netbasal/spectator library options schema",
+  "type": "object",
+  "description": "Adds @netbasal/spectator in the package.json file and runs install dependencies.",
+  "properties": {
+    "skipPackageJson": {
+      "description": "When true, does not add dependencies to the \"package.json\" file.",
+      "type": "boolean",
+      "default": false
+    },
+    "skipInstall": {
+      "description": "Skip installing dependency packages.",
+      "type": "boolean",
+      "default": false
+    },
+    "skipGreeting": {
+      "description": "Are you sure what you don't want to see about Akita?",
+      "type": "boolean",
+      "default": false
+    }
+  }
+}
