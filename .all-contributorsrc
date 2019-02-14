@@ -86,6 +86,16 @@
         "platform",
         "test"
       ]
+    },
+    {
+      "login": "thekiba",
+      "name": "Andrew Grekov",
+      "avatar_url": "https://avatars0.githubusercontent.com/u/1910515?v=4",
+      "profile": "https://github.com/thekiba",
+      "contributions": [
+        "code",
+        "tool"
+      ]
     }
   ]
 }
