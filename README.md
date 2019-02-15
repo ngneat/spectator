@@ -23,7 +23,7 @@ Spectator helps you get rid of all the boilerplate grunt work, leaving you with 
 
 ## Installation
 
-`npm add @netbasal/spectator`
+`ng add @netbasal/spectator`
 
 ## Documentation
 Learn about it on the [docs site](https://netbasal.gitbook.io/spectator/)
