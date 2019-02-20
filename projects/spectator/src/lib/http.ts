@@ -49,6 +49,7 @@ export function createHTTPFactory<T>(dataService: Type<T>, providers = []): () =
     };
 
     http.expectOne = (url: string, method: HTTPMethod) => {
+      expect(true).toBe(true); // workaround to avoid `Spec has no expectations` https://github.com/NetanelBasal/spectator/issues/75
       const req = http.controller.expectOne({
         url,
         method
