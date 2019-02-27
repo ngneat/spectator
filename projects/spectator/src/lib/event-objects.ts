@@ -32,7 +32,6 @@ export function createKeyboardEvent(type: string, keyOrKeyCode: string | number,
   const key = typeof keyOrKeyCode === 'string' && keyOrKeyCode;
   const keyCode = typeof keyOrKeyCode === 'number' && keyOrKeyCode;
 
-
   let event = document.createEvent('KeyboardEvent') as any;
   let originalPreventDefault = event.preventDefault;
 
