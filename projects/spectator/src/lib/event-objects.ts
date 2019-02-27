@@ -32,12 +32,8 @@ export function createKeyboardEvent(type: string, keyOrKeyCode: string | number,
   const key = typeof keyOrKeyCode === 'string' && keyOrKeyCode;
   const keyCode = typeof keyOrKeyCode === 'number' && keyOrKeyCode;
 
-  let event = document.createEvent('KeyboardEvent') as any;
-  // Firefox does not support `initKeyboardEvent`, but supports `initKeyEvent`.
-  let initEventFn = (event.initKeyEvent || event.initKeyboardEvent).bind(event);
+  let event = new KeyboardEvent(type, { key, keyCode } as any);
   let originalPreventDefault = event.preventDefault;
-
-  initEventFn(type, true, true, window, 0, 0, 0, 0, 0, keyCode);
 
   // Webkit Browsers don't set the keyCode when calling the init function.
   // See related bug https://bugs.webkit.org/show_bug.cgi?id=16735
