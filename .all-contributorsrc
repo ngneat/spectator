@@ -96,6 +96,15 @@
         "code",
         "tool"
       ]
+    },
+    {
+      "login": "jpzwarte",
+      "name": "Jeroen Zwartepoorte",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/3968?v=4",
+      "profile": "http://twitter.com/jpzwarte",
+      "contributions": [
+        "code"
+      ]
     }
   ]
 }
