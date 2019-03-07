@@ -62,11 +62,11 @@ export function initialModule<T, C = HostComponent>(
       entryComponents: []
     };
   } else {
-    component = merged.declareComponent ? merged.component : [];
+    component = merged.component;
     host = merged.host;
 
     moduleMetadata = {
-      declarations: [component, withHost ? host : [], ...(merged.declarations || [])],
+      declarations: [merged.declareComponent ? component : [], withHost ? host : [], ...(merged.declarations || [])],
       imports: [merged.disableAnimations ? NoopAnimationsModule : [], ...(merged.imports || [])],
       schemas: [merged.shallow ? NO_ERRORS_SCHEMA : []],
       providers: [...(merged.providers || [])],
