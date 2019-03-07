@@ -96,6 +96,24 @@
         "code",
         "tool"
       ]
+    },
+    {
+      "login": "jpzwarte",
+      "name": "Jeroen Zwartepoorte",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/3968?v=4",
+      "profile": "http://twitter.com/jpzwarte",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "oschlegel",
+      "name": "Oliver Schlegel",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/11634412?v=4",
+      "profile": "https://github.com/oschlegel",
+      "contributions": [
+        "code"
+      ]
     }
   ]
 }
