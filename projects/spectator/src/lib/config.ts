@@ -26,6 +26,7 @@ export type SpectatorOptions<T = any, H = HostComponent> = TestModuleMetadata & 
   componentProviders?: any[];
   mocks?: Type<any>[];
   detectChanges?: boolean;
+  declareComponent?: boolean;
 };
 
 const defaultOptions: SpectatorOptions<any, any> = {
@@ -33,7 +34,8 @@ const defaultOptions: SpectatorOptions<any, any> = {
   shallow: false,
   host: HostComponent,
   entryComponents: [],
-  mocks: []
+  mocks: [],
+  declareComponent: true
 };
 
 export function initialModule<T, C = HostComponent>(
@@ -64,7 +66,7 @@ export function initialModule<T, C = HostComponent>(
     host = merged.host;
 
     moduleMetadata = {
-      declarations: [component, withHost ? host : [], ...(merged.declarations || [])],
+      declarations: [merged.declareComponent ? component : [], withHost ? host : [], ...(merged.declarations || [])],
       imports: [merged.disableAnimations ? NoopAnimationsModule : [], ...(merged.imports || [])],
       schemas: [merged.shallow ? NO_ERRORS_SCHEMA : []],
       providers: [...(merged.providers || [])],
