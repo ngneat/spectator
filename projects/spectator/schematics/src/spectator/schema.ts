@@ -1,0 +1,117 @@
+import { ChangeDetection, Style, ViewEncapsulation } from '@angular/cli/lib/config/schema';
+
+export class ComponentOptions {
+  name: string;
+  path?: string;
+  withHost?: boolean;
+  withCustomHost?: boolean;
+  /**
+   * Specifies the change detection strategy.
+   */
+  changeDetection?: ChangeDetection;
+  /**
+   * Specifies if the component is an entry component of declaring module.
+   */
+  entryComponent?: boolean;
+  /**
+   * Specifies if declaring module exports the component.
+   */
+  export?: boolean;
+  /**
+   * Flag to indicate if a directory is created.
+   */
+  flat?: boolean;
+  /**
+   * Specifies if the style will be in the ts file.
+   */
+  inlineStyle?: boolean;
+  /**
+   * Specifies if the template will be in the ts file.
+   */
+  inlineTemplate?: boolean;
+  /**
+   * Allows specification of the declaring module.
+   */
+  module?: string;
+  /**
+   * The prefix to apply to generated selectors.
+   */
+  prefix?: string;
+  /**
+   * The selector to use for the component.
+   */
+  selector?: string;
+  /**
+   * Flag to skip the module import.
+   */
+  skipImport?: boolean;
+  /**
+   * Specifies if a spec file is generated.
+   */
+  spec?: boolean;
+  /**
+   * The file extension or preprocessor to use for style files.
+   */
+  style?: Style;
+  /**
+   * The file extension to be used for style files.
+   */
+  styleext?: string;
+  /**
+   * Specifies the view encapsulation strategy.
+   */
+  viewEncapsulation?: ViewEncapsulation;
+}
+export class ServiceOptions {
+  name: string;
+  path?: string;
+  isDataService?: boolean;
+  /**
+   * Flag to indicate if a directory is created.
+   */
+  flat?: boolean;
+  /**
+   * When true, does not create test files.
+   */
+  skipTests?: boolean;
+  /**
+   * Specifies if a spec file is generated.
+   */
+  spec?: boolean;
+}
+export class DirectiveOptions{
+  name: string;
+  path?: string;
+  /**
+   * Specifies if declaring module exports the directive.
+   */
+  export?: boolean;
+  /**
+   * Flag to indicate if a directory is created.
+   */
+  flat?: boolean;
+  /**
+   * Allows specification of the declaring module.
+   */
+  module?: string;
+  /**
+   * The prefix to apply to generated selectors.
+   */
+  prefix?: string;
+  /**
+   * The selector to use for the directive.
+   */
+  selector?: string;
+  /**
+   * Flag to skip the module import.
+   */
+  skipImport?: boolean;
+  /**
+   * When true, does not create test files.
+   */
+  skipTests?: boolean;
+  /**
+   * Specifies if a spec file is generated.
+   */
+  spec?: boolean;
+}
