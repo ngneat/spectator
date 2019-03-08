@@ -9,17 +9,20 @@
     "spectator-component": {
       "description": "Spectator component",
       "factory": "./spectator/index#spectatorComponentSchematic",
-      "schema": "./spectator/component-schema.json"
+      "schema": "./spectator/component-schema.json",
+      "aliases": ["cs"]
     },
     "spectator-service": {
       "description": "Spectator service",
       "factory": "./spectator/index#spectatorServiceSchematic",
-      "schema": "./spectator/service-schema.json"
+      "schema": "./spectator/service-schema.json",
+      "aliases": ["ss"]
     },
     "spectator-directive": {
       "description": "Spectator directive",
       "factory": "./spectator/index#spectatorDirectiveSchematic",
-      "schema": "./spectator/directive-schema.json"
+      "schema": "./spectator/directive-schema.json",
+      "aliases": ["ds"]
     }
   }
 }
