@@ -33,15 +33,20 @@ Auto generate specs with the [CLI](https://github.com/NetanelBasal/spectator-cli
 
 ## Schematics
 Generate component, service and directive with Spectator spec templates with Angular Cli:
-1. Component
+
+**Component**
 * Default spec: `ng g cs dashrized-name`  
 * Spec with a host: `ng g cs dashrized-name --withHost=true`
 * Spec with a custom host: `ng g cs dashrized-name --withCustomHost=true`
 
-1. Service
+**Service:**
 * Default spec: `ng g ss dashrized-name`
 * Spec for testing http data service: `ng g ss dashrized-name --isDataService=true`
-1. Directive: `ng g ds dashrized-name`
+
+**Directive:**
+ 
+`ng g ds dashrized-name`
+
 
 ## Testing in Angular
 ```ts
