@@ -1,16 +1,4 @@
-import {
-  apply,
-  chain,
-  externalSchematic,
-  MergeStrategy,
-  mergeWith,
-  move,
-  Rule,
-  SchematicContext,
-  template,
-  Tree,
-  url
-} from '@angular-devkit/schematics';
+import { apply, chain, externalSchematic, MergeStrategy, mergeWith, move, Rule, SchematicContext, template, Tree, url } from '@angular-devkit/schematics';
 import { ComponentOptions, DirectiveOptions, ServiceOptions } from './schema';
 import { normalize, strings } from '@angular-devkit/core';
 
@@ -21,26 +9,15 @@ export function spectatorComponentSchematic(options: ComponentOptions): Rule {
       skipTests: true,
       spec: false
     }),
-    (tree: Tree, _context: SchematicContext): Rule => {
+    (_tree: Tree, _context: SchematicContext): Rule => {
       const movePath = normalize(options.path + '/' + strings.dasherize(options.name) || '');
-      const specTemplateRule = apply(
-        url(
-          `./files/${
-            options.withHost
-              ? 'component-host'
-              : options.withCustomHost
-              ? 'component-custom-host'
-              : 'component'
-          }`
-        ),
-        [
-          template({
-            ...strings,
-            ...options
-          }),
-          move(movePath)
-        ]
-      );
+      const specTemplateRule = apply(url(`./files/${options.withHost ? 'component-host' : options.withCustomHost ? 'component-custom-host' : 'component'}`), [
+        template({
+          ...strings,
+          ...options
+        }),
+        move(movePath)
+      ]);
       return mergeWith(specTemplateRule, MergeStrategy.Default);
     }
   ]);
@@ -53,18 +30,15 @@ export function spectatorServiceSchematic(options: ServiceOptions): Rule {
       skipTests: true,
       spec: false
     }),
-    (tree: Tree, _context: SchematicContext): Rule => {
+    (_tree: Tree, _context: SchematicContext): Rule => {
       const movePath = normalize(options.path || '');
-      const specTemplateRule = apply(
-        url(`./files/${options.isDataService ? 'data-service' : `service`}`),
-        [
-          template({
-            ...strings,
-            ...options
-          }),
-          move(movePath)
-        ]
-      );
+      const specTemplateRule = apply(url(`./files/${options.isDataService ? 'data-service' : `service`}`), [
+        template({
+          ...strings,
+          ...options
+        }),
+        move(movePath)
+      ]);
       return mergeWith(specTemplateRule, MergeStrategy.Default);
     }
   ]);
@@ -77,7 +51,7 @@ export function spectatorDirectiveSchematic(options: DirectiveOptions): Rule {
       skipTests: true,
       spec: false
     }),
-    (tree: Tree, _context: SchematicContext): Rule => {
+    (_tree: Tree, _context: SchematicContext): Rule => {
       const movePath = normalize(options.path || '');
       const specTemplateRule = apply(url(`./files/directive`), [
         template({

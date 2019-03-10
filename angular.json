@@ -151,14 +151,6 @@
             "project": "projects/spectator/ng-package.json"
           }
         },
-        "test": {
-          "builder": "@angular-devkit/build-angular:karma",
-          "options": {
-            "main": "projects/spectator/src/test.ts",
-            "tsConfig": "projects/spectator/tsconfig.spec.json",
-            "karmaConfig": "projects/spectator/karma.conf.js"
-          }
-        },
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {

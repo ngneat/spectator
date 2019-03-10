@@ -1,4 +1,4 @@
-import { ChangeDetection, Style, ViewEncapsulation } from '@angular/cli/lib/config/schema';
+import { ChangeDetection, ViewEncapsulation } from '@angular/cli/lib/config/schema';
 
 export class ComponentOptions {
   name: string;
@@ -52,7 +52,7 @@ export class ComponentOptions {
   /**
    * The file extension or preprocessor to use for style files.
    */
-  style?: Style;
+  style?: any;
   /**
    * The file extension to be used for style files.
    */
@@ -79,7 +79,7 @@ export class ServiceOptions {
    */
   spec?: boolean;
 }
-export class DirectiveOptions{
+export class DirectiveOptions {
   name: string;
   path?: string;
   /**

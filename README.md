@@ -47,6 +47,10 @@ Generate component, service and directive with Spectator spec templates with Ang
  
 `ng g ds dashrized-name`
 
+To use spectator as the default collection in your Angular CLI project, add it to your angular.json:
+
+`ng config cli.defaultCollection @netbasal/spectator`
+
 
 ## Testing in Angular
 ```ts
