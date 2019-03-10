@@ -47,9 +47,24 @@ Generate component, service and directive with Spectator spec templates with Ang
  
 `ng g ds dashrized-name`
 
-To use spectator as the default collection in your Angular CLI project, add it to your angular.json:
+## Default Schematics Collection
 
-`ng config cli.defaultCollection @netbasal/spectator`
+To use `spectator` as the default collection in your Angular CLI project,
+add it to your `angular.json`:
+
+```sh
+ng config cli.defaultCollection @netbasal/spectator
+```
+
+The `spectator` schematics extend the default `@schematics/angular` collection. If you want to set defaults for schematics such as generating components with scss file, you must change the schematics package name from `@schematics/angular` to `@netbasal/spectator` in `angular.json`:
+
+```json
+"schematics": {
+  "@netbasal/spectator:component": {
+    "styleext": "scss"
+  }
+}
+```
 
 
 ## Testing in Angular

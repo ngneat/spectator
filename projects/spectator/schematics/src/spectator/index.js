@@ -2,10 +2,12 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const schematics_1 = require("@angular-devkit/schematics");
 const core_1 = require("@angular-devkit/core");
+const config_1 = require("@schematics/angular/utility/config");
 function spectatorComponentSchematic(options) {
     return schematics_1.chain([
         schematics_1.externalSchematic('@schematics/angular', 'component', Object.assign({}, options, { skipTests: true, spec: false })),
-        (_tree, _context) => {
+        (tree, _context) => {
+            _ensurePath(tree, options);
             const movePath = core_1.normalize(options.path + '/' + core_1.strings.dasherize(options.name) || '');
             const specTemplateRule = schematics_1.apply(schematics_1.url(`./files/${options.withHost ? 'component-host' : options.withCustomHost ? 'component-custom-host' : 'component'}`), [
                 schematics_1.template(Object.assign({}, core_1.strings, options)),
@@ -19,7 +21,8 @@ exports.spectatorComponentSchematic = spectatorComponentSchematic;
 function spectatorServiceSchematic(options) {
     return schematics_1.chain([
         schematics_1.externalSchematic('@schematics/angular', 'service', Object.assign({}, options, { skipTests: true, spec: false })),
-        (_tree, _context) => {
+        (tree, _context) => {
+            _ensurePath(tree, options);
             const movePath = core_1.normalize(options.path || '');
             const specTemplateRule = schematics_1.apply(schematics_1.url(`./files/${options.isDataService ? 'data-service' : `service`}`), [
                 schematics_1.template(Object.assign({}, core_1.strings, options)),
@@ -33,7 +36,8 @@ exports.spectatorServiceSchematic = spectatorServiceSchematic;
 function spectatorDirectiveSchematic(options) {
     return schematics_1.chain([
         schematics_1.externalSchematic('@schematics/angular', 'directive', Object.assign({}, options, { skipTests: true, spec: false })),
-        (_tree, _context) => {
+        (tree, _context) => {
+            _ensurePath(tree, options);
             const movePath = core_1.normalize(options.path || '');
             const specTemplateRule = schematics_1.apply(schematics_1.url(`./files/directive`), [
                 schematics_1.template(Object.assign({}, core_1.strings, options)),
@@ -44,4 +48,16 @@ function spectatorDirectiveSchematic(options) {
     ]);
 }
 exports.spectatorDirectiveSchematic = spectatorDirectiveSchematic;
+function _ensurePath(tree, options) {
+    const workspace = config_1.getWorkspace(tree);
+    if (!options.project) {
+        options.project = Object.keys(workspace.projects)[0];
+    }
+    const project = workspace.projects[options.project];
+    if (options.path === undefined) {
+        const root = project.sourceRoot ? `/${project.sourceRoot}/` : `/${project.root}/src/app`;
+        const projectDirName = project.projectType === 'application' ? 'app' : 'lib';
+        options.path = `${root}${projectDirName}`;
+    }
+}
 //# sourceMappingURL=index.js.map
