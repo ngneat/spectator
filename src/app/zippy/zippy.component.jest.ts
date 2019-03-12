@@ -99,7 +99,7 @@ describe('ZippyComponent', () => {
   });
 });
 
-@Component({ selector: 'custom-host', template: '' })
+@Component({ selector: 'app-custom-host', template: '' })
 class CustomHostComponent {
   title = 'Custom HostComponent';
   options = { color: 'blue' };

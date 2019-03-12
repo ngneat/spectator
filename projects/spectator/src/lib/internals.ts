@@ -14,7 +14,7 @@ import { createMouseEvent } from './event-objects';
 import { typeInElement } from './type-in-element';
 import { patchElementFocus } from './element-focus';
 import { Observable } from 'rxjs';
-import { SpectatorError } from './errors';
+import { SpectatorDebugElementNotFoundError } from './errors';
 import { SpyObject } from './mock';
 import { DOMSelector } from './dom-selectors';
 
@@ -70,7 +70,15 @@ export class Spectator<C> {
   query<R extends Element>(directiveOrSelector: string | DOMSelector): R;
   query<R>(directiveOrSelector: Type<any>, options?: { read }): R;
   query<R>(directiveOrSelector: Type<any> | DOMSelector | string, options: { read } = { read: undefined }): R {
-    return _getChild<R>(this.debugElement)(directiveOrSelector, options);
+    try {
+      return _getChild<R>(this.debugElement)(directiveOrSelector, options);
+    } catch (err) {
+      if (err instanceof SpectatorDebugElementNotFoundError) {
+        return null;
+      } else {
+        throw err;
+      }
+    }
   }
 
   /**
@@ -304,7 +312,7 @@ export function _getChild<R>(debugElementRoot: DebugElement) {
     }
 
     if (!debugElement) {
-      throw new SpectatorError(`Cannot find a debug element for ${directiveOrSelector}`);
+      throw new SpectatorDebugElementNotFoundError(`Cannot find a debug element for ${directiveOrSelector}`);
     }
 
     if (options.read) {
@@ -335,7 +343,7 @@ export function _getChildren<R>(debugElementRoot: DebugElement) {
     }
 
     if (!debugElement) {
-      throw new SpectatorError(`Cannot find a debug element for ${directiveOrSelector}`);
+      throw new SpectatorDebugElementNotFoundError(`Cannot find a debug element for ${directiveOrSelector}`);
     }
 
     if (options.read) {

@@ -4,6 +4,7 @@ import { createHostComponentFactory, SpectatorWithHost } from '@netbasal/spectat
 
 import { QueryService } from '../query.service';
 import { ZippyComponent } from './zippy.component';
+import { CalcComponent } from '../calc/calc.component';
 
 describe('ZippyComponent', () => {
   let host: SpectatorWithHost<ZippyComponent>;
@@ -11,6 +12,7 @@ describe('ZippyComponent', () => {
   const createHost = createHostComponentFactory<ZippyComponent>({
     component: ZippyComponent,
     mocks: [QueryService],
+    declarations: [CalcComponent],
     componentProviders: [{ provide: QueryService, useValue: 'componentProviders' }]
   });
 
@@ -81,9 +83,21 @@ describe('ZippyComponent', () => {
   });
 
   it('should toggle the content when pressing "Enter"', () => {
-    host = createHost(`<zippy title="Zippy title"></zippy>`);
+    host = createHost(`
+      <zippy title="Zippy title">
+        <app-calc></app-calc>
+      </zippy>`);
+
+    expect(host.query(CalcComponent)).toBe(null);
+    expect(host.queryAll(CalcComponent).length).toBe(0);
+    expect(host.queryLast(CalcComponent)).toBe(null);
+
     host.keyboard.pressEnter('.zippy__title');
-    expect(host.query('.zippy__content')).toExist();
+    expect(host.query(CalcComponent)).toExist();
+
+    expect(host.query(CalcComponent)).toBeDefined();
+    expect(host.queryAll(CalcComponent).length).toBe(1);
+    expect(host.queryLast(CalcComponent)).toBeDefined();
 
     host.keyboard.pressEnter('.zippy__title');
     expect('.zippy__content').not.toExist();
@@ -99,7 +113,7 @@ describe('ZippyComponent', () => {
   });
 });
 
-@Component({ selector: 'custom-host', template: '' })
+@Component({ selector: 'app-custom-host', template: '' })
 class CustomHostComponent {
   title = 'Custom HostComponent';
   options = { color: 'blue' };
