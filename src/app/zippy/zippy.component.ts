@@ -24,11 +24,6 @@ import { QueryService } from '../query.service';
   `
 })
 export class ZippyComponent {
-  @HostListener('keyup.esc')
-  onEsc() {
-    this.toggle();
-  }
-
   @Input()
   title;
   @Input()
@@ -37,6 +32,11 @@ export class ZippyComponent {
   };
   visible = false;
   updatedAsync = false;
+
+  @HostListener('keyup.esc')
+  onEsc() {
+    this.toggle();
+  }
 
   constructor(private queryService: QueryService) {}
 
