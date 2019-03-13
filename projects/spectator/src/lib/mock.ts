@@ -35,7 +35,7 @@ export function installProtoMethods(mock: any, proto: any, createSpyFn: Function
 }
 
 export function createSpyObject<T>(type: Type<T>, template?: Partial<Record<keyof T, any>>): SpyObject<T> {
-  const mock: any = template || {};
+  const mock: any = Object.assign({}, template) || {};
 
   return installProtoMethods(mock, type.prototype, name => {
     const newSpy: CompatibleSpy = jasmine.createSpy(name) as any;
