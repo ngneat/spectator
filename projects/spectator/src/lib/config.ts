@@ -68,7 +68,7 @@ export function initialModule<T, C = HostComponent>(
     moduleMetadata = {
       declarations: [merged.declareComponent ? component : [], withHost ? host : [], ...(merged.declarations || [])],
       imports: [merged.disableAnimations ? NoopAnimationsModule : [], ...(merged.imports || [])],
-      schemas: [merged.shallow ? NO_ERRORS_SCHEMA : []],
+      schemas: [merged.shallow ? NO_ERRORS_SCHEMA : merged.schemas || []],
       providers: [...(merged.providers || [])],
       componentProviders: merged.componentProviders ? [merged.componentProviders] : undefined,
       entryComponents: [merged.entryComponents]
