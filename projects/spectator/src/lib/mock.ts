@@ -1,5 +1,5 @@
 /** Credit: Valentin Buryakov */
-import { Provider, Type } from '@angular/core';
+import { Type, FactoryProvider } from '@angular/core';
 
 export interface CompatibleSpy extends jasmine.Spy {
   /** By chaining the spy with and.returnValue, all calls to the function will return a specific
@@ -48,7 +48,7 @@ export function createSpyObject<T>(type: Type<T>, template?: Partial<Record<keyo
   });
 }
 
-export function mockProvider<T>(type: Type<T>, properties?: Partial<Record<keyof T, any>>): Provider {
+export function mockProvider<T>(type: Type<T>, properties?: Partial<Record<keyof T, any>>): FactoryProvider {
   return {
     provide: type,
     useFactory: function() {
