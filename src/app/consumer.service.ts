@@ -7,11 +7,15 @@ import { ProviderService } from './provider.service';
 export class ConsumerService {
   lastValue: any;
 
-  constructor(provider: ProviderService) {
+  constructor(private provider: ProviderService) {
     provider.obs$.subscribe(val => this.update(val));
   }
 
   update(val: string) {
     this.lastValue = val;
+  }
+
+  consumeProvider() {
+    return this.provider.method();
   }
 }

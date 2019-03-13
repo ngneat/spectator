@@ -7,4 +7,8 @@ import { Subject } from 'rxjs';
 export class ProviderService {
   obs$ = new Subject<string>();
   constructor() {}
+
+  method() {
+    return 5;
+  }
 }
