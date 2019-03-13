@@ -5,6 +5,8 @@ import { WidgetDataService } from './widget-data.service';
 export class WidgetService {
   constructor(private dataService: WidgetDataService) {}
 
+  testingProperty = 'hello';
+
   get() {
     return this.dataService.get();
   }
