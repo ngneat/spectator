@@ -4,11 +4,13 @@ import { ProviderService } from './provider.service';
 import { Subject } from 'rxjs';
 
 describe('ConsumerService', () => {
+  const randomNumber = Math.random();
   const spectator = createService({
     service: ConsumerService,
     providers: [
       mockProvider(ProviderService, {
-        obs$: new Subject()
+        obs$: new Subject(),
+        method: () => randomNumber
       })
     ]
   });
@@ -18,5 +20,9 @@ describe('ConsumerService', () => {
     expect(spectator.service.lastValue).toBeUndefined();
     provider.obs$.next('hey you');
     expect(spectator.service.lastValue).toBe('hey you');
+  });
+
+  it('should consume mocked service methods', () => {
+    expect(spectator.service.consumeProvider()).toBe(randomNumber);
   });
 });
