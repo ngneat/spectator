@@ -24,7 +24,7 @@ export function installProtoMethods(mock: any, proto: any, createSpyFn: Function
   for (const key of Object.getOwnPropertyNames(proto)) {
     const descriptor = Object.getOwnPropertyDescriptor(proto, key);
 
-    if (typeof descriptor.value === 'function' && key !== 'constructor') {
+    if (typeof descriptor.value === 'function' && key !== 'constructor' && typeof mock[key] === 'undefined') {
       mock[key] = createSpyFn(key);
     }
   }
