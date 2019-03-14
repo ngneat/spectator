@@ -1,19 +1,14 @@
-import { NgOnDestroyService, ngOnDestroySpy } from './ng-on-destroy.service';
+import { NgOnDestroyService } from './ng-on-destroy.service';
 import { SubjectService } from './subject.service';
 import { createService } from '@netbasal/spectator';
 import { mockProvider } from '@netbasal/spectator/jest';
 import { Subject } from 'rxjs';
 
 describe('NgOnDestroyService', () => {
-  const spyAcrossMultipleTests = jasmine.createSpy('ngOnDestroy test spy');
   const subjectAcrossMultipleTests$ = new Subject();
   const spectator = createService({
     service: NgOnDestroyService,
     providers: [
-      {
-        provide: ngOnDestroySpy,
-        useValue: spyAcrossMultipleTests
-      },
       mockProvider(SubjectService, {
         subject$: subjectAcrossMultipleTests$
       })
