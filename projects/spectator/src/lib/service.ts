@@ -42,6 +42,13 @@ export function createService<S>(options: Params<S> | Type<S>): SpectatorService
     TestBed.configureTestingModule(module);
   });
 
+  afterEach(() => {
+    const testedService = TestBed.get(service);
+    if (typeof testedService.ngOnDestroy === 'function') {
+      testedService.ngOnDestroy();
+    }
+  });
+
   return {
     get service(): S {
       return TestBed.get(service);
