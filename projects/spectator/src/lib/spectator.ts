@@ -8,6 +8,7 @@
 
 import { Type, NgModule } from '@angular/core';
 import { async, TestBed } from '@angular/core/testing';
+import { configureTestSuite } from 'ng-bullet';
 import * as customMatchers from './matchers';
 import { Spectator } from './internals';
 import { initialModule, SpectatorOptions } from './config';
@@ -26,21 +27,26 @@ export function createTestComponentFactory<T>(typeOrOptions: SpectatorOptions<T>
     jasmine.addMatchers(customMatchers as any);
   });
 
-  beforeEach(async(() => {
-    @NgModule({
-      entryComponents: [moduleMetadata.entryComponents ? moduleMetadata.entryComponents : []]
-    })
-    class EntryComponentModule {}
+  @NgModule({
+    entryComponents: [moduleMetadata.entryComponents ? moduleMetadata.entryComponents : []]
+  })
+  class EntryComponentModule {}
 
-    moduleMetadata.imports = [moduleMetadata.imports ? moduleMetadata.imports : [], EntryComponentModule];
-    TestBed.configureTestingModule(moduleMetadata)
-      .overrideComponent(component, {
-        set: {
-          providers: moduleMetadata.componentProviders ? [moduleMetadata.componentProviders] : undefined
-        }
-      })
-      .compileComponents();
-  }));
+  moduleMetadata.imports = [moduleMetadata.imports ? moduleMetadata.imports : [], EntryComponentModule];
+
+  const configTestBed = () => {
+    return TestBed.configureTestingModule(moduleMetadata).overrideComponent(component, {
+      set: {
+        providers: moduleMetadata.componentProviders ? [moduleMetadata.componentProviders] : undefined
+      }
+    });
+  };
+
+  if (moduleMetadata.optimizeCompilation) {
+    configureTestSuite(() => configTestBed());
+  } else {
+    beforeEach(async(() => configTestBed().compileComponents()));
+  }
 
   return (inputs: Partial<T> = {}, detectChanges = true) => {
     const spectator = new Spectator<T>();

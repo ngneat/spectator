@@ -27,6 +27,7 @@ export type SpectatorOptions<T = any, H = HostComponent> = TestModuleMetadata & 
   mocks?: Type<any>[];
   detectChanges?: boolean;
   declareComponent?: boolean;
+  optimizeCompilation?: boolean;
 };
 
 const defaultOptions: SpectatorOptions<any, any> = {
@@ -35,7 +36,8 @@ const defaultOptions: SpectatorOptions<any, any> = {
   host: HostComponent,
   entryComponents: [],
   mocks: [],
-  declareComponent: true
+  declareComponent: true,
+  optimizeCompilation: true
 };
 
 export function initialModule<T, C = HostComponent>(

@@ -6007,6 +6007,13 @@ neo-async@^2.5.0:
   version "2.6.0"
   resolved "https://registry.yarnpkg.com/neo-async/-/neo-async-2.6.0.tgz#b9d15e4d71c6762908654b5183ed38b753340835"
 
+ng-bullet@^1.0.3:
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/ng-bullet/-/ng-bullet-1.0.3.tgz#578fd03ac56a1b5ab22c349f18d6e2fd8859a721"
+  integrity sha512-qacsE/w/pLlBxebort1rkrE2B4Vc3idutcpe7tYiHVarz0V6Q5SN8E3d6NUp4UFBMOucpHlCpaASp7qEOsxM1Q==
+  dependencies:
+    tslib "^1.9.0"
+
 ng-packagr@^4.2.0:
   version "4.4.0"
   resolved "https://registry.yarnpkg.com/ng-packagr/-/ng-packagr-4.4.0.tgz#b868a829b5743870c6392491de3faf4e4cec6f4d"
