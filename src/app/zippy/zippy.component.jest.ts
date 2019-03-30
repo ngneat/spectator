@@ -31,6 +31,14 @@ describe('ZippyComponent', () => {
     const a = document.querySelectorAll('.fiv');
     const b = host.query('.color');
 
+    expect(host.query('.zippy')).toHaveAttribute('id');
+  });
+
+  it('should have attribute with value', () => {
+    host = createHost(`<zippy title="Zippy title">Zippy content</zippy>`);
+    const a = document.querySelectorAll('.fiv');
+    const b = host.query('.color');
+
     expect(host.query('.zippy')).toHaveAttribute('id', 'zippy');
   });
 

@@ -11,7 +11,7 @@ declare namespace jasmine {
      * @deprecated
      */
     toHaveAttr({ attr, val }: { attr: string; val: string }): boolean;
-    toHaveAttribute(attr: string, val: string): boolean;
+    toHaveAttribute(attr: string, val?: string): boolean;
     /**
      * @deprecated
      */
