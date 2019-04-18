@@ -52,6 +52,18 @@ const hasCss = (el, css) => {
   return true;
 };
 
+const hasSameText = (el, expected, exact = false) => {
+  const actual = exact ? $(el).text() : $.trim($(el).text());
+  if (expected && $.isFunction(expected)) {
+    const pass = expected(actual);
+    const message = () => `Expected element${pass ? ' not' : ''} to have ${exact ? 'exact' : ''} text matching '${expected}', but had '${actual}'`;
+    return { pass, message };
+  }
+  const pass = exact ? actual === expected : actual.indexOf(expected) !== -1;
+  const message = () => `Expected element${pass ? ' not' : ''} to have ${exact ? 'exact' : ''} text '${expected}', but had '${actual}'`;
+  return { pass, message };
+};
+
 /**
  *
  * @param func
@@ -157,17 +169,9 @@ export const toHaveProperty = comparator((el, prop, val) => {
  *
  * expect('.zippy__content').toHaveText((text) => text.includes('..');
  */
-export const toHaveText = comparator((el, expected) => {
-  const actual = $.trim($(el).text());
-  if (expected && $.isFunction(expected)) {
-    const pass = expected(actual);
-    const message = () => `Expected element${pass ? ' not' : ''} to have text matching '${expected}', but had '${actual}'`;
-    return { pass, message };
-  }
-  const pass = actual.indexOf(expected) !== -1;
-  const message = () => `Expected element${pass ? ' not' : ''} to have text '${expected}', but had '${actual}'`;
-  return { pass, message };
-});
+export const toHaveText = comparator((el, expected, exact = false) => hasSameText(el, expected, exact));
+
+export const toHaveExactText = comparator((el, expected) => hasSameText(el, expected, true));
 
 /**
  *
