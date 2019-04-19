@@ -20,7 +20,9 @@ declare namespace jasmine {
 
     toHaveProperty(prop: string, val: string | boolean): boolean;
 
-    toHaveText(text: string | Function): boolean;
+    toHaveText(text: string | Function, exact?: boolean): boolean;
+
+    toHaveExactText(text: string | Function): boolean;
 
     toHaveValue(value: string): boolean;
 

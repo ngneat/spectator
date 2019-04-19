@@ -19,5 +19,16 @@ describe('HelloComponent', () => {
     );
 
     expect((host.query('div') as HTMLElement).style.width).toBe('20px');
+
+    expect('div h1').toHaveText(''); // This should return true, according to the original code
+    expect('div h1').toHaveText('some title');
+    expect('div h1').toHaveText('ome title');
+
+    expect('div h1').toHaveText('some title', true);
+    expect('div h1').not.toHaveText('ome title', true);
+
+    expect('div h1').toHaveExactText('some title');
+    expect('div h1').not.toHaveExactText('ome title');
+    expect('div h1').not.toHaveExactText('');
   });
 });
