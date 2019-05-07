@@ -11,5 +11,5 @@ import { dispatchFakeEvent } from './dispatch-events';
 export function typeInElement(value: string, element: HTMLInputElement) {
   element.focus();
   element.value = value;
-  dispatchFakeEvent(element, 'input');
+  dispatchFakeEvent(element, 'input', true);
 }
