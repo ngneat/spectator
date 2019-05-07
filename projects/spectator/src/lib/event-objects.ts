@@ -1,10 +1,10 @@
 /** Credit - Angular Material **/
 
 /** Creates a browser MouseEvent with the specified options. */
-export function createMouseEvent(type: string, x = 0, y = 0) {
+export function createMouseEvent(type: string, x = 0, y = 0, button = 0) {
   const event = document.createEvent('MouseEvent');
 
-  event.initMouseEvent(type, false /* canBubble */, false /* cancelable */, window /* view */, 0 /* detail */, x /* screenX */, y /* screenY */, x /* clientX */, y /* clientY */, false /* ctrlKey */, false /* altKey */, false /* shiftKey */, false /* metaKey */, 0 /* button */, null /* relatedTarget */);
+  event.initMouseEvent(type, true /* canBubble */, false /* cancelable */, window /* view */, 0 /* detail */, x /* screenX */, y /* screenY */, x /* clientX */, y /* clientY */, false /* ctrlKey */, false /* altKey */, false /* shiftKey */, false /* metaKey */, button /* button */, null /* relatedTarget */);
 
   return event;
 }
