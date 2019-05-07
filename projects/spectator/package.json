@@ -2,7 +2,7 @@
   "name": "@netbasal/spectator",
   "description": "Angular tests made easy",
   "author": "Netanel Basal <netanel7799s@gmail.com>",
-  "version": "3.7.0",
+  "version": "3.7.1",
   "license": "MIT",
   "repository": {
     "type": "git",
