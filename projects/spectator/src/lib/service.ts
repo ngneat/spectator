@@ -6,10 +6,11 @@
  * found in the LICENSE file at https://github.com/NetanelBasal/spectator/blob/master/LICENSE
  */
 
-import { TestBed } from '@angular/core/testing';
+import { TestBed, TestModuleMetadata } from '@angular/core/testing';
 import { Provider, Type } from '@angular/core';
 import { mockProvider, SpyObject } from './mock';
 import { isType } from './is-type';
+import { BrowserDynamicTestingModule } from '@angular/platform-browser-dynamic/testing';
 
 export interface SpectatorService<S> {
   service: S;
@@ -17,25 +18,30 @@ export interface SpectatorService<S> {
   get<T>(token: any): T & SpyObject<T>;
 }
 
-export type Params<S> = {
+export type ServiceParams<S> = TestModuleMetadata & {
   service?: Type<S>;
   mocks?: Type<any>[];
-  providers?: Provider[];
-  imports?: any[];
+  entryComponents?: any[];
 };
 
-export function createService<S>(options: Params<S> | Type<S>): SpectatorService<S> {
+export function createService<S>(options: ServiceParams<S> | Type<S>): SpectatorService<S> {
   const service = isType(options) ? options : options.service;
 
-  const module: Params<S> = {
-    providers: [service],
-    imports: []
+  const module: ServiceParams<S> = {
+    providers: [service]
   };
 
   if (!isType(options)) {
     (options.mocks || []).forEach(type => module.providers.push(mockProvider(type)));
-    (options.providers || []).forEach(type => module.providers.push(type));
-    module.imports = module.imports.concat(options.imports || []);
+    module.providers = [...module.providers, ...(options.providers || [])];
+    module.declarations = options.declarations || [];
+    module.imports = options.imports || [];
+
+    TestBed.overrideModule(BrowserDynamicTestingModule, {
+      set: {
+        entryComponents: options.entryComponents || []
+      }
+    });
   }
 
   beforeEach(() => {

@@ -1,10 +1,12 @@
 import { createService } from '@netbasal/spectator';
 import { AuthService } from './auth.service';
 import { DateService } from './date.service';
+import { DynamicComponent } from './dynamic/dynamic.component';
 
 describe('AuthService', () => {
   const spectator = createService({
     service: AuthService,
+    entryComponents: [DynamicComponent],
     mocks: [DateService]
   });
 
