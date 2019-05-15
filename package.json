@@ -35,7 +35,7 @@
     "@angular/router": "~7.0.0",
     "core-js": "^2.5.4",
     "dom-testing-library": "3.16.0",
-    "jquery": "3.3.1",
+    "jquery": "3.4.1",
     "helpful-decorators": "^1.7.2",
     "rxjs": "~6.3.3",
     "zone.js": "~0.8.26"
