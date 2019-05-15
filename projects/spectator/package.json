@@ -2,7 +2,7 @@
   "name": "@netbasal/spectator",
   "description": "Angular tests made easy",
   "author": "Netanel Basal <netanel7799s@gmail.com>",
-  "version": "3.8.1",
+  "version": "3.8.2",
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -24,7 +24,7 @@
   ],
   "dependencies": {
     "dom-testing-library": "3.16.0",
-    "jquery": "3.3.1",
+    "jquery": "3.4.1",
     "schematics-utilities": "^1.1.1"
   },
   "peerDependencies": {
