@@ -1,10 +1,11 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { TranslateService } from '../translate.service';
 
 @Component({
   selector: 'hello',
   template: `
     <div [style.width]="width">
-      <h1>{{ title }}</h1>
+      <h1>{{ title | translate }}</h1>
     </div>
 
     <div *ngIf="!widthRaw" style="color:red">widthRaw is not set</div>
@@ -24,4 +25,6 @@ export class HelloComponent {
   get width() {
     return typeof this.widthRaw === 'number' ? `${this.widthRaw}px` : this.widthRaw;
   }
+
+  constructor(private translate: TranslateService) {}
 }

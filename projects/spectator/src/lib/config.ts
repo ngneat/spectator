@@ -11,6 +11,7 @@ import { Component, NO_ERRORS_SCHEMA, Type } from '@angular/core';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { mockProvider } from './mock';
 import { isType } from './is-type';
+import { getGlobalsInjections } from './globals-injections';
 
 @Component({
   template: ''
@@ -38,6 +39,8 @@ const defaultOptions: SpectatorOptions<any, any> = {
   declareComponent: true
 };
 
+const { declarations: globalDec, providers: globalProviders, imports: globalImports } = getGlobalsInjections();
+
 export function initialModule<T, C = HostComponent>(
   options: SpectatorOptions<T, C> | Type<T>,
   withHost = false
@@ -55,10 +58,10 @@ export function initialModule<T, C = HostComponent>(
     component = options;
     host = HostComponent;
     moduleMetadata = {
-      declarations: [component, withHost ? host : []],
-      imports: [NoopAnimationsModule],
+      declarations: [...globalDec, component, withHost ? host : []],
+      imports: [...globalImports, NoopAnimationsModule],
       schemas: [],
-      providers: [],
+      providers: [...globalProviders],
       entryComponents: []
     };
   } else {
@@ -66,10 +69,10 @@ export function initialModule<T, C = HostComponent>(
     host = merged.host;
 
     moduleMetadata = {
-      declarations: [merged.declareComponent ? component : [], withHost ? host : [], ...(merged.declarations || [])],
-      imports: [merged.disableAnimations ? NoopAnimationsModule : [], ...(merged.imports || [])],
+      declarations: [...globalDec, merged.declareComponent ? component : [], withHost ? host : [], ...(merged.declarations || [])],
+      imports: [...globalImports, merged.disableAnimations ? NoopAnimationsModule : [], ...(merged.imports || [])],
       schemas: [merged.shallow ? NO_ERRORS_SCHEMA : merged.schemas || []],
-      providers: [...(merged.providers || [])],
+      providers: [...globalProviders, ...(merged.providers || [])],
       componentProviders: merged.componentProviders ? [merged.componentProviders] : undefined,
       entryComponents: [merged.entryComponents]
     };

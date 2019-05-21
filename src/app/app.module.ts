@@ -27,9 +27,10 @@ import { WidgetComponent } from './widget/widget.component';
 import { ZippyComponent } from './zippy/zippy.component';
 import { FormInputComponent } from './form-input/form-input.component';
 import { IntegrationModule } from './integration/integration.module';
+import { TranslatePipe } from './translate.pipe';
 
 @NgModule({
-  declarations: [AppComponent, ZippyComponent, ButtonComponent, HighlightDirective, CalcComponent, DynamicComponent, ConsumeDynamicComponent, ViewChildrenComponent, ChildComponent, WidgetComponent, AppUnlessDirective, WidgetComponent, ClickComponent, AutoFocusDirective, FgComponent, AsyncComponent, DomSelectorsComponent, HelloComponent, AsyncInputComponent, ComponentWithoutOverwrittenProvidersComponent, FormInputComponent],
+  declarations: [AppComponent, ZippyComponent, ButtonComponent, HighlightDirective, CalcComponent, DynamicComponent, ConsumeDynamicComponent, ViewChildrenComponent, ChildComponent, WidgetComponent, AppUnlessDirective, WidgetComponent, ClickComponent, AutoFocusDirective, FgComponent, AsyncComponent, DomSelectorsComponent, HelloComponent, AsyncInputComponent, ComponentWithoutOverwrittenProvidersComponent, FormInputComponent, TranslatePipe],
   entryComponents: [DynamicComponent],
   imports: [BrowserModule, HttpClientModule, ReactiveFormsModule, IntegrationModule],
   providers: [ChildServiceService, WidgetService, WidgetDataService],
