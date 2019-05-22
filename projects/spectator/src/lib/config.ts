@@ -39,8 +39,6 @@ const defaultOptions: SpectatorOptions<any, any> = {
   declareComponent: true
 };
 
-const { declarations: globalDec, providers: globalProviders, imports: globalImports } = getGlobalsInjections();
-
 export function initialModule<T, C = HostComponent>(
   options: SpectatorOptions<T, C> | Type<T>,
   withHost = false
@@ -49,6 +47,7 @@ export function initialModule<T, C = HostComponent>(
   component: Type<T>;
   host: Type<C>;
 } {
+  const { declarations: globalDec, providers: globalProviders, imports: globalImports } = getGlobalsInjections();
   const merged = Object.assign({}, defaultOptions, options);
   let moduleMetadata: TestModuleMetadata & Partial<SpectatorOptions<T, C>>;
   let component;
