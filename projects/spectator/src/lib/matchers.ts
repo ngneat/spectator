@@ -240,18 +240,42 @@ export const toBeEmpty = comparator(el => {
 });
 
 /**
- * The :hidden selector selects hidden elements.
- * Hidden elements are elements that are:
- * 1. Set to display:none
+ * Hidden elements are elements that have:
+ * 1. Display property set to "none"
  * 2. Width and height set to 0
  * 3. A hidden parent element (this also hides child elements)
- * 4. Form elements with type="hidden"
+ * 4. Type equal to "hidden" (only for form elements)
+ * 5. A "hidden" attribute
+ */
+function isHidden(el) {
+  while (el) {
+    if (el === document) {
+      break;
+    }
+
+    if (!(el.offsetWidth || el.offsetHeight || el.getClientRects().length) || el.style.display === 'none' || el.style.visibility === 'hidden' || el.type === 'hidden' || el.hasAttribute('hidden')) {
+      return true;
+    }
+
+    el = el.parentNode;
+  }
+
+  return false;
+}
+
+/**
+ * Hidden elements are elements that have:
+ * 1. Display property set to "none"
+ * 2. Width and height set to 0
+ * 3. A hidden parent element (this also hides child elements)
+ * 4. Type equal to "hidden" (only for form elements)
+ * 5. A "hidden" attribute
  *
  * expect('div').toBeHidden();
  *
  * */
 export const toBeHidden = comparator(el => {
-  const pass = $(el).is(':hidden');
+  const pass = isHidden(el);
   const message = () => `Expected element${pass ? ' not' : ''} to be hidden`;
   return { pass, message };
 });
@@ -269,18 +293,19 @@ export const toBeSelected = comparator(el => {
 });
 
 /**
- * The :visible selector selects hidden elements.
- * Hidden elements are elements that are:
- * 1. Set to display:none
+ * Hidden elements are elements that have:
+ * 1. Display property set to "none"
  * 2. Width and height set to 0
  * 3. A hidden parent element (this also hides child elements)
- * 4. Form elements with type="hidden"
+ * 4. Type equal to "hidden" (only for form elements)
+ * 5. A "hidden" attribute
  *
  * expect('div').toBeVisible();
  *
  * */
 export const toBeVisible = comparator(el => {
-  const pass = $(el).is(':visible');
+  const pass = !isHidden(el);
+
   const message = () => `Expected element${pass ? ' not' : ''} to be visible`;
   return { pass, message };
 });
