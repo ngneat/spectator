@@ -16,7 +16,11 @@ export enum HTTPMethod {
   GET = 'GET',
   POST = 'POST',
   DELETE = 'DELETE',
-  PUT = 'PUT'
+  PUT = 'PUT',
+  PATCH = 'PATCH',
+  HEAD = 'HEAD',
+  JSONP = 'JSONP',
+  OPTIONS = 'OPTIONS'
 }
 
 export class SpectatorHTTP<T> {
