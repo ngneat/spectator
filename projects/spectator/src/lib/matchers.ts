@@ -247,7 +247,9 @@ export const toBeEmpty = comparator(el => {
  * 4. Type equal to "hidden" (only for form elements)
  * 5. A "hidden" attribute
  */
-function isHidden(el) {
+function isHidden(elOrSelector) {
+  let el = $(elOrSelector)[0];
+
   while (el) {
     if (el === document) {
       break;
