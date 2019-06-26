@@ -60,7 +60,7 @@ The `spectator` schematics extend the default `@schematics/angular` collection. 
 
 ```json
 "schematics": {
-  "@netbasal/spectator:component": {
+  "@netbasal/spectator:spectator-component": {
     "styleext": "scss"
   }
 }
