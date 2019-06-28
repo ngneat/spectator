@@ -250,6 +250,10 @@ export const toBeEmpty = comparator(el => {
 function isHidden(elOrSelector) {
   let el = $(elOrSelector)[0];
 
+  if (!el) {
+    return true;
+  }
+
   while (el) {
     if (el === document) {
       break;
