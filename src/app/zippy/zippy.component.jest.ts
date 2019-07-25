@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { fakeAsync, tick } from '@angular/core/testing';
 import { createHostComponentFactory, SpectatorWithHost } from '@netbasal/spectator/jest';
-
 import { QueryService } from '../query.service';
 import { ZippyComponent } from './zippy.component';
 
@@ -141,4 +140,8 @@ describe('With Custom Host Component', function() {
     tick(6000);
     expect(host.component.updatedAsync).not.toBeFalsy();
   }));
+
+  it.each([[1], [2]])('should work with .each (%s)', value => {
+    expect(value).toBeDefined();
+  });
 });
