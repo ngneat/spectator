@@ -8,7 +8,7 @@ import { ZippyComponent } from './zippy.component';
 describe('ZippyComponent', () => {
   let host: SpectatorWithHost<ZippyComponent>;
 
-  const createHost = createHostComponentFactory<ZippyComponent>({
+  const createHost = createHostComponentFactory({
     component: ZippyComponent,
     mocks: [QueryService],
     componentProviders: [{ provide: QueryService, useValue: 'componentProviders' }]

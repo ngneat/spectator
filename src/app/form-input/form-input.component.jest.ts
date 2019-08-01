@@ -32,7 +32,7 @@ describe('FormInputComponent', () => {
     enableSubnet: true
   };
 
-  const createComponent = createTestComponentFactory<FormInputComponent>({
+  const createComponent = createTestComponentFactory({
     component: FormInputComponent,
     imports: [ReactiveFormsModule]
   });

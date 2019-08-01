@@ -17,7 +17,7 @@ describe('DatoAutoFocusDirective', function() {
 
   it('should be focused', () => {
     host = createHost(`<input datoAutoFocus="true">`);
-    const instance = host.getDirectiveInstance<AutoFocusDirective>(AutoFocusDirective);
+    const instance = host.getDirectiveInstance(AutoFocusDirective);
     expect(host.element).toBeFocused();
   });
 

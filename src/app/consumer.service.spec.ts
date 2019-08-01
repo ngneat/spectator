@@ -16,7 +16,7 @@ describe('ConsumerService', () => {
   });
 
   it('should consume mocked service with properties', () => {
-    const provider = spectator.get<ProviderService>(ProviderService);
+    const provider = spectator.get(ProviderService);
     expect(spectator.service.lastValue).toBeUndefined();
     provider.obs$.next('hey you');
     expect(spectator.service.lastValue).toBe('hey you');

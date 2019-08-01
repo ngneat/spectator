@@ -11,13 +11,13 @@ describe('AuthService', () => {
   });
 
   it('should not be logged in', () => {
-    const dateService = spectator.get<DateService>(DateService);
+    const dateService = spectator.get(DateService);
     dateService.isExpired.and.returnValue(true);
     expect(spectator.service.isLoggedIn()).toBeFalsy();
   });
 
   it('should be logged in', () => {
-    const dateService = spectator.get<DateService>(DateService);
+    const dateService = spectator.get(DateService);
     dateService.isExpired.and.returnValue(false);
     expect(spectator.service.isLoggedIn()).toBeTruthy();
   });

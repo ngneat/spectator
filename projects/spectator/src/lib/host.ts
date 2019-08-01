@@ -68,9 +68,9 @@ export class SpectatorWithHost<C, H = HostComponent> extends Spectator<C> {
     this.hostFixture.detectChanges();
   }
 
-  getDirectiveInstance<T>(directive: Type<any>, all?: false): T;
-  getDirectiveInstance<T>(directive: Type<any>, all?: true): T[];
-  getDirectiveInstance<T>(directive: Type<any>, all = false): T | T[] {
+  getDirectiveInstance<T>(directive: Type<T>, all?: false): T;
+  getDirectiveInstance<T>(directive: Type<T>, all?: true): T[];
+  getDirectiveInstance<T>(directive: Type<T>, all = false): T | T[] {
     if (all) {
       return this.hostFixture.debugElement.queryAll(By.directive(directive)).map(d => d.injector.get(directive));
     }

@@ -5,7 +5,7 @@ import { WidgetComponent } from './widget.component';
 describe('WidgetComponent', () => {
   let host: SpectatorWithHost<WidgetComponent>;
 
-  const createHost = createHostComponentFactory<WidgetComponent>({
+  const createHost = createHostComponentFactory({
     component: WidgetComponent,
     mocks: [WidgetService]
   });
