@@ -5,7 +5,7 @@ import { TodosDataService, UserService } from './todos-data.service';
 import { createHTTPFactory, mockProvider } from '@netbasal/spectator/jest';
 
 describe('HttpClient testing', () => {
-  const http = createHTTPFactory<TodosDataService>(TodosDataService, [mockProvider(UserService)]);
+  const http = createHTTPFactory(TodosDataService, [mockProvider(UserService)]);
 
   it('can test HttpClient.get', () => {
     const { dataService, expectOne } = http();

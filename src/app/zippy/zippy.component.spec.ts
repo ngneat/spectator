@@ -9,7 +9,7 @@ import { CalcComponent } from '../calc/calc.component';
 describe('ZippyComponent', () => {
   let host: SpectatorWithHost<ZippyComponent>;
 
-  const createHost = createHostComponentFactory<ZippyComponent>({
+  const createHost = createHostComponentFactory({
     component: ZippyComponent,
     mocks: [QueryService],
     declarations: [CalcComponent],
@@ -130,7 +130,7 @@ class CustomHostComponent {
 describe('With Custom Host Component', function() {
   let host: SpectatorWithHost<ZippyComponent, CustomHostComponent>;
 
-  const createHost = createHostComponentFactory<ZippyComponent, CustomHostComponent>({
+  const createHost = createHostComponentFactory({
     component: ZippyComponent,
     componentProviders: [{ provide: QueryService, useValue: 'componentProviders' }],
     host: CustomHostComponent

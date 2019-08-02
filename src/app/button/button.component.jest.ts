@@ -40,7 +40,7 @@ describe('ButtonComponent', () => {
 
   it('should mock the service', () => {
     spectator = createComponent({}, false);
-    spectator.get<QueryService>(QueryService, true).selectName.and.returnValue(of('Netanel'));
+    spectator.get(QueryService, true).selectName.and.returnValue(of('Netanel'));
     spectator.detectChanges();
     expect(spectator.query('p')).toHaveText('Netanel');
   });

@@ -18,10 +18,10 @@ describe('ViewChildrenComponent', () => {
   });
 
   it('should expose the view child', () => {
-    const serviceFromChild = spectator.query<ChildServiceService>(ChildComponent, { read: ChildServiceService });
+    const serviceFromChild = spectator.query(ChildComponent, { read: ChildServiceService });
     const div = spectator.query('div');
-    const component = spectator.query<ChildComponent>(ChildComponent);
-    const { nativeElement } = spectator.query<ElementRef>(ChildComponent, {
+    const component = spectator.query(ChildComponent);
+    const { nativeElement } = spectator.query(ChildComponent, {
       read: ElementRef
     });
     const button = spectator.query('button');
@@ -32,9 +32,9 @@ describe('ViewChildrenComponent', () => {
   });
 
   it('should expose the view children', () => {
-    const serviceFromChild = spectator.queryAll<ChildServiceService>(ChildComponent, { read: ChildServiceService });
+    const serviceFromChild = spectator.queryAll(ChildComponent, { read: ChildServiceService });
     const divs = spectator.queryAll('div');
-    const components = spectator.queryAll<ChildComponent>(ChildComponent);
+    const components = spectator.queryAll(ChildComponent);
     expect(serviceFromChild.length).toBe(4);
     expect(components.length).toBe(4);
     expect(divs.length).toBe(2);
@@ -58,7 +58,7 @@ describe('ContentChild', () => {
       </app-view-children>
     `);
 
-    const contentChilds = host.queryAll<ChildComponent>(ChildComponent);
+    const contentChilds = host.queryAll(ChildComponent);
     expect(contentChilds.length).toBe(6);
   });
 });

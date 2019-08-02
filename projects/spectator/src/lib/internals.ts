@@ -68,8 +68,9 @@ export class Spectator<C> {
    * @returns
    */
   query<R extends Element>(directiveOrSelector: string | DOMSelector): R;
-  query<R>(directiveOrSelector: Type<any>, options?: { read }): R;
-  query<R>(directiveOrSelector: Type<any> | DOMSelector | string, options: { read } = { read: undefined }): R {
+  query<R>(directiveOrSelector: Type<R>): R;
+  query<R>(directiveOrSelector: Type<any>, options: { read: Type<R> }): R;
+  query<R>(directiveOrSelector: Type<any> | DOMSelector | string, options: { read: Type<R> } = { read: undefined }): R {
     try {
       return _getChild<R>(this.debugElement)(directiveOrSelector, options);
     } catch (err) {
@@ -88,8 +89,9 @@ export class Spectator<C> {
    * @returns
    */
   queryAll<R extends Element[]>(directiveOrSelector: string | DOMSelector): R;
-  queryAll<R>(directiveOrSelector: Type<any>, options?: { read }): R[];
-  queryAll<R>(directiveOrSelector: Type<any> | DOMSelector | string, options: { read } = { read: undefined }): R[] {
+  queryAll<R>(directiveOrSelector: Type<R>): R[];
+  queryAll<R>(directiveOrSelector: Type<any>, options: { read: Type<R> }): R[];
+  queryAll<R>(directiveOrSelector: Type<any> | DOMSelector | string, options: { read: Type<R> } = { read: undefined }): R[] {
     return _getChildren<R>(this.debugElement)(directiveOrSelector, options);
   }
 
@@ -100,8 +102,9 @@ export class Spectator<C> {
    * @returns
    */
   queryLast<R extends Element>(directiveOrSelector: string | DOMSelector): R;
-  queryLast<R>(directiveOrSelector: Type<any>, options?: { read }): R;
-  queryLast<R>(directiveOrSelector: Type<any> | DOMSelector | string, options: { read } = { read: undefined }): R {
+  queryLast<R>(directiveOrSelector: Type<R>): R;
+  queryLast<R>(directiveOrSelector: Type<any>, options: { read: Type<R> }): R;
+  queryLast<R>(directiveOrSelector: Type<R> | DOMSelector | string, options: { read: Type<R> } = { read: undefined }): R {
     const result = _getChildren<R>(this.debugElement)(directiveOrSelector, options);
     if (result && result.length) {
       return result[result.length - 1];
@@ -299,7 +302,7 @@ export class Spectator<C> {
  * @internal
  */
 export function _getChild<R>(debugElementRoot: DebugElement) {
-  return function(directiveOrSelector: Type<any> | DOMSelector | string, options: { read } = { read: undefined }): R {
+  return function(directiveOrSelector: Type<R> | DOMSelector | string, options: { read } = { read: undefined }): R {
     let debugElement: DebugElement;
 
     if (typeof directiveOrSelector === 'string') {
@@ -330,7 +333,7 @@ export function _getChild<R>(debugElementRoot: DebugElement) {
  * @internal
  */
 export function _getChildren<R>(debugElementRoot: DebugElement) {
-  return function(directiveOrSelector: Type<any> | DOMSelector | string, options: { read } = { read: undefined }): R[] {
+  return function(directiveOrSelector: Type<R> | DOMSelector | string, options: { read } = { read: undefined }): R[] {
     let debugElement: DebugElement[];
 
     if (typeof directiveOrSelector === 'string') {

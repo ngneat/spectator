@@ -30,7 +30,7 @@ export type SpectatorOptions<T = any, H = HostComponent> = TestModuleMetadata & 
   declareComponent?: boolean;
 };
 
-const defaultOptions: SpectatorOptions<any, any> = {
+const defaultOptions: SpectatorOptions<any, HostComponent> = {
   disableAnimations: true,
   shallow: false,
   host: HostComponent,
