@@ -1,6 +1,8 @@
 /** Credit: Valentin Buryakov */
 import { Type, FactoryProvider } from '@angular/core';
 
+type Writable<T> = { -readonly [P in keyof T]: T[P] };
+
 export interface CompatibleSpy extends jasmine.Spy {
   /** By chaining the spy with and.returnValue, all calls to the function will return a specific
    * value. */
@@ -14,7 +16,11 @@ export interface CompatibleSpy extends jasmine.Spy {
   reset();
 }
 
-export type SpyObject<T> = T & { [P in keyof T]: T[P] & CompatibleSpy };
+export type SpyObject<T> = T &
+  { [P in keyof T]: T[P] extends Function ? T[P] & CompatibleSpy : T[P] } & {
+    /** casts to type without readonly properties */
+    castToWritable: () => Writable<T>;
+  };
 
 export function installProtoMethods(mock: any, proto: any, createSpyFn: Function) {
   if (proto === null || proto === Object.prototype) {
@@ -26,10 +32,14 @@ export function installProtoMethods(mock: any, proto: any, createSpyFn: Function
 
     if (typeof descriptor.value === 'function' && key !== 'constructor' && typeof mock[key] === 'undefined') {
       mock[key] = createSpyFn(key);
+    } else if (descriptor.get || descriptor.set) {
+      Object.defineProperty(mock, key, descriptor);
     }
   }
 
   installProtoMethods(mock, Object.getPrototypeOf(proto), createSpyFn);
+
+  mock.castToWritable = () => mock;
 
   return mock;
 }
