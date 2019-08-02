@@ -7,15 +7,16 @@
  */
 
 import { TestBed, TestModuleMetadata } from '@angular/core/testing';
-import { InjectionToken, Type } from '@angular/core';
+import { Type } from '@angular/core';
 import { mockProvider, SpyObject } from './mock';
 import { isType } from './is-type';
 import { BrowserDynamicTestingModule } from '@angular/platform-browser-dynamic/testing';
+import { Token } from './token';
 
 export interface SpectatorService<S> {
   service: S;
 
-  get<T>(token: Type<T> | InjectionToken<T>): T & SpyObject<T>;
+  get<T>(token: Token<T> | Token<any>): T & SpyObject<T>;
 }
 
 export type ServiceParams<S> = TestModuleMetadata & {
@@ -52,7 +53,7 @@ export function createService<S>(options: ServiceParams<S> | Type<S>): Spectator
     get service(): S {
       return TestBed.get(service);
     },
-    get<T>(token: Type<T> | InjectionToken<T>): T & SpyObject<T> {
+    get<T>(token: Token<T> | Token<any>): T & SpyObject<T> {
       return TestBed.get(token);
     }
   };

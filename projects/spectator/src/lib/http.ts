@@ -9,8 +9,10 @@
 import { async, TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController, TestRequest } from '@angular/common/http/testing';
 import { HttpClient } from '@angular/common/http';
-import { Provider, Type } from '@angular/core';
+import { Type } from '@angular/core';
+
 import { SpyObject } from './mock';
+import { Token } from './token';
 
 export enum HTTPMethod {
   GET = 'GET',
@@ -48,7 +50,7 @@ export function createHTTPFactory<T>(dataService: Type<T>, providers = []): () =
     http.controller = TestBed.get(HttpTestingController);
     http.dataService = TestBed.get(dataService);
     http.httpClient = TestBed.get(HttpClient);
-    http.get = function<S>(provider: Type<S>): S & SpyObject<S> {
+    http.get = function<S>(provider: Token<S>): S & SpyObject<S> {
       return TestBed.get(provider);
     };
 

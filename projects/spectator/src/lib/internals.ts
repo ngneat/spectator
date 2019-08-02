@@ -8,7 +8,8 @@
 
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { DebugElement, ElementRef, InjectionToken, Type, ChangeDetectorRef } from '@angular/core';
+import { DebugElement, ElementRef, Type, ChangeDetectorRef } from '@angular/core';
+
 import { dispatchFakeEvent, dispatchKeyboardEvent, dispatchMouseEvent, dispatchTouchEvent } from './dispatch-events';
 import { createMouseEvent } from './event-objects';
 import { typeInElement } from './type-in-element';
@@ -17,6 +18,7 @@ import { Observable } from 'rxjs';
 import { SpectatorDebugElementNotFoundError } from './errors';
 import { SpyObject } from './mock';
 import { DOMSelector } from './dom-selectors';
+import { Token } from './token';
 
 declare const require: Function;
 const $ = require('jquery');
@@ -36,7 +38,7 @@ export class Spectator<C> {
    * @param type
    * @returns
    */
-  get<T>(type: Type<T> | InjectionToken<T>, fromComponentInjector = false): T & SpyObject<T> {
+  get<T>(type: Token<T> | Token<any>, fromComponentInjector = false): T & SpyObject<T> {
     if (fromComponentInjector) {
       return this.debugElement.injector.get(type) as T & SpyObject<T>;
     }
@@ -69,8 +71,8 @@ export class Spectator<C> {
    */
   query<R extends Element>(directiveOrSelector: string | DOMSelector): R;
   query<R>(directiveOrSelector: Type<R>): R;
-  query<R>(directiveOrSelector: Type<any>, options: { read: Type<R> }): R;
-  query<R>(directiveOrSelector: Type<any> | DOMSelector | string, options: { read: Type<R> } = { read: undefined }): R {
+  query<R>(directiveOrSelector: Type<any>, options: { read: Token<R> }): R;
+  query<R>(directiveOrSelector: Type<any> | DOMSelector | string, options: { read: Token<R> } = { read: undefined }): R {
     try {
       return _getChild<R>(this.debugElement)(directiveOrSelector, options);
     } catch (err) {
@@ -90,8 +92,8 @@ export class Spectator<C> {
    */
   queryAll<R extends Element[]>(directiveOrSelector: string | DOMSelector): R;
   queryAll<R>(directiveOrSelector: Type<R>): R[];
-  queryAll<R>(directiveOrSelector: Type<any>, options: { read: Type<R> }): R[];
-  queryAll<R>(directiveOrSelector: Type<any> | DOMSelector | string, options: { read: Type<R> } = { read: undefined }): R[] {
+  queryAll<R>(directiveOrSelector: Type<any>, options: { read: Token<R> }): R[];
+  queryAll<R>(directiveOrSelector: Type<any> | DOMSelector | string, options: { read: Token<R> } = { read: undefined }): R[] {
     return _getChildren<R>(this.debugElement)(directiveOrSelector, options);
   }
 
@@ -103,8 +105,8 @@ export class Spectator<C> {
    */
   queryLast<R extends Element>(directiveOrSelector: string | DOMSelector): R;
   queryLast<R>(directiveOrSelector: Type<R>): R;
-  queryLast<R>(directiveOrSelector: Type<any>, options: { read: Type<R> }): R;
-  queryLast<R>(directiveOrSelector: Type<R> | DOMSelector | string, options: { read: Type<R> } = { read: undefined }): R {
+  queryLast<R>(directiveOrSelector: Type<any>, options: { read: Token<R> }): R;
+  queryLast<R>(directiveOrSelector: Type<R> | DOMSelector | string, options: { read: Token<R> } = { read: undefined }): R {
     const result = _getChildren<R>(this.debugElement)(directiveOrSelector, options);
     if (result && result.length) {
       return result[result.length - 1];

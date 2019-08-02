@@ -6,13 +6,13 @@
  * found in the LICENSE file at https://github.com/NetanelBasal/spectator/blob/master/LICENSE
  */
 
-import { InjectionToken, Type } from '@angular/core';
-import { SpectatorService as BaseSpectatorService, createService as baseCreateService, isType, ServiceParams } from '@netbasal/spectator';
+import { Type } from '@angular/core';
+import { SpectatorService as BaseSpectatorService, createService as baseCreateService, isType, ServiceParams, Token } from '@netbasal/spectator';
 
 import { mockProvider, SpyObject } from './mock';
 
 export interface SpectatorService<S> extends BaseSpectatorService<S> {
-  get<T>(token: Type<T> | InjectionToken<T>): T & SpyObject<T>;
+  get<T>(token: Token<T> | Token<any>): T & SpyObject<T>;
 }
 
 export function createService<S>(options: ServiceParams<S> | Type<S>): SpectatorService<S> {
