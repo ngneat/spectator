@@ -8,6 +8,8 @@
 
 import { DebugElement, Type } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { Token } from '@netbasal/spectator';
+
 import { _getChild, _getChildren, _setInput, Spectator } from './internals';
 import * as customMatchers from './matchers';
 import { By } from '@angular/platform-browser';
@@ -44,7 +46,8 @@ export class SpectatorWithHost<C, H = HostComponent> extends Spectator<C> {
    * @returns
    */
   queryHost<T extends Element>(directiveOrSelector: string): T;
-  queryHost<T>(directiveOrSelector: Type<T>, options?: { read }): T;
+  queryHost<T>(directiveOrSelector: Type<T>): T;
+  queryHost<T>(directiveOrSelector: Type<any>, options: { read: Token<T> }): T;
   queryHost<T>(directiveOrSelector: Type<T> | string, options: { read } = { read: undefined }): T {
     return _getChild<T>(this.hostDebugElement)(directiveOrSelector, options);
   }
@@ -56,7 +59,8 @@ export class SpectatorWithHost<C, H = HostComponent> extends Spectator<C> {
    * @returns
    */
   queryHostAll<T extends Element>(directiveOrSelector: string): T[];
-  queryHostAll<T>(directiveOrSelector: Type<T>, options?: { read }): T[];
+  queryHostAll<T>(directiveOrSelector: Type<T>): T[];
+  queryHostAll<T>(directiveOrSelector: Type<any>, options: { read: Token<T> }): T[];
   queryHostAll<T>(directiveOrSelector: Type<T> | string, options: { read } = { read: undefined }): T[] {
     return _getChildren<T>(this.hostDebugElement)(directiveOrSelector, options);
   }

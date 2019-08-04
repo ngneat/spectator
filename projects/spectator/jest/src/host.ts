@@ -6,8 +6,8 @@
  * found in the LICENSE file at https://github.com/NetanelBasal/spectator/blob/master/LICENSE
  */
 
-import { InjectionToken, Type } from '@angular/core';
-import { SpectatorWithHost as BaseSpectatorWithHost, createHostComponentFactory as baseCreateHostComponentFactory, HostComponent, SpectatorOptions, isType } from '@netbasal/spectator';
+import { Type } from '@angular/core';
+import { SpectatorWithHost as BaseSpectatorWithHost, createHostComponentFactory as baseCreateHostComponentFactory, HostComponent, SpectatorOptions, isType, Token } from '@netbasal/spectator';
 
 import { mockProvider, SpyObject } from './mock';
 
@@ -15,7 +15,7 @@ export class SpectatorWithHost<C, H = HostComponent> extends BaseSpectatorWithHo
   /**
    * @inheritDoc
    */
-  get<T>(type: Type<T> | InjectionToken<T>, fromComponentInjector = false): T & SpyObject<T> {
+  get<T>(type: Token<T>, fromComponentInjector = false): T & SpyObject<T> {
     return super.get(type, fromComponentInjector) as T & SpyObject<T>;
   }
 }
