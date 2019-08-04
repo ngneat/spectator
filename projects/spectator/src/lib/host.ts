@@ -8,13 +8,13 @@
 
 import { DebugElement, Type } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { Token } from '@netbasal/spectator';
+import { BrowserDynamicTestingModule } from '@angular/platform-browser-dynamic/testing';
 
 import { _getChild, _getChildren, _setInput, Spectator } from './internals';
 import * as customMatchers from './matchers';
 import { By } from '@angular/platform-browser';
 import { HostComponent, initialModule, SpectatorOptions } from './config';
-import { BrowserDynamicTestingModule } from '@angular/platform-browser-dynamic/testing';
+import { Token } from './token';
 import { isType } from './is-type';
 
 export class SpectatorWithHost<C, H = HostComponent> extends Spectator<C> {
