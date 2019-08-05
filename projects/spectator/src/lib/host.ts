@@ -9,10 +9,11 @@
 import { DebugElement, Type } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { BrowserDynamicTestingModule } from '@angular/platform-browser-dynamic/testing';
+import { By } from '@angular/platform-browser';
 
 import { _getChild, _getChildren, _setInput, Spectator } from './internals';
 import * as customMatchers from './matchers';
-import { By } from '@angular/platform-browser';
+import { DOMSelector } from './dom-selectors';
 import { HostComponent, initialModule, SpectatorOptions } from './config';
 import { Token } from './token';
 import { isType } from './is-type';
@@ -39,29 +40,17 @@ export class SpectatorWithHost<C, H = HostComponent> extends Spectator<C> {
     this.hostFixture.detectChanges();
   }
 
-  /**
-   *
-   * @param directiveOrSelector
-   * @param options
-   * @returns
-   */
-  queryHost<T extends Element>(directiveOrSelector: string): T;
-  queryHost<T>(directiveOrSelector: Type<T>): T;
-  queryHost<T>(directiveOrSelector: Type<any>, options: { read: Token<T> }): T;
-  queryHost<T>(directiveOrSelector: Type<T> | string, options: { read } = { read: undefined }): T {
+  queryHost<T extends Element>(selector: string | DOMSelector): T;
+  queryHost<T>(directive: Type<T>): T;
+  queryHost<T>(directiveOrSelector: Type<any> | string, options: { read: Token<T> }): T;
+  queryHost<T>(directiveOrSelector: Type<T> | DOMSelector | string, options: { read } = { read: undefined }): T {
     return _getChild<T>(this.hostDebugElement)(directiveOrSelector, options);
   }
 
-  /**
-   *
-   * @param directiveOrSelector
-   * @param options
-   * @returns
-   */
-  queryHostAll<T extends Element>(directiveOrSelector: string): T[];
-  queryHostAll<T>(directiveOrSelector: Type<T>): T[];
-  queryHostAll<T>(directiveOrSelector: Type<any>, options: { read: Token<T> }): T[];
-  queryHostAll<T>(directiveOrSelector: Type<T> | string, options: { read } = { read: undefined }): T[] {
+  queryHostAll<T extends Element>(selector: string | DOMSelector): T[];
+  queryHostAll<T>(directive: Type<T>): T[];
+  queryHostAll<T>(directiveOrSelector: Type<any> | string, options: { read: Token<T> }): T[];
+  queryHostAll<T>(directiveOrSelector: Type<T> | DOMSelector | string, options: { read } = { read: undefined }): T[] {
     return _getChildren<T>(this.hostDebugElement)(directiveOrSelector, options);
   }
 
