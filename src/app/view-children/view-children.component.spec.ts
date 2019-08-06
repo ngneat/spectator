@@ -38,6 +38,9 @@ describe('ViewChildrenComponent', () => {
     expect(serviceFromChild.length).toBe(4);
     expect(components.length).toBe(4);
     expect(divs.length).toBe(2);
+
+    expect(spectator.queryAll(ChildComponent, { read: ChildServiceService })).toEqual(serviceFromChild);
+    expect(spectator.queryAll('app-child', { read: ChildServiceService })).toEqual(serviceFromChild);
   });
 });
 
@@ -60,5 +63,9 @@ describe('ContentChild', () => {
 
     const contentChilds = host.queryAll(ChildComponent);
     expect(contentChilds.length).toBe(6);
+
+    const lastContentChild = host.queryLast(ChildComponent);
+
+    expect(host.query('app-child:last-child', { read: ChildComponent })).toBe(lastContentChild);
   });
 });
