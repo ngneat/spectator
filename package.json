@@ -1,6 +1,5 @@
 {
   "name": "spectator-src",
-  "version": "0.0.0",
   "license": "MIT",
   "description": "Angular tests made easy",
   "scripts": {
@@ -22,7 +21,9 @@
     "build:lib": "npx ng build spectator && npm run build:schematics && npm run copy:schematics && npm run copy:readme",
     "build:schematics": "tsc -p projects/spectator/schematics/tsconfig.json",
     "copy:readme": "cp README.md dist/spectator",
-    "copy:schematics": "cp -r projects/spectator/schematics/src/ dist/spectator/schematics"
+    "copy:schematics": "cp -r projects/spectator/schematics/src/ dist/spectator/schematics",
+    "postbump": "npm run build:lib",
+    "release": "cd projects/spectator && standard-version --infile ../../CHANGELOG.md"
   },
   "dependencies": {
     "@angular/animations": "~7.0.0",
@@ -78,7 +79,7 @@
     "prettier": "^1.11.1",
     "puppeteer": "^1.2.0",
     "schematics-utilities": "^1.1.1",
-    "standard-version": "^4.3.0",
+    "standard-version": "^4.4.0",
     "sync-json": "^1.0.2",
     "ts-node": "~7.0.0",
     "tsickle": ">=0.29.0",
