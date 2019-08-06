@@ -1,3 +1,17 @@
+# Change Log
+
+All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
+
+<a name="3.11.0"></a>
+# [3.11.0](https://github.com/NetanelBasal/spectator/compare/v3.10.0...v3.11.0) (2019-08-06)
+
+
+### Features
+
+* **spectator:** additional query capabilities ([#143](https://github.com/NetanelBasal/spectator/issues/143)) ([1dccdb2](https://github.com/NetanelBasal/spectator/commit/1dccdb2)), closes [#142](https://github.com/NetanelBasal/spectator/issues/142)
+
+
+
 <a name="3.10.0"></a>
 # [3.10.0](https://github.com/NetanelBasal/spectator/compare/v3.9.2...v3.10.0) (2019-08-04)
 
