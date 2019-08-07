@@ -15,7 +15,6 @@ import { createMouseEvent } from './event-objects';
 import { typeInElement } from './type-in-element';
 import { patchElementFocus } from './element-focus';
 import { Observable } from 'rxjs';
-import { SpectatorDebugElementNotFoundError } from './errors';
 import { SpyObject } from './mock';
 import { DOMSelector } from './dom-selectors';
 import { Token } from './token';
@@ -67,15 +66,7 @@ export class Spectator<C> {
   query<R>(directive: Type<R>): R;
   query<R>(directiveOrSelector: Type<any> | string, options: { read: Token<R> }): R;
   query<R>(directiveOrSelector: Type<any> | DOMSelector | string, options: { read: Token<R> } = { read: undefined }): R {
-    try {
-      return _getChild<R>(this.debugElement)(directiveOrSelector, options);
-    } catch (err) {
-      if (err instanceof SpectatorDebugElementNotFoundError) {
-        return null;
-      } else {
-        throw err;
-      }
-    }
+    return _getChild<R>(this.debugElement)(directiveOrSelector, options);
   }
 
   queryAll<R extends Element[]>(selector: string | DOMSelector): R;
@@ -290,13 +281,7 @@ export class Spectator<C> {
  */
 export function _getChild<R>(debugElementRoot: DebugElement) {
   return function(directiveOrSelector: Type<R> | DOMSelector | string, options: { read } = { read: undefined }): R {
-    const [child] = _getChildren<R>(debugElementRoot)(directiveOrSelector, options);
-
-    if (!child) {
-      throw new SpectatorDebugElementNotFoundError(`Cannot find a debug element for ${directiveOrSelector}`);
-    }
-
-    return child;
+    return _getChildren<R>(debugElementRoot)(directiveOrSelector, options)[0] || null;
   };
 }
 
@@ -312,24 +297,20 @@ export function _getChildren<R>(debugElementRoot: DebugElement) {
       return directiveOrSelector.execute(debugElementRoot.nativeElement) as any[];
     }
 
-    let debugElement: DebugElement[];
+    let debugElements: DebugElement[];
 
     if (typeof directiveOrSelector === 'string') {
-      debugElement = debugElementRoot.queryAll(By.css(directiveOrSelector));
+      debugElements = debugElementRoot.queryAll(By.css(directiveOrSelector));
     } else {
-      debugElement = debugElementRoot.queryAll(By.directive(directiveOrSelector));
-    }
-
-    if (!debugElement) {
-      throw new SpectatorDebugElementNotFoundError(`Cannot find a debug element for ${directiveOrSelector}`);
+      debugElements = debugElementRoot.queryAll(By.directive(directiveOrSelector));
     }
 
     if (options.read) {
-      return debugElement.map(debug => debug.injector.get(options.read));
+      return debugElements.map(debug => debug.injector.get(options.read));
     } else if (typeof directiveOrSelector === 'string') {
-      return debugElement.map(debug => debug.nativeElement);
+      return debugElements.map(debug => debug.nativeElement);
     } else {
-      return debugElement.map(debug => debug.componentInstance);
+      return debugElements.map(debug => debug.componentInstance);
     }
   };
 }
