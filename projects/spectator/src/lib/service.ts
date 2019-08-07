@@ -1,17 +1,9 @@
-/**
- * @license
- * Copyright Netanel Basal. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://github.com/NetanelBasal/spectator/blob/master/LICENSE
- */
-
 import { TestBed, TestModuleMetadata } from '@angular/core/testing';
 import { Type } from '@angular/core';
 import { mockProvider, SpyObject } from './mock';
-import { isType } from './is-type';
 import { BrowserDynamicTestingModule } from '@angular/platform-browser-dynamic/testing';
 import { Token } from './token';
+import { isType } from './types';
 
 export interface SpectatorService<S> {
   service: S;
@@ -25,10 +17,10 @@ export type ServiceParams<S> = TestModuleMetadata & {
   entryComponents?: any[];
 };
 
-export function createService<S>(options: ServiceParams<S> | Type<S>): SpectatorService<S> {
+export function createService<Service>(options: ServiceParams<Service> | Type<Service>): SpectatorService<Service> {
   const service = isType(options) ? options : options.service;
 
-  const module: ServiceParams<S> = {
+  const module: ServiceParams<Service> = {
     providers: [service]
   };
 
@@ -47,10 +39,11 @@ export function createService<S>(options: ServiceParams<S> | Type<S>): Spectator
 
   beforeEach(() => {
     TestBed.configureTestingModule(module);
+    const eagerInit = TestBed.get(service);
   });
 
   return {
-    get service(): S {
+    get service(): Service {
       return TestBed.get(service);
     },
     get<T>(token: Token<T> | Token<any>): T & SpyObject<T> {

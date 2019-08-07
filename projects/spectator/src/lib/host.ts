@@ -1,22 +1,13 @@
-/**
- * @license
- * Copyright Netanel Basal. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://github.com/NetanelBasal/spectator/blob/master/LICENSE
- */
-
-import { DebugElement, Type } from '@angular/core';
+import { DebugElement, Provider, Type } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { BrowserDynamicTestingModule } from '@angular/platform-browser-dynamic/testing';
 import { By } from '@angular/platform-browser';
-
 import { _getChild, _getChildren, _setInput, Spectator } from './internals';
 import * as customMatchers from './matchers';
 import { DOMSelector } from './dom-selectors';
 import { HostComponent, initialModule, SpectatorOptions } from './config';
 import { Token } from './token';
-import { isType } from './is-type';
+import { CreateComponentOptions, isType } from './types';
 
 export class SpectatorWithHost<C, H = HostComponent> extends Spectator<C> {
   hostComponent: H;
@@ -29,6 +20,7 @@ export class SpectatorWithHost<C, H = HostComponent> extends Spectator<C> {
   get debugElement() {
     return this._debugElement || this.hostDebugElement;
   }
+
   set debugElement(value) {
     this._debugElement = value;
   }
@@ -72,24 +64,31 @@ export class SpectatorWithHost<C, H = HostComponent> extends Spectator<C> {
   }
 }
 
-export function createHostComponentFactory<C, H = HostComponent>(typeOrOptions: SpectatorOptions<C, H> | Type<C>): (template: string, detectChanges?: boolean, complexInputs?: Partial<C>) => SpectatorWithHost<C, H> {
-  const { component, moduleMetadata, host } = initialModule<C, H>(typeOrOptions, true);
+export function createHostComponentFactory<Component, Host = HostComponent>(typeOrOptions: SpectatorOptions<Component, Host> | Type<Component>): (template: string, options?: CreateComponentOptions<Component>) => SpectatorWithHost<Component, Host> {
+  const { component, moduleMetadata, host } = initialModule<Component, Host>(typeOrOptions, true);
 
-  const dc = isType(typeOrOptions) || typeOrOptions.detectChanges === undefined ? true : typeOrOptions.detectChanges;
+  const factoryCD = isType(typeOrOptions) || typeOrOptions.detectChanges === undefined ? true : typeOrOptions.detectChanges;
 
   beforeEach(() => {
     jasmine.addMatchers(customMatchers as any);
     TestBed.configureTestingModule(moduleMetadata);
   });
 
-  return (template: string, detectChanges = true, initialInputs?: Partial<C>) => {
+  return (template: string, options?: CreateComponentOptions<Component>) => {
+    const defaults: CreateComponentOptions<Component> = { props: {}, detectChanges: true, providers: [] };
+    const { detectChanges, props, providers } = { ...defaults, ...options };
+
+    if (providers.length) {
+      providers.forEach((provider: Provider) => {
+        TestBed.overrideProvider((provider as any).provide, provider as any);
+      });
+    }
+
     TestBed.overrideModule(BrowserDynamicTestingModule, {
       set: {
         entryComponents: moduleMetadata.entryComponents
       }
     });
-
-    TestBed.overrideComponent(host, { set: { template: template } });
 
     if (moduleMetadata.componentProviders) {
       TestBed.overrideComponent(component, {
@@ -99,30 +98,32 @@ export function createHostComponentFactory<C, H = HostComponent>(typeOrOptions: 
       });
     }
 
-    const spectatorWithHost = new SpectatorWithHost<C, H>();
-    spectatorWithHost.hostFixture = TestBed.createComponent(host);
+    TestBed.overrideComponent(host, { set: { template: template } });
+
+    const withHost = new SpectatorWithHost<Component, Host>();
+    withHost.hostFixture = TestBed.createComponent(host);
     //  The host component instance
-    spectatorWithHost.hostComponent = spectatorWithHost.hostFixture.componentInstance;
-    spectatorWithHost.hostDebugElement = spectatorWithHost.hostFixture.debugElement;
-    spectatorWithHost.hostElement = spectatorWithHost.hostFixture.nativeElement;
+    withHost.hostComponent = withHost.hostFixture.componentInstance;
+    withHost.hostDebugElement = withHost.hostFixture.debugElement;
+    withHost.hostElement = withHost.hostFixture.nativeElement;
     // The tested component debug element
-    spectatorWithHost.debugElement = spectatorWithHost.hostFixture.debugElement.query(By.directive(component));
+    withHost.debugElement = withHost.hostFixture.debugElement.query(By.directive(component));
     // The tested component instance, rendered inside the host
-    if (spectatorWithHost.debugElement) {
-      spectatorWithHost.component = spectatorWithHost.debugElement.componentInstance;
-      spectatorWithHost.element = spectatorWithHost.debugElement.nativeElement;
+    if (withHost.debugElement) {
+      withHost.component = withHost.debugElement.componentInstance;
+      withHost.element = withHost.debugElement.nativeElement;
     }
 
-    if (initialInputs) {
-      Object.keys(initialInputs).forEach(key => {
-        spectatorWithHost.component[key] = initialInputs[key];
+    if (props) {
+      Object.keys(props).forEach(key => {
+        withHost.component[key] = props[key];
       });
     }
 
-    if (dc && detectChanges) {
-      spectatorWithHost.hostFixture.detectChanges();
+    if (factoryCD && detectChanges) {
+      withHost.hostFixture.detectChanges();
     }
 
-    return spectatorWithHost;
+    return withHost;
   };
 }

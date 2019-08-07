@@ -1,6 +1,5 @@
 /// <reference types="jest" />
 /// <reference path="./matchers-types.d.ts" />
-export * from './config';
 export * from './dom-selectors';
 export * from './host';
 export * from './http';

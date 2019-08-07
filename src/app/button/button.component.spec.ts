@@ -7,7 +7,7 @@ import { of } from 'rxjs';
 describe('ButtonComponent', () => {
   let spectator: Spectator<ButtonComponent>;
 
-  const createComponent = createTestComponentFactory<ButtonComponent>({
+  const createComponent = createTestComponentFactory({
     component: ButtonComponent,
     componentProviders: [mockProvider(QueryService)]
   });
@@ -25,7 +25,9 @@ describe('ButtonComponent', () => {
   });
 
   it('should set the title according to the [title]', () => {
-    spectator = createComponent({ title: 'Click' });
+    spectator = createComponent({
+      props: { title: 'Click' }
+    });
 
     expect(spectator.query('button')).toHaveText('Click');
   });
@@ -39,7 +41,9 @@ describe('ButtonComponent', () => {
   });
 
   it('should mock the service', () => {
-    spectator = createComponent({}, false);
+    spectator = createComponent({
+      detectChanges: false
+    });
     spectator.get(QueryService, true).selectName.and.returnValue(of('Netanel'));
     spectator.detectChanges();
     expect(spectator.query('p')).toHaveText('Netanel');
@@ -49,9 +53,9 @@ describe('ButtonComponent', () => {
 describe('ButtonComponent', () => {
   let spectator: Spectator<ButtonComponent>;
 
-  const createComponent = createTestComponentFactory<ButtonComponent>({
+  const createComponent = createTestComponentFactory({
     component: ButtonComponent,
-    providers: [mockProvider(QueryService)],
+    componentProviders: [mockProvider(QueryService)],
     detectChanges: false
   });
 
