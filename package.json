@@ -5,10 +5,10 @@
   "scripts": {
     "ng": "npx ng",
     "start": "npx ng serve",
-    "build": "npm run build:lib",
+    "build": "npx ng build",
     "test": "npx ng test spectator",
     "test:jest": "npx ng run spectator-app:test-jest",
-    "lint": "echo 'temporary disabled in v3'",
+    "lint": "npx ng lint",
     "e2e": "npx ng e2e",
     "format": "npx prettier --write \"{projects,src}/**/*.ts\"",
     "commit": "npx git-cz",
