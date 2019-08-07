@@ -24,6 +24,6 @@
   "include": [
     "**/*.jest.ts",
     "**/*.d.ts",
-    "../projects/spectator/src/lib/matchers-types.d.ts"
+    "../projects/spectator/jest/src/matchers-types.d.ts"
   ]
 }
