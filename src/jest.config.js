@@ -2,7 +2,7 @@ module.exports = {
   preset: 'jest-preset-angular',
   globals: {
     'ts-jest': {
-      tsConfigFile: 'src/tsconfig.spec.json'
+      tsConfig: 'src/tsconfig.jest.json'
     }
   },
   roots: ['src'],

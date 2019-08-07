@@ -13,6 +13,18 @@ describe('ZippyComponent', () => {
     componentProviders: [{ provide: QueryService, useValue: 'componentProviders' }]
   });
 
+  it('should should have a zippy component', () => {
+    host = createHost(`<zippy title="Zippy title"></zippy>`);
+
+    expect('zippy').toExist();
+    expect(host.queryHost('zippy')).toExist();
+    expect(host.query('zippy')).not.toExist();
+
+    expect('.non-existing').not.toExist();
+    expect(host.queryHost('.non-existing')).not.toExist();
+    expect(host.query('.non-existing')).not.toExist();
+  });
+
   it('should display the title', () => {
     host = createHost(`<zippy title="Zippy title"></zippy>`);
     expect(host.query('.zippy__title')).toHaveText('Zippy title');
