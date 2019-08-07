@@ -34,8 +34,12 @@ describe('ZippyComponent', () => {
   });
 
   it('should support objects', () => {
-    const options = { color: 'blue' };
-    host = createHost(`<zippy></zippy>`, true, { options });
+    host = createHost(`<zippy></zippy>`, {
+      detectChanges: true,
+      props: {
+        options: { color: 'blue' }
+      }
+    });
 
     expect(host.query('.color')).toHaveText('blue');
   });

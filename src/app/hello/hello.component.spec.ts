@@ -7,16 +7,12 @@ describe('HelloComponent', () => {
   const createHost = createHostComponentFactory(HelloComponent);
 
   it('should display the title', () => {
-    host = createHost(
-      `
-      <hello></hello>
-    `,
-      true,
-      {
+    host = createHost(`<hello></hello>`, {
+      props: {
         title: 'some title',
         widthRaw: 20
       }
-    );
+    });
 
     expect((host.query('div') as HTMLElement).style.width).toBe('20px');
 

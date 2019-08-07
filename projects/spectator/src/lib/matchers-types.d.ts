@@ -7,15 +7,11 @@ declare namespace jasmine {
     toHaveId(id: string | number): boolean;
 
     toHaveClass(className: string): boolean;
-    /**
-     * @deprecated
-     */
-    toHaveAttr({ attr, val }: { attr: string; val: string }): boolean;
+
     toHaveAttribute(attr: string, val?: string): boolean;
-    /**
-     * @deprecated
-     */
+
     toHaveProp({ prop, val }: { prop: string; val: string }): boolean;
+
     toHaveProperty(prop: string, val: string | boolean): boolean;
 
     toHaveProperty(prop: string, val: string | boolean): boolean;

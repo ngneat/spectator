@@ -25,7 +25,7 @@ describe('ButtonComponent', () => {
   });
 
   it('should set the title according to the [title]', () => {
-    spectator = createComponent({ title: 'Click' });
+    spectator = createComponent();
 
     expect(spectator.query('button')).toHaveText('Click');
   });
@@ -39,7 +39,9 @@ describe('ButtonComponent', () => {
   });
 
   it('should mock the service', () => {
-    spectator = createComponent({}, false);
+    spectator = createComponent({
+      detectChanges: false
+    });
     spectator.get(QueryService, true).selectName.and.returnValue(of('Netanel'));
     spectator.detectChanges();
     expect(spectator.query('p')).toHaveText('Netanel');

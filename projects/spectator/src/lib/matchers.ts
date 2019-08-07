@@ -1,33 +1,13 @@
-/**
- * @license
- * Copyright Netanel Basal. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://github.com/NetanelBasal/spectator/blob/master/LICENSE
- */
-
 /** Credit: https://github.com/unindented/custom-jquery-matchers/tree/master/packages/custom-jquery-matchers */
-// import * as $ from 'jquery';
 declare const require: Function;
 
 const $ = require('jquery');
 import { hex2rgb, isHex, trim } from './rgb-to-hex';
 
-/**
- *
- * @param actual
- * @param expected
- * @returns
- */
 const hasProperty = (actual, expected) => {
   return expected === undefined ? actual !== undefined : actual === expected;
 };
-/**
- *
- * @param el
- * @param css
- * @returns
- */
+
 const hasCss = (el, css) => {
   let prop;
   let value;
@@ -64,10 +44,6 @@ const hasSameText = (el, expected, exact = false) => {
   return { pass, message };
 };
 
-/**
- *
- * @param func
- */
 const comparator = func => () => ({
   compare: func
 });
@@ -118,18 +94,6 @@ export const toHaveClass = comparator((el, expected: string) => {
 });
 
 /**
- * @deprecated
- * expect(host.query('.zippy')).toHaveAttr({ attr: 'id', val: 'zippy' });
- */
-export const toHaveAttr = comparator((el, { attr, val }) => {
-  const actual = $(el).attr(attr);
-  const addendum = val !== undefined ? ` with value '${val}'` : '';
-  const pass = hasProperty(actual, val);
-  const message = () => `Expected element${pass ? ' not' : ''} to have attribute '${attr}'${addendum}, but had '${actual}'`;
-  return { pass, message };
-});
-
-/**
  * expect(host.query('.zippy')).toHaveAttribute('id', 'zippy');
  */
 export const toHaveAttribute = comparator((el, attr, val) => {
@@ -137,18 +101,6 @@ export const toHaveAttribute = comparator((el, attr, val) => {
   const addendum = val !== undefined ? ` with value '${val}'` : '';
   const pass = hasProperty(actual, val);
   const message = () => `Expected element${pass ? ' not' : ''} to have attribute '${attr}'${addendum}, but had '${actual}'`;
-  return { pass, message };
-});
-
-/**
- *  @deprecated
- *  expect(host.query('.checkbox')).toHaveProp({ prop: 'checked', val: true });
- */
-export const toHaveProp = comparator((el, { prop, val }) => {
-  const actual = $(el).prop(prop);
-  const addendum = val !== undefined ? ` with value '${val}'` : '';
-  const pass = hasProperty(actual, val);
-  const message = () => `Expected element${pass ? ' not' : ''} to have property '${prop}'${addendum}, but had '${actual}'`;
   return { pass, message };
 });
 
