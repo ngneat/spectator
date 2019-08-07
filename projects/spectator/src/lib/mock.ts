@@ -1,5 +1,6 @@
 /** Credit: Valentin Buryakov */
-import { Type, FactoryProvider } from '@angular/core';
+import { FactoryProvider } from '@angular/core';
+import { InjectableType } from '@netbasal/spectator';
 
 type Writable<T> = { -readonly [P in keyof T]: T[P] };
 
@@ -44,7 +45,7 @@ export function installProtoMethods(mock: any, proto: any, createSpyFn: Function
   return mock;
 }
 
-export function createSpyObject<T>(type: Type<T>, template?: Partial<Record<keyof T, any>>): SpyObject<T> {
+export function createSpyObject<T>(type: InjectableType<T>, template?: Partial<Record<keyof T, any>>): SpyObject<T> {
   const mock: any = Object.assign({}, template) || {};
 
   return installProtoMethods(mock, type.prototype, name => {
@@ -58,7 +59,7 @@ export function createSpyObject<T>(type: Type<T>, template?: Partial<Record<keyo
   });
 }
 
-export function mockProvider<T>(type: Type<T>, properties?: Partial<Record<keyof T, any>>): FactoryProvider {
+export function mockProvider<T>(type: InjectableType<T>, properties?: Partial<Record<keyof T, any>>): FactoryProvider {
   return {
     provide: type,
     useFactory: function() {
