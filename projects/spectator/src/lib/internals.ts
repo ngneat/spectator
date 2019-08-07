@@ -23,9 +23,9 @@ export class Spectator<Component> {
   element: HTMLElement | Node | any;
   debugElement: DebugElement;
 
-  get<T = any>(type: Token<T>, fromComponentInjector = false): T & SpyObject<T> {
+  get<R extends T, T = any>(type: Token<T>, fromComponentInjector = false): R & SpyObject<R> {
     if (fromComponentInjector) {
-      return this.debugElement.injector.get(type) as T & SpyObject<T>;
+      return this.debugElement.injector.get(type) as R & SpyObject<R>;
     }
     return TestBed.get(type);
   }
