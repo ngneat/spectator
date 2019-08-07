@@ -42,7 +42,7 @@ export function createHTTPFactory<T>(dataService: Type<T>, providers = []): () =
     http.controller = TestBed.get(HttpTestingController);
     http.dataService = TestBed.get(dataService);
     http.httpClient = TestBed.get(HttpClient);
-    http.get = function<S>(provider: Token<S>): S & SpyObject<S> {
+    http.get = function<R extends T, T = any>(provider: Token<T>): R & SpyObject<R> {
       return TestBed.get(provider);
     };
 

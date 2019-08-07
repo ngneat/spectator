@@ -46,7 +46,7 @@ export function createService<Service>(options: ServiceParams<Service> | Type<Se
     get service(): Service {
       return TestBed.get(service);
     },
-    get<T>(token: Token<T> | Token<any>): T & SpyObject<T> {
+    get<R extends T, T = any>(token: Token<T>): R & SpyObject<R> {
       return TestBed.get(token);
     }
   };
