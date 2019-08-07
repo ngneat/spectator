@@ -36,15 +36,15 @@ describe('Injection tokens', () => {
       expect(service instanceof QueryService).toBe(true);
     });
 
-    it('should get by abstract class as token', () => {
-      const service = spectator.get(AbstractQueryService);
-      service.select(); // should compile
-
-      const service2 = spectator.get<QueryService>(AbstractQueryService);
-      service2.selectName(); // should compile
-
-      expect(service instanceof QueryService).toBe(true);
-    });
+    // it('should get by abstract class as token', () => {
+    //   const service = spectator.get(AbstractQueryService);
+    //   service.select(); // should compile
+    //
+    //   const service2 = spectator.get<QueryService>(AbstractQueryService);
+    //   service2.selectName(); // should compile
+    //
+    //   expect(service instanceof QueryService).toBe(true);
+    // });
 
     it('should get by injection token', () => {
       const service = spectator.get(MY_TOKEN);
@@ -85,15 +85,15 @@ describe('Injection tokens', () => {
       expect(service instanceof QueryService).toBe(true);
     });
 
-    it('should get by abstract class as token', () => {
-      const service = host.get(AbstractQueryService);
-      service.select(); // should compile
-
-      const service2 = host.get<QueryService>(AbstractQueryService);
-      service2.selectName(); // should compile
-
-      expect(service instanceof QueryService).toBe(true);
-    });
+    // it('should get by abstract class as token', () => {
+    //   const service = host.get(AbstractQueryService);
+    //   service.select(); // should compile
+    //
+    //   const service2 = host.get<QueryService>(AbstractQueryService);
+    //   service2.selectName(); // should compile
+    //
+    //   expect(service instanceof QueryService).toBe(true);
+    // });
 
     it('should get by injection token', () => {
       const service = host.get(MY_TOKEN);

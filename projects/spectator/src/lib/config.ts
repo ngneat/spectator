@@ -1,17 +1,9 @@
-/**
- * @license
- * Copyright Netanel Basal. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://github.com/NetanelBasal/spectator/blob/master/LICENSE
- */
-
 import { TestModuleMetadata } from '@angular/core/testing';
 import { Component, NO_ERRORS_SCHEMA, Type } from '@angular/core';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { mockProvider } from './mock';
-import { isType } from './is-type';
 import { getGlobalsInjections } from './globals-injections';
+import { isType } from './types';
 
 @Component({
   template: ''
@@ -39,17 +31,17 @@ const defaultOptions: SpectatorOptions<any, HostComponent> = {
   declareComponent: true
 };
 
-export function initialModule<T, C = HostComponent>(
-  options: SpectatorOptions<T, C> | Type<T>,
+export function initialModule<Component, Host = HostComponent>(
+  options: SpectatorOptions<Component, Host> | Type<Component>,
   withHost = false
 ): {
-  moduleMetadata: TestModuleMetadata & SpectatorOptions<T, C>;
-  component: Type<T>;
-  host: Type<C>;
+  moduleMetadata: TestModuleMetadata & SpectatorOptions<Component, Host>;
+  component: Type<Component>;
+  host: Type<Host>;
 } {
   const { declarations: globalDec, providers: globalProviders, imports: globalImports } = getGlobalsInjections();
   const merged = Object.assign({}, defaultOptions, options);
-  let moduleMetadata: TestModuleMetadata & Partial<SpectatorOptions<T, C>>;
+  let moduleMetadata: TestModuleMetadata & Partial<SpectatorOptions<Component, Host>>;
   let component;
   let host;
 
@@ -61,6 +53,7 @@ export function initialModule<T, C = HostComponent>(
       imports: [...globalImports, NoopAnimationsModule],
       schemas: [],
       providers: [...globalProviders],
+      componentProviders: [],
       entryComponents: []
     };
   } else {
@@ -72,7 +65,7 @@ export function initialModule<T, C = HostComponent>(
       imports: [...globalImports, merged.disableAnimations ? NoopAnimationsModule : [], ...(merged.imports || [])],
       schemas: [merged.shallow ? NO_ERRORS_SCHEMA : merged.schemas || []],
       providers: [...globalProviders, ...(merged.providers || [])],
-      componentProviders: merged.componentProviders ? [merged.componentProviders] : undefined,
+      componentProviders: merged.componentProviders ? [merged.componentProviders] : [],
       entryComponents: [merged.entryComponents]
     };
 
