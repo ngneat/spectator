@@ -22,7 +22,9 @@ describe('ZippyComponent', () => {
     const options = { color: 'blue' };
     host = createHost(`<zippy></zippy>`, {
       detectChanges: true,
-      props: options
+      props: {
+        options
+      }
     });
 
     expect(host.query('.color')).toHaveText('blue');
@@ -30,9 +32,6 @@ describe('ZippyComponent', () => {
 
   it('should have attribute', () => {
     host = createHost(`<zippy title="Zippy title">Zippy content</zippy>`);
-    const a = document.querySelectorAll('.fiv');
-    const b = host.query('.color');
-
     expect(host.query('.zippy')).toHaveAttribute('id');
   });
 
