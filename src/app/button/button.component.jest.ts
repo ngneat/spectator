@@ -25,7 +25,9 @@ describe('ButtonComponent', () => {
   });
 
   it('should set the title according to the [title]', () => {
-    spectator = createComponent();
+    spectator = createComponent({
+      props: { title: 'Click' }
+    });
 
     expect(spectator.query('button')).toHaveText('Click');
   });
@@ -53,7 +55,7 @@ describe('ButtonComponent', () => {
 
   const createComponent = createTestComponentFactory<ButtonComponent>({
     component: ButtonComponent,
-    providers: [mockProvider(QueryService)],
+    componentProviders: [mockProvider(QueryService)],
     detectChanges: false
   });
 
