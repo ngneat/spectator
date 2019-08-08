@@ -1,8 +1,11 @@
 /** Credit: Valentin Buryakov */
-import { Type, FactoryProvider } from '@angular/core';
+import { FactoryProvider, Type } from '@angular/core';
 
 type Writable<T> = { -readonly [P in keyof T]: T[P] };
 
+/**
+ * @publicApi
+ */
 export interface CompatibleSpy extends jasmine.Spy {
   /** By chaining the spy with and.returnValue, all calls to the function will return a specific
    * value. */
@@ -16,12 +19,18 @@ export interface CompatibleSpy extends jasmine.Spy {
   reset();
 }
 
+/**
+ * @publicApi
+ */
 export type SpyObject<T> = T &
   { [P in keyof T]: T[P] extends Function ? T[P] & CompatibleSpy : T[P] } & {
     /** casts to type without readonly properties */
     castToWritable: () => Writable<T>;
   };
 
+/**
+ * @internal
+ */
 export function installProtoMethods(mock: any, proto: any, createSpyFn: Function) {
   if (proto === null || proto === Object.prototype) {
     return;
@@ -29,6 +38,10 @@ export function installProtoMethods(mock: any, proto: any, createSpyFn: Function
 
   for (const key of Object.getOwnPropertyNames(proto)) {
     const descriptor = Object.getOwnPropertyDescriptor(proto, key);
+
+    if (!descriptor) {
+      continue;
+    }
 
     if (typeof descriptor.value === 'function' && key !== 'constructor' && typeof mock[key] === 'undefined') {
       mock[key] = createSpyFn(key);
@@ -44,6 +57,9 @@ export function installProtoMethods(mock: any, proto: any, createSpyFn: Function
   return mock;
 }
 
+/**
+ * @publicApi
+ */
 export function createSpyObject<T>(type: Type<T>, template?: Partial<Record<keyof T, any>>): SpyObject<T> {
   const mock: any = Object.assign({}, template) || {};
 
@@ -58,6 +74,9 @@ export function createSpyObject<T>(type: Type<T>, template?: Partial<Record<keyo
   });
 }
 
+/**
+ * @publicApi
+ */
 export function mockProvider<T>(type: Type<T>, properties?: Partial<Record<keyof T, any>>): FactoryProvider {
   return {
     provide: type,
@@ -67,4 +86,7 @@ export function mockProvider<T>(type: Type<T>, properties?: Partial<Record<keyof
   };
 }
 
+/**
+ * @publicApi
+ */
 export type MockProvider = typeof mockProvider;

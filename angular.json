@@ -154,9 +154,9 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
+            "tslintConfig": "tslint.json",
             "tsConfig": [
-              "projects/spectator/tsconfig.lib.json",
-              "projects/spectator/tsconfig.spec.json"
+              "projects/spectator/tsconfig.lib.json"
             ],
             "exclude": [
               "**/node_modules/**"

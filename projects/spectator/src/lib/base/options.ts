@@ -1,10 +1,44 @@
-import { TestModuleMetadata } from '@angular/core/testing';
-import { Type } from '@angular/core';
-import { MockProvider } from '../mock';
+import { Provider, SchemaMetadata, Type } from '@angular/core';
 
-export interface SpectatorBaseOptions extends TestModuleMetadata {
+import { merge } from '../internals/merge';
+import { mockProvider, MockProvider } from '../mock';
+import { OptionalsRequired } from '../types';
+
+/**
+ * @internal
+ */
+export interface BaseSpectatorOptions {
   disableAnimations?: boolean;
   entryComponents?: Type<any>[];
   mocks?: Type<any>[];
   mockProvider?: MockProvider;
+  providers?: any[];
+  declarations?: any[];
+  imports?: any[];
+  schemas?: Array<SchemaMetadata | any[]>;
+}
+
+/**
+ * @internal
+ */
+export interface BaseSpectatorOverrides {
+  providers?: Provider[];
+}
+
+const defaultOptions: OptionalsRequired<BaseSpectatorOptions> = {
+  disableAnimations: true,
+  entryComponents: [],
+  mocks: [],
+  mockProvider: mockProvider,
+  providers: [],
+  declarations: [],
+  imports: [],
+  schemas: []
+};
+
+/**
+ * @internal
+ */
+export function getDefaultBaseOptions(options: BaseSpectatorOptions = {}): Required<BaseSpectatorOptions> {
+  return merge<BaseSpectatorOptions>(defaultOptions, options);
 }

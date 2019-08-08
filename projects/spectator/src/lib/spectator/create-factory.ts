@@ -1,23 +1,47 @@
-import { Type, Provider } from '@angular/core';
+import { Provider, Type } from '@angular/core';
 import { async, TestBed } from '@angular/core/testing';
+
+import { BaseSpectatorOverrides } from '../base/options';
 import * as customMatchers from '../matchers';
+import { isType } from '../types';
+
+import { initialSpectatorModule } from './initial-module';
+import { getSpectatorDefaultOptions, SpectatorOptions } from './options';
 import { Spectator } from './spectator';
-import { CreateComponentOptions, isType } from '../types';
-import { SpectatorOptions } from './options';
-import { initialModule } from './initial-module';
 
-export function createTestComponentFactory<Component>(typeOrOptions: SpectatorOptions<Component> | Type<Component>): (options?: CreateComponentOptions<Component>) => Spectator<Component> {
-  const moduleMetadata = initialModule<Component>(typeOrOptions);
+interface HashMap<T = any> {
+  [key: string]: T;
+}
 
-  const factoryCD = isType(typeOrOptions) || typeOrOptions.detectChanges === undefined ? true : typeOrOptions.detectChanges;
-  const componentProviders = isType(typeOrOptions) ? [] : typeOrOptions.componentProviders || [];
+/**
+ * @publicApi
+ */
+export type SpectatorFactory<Component> = (options?: SpectatorOverrides<Component>) => Spectator<Component>;
+
+/**
+ * @publicApi
+ */
+export interface SpectatorOverrides<Component> extends BaseSpectatorOverrides {
+  detectChanges?: boolean;
+  properties?: Partial<Component> & HashMap;
+}
+
+/**
+ * @publicApi
+ */
+export function createTestComponentFactory<Component>(typeOrOptions: Type<Component> | SpectatorOptions<Component>): SpectatorFactory<Component> {
+  const component = isType(typeOrOptions) ? typeOrOptions : typeOrOptions.component;
+  const options = isType(typeOrOptions) ? getSpectatorDefaultOptions({ component }) : getSpectatorDefaultOptions(typeOrOptions);
+
+  const moduleMetadata = initialSpectatorModule<Component>(options);
+  const componentProviders = options.componentProviders;
 
   beforeEach(async(() => {
     jasmine.addMatchers(customMatchers as any);
     TestBed.configureTestingModule(moduleMetadata);
 
     if (componentProviders) {
-      TestBed.overrideComponent(moduleMetadata.component, {
+      TestBed.overrideComponent(options.component, {
         set: {
           providers: componentProviders
         }
@@ -27,29 +51,33 @@ export function createTestComponentFactory<Component>(typeOrOptions: SpectatorOp
     TestBed.compileComponents();
   }));
 
-  return (options?: CreateComponentOptions<Component>) => {
-    const defaults: CreateComponentOptions<Component> = { props: {}, detectChanges: true, providers: [] };
-    const { detectChanges, props, providers } = { ...defaults, ...options };
+  return (overrides?: SpectatorOverrides<Component>) => {
+    const defaults: SpectatorOverrides<Component> = { properties: {}, detectChanges: true, providers: [] };
+    const { detectChanges, properties, providers } = { ...defaults, ...overrides };
 
-    if (providers.length) {
+    if (providers && providers.length) {
       providers.forEach((provider: Provider) => {
         TestBed.overrideProvider((provider as any).provide, provider as any);
       });
     }
 
     const spectator = new Spectator<Component>();
-    spectator.fixture = TestBed.createComponent(moduleMetadata.component);
+    spectator.fixture = TestBed.createComponent(options.component);
     spectator.debugElement = spectator.fixture.debugElement;
+
     // The component instance
     spectator.component = spectator.debugElement.componentInstance;
+
     // The component native element
     spectator.element = spectator.debugElement.nativeElement;
 
-    Object.keys(props).forEach(input => {
-      spectator.component[input] = props[input];
-    });
+    if (properties) {
+      Object.keys(properties).forEach(input => {
+        spectator.component[input] = properties[input];
+      });
+    }
 
-    if (factoryCD && detectChanges) {
+    if (options.detectChanges && detectChanges) {
       spectator.detectChanges();
     }
 

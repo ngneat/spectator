@@ -21,7 +21,7 @@ describe('ZippyComponent', () => {
   it('should be visible', fakeAsync(() => {
     host = createHost(`<app-async-input></app-async-input>`, {
       detectChanges: true,
-      props: {
+      properties: {
         widgets: ''
       }
     });

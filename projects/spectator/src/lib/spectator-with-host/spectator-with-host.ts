@@ -1,12 +1,16 @@
 import { DebugElement, Type } from '@angular/core';
 import { ComponentFixture } from '@angular/core/testing';
-import { By } from '@angular/platform-browser';
-import { _getChildren, _setInput, Spectator } from '../spectator/spectator';
+
 import { DOMSelector } from '../dom-selectors';
-import { Token } from '../token';
+import { _getChildren, _setInput } from '../internals/query';
 import { HostComponent } from '../spectator/host-component';
+import { Spectator } from '../spectator/spectator';
+import { Token } from '../token';
 import { isString, QueryOptions, QueryType } from '../types';
 
+/**
+ * @publicApi
+ */
 export class SpectatorWithHost<C, H = HostComponent> extends Spectator<C> {
   hostComponent: H;
   /** We need a different property when there is an host because it's different type */
@@ -30,13 +34,14 @@ export class SpectatorWithHost<C, H = HostComponent> extends Spectator<C> {
     this.hostFixture.detectChanges();
   }
 
-  queryHost<R extends Element>(selector: string | DOMSelector, options?: { root: boolean }): R;
-  queryHost<R>(directive: Type<R>): R;
-  queryHost<R>(directiveOrSelector: Type<any> | string, options: { read: Token<R> }): R;
-  queryHost<R>(directiveOrSelector: QueryType, options?: QueryOptions<R>): R {
+  queryHost<R extends Element>(selector: string | DOMSelector, options?: { root: boolean }): R | null;
+  queryHost<R>(directive: Type<R>): R | null;
+  queryHost<R>(directiveOrSelector: Type<any> | string, options: { read: Token<R> }): R | null;
+  queryHost<R>(directiveOrSelector: QueryType, options?: QueryOptions<R>): R | null {
     if ((options || {}).root && isString(directiveOrSelector)) {
       return document.querySelector(directiveOrSelector) as any;
     }
+
     return _getChildren<R>(this.hostDebugElement)(directiveOrSelector, options)[0] || null;
   }
 
@@ -47,6 +52,7 @@ export class SpectatorWithHost<C, H = HostComponent> extends Spectator<C> {
     if ((options || {}).root && isString(directiveOrSelector)) {
       return Array.from(document.querySelectorAll(directiveOrSelector)) as any[];
     }
+
     return _getChildren<R>(this.hostDebugElement)(directiveOrSelector, options);
   }
 
@@ -55,15 +61,5 @@ export class SpectatorWithHost<C, H = HostComponent> extends Spectator<C> {
   setHostInput<K extends keyof H>(input: Partial<H> | K, inputValue?: H[K]) {
     _setInput(input, inputValue, this.hostComponent);
     this.hostFixture.detectChanges();
-  }
-
-  getDirectiveInstance<T>(directive: Type<T>, all?: false): T;
-  getDirectiveInstance<T>(directive: Type<T>, all?: true): T[];
-  getDirectiveInstance<T>(directive: Type<T>, all = false): T | T[] {
-    if (all) {
-      return this.hostFixture.debugElement.queryAll(By.directive(directive)).map(d => d.injector.get(directive));
-    }
-
-    return this.hostFixture.debugElement.query(By.directive(directive)).injector.get(directive);
   }
 }

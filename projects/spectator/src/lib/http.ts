@@ -1,7 +1,7 @@
-import { async, TestBed } from '@angular/core/testing';
-import { HttpClientTestingModule, HttpTestingController, TestRequest } from '@angular/common/http/testing';
 import { HttpClient } from '@angular/common/http';
-import { Type } from '@angular/core';
+import { HttpClientTestingModule, HttpTestingController, TestRequest } from '@angular/common/http/testing';
+import { FactoryProvider, Type } from '@angular/core';
+import { async, TestBed } from '@angular/core/testing';
 
 import { SpyObject } from './mock';
 import { Token } from './token';
@@ -17,15 +17,15 @@ export enum HTTPMethod {
   OPTIONS = 'OPTIONS'
 }
 
-export class SpectatorHTTP<T> {
+export class SpectatorHTTP<S> {
   httpClient: HttpClient;
   controller: HttpTestingController;
-  dataService: T;
-  get: <S>(service: Token<S> | Token<any>) => S;
+  dataService: S;
+  get: <T>(service: Token<T> | Token<any>) => T;
   expectOne: (url: string, method: HTTPMethod) => TestRequest;
 }
 
-export function createHTTPFactory<T>(dataService: Type<T>, providers = []): () => SpectatorHTTP<T> {
+export function createHTTPFactory<S>(dataService: Type<S>, providers: FactoryProvider[] = []): () => SpectatorHTTP<S> {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [HttpClientTestingModule],
@@ -38,7 +38,7 @@ export function createHTTPFactory<T>(dataService: Type<T>, providers = []): () =
   });
 
   return () => {
-    const http = new SpectatorHTTP<T>();
+    const http = new SpectatorHTTP<S>();
     http.controller = TestBed.get(HttpTestingController);
     http.dataService = TestBed.get(dataService);
     http.httpClient = TestBed.get(HttpClient);

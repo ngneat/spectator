@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { SpectatorWithHost, createHostComponentFactory } from '@netbasal/spectator';
+import { createHostComponentFactory, SpectatorWithHost } from '@netbasal/spectator';
+
 import { AutoFocusDirective } from './auto-focus.directive';
 
 @Component({ selector: 'custom-host', template: '' })
@@ -17,7 +18,7 @@ describe('DatoAutoFocusDirective', function() {
 
   it('should be focused', () => {
     host = createHost(`<input datoAutoFocus="true">`);
-    const instance = host.getDirectiveInstance(AutoFocusDirective);
+    const instance = host.queryHost(AutoFocusDirective);
     expect(host.element).toBeFocused();
   });
 

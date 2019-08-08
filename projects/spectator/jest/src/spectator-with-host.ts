@@ -1,5 +1,5 @@
 import { Type } from '@angular/core';
-import { CreateComponentOptions, createHostComponentFactory as baseCreateHostComponentFactory, HostComponent, isType, SpectatorOptions, SpectatorWithHost as BaseSpectatorWithHost, Token } from '@netbasal/spectator';
+import { createHostComponentFactory as baseCreateHostComponentFactory, isType, HostComponent, SpectatorOptions, SpectatorWithHost as BaseSpectatorWithHost, SpectatorWithHostFactory, Token } from '@netbasal/spectator';
 
 import { mockProvider, SpyObject } from './mock';
 
@@ -9,7 +9,7 @@ export class SpectatorWithHost<C, H = HostComponent> extends BaseSpectatorWithHo
   }
 }
 
-export function createHostComponentFactory<Component, Host = HostComponent>(typeOrOptions: SpectatorOptions<Component, Host> | Type<Component>): (template: string, options?: CreateComponentOptions<Component>) => SpectatorWithHost<Component, Host> {
+export function createHostComponentFactory<C, H = HostComponent>(typeOrOptions: SpectatorOptions<C, H> | Type<C>): SpectatorWithHostFactory<C, H> {
   return baseCreateHostComponentFactory(
     isType(typeOrOptions)
       ? {
