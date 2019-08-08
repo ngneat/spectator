@@ -34,7 +34,7 @@ describe('Injection tokens', () => {
       service.selectName(); // should compile
 
       expect(service instanceof QueryService).toBe(true);
-      spectator.get(WidgetService).get.mockClear(); // should compile and exist
+      spectator.get(WidgetService).get.reset(); // should compile and exist
     });
 
     it('should get by abstract class as token', () => {
@@ -45,7 +45,7 @@ describe('Injection tokens', () => {
       service2.selectName(); // should compile
 
       expect(service instanceof QueryService).toBe(true);
-      spectator.get(WidgetService).get.mockClear(); // should compile and exist
+      spectator.get(WidgetService).get.reset(); // should compile and exist
     });
 
     it('should get by injection token', () => {
@@ -56,7 +56,7 @@ describe('Injection tokens', () => {
       service2.selectName(); // should compile
 
       expect(service instanceof QueryService).toBe(true);
-      spectator.get(WidgetService).get.mockClear(); // should compile and exist
+      spectator.get(WidgetService).get.reset(); // should compile and exist
     });
   });
 
@@ -86,7 +86,7 @@ describe('Injection tokens', () => {
       service.selectName(); // should compile
 
       expect(service instanceof QueryService).toBe(true);
-      host.get(WidgetService).get.mockClear(); // should compile and exist
+      host.get(WidgetService).get.reset(); // should compile and exist
     });
 
     it('should get by abstract class as token', () => {
@@ -97,7 +97,7 @@ describe('Injection tokens', () => {
       service2.selectName(); // should compile
 
       expect(service instanceof QueryService).toBe(true);
-      host.get(WidgetService).get.mockClear(); // should compile and exist
+      host.get(WidgetService).get.reset(); // should compile and exist
     });
 
     it('should get by injection token', () => {
@@ -108,7 +108,7 @@ describe('Injection tokens', () => {
       service2.selectName(); // should compile
 
       expect(service instanceof QueryService).toBe(true);
-      host.get(WidgetService).get.mockClear(); // should compile and exist
+      host.get(WidgetService).get.reset(); // should compile and exist
     });
   });
 
@@ -134,7 +134,7 @@ describe('Injection tokens', () => {
       service.selectName(); // should compile
 
       expect(service instanceof QueryService).toBe(true);
-      spectator.get(WidgetService).get.mockClear(); // should compile and exist
+      spectator.get(WidgetService).get.reset(); // should compile and exist
     });
 
     it('should get by abstract class as token', () => {
@@ -145,7 +145,7 @@ describe('Injection tokens', () => {
       service2.selectName(); // should compile
 
       expect(service instanceof QueryService).toBe(true);
-      spectator.get(WidgetService).get.mockClear(); // should compile and exist
+      spectator.get(WidgetService).get.reset(); // should compile and exist
     });
 
     it('should get by injection token', () => {
@@ -156,7 +156,7 @@ describe('Injection tokens', () => {
       service2.selectName(); // should compile
 
       expect(service instanceof QueryService).toBe(true);
-      spectator.get(WidgetService).get.mockClear(); // should compile and exist
+      spectator.get(WidgetService).get.reset(); // should compile and exist
     });
   });
 });
