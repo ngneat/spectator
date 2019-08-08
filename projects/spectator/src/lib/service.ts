@@ -32,14 +32,14 @@ export function createService<Service>(typeOrOptions: ServiceOptions<Service> | 
   if (!isType(typeOrOptions)) {
     const merged = Object.assign({}, defaultOptions, typeOrOptions);
 
-    (typeOrOptions.mocks || []).forEach(type => module.providers.push(typeOrOptions.mockProvider(type)));
-    module.providers = [...module.providers, ...(typeOrOptions.providers || [])];
-    module.declarations = typeOrOptions.declarations || [];
-    module.imports = typeOrOptions.imports || [];
+    (merged.mocks || []).forEach(type => module.providers.push(merged.mockProvider(type)));
+    module.providers = [...module.providers, ...(merged.providers || [])];
+    module.declarations = merged.declarations || [];
+    module.imports = merged.imports || [];
 
     TestBed.overrideModule(BrowserDynamicTestingModule, {
       set: {
-        entryComponents: typeOrOptions.entryComponents || []
+        entryComponents: merged.entryComponents || []
       }
     });
   }
