@@ -1,5 +1,5 @@
 import { Provider, Type } from '@angular/core';
-import { async, TestBed } from '@angular/core/testing';
+import { TestBed } from '@angular/core/testing';
 
 import { BaseSpectatorOverrides } from '../base/options';
 import { isType } from '../types';
@@ -25,11 +25,8 @@ export interface CreateServiceOverrides<S> extends BaseSpectatorOverrides {}
 export function createServiceFactory<S>(typeOrOptions: Type<S> | SpectatorServiceOptions<S>): SpectatorServiceFactory<S> {
   const service = isType(typeOrOptions) ? typeOrOptions : typeOrOptions.service;
   const options = isType(typeOrOptions) ? getDefaultServiceOptions<S>({ service }) : getDefaultServiceOptions(typeOrOptions);
+
   const moduleMetadata = initialServiceModule(options);
-
-  moduleMetadata.providers.push(options.service);
-
-  console.log('meta', moduleMetadata);
 
   beforeEach(() => {
     TestBed.configureTestingModule(moduleMetadata);

@@ -1,3 +1,5 @@
+import { createHttpFactory } from '@netbasal/spectator';
+
 import { BaseSpectator } from './base/base-spectator';
 import { createServiceFactory } from './spectator-service/create-factory';
 import { createHostComponentFactory } from './spectator-with-host/create-factory';
@@ -16,5 +18,6 @@ interface SpectatorFactory {
 export const SpectatorFactory: SpectatorFactory = {
   forComponent: createTestComponentFactory,
   forComponentWithHost: createHostComponentFactory,
-  forService: createServiceFactory
+  forService: createServiceFactory,
+  forHttp: createHttpFactory
 };

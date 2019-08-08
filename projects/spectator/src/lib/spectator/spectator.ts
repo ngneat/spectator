@@ -17,13 +17,12 @@ import { isString, QueryOptions, QueryType, SpectatorElement } from '../types';
 const KEY_UP = 'keyup';
 
 /**
- * @pubicApi
+ * @publicApi
  */
-export class Spectator<Component> extends BaseSpectator {
-  fixture: ComponentFixture<Component>;
-  component: Component;
-  element: Element;
-  debugElement: DebugElement;
+export class Spectator<C> extends BaseSpectator {
+  constructor(public fixture: ComponentFixture<any>, public debugElement: DebugElement, public component: C, public element: Element) {
+    super();
+  }
 
   get<T>(type: Token<T> | Token<any>, fromComponentInjector = false): SpyObject<T> {
     if (fromComponentInjector) {
@@ -79,14 +78,14 @@ export class Spectator<Component> extends BaseSpectator {
     return null;
   }
 
-  setInput<K extends keyof Component>(input: Partial<Component>);
-  setInput<K extends keyof Component>(input: K, inputValue: Component[K]);
-  setInput<K extends keyof Component>(input: Partial<Component> | K, inputValue?: Component[K]) {
+  setInput<K extends keyof C>(input: Partial<C>);
+  setInput<K extends keyof C>(input: K, inputValue: C[K]);
+  setInput<K extends keyof C>(input: Partial<C> | K, inputValue?: C[K]) {
     _setInput(input, inputValue, this.component);
     this.detectComponentChanges();
   }
 
-  output<T, K extends keyof Component = keyof Component>(output: K): Observable<T> {
+  output<T, K extends keyof C = keyof C>(output: K): Observable<T> {
     const observable = this.component[output];
     if (observable instanceof Observable) {
       return observable as Observable<T>;

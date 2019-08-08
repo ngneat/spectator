@@ -61,15 +61,9 @@ export function createTestComponentFactory<C>(typeOrOptions: Type<C> | Spectator
       });
     }
 
-    const spectator = new Spectator<C>();
-    spectator.fixture = TestBed.createComponent(options.component);
-    spectator.debugElement = spectator.fixture.debugElement;
+    const fixture = TestBed.createComponent(options.component);
 
-    // The component instance
-    spectator.component = spectator.debugElement.componentInstance;
-
-    // The component native element
-    spectator.element = spectator.debugElement.nativeElement;
+    const spectator = new Spectator<C>(fixture, fixture.debugElement, fixture.componentInstance, fixture.debugElement.nativeElement);
 
     if (properties) {
       Object.keys(properties).forEach(input => {

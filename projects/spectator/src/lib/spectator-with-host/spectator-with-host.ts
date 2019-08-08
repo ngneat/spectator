@@ -12,26 +12,8 @@ import { isString, QueryOptions, QueryType } from '../types';
  * @publicApi
  */
 export class SpectatorWithHost<C, H = HostComponent> extends Spectator<C> {
-  hostComponent: H;
-  /** We need a different property when there is an host because it's different type */
-  hostFixture: ComponentFixture<H>;
-  hostElement: HTMLElement;
-  hostDebugElement: DebugElement;
-
-  private _debugElement: DebugElement;
-  get debugElement() {
-    return this._debugElement || this.hostDebugElement;
-  }
-
-  set debugElement(value) {
-    this._debugElement = value;
-  }
-
-  /**
-   * Run detect changes on the host component
-   */
-  detectChanges() {
-    this.hostFixture.detectChanges();
+  constructor(public hostComponent: H, public hostDebugElement: DebugElement, public hostElement: HTMLElement, fixture: ComponentFixture<any>, debugElement?: DebugElement) {
+    super(fixture, debugElement || hostDebugElement, debugElement ? debugElement.componentInstance : hostComponent, debugElement ? debugElement.nativeElement : hostDebugElement);
   }
 
   queryHost<R extends Element>(selector: string | DOMSelector, options?: { root: boolean }): R | null;
@@ -60,6 +42,6 @@ export class SpectatorWithHost<C, H = HostComponent> extends Spectator<C> {
   setHostInput<K extends keyof H>(input: K, inputValue: H[K]);
   setHostInput<K extends keyof H>(input: Partial<H> | K, inputValue?: H[K]) {
     _setInput(input, inputValue, this.hostComponent);
-    this.hostFixture.detectChanges();
+    this.detectChanges();
   }
 }

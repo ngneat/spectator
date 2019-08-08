@@ -56,23 +56,10 @@ export function createHostComponentFactory<C, H = HostComponent>(typeOrOptions: 
 
     TestBed.overrideComponent(options.host, { set: { template: template } });
 
-    const spectator = new SpectatorWithHost<C, H>();
+    const hostFixture = TestBed.createComponent(options.host);
+    const debugElement = hostFixture.debugElement.query(By.directive(options.component));
 
-    spectator.hostFixture = TestBed.createComponent(options.host);
-
-    //  The host component instance
-    spectator.hostComponent = spectator.hostFixture.componentInstance;
-    spectator.hostDebugElement = spectator.hostFixture.debugElement;
-    spectator.hostElement = spectator.hostFixture.nativeElement;
-
-    // The tested component debug element
-    spectator.debugElement = spectator.hostFixture.debugElement.query(By.directive(options.component));
-
-    // The tested component instance, rendered inside the host
-    if (spectator.debugElement) {
-      spectator.component = spectator.debugElement.componentInstance;
-      spectator.element = spectator.debugElement.nativeElement;
-    }
+    const spectator = new SpectatorWithHost<C, H>(hostFixture.componentInstance, hostFixture.debugElement, hostFixture.nativeElement, hostFixture, debugElement);
 
     if (properties) {
       Object.keys(properties).forEach(key => {
@@ -81,7 +68,7 @@ export function createHostComponentFactory<C, H = HostComponent>(typeOrOptions: 
     }
 
     if (options.detectChanges && detectChanges) {
-      spectator.hostFixture.detectChanges();
+      spectator.detectChanges();
     }
 
     return spectator;

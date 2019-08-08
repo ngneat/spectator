@@ -12,8 +12,12 @@ export { SpectatorServiceOptions } from './spectator-service/options';
 export { SpectatorServiceFactory, createServiceFactory, CreateServiceOverrides } from './spectator-service/create-factory';
 export { createService } from './spectator-service/create-service';
 
+export { SpectatorHttp, HttpMethod } from './spectator-http/spectator-http';
+export { SpectatorHttpOptions } from './spectator-http/options';
+export { SpectatorHttpFactory, createHttpFactory, CreateHttpOverrides } from './spectator-http/create-factory';
+
 export * from './dom-selectors';
-export * from './http';
+export { createHTTPFactory, SpectatorHTTP, HTTPMethod } from './http';
 export * from './matchers';
 export * from './spectator-factory';
 export * from './mock';
