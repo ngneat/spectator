@@ -1,4 +1,4 @@
-import { Provider, Type } from '@angular/core';
+import { FactoryProvider, Provider, Type } from '@angular/core';
 import { CompatibleSpy, SpyObject as BaseSpyObject, installProtoMethods } from '@netbasal/spectator';
 
 export type SpyObject<T> = BaseSpyObject<T> & { [P in keyof T]: T[P] & (T[P] extends (...args: any[]) => infer R ? jest.Mock<R> : T[P]) };
@@ -30,7 +30,7 @@ export function createSpyObject<T>(type: Type<T>, template?: Partial<Record<keyo
   return mock;
 }
 
-export function mockProvider<T>(type: Type<T>, properties?: Partial<Record<keyof T, any>>): Provider {
+export function mockProvider<T>(type: Type<T>, properties?: Partial<Record<keyof T, any>>): FactoryProvider {
   return {
     provide: type,
     useFactory: function() {

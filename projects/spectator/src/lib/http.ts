@@ -21,7 +21,7 @@ export class SpectatorHTTP<T> {
   httpClient: HttpClient;
   controller: HttpTestingController;
   dataService: T;
-  get: <S>(service: Type<S>) => S & SpyObject<S>;
+  get: <S>(service: Token<S> | Token<any>) => S;
   expectOne: (url: string, method: HTTPMethod) => TestRequest;
 }
 
