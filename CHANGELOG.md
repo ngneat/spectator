@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="3.11.1"></a>
+## [3.11.1](https://github.com/NetanelBasal/spectator/compare/v3.11.0...v3.11.1) (2019-08-08)
+
+
+### Bug Fixes
+
+* fix query regression and unit testing improvements ([#148](https://github.com/NetanelBasal/spectator/issues/148)) ([3503bee](https://github.com/NetanelBasal/spectator/commit/3503bee)), closes [#146](https://github.com/NetanelBasal/spectator/issues/146)
+
+
+
 <a name="3.11.0"></a>
 # [3.11.0](https://github.com/NetanelBasal/spectator/compare/v3.10.0...v3.11.0) (2019-08-06)
 
@@ -717,6 +727,3 @@ All notable changes to this project will be documented in this file. See [standa
 * **lib:** initial commit ([5043600](https://github.com/NetanelBasal/spectator/commit/5043600))
 * **lib:** initial commit ([6f1ba2d](https://github.com/NetanelBasal/spectator/commit/6f1ba2d))
 * **services:** Testing services with and without a mock ([dccdbbe](https://github.com/NetanelBasal/spectator/commit/dccdbbe))
-
-
-
