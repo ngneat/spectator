@@ -1,7 +1,5 @@
 import { Type } from '@angular/core';
-import { createHostComponentFactory as baseCreateHostComponentFactory, HostComponent, isType, SpectatorOptions, SpectatorWithHost as BaseSpectatorWithHost, Token } from '@netbasal/spectator';
-
-import { CreateComponentOptions } from '../../src/lib/types';
+import { CreateComponentOptions, createHostComponentFactory as baseCreateHostComponentFactory, HostComponent, isType, SpectatorOptions, SpectatorWithHost as BaseSpectatorWithHost, Token } from '@netbasal/spectator';
 
 import { mockProvider, SpyObject } from './mock';
 

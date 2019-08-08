@@ -1,38 +1,30 @@
-import { Type, NgModule, Provider } from '@angular/core';
+import { Type, Provider } from '@angular/core';
 import { async, TestBed } from '@angular/core/testing';
-import * as customMatchers from './matchers';
-import { Spectator } from './internals';
-import { initialModule, SpectatorOptions } from './config';
-import { CreateComponentOptions, isType } from './types';
+import * as customMatchers from '../matchers';
+import { Spectator } from './spectator';
+import { CreateComponentOptions, isType } from '../types';
+import { SpectatorOptions } from './options';
+import { initialModule } from './initial-module';
 
 export function createTestComponentFactory<Component>(typeOrOptions: SpectatorOptions<Component> | Type<Component>): (options?: CreateComponentOptions<Component>) => Spectator<Component> {
-  const {
-    component,
-    moduleMetadata: { entryComponents, componentProviders, imports },
-    moduleMetadata
-  } = initialModule<Component>(typeOrOptions);
+  const moduleMetadata = initialModule<Component>(typeOrOptions);
 
   const factoryCD = isType(typeOrOptions) || typeOrOptions.detectChanges === undefined ? true : typeOrOptions.detectChanges;
+  const componentProviders = isType(typeOrOptions) ? [] : typeOrOptions.componentProviders || [];
 
   beforeEach(async(() => {
     jasmine.addMatchers(customMatchers as any);
+    TestBed.configureTestingModule(moduleMetadata);
 
-    @NgModule({ entryComponents })
-    class EntryComponentModule {}
-
-    entryComponents.length && imports.push(EntryComponentModule);
-
-    if (componentProviders.length) {
-      TestBed.configureTestingModule(moduleMetadata)
-        .overrideComponent(component, {
-          set: {
-            providers: componentProviders
-          }
-        })
-        .compileComponents();
-    } else {
-      TestBed.configureTestingModule(moduleMetadata).compileComponents();
+    if (componentProviders) {
+      TestBed.overrideComponent(moduleMetadata.component, {
+        set: {
+          providers: componentProviders
+        }
+      });
     }
+
+    TestBed.compileComponents();
   }));
 
   return (options?: CreateComponentOptions<Component>) => {
@@ -46,7 +38,7 @@ export function createTestComponentFactory<Component>(typeOrOptions: SpectatorOp
     }
 
     const spectator = new Spectator<Component>();
-    spectator.fixture = TestBed.createComponent(component);
+    spectator.fixture = TestBed.createComponent(moduleMetadata.component);
     spectator.debugElement = spectator.fixture.debugElement;
     // The component instance
     spectator.component = spectator.debugElement.componentInstance;

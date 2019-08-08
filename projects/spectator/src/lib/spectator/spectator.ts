@@ -1,15 +1,15 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { ChangeDetectorRef, DebugElement, ElementRef, Type } from '@angular/core';
-import { dispatchFakeEvent, dispatchKeyboardEvent, dispatchMouseEvent, dispatchTouchEvent } from './dispatch-events';
-import { createMouseEvent } from './event-objects';
-import { typeInElement } from './type-in-element';
-import { patchElementFocus } from './element-focus';
+import { dispatchFakeEvent, dispatchKeyboardEvent, dispatchMouseEvent, dispatchTouchEvent } from '../internals/dispatch-events';
+import { createMouseEvent } from '../internals/event-objects';
+import { typeInElement } from '../internals/type-in-element';
+import { patchElementFocus } from '../internals/element-focus';
 import { Observable } from 'rxjs';
-import { SpyObject } from './mock';
-import { DOMSelector } from './dom-selectors';
-import { Token } from './token';
-import { isString, QueryOptions, QueryType, SpectatorElement } from '@netbasal/spectator';
+import { SpyObject } from '../mock';
+import { DOMSelector } from '../dom-selectors';
+import { Token } from '../token';
+import { isString, QueryOptions, QueryType, SpectatorElement } from '../types';
 
 const KEY_UP = 'keyup';
 
