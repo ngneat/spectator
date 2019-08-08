@@ -2,7 +2,7 @@ import { fakeAsync, tick } from '@angular/core/testing';
 import { defer } from 'rxjs';
 import { HTTPMethod } from '@netbasal/spectator';
 import { TodosDataService, UserService } from './todos-data.service';
-import { createHTTPFactory, mockProvider } from '@netbasal/spectator/jest';
+import { createHTTPFactory, mockProvider, SpyObject } from '@netbasal/spectator/jest';
 
 describe('HttpClient testing', () => {
   const http = createHTTPFactory(TodosDataService, [mockProvider(UserService)]);
@@ -34,7 +34,7 @@ describe('HttpClient testing', () => {
 
   it('should work with external service', fakeAsync(() => {
     const { dataService, expectOne, get } = http();
-    get(UserService).getUser.andCallFake(() => {
+    get<SpyObject<UserService>>(UserService).getUser.mockImplementation(() => {
       return defer(() => Promise.resolve({}));
     });
 

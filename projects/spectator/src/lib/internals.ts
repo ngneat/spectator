@@ -19,9 +19,9 @@ export class Spectator<Component> {
   element: Element;
   debugElement: DebugElement;
 
-  get<R extends T, T = any>(type: Token<T>, fromComponentInjector = false): R & SpyObject<R> {
+  get<T>(type: Token<T> | Token<any>, fromComponentInjector = false): SpyObject<T> {
     if (fromComponentInjector) {
-      return this.debugElement.injector.get(type) as R & SpyObject<R>;
+      return this.debugElement.injector.get(type) as SpyObject<T>;
     }
     return TestBed.get(type);
   }
