@@ -10,9 +10,7 @@ export { createHostComponentFactory, SpectatorWithHostFactory } from './spectato
 export { SpectatorService } from './spectator-service/spectator-service';
 export { SpectatorServiceOptions } from './spectator-service/options';
 export { SpectatorServiceFactory, createServiceFactory, CreateServiceOverrides } from './spectator-service/create-factory';
-
-// @deprecated - Will be removed in v5
-export { createService } from './service';
+export { createService } from './spectator-service/create-service';
 
 export * from './dom-selectors';
 export * from './http';

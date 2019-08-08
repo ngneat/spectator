@@ -29,11 +29,11 @@ export interface SpectatorOverrides<Component> extends BaseSpectatorOverrides {
 /**
  * @publicApi
  */
-export function createTestComponentFactory<Component>(typeOrOptions: Type<Component> | SpectatorOptions<Component>): SpectatorFactory<Component> {
+export function createTestComponentFactory<C>(typeOrOptions: Type<C> | SpectatorOptions<C>): SpectatorFactory<C> {
   const component = isType(typeOrOptions) ? typeOrOptions : typeOrOptions.component;
   const options = isType(typeOrOptions) ? getSpectatorDefaultOptions({ component }) : getSpectatorDefaultOptions(typeOrOptions);
 
-  const moduleMetadata = initialSpectatorModule<Component>(options);
+  const moduleMetadata = initialSpectatorModule<C>(options);
   const componentProviders = options.componentProviders;
 
   beforeEach(async(() => {
@@ -51,8 +51,8 @@ export function createTestComponentFactory<Component>(typeOrOptions: Type<Compon
     TestBed.compileComponents();
   }));
 
-  return (overrides?: SpectatorOverrides<Component>) => {
-    const defaults: SpectatorOverrides<Component> = { properties: {}, detectChanges: true, providers: [] };
+  return (overrides?: SpectatorOverrides<C>) => {
+    const defaults: SpectatorOverrides<C> = { properties: {}, detectChanges: true, providers: [] };
     const { detectChanges, properties, providers } = { ...defaults, ...overrides };
 
     if (providers && providers.length) {
@@ -61,7 +61,7 @@ export function createTestComponentFactory<Component>(typeOrOptions: Type<Compon
       });
     }
 
-    const spectator = new Spectator<Component>();
+    const spectator = new Spectator<C>();
     spectator.fixture = TestBed.createComponent(options.component);
     spectator.debugElement = spectator.fixture.debugElement;
 
