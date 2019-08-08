@@ -19,32 +19,18 @@ export type SpectatorServiceFactory<S> = (overrides?: CreateServiceOverrides<S>)
  * @publicApi
  */
 export function createService<S>(typeOrOptions: SpectatorServiceOptions<S> | Type<S>): SpectatorService<S> {
-  return baseCreateService(
-    isType(typeOrOptions)
-      ? {
-          mockProvider: mockProvider,
-          service: typeOrOptions
-        }
-      : {
-          mockProvider: mockProvider,
-          ...typeOrOptions
-        }
-  );
+  return baseCreateService({
+    mockProvider,
+    ...(isType(typeOrOptions) ? { service: typeOrOptions } : typeOrOptions)
+  });
 }
 
 /**
  * @publicApi
  */
 export function createServiceFactory<S>(typeOrOptions: SpectatorServiceOptions<S> | Type<S>): SpectatorServiceFactory<S> {
-  return baseCreateServiceFactory(
-    isType(typeOrOptions)
-      ? {
-          mockProvider: mockProvider,
-          service: typeOrOptions
-        }
-      : {
-          mockProvider: mockProvider,
-          ...typeOrOptions
-        }
-  );
+  return baseCreateServiceFactory({
+    mockProvider,
+    ...(isType(typeOrOptions) ? { service: typeOrOptions } : typeOrOptions)
+  });
 }

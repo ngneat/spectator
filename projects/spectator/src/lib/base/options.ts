@@ -29,7 +29,7 @@ const defaultOptions: OptionalsRequired<BaseSpectatorOptions> = {
   disableAnimations: true,
   entryComponents: [],
   mocks: [],
-  mockProvider: mockProvider,
+  mockProvider,
   providers: [],
   declarations: [],
   imports: [],

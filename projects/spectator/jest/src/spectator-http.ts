@@ -24,15 +24,8 @@ export type SpectatorHttpFactory<S> = (overrides?: CreateHttpOverrides<S>) => Sp
  * @publicApi
  */
 export function createHttpFactory<S>(typeOrOptions: SpectatorHttpOptions<S> | Type<S>): SpectatorHttpFactory<S> {
-  return baseCreateHttpFactory(
-    isType(typeOrOptions)
-      ? {
-          mockProvider: mockProvider,
-          dataService: typeOrOptions
-        }
-      : {
-          mockProvider: mockProvider,
-          ...typeOrOptions
-        }
-  );
+  return baseCreateHttpFactory({
+    mockProvider,
+    ...(isType(typeOrOptions) ? { dataService: typeOrOptions } : typeOrOptions)
+  });
 }

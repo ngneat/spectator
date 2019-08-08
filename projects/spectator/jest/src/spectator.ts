@@ -4,17 +4,10 @@ import { createTestComponentFactory as baseCreateTestComponentFactory, isType, S
 import { mockProvider, SpyObject } from './mock';
 
 export function createTestComponentFactory<Component>(typeOrOptions: SpectatorOptions<Component> | Type<Component>): SpectatorFactory<Component> {
-  return baseCreateTestComponentFactory(
-    isType(typeOrOptions)
-      ? {
-          mockProvider: mockProvider,
-          component: typeOrOptions
-        }
-      : {
-          mockProvider: mockProvider,
-          ...typeOrOptions
-        }
-  );
+  return baseCreateTestComponentFactory({
+    mockProvider,
+    ...(isType(typeOrOptions) ? { component: typeOrOptions } : typeOrOptions)
+  });
 }
 
 export class Spectator<C> extends BaseSpectator<C> {

@@ -10,15 +10,8 @@ export class SpectatorWithHost<C, H = HostComponent> extends BaseSpectatorWithHo
 }
 
 export function createHostComponentFactory<C, H = HostComponent>(typeOrOptions: SpectatorOptions<C, H> | Type<C>): SpectatorWithHostFactory<C, H> {
-  return baseCreateHostComponentFactory(
-    isType(typeOrOptions)
-      ? {
-          mockProvider: mockProvider,
-          component: typeOrOptions
-        }
-      : {
-          mockProvider: mockProvider,
-          ...typeOrOptions
-        }
-  );
+  return baseCreateHostComponentFactory({
+    mockProvider,
+    ...(isType(typeOrOptions) ? { component: typeOrOptions } : typeOrOptions)
+  });
 }
