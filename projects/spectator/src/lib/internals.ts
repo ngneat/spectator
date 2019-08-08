@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { DebugElement, ElementRef, Type, ChangeDetectorRef } from '@angular/core';
+import { ChangeDetectorRef, DebugElement, ElementRef, Type } from '@angular/core';
 import { dispatchFakeEvent, dispatchKeyboardEvent, dispatchMouseEvent, dispatchTouchEvent } from './dispatch-events';
 import { createMouseEvent } from './event-objects';
 import { typeInElement } from './type-in-element';
@@ -9,18 +9,14 @@ import { Observable } from 'rxjs';
 import { SpyObject } from './mock';
 import { DOMSelector } from './dom-selectors';
 import { Token } from './token';
-
-declare const require: Function;
-const $ = require('jquery');
-
-export type SpectatorElement = string | Element | DebugElement | ElementRef | Window | Document;
+import { isString, QueryOptions, QueryType, SpectatorElement } from '@netbasal/spectator';
 
 const KEY_UP = 'keyup';
 
 export class Spectator<Component> {
   fixture: ComponentFixture<Component>;
   component: Component;
-  element: HTMLElement | Node | any;
+  element: Element;
   debugElement: DebugElement;
 
   get<R extends T, T = any>(type: Token<T>, fromComponentInjector = false): R & SpyObject<R> {
@@ -42,33 +38,38 @@ export class Spectator<Component> {
     }
   }
 
-  query<R extends Element>(selector: string | DOMSelector): R;
+  query<R extends Element>(selector: string | DOMSelector, options?: { root: boolean }): R;
   query<R>(directive: Type<R>): R;
   query<R>(directiveOrSelector: Type<any> | string, options: { read: Token<R> }): R;
-  query<R>(directiveOrSelector: Type<any> | DOMSelector | string, options: { read: Token<R> } = { read: undefined }): R {
-    return _getChild<R>(this.debugElement)(directiveOrSelector, options);
+  query<R>(directiveOrSelector: QueryType, options?: QueryOptions<R>): R {
+    if ((options || {}).root && isString(directiveOrSelector)) {
+      return document.querySelector(directiveOrSelector) as any;
+    }
+    return _getChildren<R>(this.debugElement)(directiveOrSelector, options)[0] || null;
   }
 
-  queryAll<R extends Element[]>(selector: string | DOMSelector): R;
+  queryAll<R extends Element[]>(selector: string | DOMSelector, options?: { root: boolean }): R[];
   queryAll<R>(directive: Type<R>): R[];
   queryAll<R>(directiveOrSelector: Type<any> | string, options: { read: Token<R> }): R[];
-  queryAll<R>(directiveOrSelector: Type<any> | DOMSelector | string, options: { read: Token<R> } = { read: undefined }): R[] {
+  queryAll<R>(directiveOrSelector: QueryType, options?: QueryOptions<R>): R[] {
+    if ((options || {}).root && isString(directiveOrSelector)) {
+      return Array.from(document.querySelectorAll(directiveOrSelector)) as any[];
+    }
     return _getChildren<R>(this.debugElement)(directiveOrSelector, options);
   }
 
-  queryLast<R extends Element>(selector: string | DOMSelector): R;
+  queryLast<R extends Element[]>(selector: string | DOMSelector, options?: { root: boolean }): R;
   queryLast<R>(directive: Type<R>): R;
   queryLast<R>(directiveOrSelector: Type<any> | string, options: { read: Token<R> }): R;
-  queryLast<R>(directiveOrSelector: Type<R> | DOMSelector | string, options: { read: Token<R> } = { read: undefined }): R {
+  queryLast<R>(directiveOrSelector: QueryType, options?: QueryOptions<R>): R {
+    if ((options || {}).root && isString(directiveOrSelector)) {
+      return document.querySelector(directiveOrSelector) as any;
+    }
     const result = _getChildren<R>(this.debugElement)(directiveOrSelector, options);
     if (result && result.length) {
       return result[result.length - 1];
     }
     return null;
-  }
-
-  $$(selector) {
-    return $(selector);
   }
 
   setInput<K extends keyof Component>(input: Partial<Component>);
@@ -83,43 +84,31 @@ export class Spectator<Component> {
     if (observable instanceof Observable) {
       return observable as Observable<T>;
     } else {
-      throw new Error(`${output} in not an @Output`);
+      throw new Error(`${output} is not an @Output`);
     }
   }
 
-  click(selector: SpectatorElement = this.element) {
+  click(selector: SpectatorElement) {
     const element = this.getNativeElement(selector);
     element.click();
     this.detectChanges();
   }
 
-  private getNativeElement(selector: SpectatorElement | Window | Document) {
-    let element;
-
-    /** Support global objects window and document **/
-    if (selector === window || selector === document) {
-      return selector;
-    }
-
-    if (typeof selector === 'string') {
-      const checkExists = this.debugElement.query(By.css(selector));
-      if (checkExists) {
-        element = checkExists.nativeElement;
-      } else {
-        throw new Error(`${selector} does not exists`);
-      }
-    } else {
-      if (selector instanceof DebugElement || selector instanceof ElementRef) {
-        element = selector.nativeElement;
-      } else {
-        element = selector;
-      }
-    }
-
-    return element;
+  blur(selector: SpectatorElement) {
+    let element = this.getNativeElement(selector);
+    patchElementFocus(element as HTMLElement);
+    element.blur();
+    this.detectChanges();
   }
 
-  dispatchMouseEvent(selector: SpectatorElement = this.element, type: string, x = 0, y = 0, event = createMouseEvent(type, x, y)): MouseEvent {
+  focus(selector: SpectatorElement) {
+    let element = this.getNativeElement(selector);
+    patchElementFocus(element as HTMLElement);
+    element.focus();
+    this.detectChanges();
+  }
+
+  dispatchMouseEvent(selector: SpectatorElement, type: string, x = 0, y = 0, event = createMouseEvent(type, x, y)): MouseEvent {
     const _event = dispatchMouseEvent(this.getNativeElement(selector), type, x, y, event);
     this.detectChanges();
     return _event;
@@ -127,13 +116,13 @@ export class Spectator<Component> {
 
   dispatchKeyboardEvent(selector: SpectatorElement, type: string, keyCode: number, target?: Element): KeyboardEvent;
   dispatchKeyboardEvent(selector: SpectatorElement, type: string, key: string, target?: Element): KeyboardEvent;
-  dispatchKeyboardEvent(selector: SpectatorElement = this.element, type: string, keyOrKeyCode: string | number, target?: Element): KeyboardEvent {
+  dispatchKeyboardEvent(selector: SpectatorElement, type: string, keyOrKeyCode: string | number, target?: Element): KeyboardEvent {
     const _event = dispatchKeyboardEvent(this.getNativeElement(selector), type, keyOrKeyCode, target);
     this.detectChanges();
     return _event;
   }
 
-  dispatchFakeEvent(selector: SpectatorElement | Window = this.element, type: string, canBubble?: boolean): Event {
+  dispatchFakeEvent(selector: SpectatorElement, type: string, canBubble?: boolean): Event {
     const _event = dispatchFakeEvent(this.getNativeElement(selector), type, canBubble);
     this.detectChanges();
     return _event;
@@ -141,6 +130,9 @@ export class Spectator<Component> {
 
   get keyboard() {
     return {
+      pressKey: (key: string, selector: SpectatorElement = this.element, event = KEY_UP) => {
+        this.dispatchKeyboardEvent(selector, event, key);
+      },
       pressEscape: (selector: SpectatorElement = this.element, event = KEY_UP) => {
         this.dispatchKeyboardEvent(selector, event, 'Escape');
       },
@@ -156,47 +148,56 @@ export class Spectator<Component> {
     };
   }
 
-  dispatchTouchEvent(selector: SpectatorElement = this.element, type: string, x = 0, y = 0) {
+  dispatchTouchEvent(selector: SpectatorElement, type: string, x = 0, y = 0) {
     const _event = dispatchTouchEvent(this.getNativeElement(selector), type, x, y);
     this.detectChanges();
     return _event;
   }
 
-  typeInElement(value: string, selector: SpectatorElement = this.element) {
+  typeInElement(value: string, selector: SpectatorElement) {
     const _event = typeInElement(value, this.getNativeElement(selector));
     this.detectChanges();
     return _event;
   }
 
-  patchElementFocus(element: HTMLElement) {
-    patchElementFocus(element);
-    this.detectChanges();
+  private getNativeElement(selector: SpectatorElement) {
+    let element;
+
+    /** Support global objects window and document **/
+    if (selector === window || selector === document) {
+      return selector;
+    }
+
+    if (isString(selector)) {
+      const exists = this.debugElement.query(By.css(selector));
+      if (exists) {
+        element = exists.nativeElement;
+      } else {
+        console.error(`${selector} does not exists`);
+      }
+    } else {
+      if (selector instanceof DebugElement || selector instanceof ElementRef) {
+        element = selector.nativeElement;
+      } else {
+        element = selector;
+      }
+    }
+
+    return element;
   }
 }
 
-export function _getChild<R>(debugElementRoot: DebugElement) {
-  return function(directiveOrSelector: Type<R> | DOMSelector | string, options: { read } = { read: undefined }): R {
-    return _getChildren<R>(debugElementRoot)(directiveOrSelector, options)[0] || null;
-  };
-}
-
 export function _getChildren<R>(debugElementRoot: DebugElement) {
-  return function(directiveOrSelector: Type<R> | DOMSelector | string, options: { read } = { read: undefined }): R[] {
+  return function(directiveOrSelector: QueryType, options: QueryOptions<R> = { root: false, read: undefined }): R[] {
     if (directiveOrSelector instanceof DOMSelector) {
       return directiveOrSelector.execute(debugElementRoot.nativeElement) as any[];
     }
 
-    let debugElements: DebugElement[];
-
-    if (typeof directiveOrSelector === 'string') {
-      debugElements = debugElementRoot.queryAll(By.css(directiveOrSelector));
-    } else {
-      debugElements = debugElementRoot.queryAll(By.directive(directiveOrSelector));
-    }
+    let debugElements = debugElementRoot.queryAll(isString(directiveOrSelector) ? By.css(directiveOrSelector) : By.directive(directiveOrSelector));
 
     if (options.read) {
       return debugElements.map(debug => debug.injector.get(options.read));
-    } else if (typeof directiveOrSelector === 'string') {
+    } else if (isString(directiveOrSelector)) {
       return debugElements.map(debug => debug.nativeElement);
     } else {
       return debugElements.map(debug => debug.componentInstance);
@@ -205,7 +206,7 @@ export function _getChildren<R>(debugElementRoot: DebugElement) {
 }
 
 export function _setInput(input, inputValue, component) {
-  if (typeof input === 'string') {
+  if (isString(input)) {
     component[input] = inputValue;
   } else {
     for (let p in input) {
