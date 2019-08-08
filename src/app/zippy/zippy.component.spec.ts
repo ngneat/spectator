@@ -171,4 +171,10 @@ describe('With Custom Host Component', function() {
     tick(6000);
     expect(host.component.updatedAsync).not.toBeFalsy();
   }));
+
+  it('should query from root', () => {
+    host = createHost(`<zippy [title]="title"></zippy>`);
+    const head = host.query('head', { root: true });
+    expect(head).toBeDefined();
+  });
 });
