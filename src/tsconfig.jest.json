@@ -5,7 +5,7 @@
     "module": "commonjs",
     "baseUrl": "./",
     "types": [
-      "jasmine",
+      "jest",
       "node"
     ],
     "paths": {
@@ -22,7 +22,7 @@
     "polyfills.ts"
   ],
   "include": [
-    "**/*.spec.ts",
+    "**/*.jest.ts",
     "**/*.d.ts",
     "../projects/spectator/src/lib/matchers-types.d.ts"
   ]

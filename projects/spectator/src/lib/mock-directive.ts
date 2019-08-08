@@ -5,6 +5,7 @@ import { Directive, EventEmitter, Type } from '@angular/core';
  * MockDirective({ selector: 'some-directive' });
  * MockDirective({ selector: 'some-directive', inputs: ['some-input', 'some-other-input'] });
  *
+ * @deprecated Deprecated in favour of the `ng-mocks` implementation of `MockDirective`. To be be removed in the next major version.
  */
 export function MockDirective(options: Directive & { identifier?: Type<any> }): Directive {
   const metadata: Directive & { identifier?: Type<any> } = {
