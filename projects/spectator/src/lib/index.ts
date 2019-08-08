@@ -14,5 +14,4 @@ export * from './service';
 export * from './spectator';
 export * from './token';
 export * from './type-in-element';
-export * from './globals';
 export * from './globals-injections';

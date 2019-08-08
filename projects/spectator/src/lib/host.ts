@@ -2,12 +2,12 @@ import { DebugElement, Provider, Type } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { BrowserDynamicTestingModule } from '@angular/platform-browser-dynamic/testing';
 import { By } from '@angular/platform-browser';
-import { _getChild, _getChildren, _setInput, Spectator } from './internals';
+import { _getChildren, _setInput, Spectator } from './internals';
 import * as customMatchers from './matchers';
 import { DOMSelector } from './dom-selectors';
 import { HostComponent, initialModule, SpectatorOptions } from './config';
 import { Token } from './token';
-import { CreateComponentOptions, isType } from './types';
+import { CreateComponentOptions, isString, isType, QueryOptions, QueryType } from './types';
 
 export class SpectatorWithHost<C, H = HostComponent> extends Spectator<C> {
   hostComponent: H;
@@ -32,18 +32,24 @@ export class SpectatorWithHost<C, H = HostComponent> extends Spectator<C> {
     this.hostFixture.detectChanges();
   }
 
-  queryHost<T extends Element>(selector: string | DOMSelector): T;
-  queryHost<T>(directive: Type<T>): T;
-  queryHost<T>(directiveOrSelector: Type<any> | string, options: { read: Token<T> }): T;
-  queryHost<T>(directiveOrSelector: Type<T> | DOMSelector | string, options: { read } = { read: undefined }): T {
-    return _getChild<T>(this.hostDebugElement)(directiveOrSelector, options);
+  queryHost<R extends Element>(selector: string | DOMSelector, options?: { root: boolean }): R;
+  queryHost<R>(directive: Type<R>): R;
+  queryHost<R>(directiveOrSelector: Type<any> | string, options: { read: Token<R> }): R;
+  queryHost<R>(directiveOrSelector: QueryType, options?: QueryOptions<R>): R {
+    if ((options || {}).root && isString(directiveOrSelector)) {
+      return document.querySelector(directiveOrSelector) as any;
+    }
+    return _getChildren<R>(this.hostDebugElement)(directiveOrSelector, options)[0] || null;
   }
 
-  queryHostAll<T extends Element>(selector: string | DOMSelector): T[];
-  queryHostAll<T>(directive: Type<T>): T[];
-  queryHostAll<T>(directiveOrSelector: Type<any> | string, options: { read: Token<T> }): T[];
-  queryHostAll<T>(directiveOrSelector: Type<T> | DOMSelector | string, options: { read } = { read: undefined }): T[] {
-    return _getChildren<T>(this.hostDebugElement)(directiveOrSelector, options);
+  queryHostAll<R extends Element[]>(selector: string | DOMSelector, options?: { root: boolean }): R[];
+  queryHostAll<R>(directive: Type<R>): R[];
+  queryHostAll<R>(directiveOrSelector: Type<any> | string, options: { read: Token<R> }): R[];
+  queryHostAll<R>(directiveOrSelector: QueryType, options?: QueryOptions<R>): R[] {
+    if ((options || {}).root && isString(directiveOrSelector)) {
+      return Array.from(document.querySelectorAll(directiveOrSelector)) as any[];
+    }
+    return _getChildren<R>(this.hostDebugElement)(directiveOrSelector, options);
   }
 
   setHostInput<K extends keyof H>(input: Partial<H>);
