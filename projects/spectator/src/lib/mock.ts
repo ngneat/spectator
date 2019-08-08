@@ -68,3 +68,5 @@ export function mockProvider<T>(type: Type<T>, properties?: Partial<Record<keyof
     }
   };
 }
+
+export type MockProvider = typeof mockProvider;

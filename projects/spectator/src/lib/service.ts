@@ -1,6 +1,6 @@
 import { TestBed, TestModuleMetadata } from '@angular/core/testing';
 import { Type } from '@angular/core';
-import { mockProvider, SpyObject } from './mock';
+import { MockProvider, mockProvider, SpyObject } from './mock';
 import { BrowserDynamicTestingModule } from '@angular/platform-browser-dynamic/testing';
 import { Token } from './token';
 import { isType } from './types';
@@ -8,31 +8,38 @@ import { isType } from './types';
 export interface SpectatorService<S> {
   service: S;
 
-  get<T>(token: Token<T> | Token<any>): T & SpyObject<T>;
+  get<T>(token: Token<T> | Token<any>): SpyObject<T>;
 }
 
-export type ServiceParams<S> = TestModuleMetadata & {
+export type ServiceOptions<S> = TestModuleMetadata & {
   service?: Type<S>;
   mocks?: Type<any>[];
+  mockProvider?: MockProvider;
   entryComponents?: any[];
 };
 
-export function createService<Service>(options: ServiceParams<Service> | Type<Service>): SpectatorService<Service> {
-  const service = isType(options) ? options : options.service;
+const defaultOptions: ServiceOptions<any> = {
+  mockProvider: mockProvider
+};
 
-  const module: ServiceParams<Service> = {
+export function createService<Service>(typeOrOptions: ServiceOptions<Service> | Type<Service>): SpectatorService<Service> {
+  const service = isType(typeOrOptions) ? typeOrOptions : typeOrOptions.service;
+
+  const module: ServiceOptions<Service> = {
     providers: [service]
   };
 
-  if (!isType(options)) {
-    (options.mocks || []).forEach(type => module.providers.push(mockProvider(type)));
-    module.providers = [...module.providers, ...(options.providers || [])];
-    module.declarations = options.declarations || [];
-    module.imports = options.imports || [];
+  if (!isType(typeOrOptions)) {
+    const merged = Object.assign({}, defaultOptions, typeOrOptions);
+
+    (merged.mocks || []).forEach(type => module.providers.push(merged.mockProvider(type)));
+    module.providers = [...module.providers, ...(merged.providers || [])];
+    module.declarations = merged.declarations || [];
+    module.imports = merged.imports || [];
 
     TestBed.overrideModule(BrowserDynamicTestingModule, {
       set: {
-        entryComponents: options.entryComponents || []
+        entryComponents: merged.entryComponents || []
       }
     });
   }
@@ -46,7 +53,7 @@ export function createService<Service>(options: ServiceParams<Service> | Type<Se
     get service(): Service {
       return TestBed.get(service);
     },
-    get<R extends T, T = any>(token: Token<T>): R & SpyObject<R> {
+    get<T>(token: Token<T>): SpyObject<T> {
       return TestBed.get(token);
     }
   };

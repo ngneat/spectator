@@ -1,7 +1,7 @@
 import { TestModuleMetadata } from '@angular/core/testing';
 import { Component, NO_ERRORS_SCHEMA, Type } from '@angular/core';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { mockProvider } from './mock';
+import { mockProvider, MockProvider } from './mock';
 import { getGlobalsInjections } from './globals-injections';
 import { isType } from './types';
 
@@ -18,6 +18,7 @@ export type SpectatorOptions<T = any, H = HostComponent> = TestModuleMetadata & 
   entryComponents?: any[];
   componentProviders?: any[];
   mocks?: Type<any>[];
+  mockProvider?: MockProvider;
   detectChanges?: boolean;
   declareComponent?: boolean;
 };
@@ -27,12 +28,13 @@ const defaultOptions: SpectatorOptions<any, HostComponent> = {
   shallow: false,
   host: HostComponent,
   entryComponents: [],
+  mockProvider: mockProvider,
   mocks: [],
   declareComponent: true
 };
 
 export function initialModule<Component, Host = HostComponent>(
-  options: SpectatorOptions<Component, Host> | Type<Component>,
+  typeOrOptions: SpectatorOptions<Component, Host> | Type<Component>,
   withHost = false
 ): {
   moduleMetadata: TestModuleMetadata & SpectatorOptions<Component, Host>;
@@ -40,13 +42,13 @@ export function initialModule<Component, Host = HostComponent>(
   host: Type<Host>;
 } {
   const { declarations: globalDec, providers: globalProviders, imports: globalImports } = getGlobalsInjections();
-  const merged = Object.assign({}, defaultOptions, options);
+  const merged = Object.assign({}, defaultOptions, typeOrOptions);
   let moduleMetadata: TestModuleMetadata & Partial<SpectatorOptions<Component, Host>>;
   let component;
   let host;
 
-  if (isType(options)) {
-    component = options;
+  if (isType(typeOrOptions)) {
+    component = typeOrOptions;
     host = HostComponent;
     moduleMetadata = {
       declarations: [...globalDec, component, withHost ? host : []],
@@ -69,7 +71,7 @@ export function initialModule<Component, Host = HostComponent>(
       entryComponents: [merged.entryComponents]
     };
 
-    (merged.mocks || []).forEach(type => moduleMetadata.providers.push(mockProvider(type)));
+    (merged.mocks || []).forEach(type => moduleMetadata.providers.push(merged.mockProvider(type)));
   }
 
   return {

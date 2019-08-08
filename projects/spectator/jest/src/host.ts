@@ -1,9 +1,26 @@
 import { Type } from '@angular/core';
-import { createHostComponentFactory as baseCreateHostComponentFactory, HostComponent, SpectatorOptions, SpectatorWithHost as BaseSpectatorWithHost } from '@netbasal/spectator';
+import { createHostComponentFactory as baseCreateHostComponentFactory, HostComponent, isType, SpectatorOptions, SpectatorWithHost as BaseSpectatorWithHost, Token } from '@netbasal/spectator';
+
 import { CreateComponentOptions } from '../../src/lib/types';
 
-export class SpectatorWithHost<C, H = HostComponent> extends BaseSpectatorWithHost<C, H> {}
+import { mockProvider, SpyObject } from './mock';
 
-export function createHostComponentFactory<Component, Host = HostComponent>(options: SpectatorOptions<Component, Host> | Type<Component>): (template: string, options?: CreateComponentOptions<Component>) => SpectatorWithHost<Component, Host> {
-  return baseCreateHostComponentFactory(options);
+export class SpectatorWithHost<C, H = HostComponent> extends BaseSpectatorWithHost<C, H> {
+  get<T>(type: Token<T> | Token<any>, fromComponentInjector = false): SpyObject<T> {
+    return super.get(type, fromComponentInjector) as SpyObject<T>;
+  }
+}
+
+export function createHostComponentFactory<Component, Host = HostComponent>(typeOrOptions: SpectatorOptions<Component, Host> | Type<Component>): (template: string, options?: CreateComponentOptions<Component>) => SpectatorWithHost<Component, Host> {
+  return baseCreateHostComponentFactory(
+    isType(typeOrOptions)
+      ? {
+          mockProvider: mockProvider,
+          component: typeOrOptions
+        }
+      : {
+          mockProvider: mockProvider,
+          ...typeOrOptions
+        }
+  );
 }
