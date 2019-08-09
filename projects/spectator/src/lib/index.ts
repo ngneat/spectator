@@ -11,8 +11,13 @@ export { HostComponent } from './spectator-with-host/host-component';
 
 export { SpectatorService } from './spectator-service/spectator-service';
 export { SpectatorServiceOptions } from './spectator-service/options';
-export { SpectatorServiceFactory, createServiceFactory, CreateServiceOverrides } from './spectator-service/create-factory';
+export { SpectatorServiceFactory, createServiceFactory, SpectatorServiceOverrides } from './spectator-service/create-factory';
 export { createService } from './spectator-service/create-service';
+
+export { SpectatorWithRouting } from './spectator-with-routing/spectator-with-routing';
+export { SpectatorWithRoutingOptions } from './spectator-with-routing/options';
+export { SpectatorWithRoutingFactory, createRoutedComponentFactory, SpectatorWithRoutingOverrides } from './spectator-with-routing/create-factory';
+export { ActivatedRouteStub } from './spectator-with-routing/activated-route-stub';
 
 export { SpectatorHttp, HttpMethod } from './spectator-http/spectator-http';
 export { SpectatorHttpOptions } from './spectator-http/options';

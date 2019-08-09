@@ -1,5 +1,5 @@
 import { Type } from '@angular/core';
-import { createService as baseCreateService, createServiceFactory as baseCreateServiceFactory, isType, CreateServiceOverrides, SpectatorServiceOptions, SpectatorService as BaseSpectatorService, Token } from '@netbasal/spectator';
+import { createService as baseCreateService, createServiceFactory as baseCreateServiceFactory, isType, SpectatorServiceOverrides, SpectatorServiceOptions, SpectatorService as BaseSpectatorService, Token } from '@netbasal/spectator';
 
 import { mockProvider, SpyObject } from './mock';
 
@@ -13,7 +13,7 @@ export interface SpectatorService<S> extends BaseSpectatorService<S> {
 /**
  * @pubicApi
  */
-export type SpectatorServiceFactory<S> = (overrides?: CreateServiceOverrides<S>) => SpectatorService<S>;
+export type SpectatorServiceFactory<S> = (overrides?: SpectatorServiceOverrides<S>) => SpectatorService<S>;
 
 /**
  * @publicApi
