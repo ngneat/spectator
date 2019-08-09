@@ -1,8 +1,10 @@
 import { createTestComponentFactory, Spectator } from '@netbasal/spectator/jest';
-import { QueryService } from '../query.service';
-import { ButtonComponent } from './button.component';
-import { mockProvider } from '../../../projects/spectator/src/lib/mock';
 import { of } from 'rxjs';
+
+import { mockProvider } from '../../../projects/spectator/src/lib/mock';
+import { QueryService } from '../query.service';
+
+import { ButtonComponent } from './button.component';
 
 describe('ButtonComponent', () => {
   let spectator: Spectator<ButtonComponent>;

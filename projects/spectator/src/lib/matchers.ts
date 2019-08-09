@@ -1,8 +1,10 @@
 /** Credit: https://github.com/unindented/custom-jquery-matchers/tree/master/packages/custom-jquery-matchers */
 declare const require: Function;
 
+// tslint:disable:no-shadowed-variable
+
 const $ = require('jquery');
-import { hex2rgb, isHex, trim } from './rgb-to-hex';
+import { hex2rgb, isHex, trim } from './internals/rgb-to-hex';
 
 const hasProperty = (actual, expected) => {
   return expected === undefined ? actual !== undefined : actual === expected;

@@ -1,19 +1,17 @@
-import { createTestComponentFactory as baseCreateTestComponentFactory, isType, SpectatorOptions } from '@netbasal/spectator';
 import { Type } from '@angular/core';
-import { Spectator } from './internals';
-import { CreateComponentOptions } from '../../src/lib/types';
-import { mockProvider } from './mock';
+import { createTestComponentFactory as baseCreateTestComponentFactory, isType, Spectator as BaseSpectator, SpectatorFactory, SpectatorOptions, Token } from '@netbasal/spectator';
 
-export function createTestComponentFactory<Component>(typeOrOptions: SpectatorOptions<Component> | Type<Component>): (options?: CreateComponentOptions<Component>) => Spectator<Component> {
-  return baseCreateTestComponentFactory(
-    isType(typeOrOptions)
-      ? {
-          mockProvider: mockProvider,
-          component: typeOrOptions
-        }
-      : {
-          mockProvider: mockProvider,
-          ...typeOrOptions
-        }
-  );
+import { mockProvider, SpyObject } from './mock';
+
+export function createTestComponentFactory<Component>(typeOrOptions: SpectatorOptions<Component> | Type<Component>): SpectatorFactory<Component> {
+  return baseCreateTestComponentFactory({
+    mockProvider,
+    ...(isType(typeOrOptions) ? { component: typeOrOptions } : typeOrOptions)
+  });
+}
+
+export class Spectator<C> extends BaseSpectator<C> {
+  get<T>(type: Token<T> | Token<any>, fromComponentInjector = false): SpyObject<T> {
+    return super.get(type, fromComponentInjector) as SpyObject<T>;
+  }
 }

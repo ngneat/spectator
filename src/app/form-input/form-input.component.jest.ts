@@ -39,10 +39,12 @@ describe('FormInputComponent', () => {
     imports: [ReactiveFormsModule]
   });
 
-  beforeEach(() =>
-    (spectator = createComponent({
-      props: inputs
-    })));
+  beforeEach(
+    () =>
+      (spectator = createComponent({
+        props: inputs
+      }))
+  );
 
   it('should work', () => {
     expect(spectator.component).toBeDefined();

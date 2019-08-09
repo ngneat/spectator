@@ -36,8 +36,8 @@ export function createKeyboardEvent(type: string, keyOrKeyCode: string | number,
   const key = typeof keyOrKeyCode === 'string' && keyOrKeyCode;
   const keyCode = typeof keyOrKeyCode === 'number' && keyOrKeyCode;
 
-  let event = document.createEvent('KeyboardEvent') as any;
-  let originalPreventDefault = event.preventDefault;
+  const event = document.createEvent('KeyboardEvent') as any;
+  const originalPreventDefault = event.preventDefault;
 
   // Firefox does not support `initKeyboardEvent`, but supports `initKeyEvent`.
   if (event.initKeyEvent) {
