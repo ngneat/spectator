@@ -6,11 +6,11 @@ import { BrowserDynamicTestingModule } from '@angular/platform-browser-dynamic/t
 import { setComponentProps } from '../internals/query';
 import * as customMatchers from '../matchers';
 import { SpectatorOverrides } from '../spectator/create-factory';
-import { HostComponent } from '../spectator/host-component';
-import { initialSpectatorModule } from '../spectator/initial-module';
-import { getSpectatorDefaultOptions, SpectatorOptions } from '../spectator/options';
 import { isType } from '../types';
 
+import { HostComponent } from './host-component';
+import { initialSpectatorWithHostModule } from './initial-module';
+import { getSpectatorWithHostDefaultOptions, SpectatorWithHostOptions } from './options';
 import { SpectatorWithHost } from './spectator-with-host';
 
 /**
@@ -21,10 +21,10 @@ export type SpectatorWithHostFactory<Component, Host = HostComponent> = (templat
 /**
  * @publicApi
  */
-export function createHostComponentFactory<C, H = HostComponent>(typeOrOptions: Type<C> | SpectatorOptions<C, H>): SpectatorWithHostFactory<C, H> {
-  const options = isType(typeOrOptions) ? getSpectatorDefaultOptions<C, H>({ component: typeOrOptions }) : getSpectatorDefaultOptions(typeOrOptions);
+export function createHostComponentFactory<C, H = HostComponent>(typeOrOptions: Type<C> | SpectatorWithHostOptions<C, H>): SpectatorWithHostFactory<C, H> {
+  const options = isType(typeOrOptions) ? getSpectatorWithHostDefaultOptions<C, H>({ component: typeOrOptions }) : getSpectatorWithHostDefaultOptions(typeOrOptions);
 
-  const moduleMetadata = initialSpectatorModule<C, H>(options);
+  const moduleMetadata = initialSpectatorWithHostModule<C, H>(options);
 
   beforeEach(async(() => {
     jasmine.addMatchers(customMatchers as any);
@@ -53,15 +53,11 @@ export function createHostComponentFactory<C, H = HostComponent>(typeOrOptions: 
       set: {
         entryComponents: moduleMetadata.entryComponents
       }
+    }).overrideComponent(options.host, {
+      set: { template }
     });
 
-    TestBed.overrideComponent(options.host, {
-      set: {
-        template: template
-      }
-    });
-
-    const spectator = createSpectatorWithHost(options);
+    const spectator = createSpectatorWithHost<C, H>(options);
 
     setComponentProps(spectator.component, props);
 
@@ -73,7 +69,7 @@ export function createHostComponentFactory<C, H = HostComponent>(typeOrOptions: 
   };
 }
 
-function createSpectatorWithHost<C, H>(options: Required<SpectatorOptions<C, H>>): SpectatorWithHost<C, H> {
+function createSpectatorWithHost<C, H>(options: Required<SpectatorWithHostOptions<C, H>>): SpectatorWithHost<C, H> {
   const hostFixture = TestBed.createComponent(options.host);
   const debugElement = hostFixture.debugElement.query(By.directive(options.component));
 

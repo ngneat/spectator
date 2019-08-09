@@ -13,7 +13,7 @@ import { Spectator } from './spectator';
 /**
  * @publicApi
  */
-export type SpectatorFactory<Component> = (options?: SpectatorOverrides<Component>) => Spectator<Component>;
+export type SpectatorFactory<C> = (options?: SpectatorOverrides<C>) => Spectator<C>;
 
 /**
  * @publicApi

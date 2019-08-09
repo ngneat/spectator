@@ -8,7 +8,7 @@ type OptionalPropertyNames<T> = {
 }[keyof T];
 type OptionalProperties<T> = Pick<T, OptionalPropertyNames<T>>;
 
-export type OptionalsRequired<T> = Required<OptionalProperties<T>>;
+export type OptionalsRequired<T> = Required<OptionalProperties<T>> & Partial<T>;
 
 export type SpectatorElement = string | Element | DebugElement | ElementRef | Window | Document;
 

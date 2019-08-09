@@ -3,10 +3,11 @@ import { ComponentFixture } from '@angular/core/testing';
 
 import { DOMSelector } from '../dom-selectors';
 import { getChildren, setComponentProps } from '../internals/query';
-import { HostComponent } from '../spectator/host-component';
 import { Spectator } from '../spectator/spectator';
 import { Token } from '../token';
 import { isString, QueryOptions, QueryType } from '../types';
+
+import { HostComponent } from './host-component';
 
 /**
  * @publicApi

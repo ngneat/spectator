@@ -4,15 +4,12 @@ import { getDefaultBaseOptions, BaseSpectatorOptions } from '../base/options';
 import { merge } from '../internals/merge';
 import { OptionalsRequired } from '../types';
 
-import { HostComponent } from './host-component';
-
 /**
  * @publicApi
  */
-export interface SpectatorOptions<C = any, H = HostComponent> extends BaseSpectatorOptions {
+export interface SpectatorOptions<C = any> extends BaseSpectatorOptions {
   component: Type<C>;
   shallow?: boolean;
-  host?: Type<H>;
   componentProviders?: any[];
   detectChanges?: boolean;
   declareComponent?: boolean;
@@ -21,7 +18,6 @@ export interface SpectatorOptions<C = any, H = HostComponent> extends BaseSpecta
 const defaultSpectatorOptions: OptionalsRequired<SpectatorOptions> = {
   ...getDefaultBaseOptions(),
   shallow: false,
-  host: HostComponent,
   declareComponent: true,
   detectChanges: true,
   componentProviders: []
@@ -30,6 +26,6 @@ const defaultSpectatorOptions: OptionalsRequired<SpectatorOptions> = {
 /**
  * @internal
  */
-export function getSpectatorDefaultOptions<C, H>(overrides: SpectatorOptions<C, H>): Required<SpectatorOptions<C, H>> {
-  return merge(defaultSpectatorOptions, overrides) as Required<SpectatorOptions<C, H>>;
+export function getSpectatorDefaultOptions<C>(overrides?: SpectatorOptions<C>): Required<SpectatorOptions<C>> {
+  return merge(defaultSpectatorOptions, overrides) as Required<SpectatorOptions<C>>;
 }
