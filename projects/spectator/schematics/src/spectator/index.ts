@@ -1,7 +1,8 @@
-import { apply, chain, externalSchematic, MergeStrategy, mergeWith, move, Rule, SchematicContext, template, Tree, url } from '@angular-devkit/schematics';
-import { ComponentOptions, DirectiveOptions, ServiceOptions } from './schema';
 import { experimental, normalize, strings } from '@angular-devkit/core';
+import { apply, chain, externalSchematic, mergeWith, move, template, url, MergeStrategy, Rule, SchematicContext, Tree } from '@angular-devkit/schematics';
 import { getWorkspace } from '@schematics/angular/utility/config';
+
+import { ComponentOptions, DirectiveOptions, ServiceOptions } from './schema';
 export function spectatorComponentSchematic(options: ComponentOptions): Rule {
   return chain([
     externalSchematic('@schematics/angular', 'component', {

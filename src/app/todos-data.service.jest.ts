@@ -1,46 +1,49 @@
 import { fakeAsync, tick } from '@angular/core/testing';
+import { createHttpFactory, HttpMethod } from '@netbasal/spectator/jest';
 import { defer } from 'rxjs';
-import { HTTPMethod } from '@netbasal/spectator';
+
 import { TodosDataService, UserService } from './todos-data.service';
-import { createHTTPFactory, mockProvider, SpyObject } from '@netbasal/spectator/jest';
 
 describe('HttpClient testing', () => {
-  const http = createHTTPFactory(TodosDataService, [mockProvider(UserService)]);
+  const http = createHttpFactory({
+    dataService: TodosDataService,
+    mocks: [UserService]
+  });
 
   it('can test HttpClient.get', () => {
-    const { dataService, expectOne } = http();
+    const spectatorHttp = http();
 
-    dataService.get().subscribe();
-    expectOne('url', HTTPMethod.GET);
+    spectatorHttp.dataService.get().subscribe();
+    spectatorHttp.expectOne('url', HttpMethod.GET);
   });
 
   it('can test HttpClient.post', () => {
-    const { dataService, expectOne } = http();
+    const spectatorHttp = http();
 
-    dataService.post(1).subscribe();
+    spectatorHttp.dataService.post(1).subscribe();
 
-    const req = expectOne('url', HTTPMethod.POST);
+    const req = spectatorHttp.expectOne('url', HttpMethod.POST);
     expect(req.request.body['id']).toEqual(1);
   });
 
   it('should test two requests', () => {
-    const { dataService, expectOne } = http();
+    const spectatorHttp = http();
 
-    dataService.twoRequests().subscribe();
-    const req = expectOne('one', HTTPMethod.POST);
+    spectatorHttp.dataService.twoRequests().subscribe();
+    const req = spectatorHttp.expectOne('one', HttpMethod.POST);
     req.flush({});
-    expectOne('two', HTTPMethod.GET);
+    spectatorHttp.expectOne('two', HttpMethod.GET);
   });
 
   it('should work with external service', fakeAsync(() => {
-    const { dataService, expectOne, get } = http();
-    get<SpyObject<UserService>>(UserService).getUser.mockImplementation(() => {
+    const spectatorHttp = http();
+    spectatorHttp.get(UserService).getUser.mockImplementation(() => {
       return defer(() => Promise.resolve({}));
     });
 
-    dataService.requestWithExternalService().subscribe();
+    spectatorHttp.dataService.requestWithExternalService().subscribe();
     tick();
 
-    expectOne('two', HTTPMethod.GET);
+    spectatorHttp.expectOne('two', HttpMethod.GET);
   }));
 });

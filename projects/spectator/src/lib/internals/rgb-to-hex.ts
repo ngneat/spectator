@@ -12,10 +12,12 @@
  * @returns
  */
 export function hex2rgb(hex) {
-  var h = hex.replace('#', '');
+  let h = hex.replace('#', '');
   h = h.match(new RegExp('(.{' + h.length / 3 + '})', 'g'));
 
-  for (var i = 0; i < h.length; i++) h[i] = parseInt(h[i].length == 1 ? h[i] + h[i] : h[i], 16);
+  for (let i = 0; i < h.length; i++) {
+    h[i] = parseInt(h[i].length === 1 ? h[i] + h[i] : h[i], 16);
+  }
 
   return 'rgb(' + h.join(',') + ')';
 }

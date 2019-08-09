@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+
 import { WidgetDataService } from './widget-data.service';
 
 @Injectable()
