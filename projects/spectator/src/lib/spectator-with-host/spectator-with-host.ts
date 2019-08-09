@@ -44,14 +44,4 @@ export class SpectatorWithHost<C, H = HostComponent> extends Spectator<C> {
     _setInput(input, inputValue, this.hostComponent);
     this.detectChanges();
   }
-
-  getDirectiveInstance<T>(directive: Type<T>, all?: false): T | null;
-  getDirectiveInstance<T>(directive: Type<T>, all?: true): T[];
-  getDirectiveInstance<T>(directive: Type<T>, all = false): T | null | T[] {
-    if (all) {
-      return this.queryHostAll(directive);
-    }
-
-    return this.queryHost(directive);
-  }
 }
