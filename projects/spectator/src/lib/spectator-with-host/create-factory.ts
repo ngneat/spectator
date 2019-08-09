@@ -16,7 +16,18 @@ import { SpectatorWithHost } from './spectator-with-host';
 /**
  * @publicApi
  */
-export type SpectatorWithHostFactory<Component, Host = HostComponent> = (template: string, options?: SpectatorOverrides<Component>) => SpectatorWithHost<Component, Host>;
+export type SpectatorWithHostFactory<C, H = HostComponent> = (template: string, options?: SpectatorWithHostOverrides<C, H>) => SpectatorWithHost<C, H>;
+
+/**
+ * @publicApi
+ */
+export interface SpectatorWithHostOverrides<C, H> extends SpectatorOverrides<C> {
+  hostProps?: H extends HostComponent
+    ? {
+        [key: string]: any;
+      }
+    : Partial<H>;
+}
 
 /**
  * @publicApi
@@ -39,9 +50,9 @@ export function createHostComponentFactory<C, H = HostComponent>(typeOrOptions: 
     }
   }));
 
-  return (template: string, overrides?: SpectatorOverrides<C>) => {
-    const defaults: SpectatorOverrides<C> = { props: {}, detectChanges: true, providers: [] };
-    const { detectChanges, props, providers } = { ...defaults, ...overrides };
+  return (template: string, overrides?: SpectatorWithHostOverrides<C, H>) => {
+    const defaults: SpectatorWithHostOverrides<C, H> = { props: {}, hostProps: {} as any, detectChanges: true, providers: [] };
+    const { detectChanges, props, hostProps, providers } = { ...defaults, ...overrides };
 
     if (providers && providers.length) {
       providers.forEach((provider: Provider) => {
@@ -60,6 +71,7 @@ export function createHostComponentFactory<C, H = HostComponent>(typeOrOptions: 
     const spectator = createSpectatorWithHost<C, H>(options);
 
     setComponentProps(spectator.component, props);
+    setComponentProps(spectator.hostComponent, hostProps);
 
     if (options.detectChanges && detectChanges) {
       spectator.detectChanges();

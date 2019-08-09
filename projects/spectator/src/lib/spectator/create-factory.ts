@@ -18,11 +18,9 @@ export type SpectatorFactory<C> = (options?: SpectatorOverrides<C>) => Spectator
 /**
  * @publicApi
  */
-export interface SpectatorOverrides<Component> extends BaseSpectatorOverrides {
+export interface SpectatorOverrides<C> extends BaseSpectatorOverrides {
   detectChanges?: boolean;
-  props?: Partial<Component> & {
-    [key: string]: any;
-  };
+  props?: Partial<C>;
 }
 
 /**
