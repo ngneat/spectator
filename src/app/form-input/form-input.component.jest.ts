@@ -13,7 +13,7 @@ describe('FormInputComponent', () => {
   it('should be defined', () => {
     host = createHost(`<app-form-input [enableSubnet]="true"></app-form-input>`, {
       detectChanges: true,
-      properties: {
+      props: {
         subnetControl: group
       }
     });
@@ -42,7 +42,7 @@ describe('FormInputComponent', () => {
   beforeEach(
     () =>
       (spectator = createComponent({
-        properties: inputs
+        props: inputs
       }))
   );
 

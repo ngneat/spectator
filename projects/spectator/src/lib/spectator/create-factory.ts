@@ -23,7 +23,7 @@ export type SpectatorFactory<Component> = (options?: SpectatorOverrides<Componen
  */
 export interface SpectatorOverrides<Component> extends BaseSpectatorOverrides {
   detectChanges?: boolean;
-  properties?: Partial<Component> & HashMap;
+  props?: Partial<Component> & HashMap;
 }
 
 /**
@@ -52,8 +52,8 @@ export function createTestComponentFactory<C>(typeOrOptions: Type<C> | Spectator
   }));
 
   return (overrides?: SpectatorOverrides<C>) => {
-    const defaults: SpectatorOverrides<C> = { properties: {}, detectChanges: true, providers: [] };
-    const { detectChanges, properties, providers } = { ...defaults, ...overrides };
+    const defaults: SpectatorOverrides<C> = { props: {}, detectChanges: true, providers: [] };
+    const { detectChanges, props, providers } = { ...defaults, ...overrides };
 
     if (providers && providers.length) {
       providers.forEach((provider: Provider) => {
@@ -65,9 +65,9 @@ export function createTestComponentFactory<C>(typeOrOptions: Type<C> | Spectator
 
     const spectator = new Spectator<C>(fixture, fixture.debugElement, fixture.componentInstance, fixture.debugElement.nativeElement);
 
-    if (properties) {
-      Object.keys(properties).forEach(input => {
-        spectator.component[input] = properties[input];
+    if (props) {
+      Object.keys(props).forEach(input => {
+        spectator.component[input] = props[input];
       });
     }
 

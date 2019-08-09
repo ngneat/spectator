@@ -36,7 +36,7 @@ describe('ZippyComponent', () => {
   it('should support objects', () => {
     host = createHost(`<zippy></zippy>`, {
       detectChanges: true,
-      properties: {
+      props: {
         options: { color: 'blue' }
       }
     });

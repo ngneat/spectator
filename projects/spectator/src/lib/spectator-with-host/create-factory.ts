@@ -39,8 +39,8 @@ export function createHostComponentFactory<C, H = HostComponent>(typeOrOptions: 
   });
 
   return (template: string, overrides?: SpectatorOverrides<C>) => {
-    const defaults: SpectatorOverrides<C> = { properties: {}, detectChanges: true, providers: [] };
-    const { detectChanges, properties, providers } = { ...defaults, ...overrides };
+    const defaults: SpectatorOverrides<C> = { props: {}, detectChanges: true, providers: [] };
+    const { detectChanges, props, providers } = { ...defaults, ...overrides };
 
     if (providers && providers.length) {
       providers.forEach((provider: Provider) => {
@@ -61,9 +61,9 @@ export function createHostComponentFactory<C, H = HostComponent>(typeOrOptions: 
 
     const spectator = new SpectatorWithHost<C, H>(hostFixture.componentInstance, hostFixture.debugElement, hostFixture.nativeElement, hostFixture, debugElement);
 
-    if (properties) {
-      Object.keys(properties).forEach(key => {
-        spectator.component[key] = properties[key];
+    if (props) {
+      Object.keys(props).forEach(key => {
+        spectator.component[key] = props[key];
       });
     }
 

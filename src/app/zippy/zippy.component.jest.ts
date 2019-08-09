@@ -34,7 +34,7 @@ describe('ZippyComponent', () => {
     const options = { color: 'blue' };
     host = createHost(`<zippy></zippy>`, {
       detectChanges: true,
-      properties: {
+      props: {
         options
       }
     });

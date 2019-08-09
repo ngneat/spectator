@@ -19,7 +19,6 @@ export { SpectatorHttpFactory, createHttpFactory, CreateHttpOverrides } from './
 export * from './dom-selectors';
 export { createHTTPFactory, SpectatorHTTP, HTTPMethod } from './http';
 export * from './matchers';
-export * from './spectator-factory';
 export * from './mock';
 export * from './token';
 export * from './types';

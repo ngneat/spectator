@@ -8,7 +8,7 @@ describe('HelloComponent', () => {
 
   it('should display the title', () => {
     host = createHost(`<hello></hello>`, {
-      properties: {
+      props: {
         title: 'some title',
         widthRaw: 20
       }
