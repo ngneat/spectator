@@ -1,29 +1,35 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { By } from '@angular/platform-browser';
 import { ChangeDetectorRef, DebugElement, ElementRef, Type } from '@angular/core';
-import { dispatchFakeEvent, dispatchKeyboardEvent, dispatchMouseEvent, dispatchTouchEvent } from './dispatch-events';
-import { createMouseEvent } from './event-objects';
-import { typeInElement } from './type-in-element';
-import { patchElementFocus } from './element-focus';
+import { ComponentFixture } from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
 import { Observable } from 'rxjs';
-import { SpyObject } from './mock';
-import { DOMSelector } from './dom-selectors';
-import { Token } from './token';
-import { isString, QueryOptions, QueryType, SpectatorElement } from '@netbasal/spectator';
+
+import { BaseSpectator } from '../base/base-spectator';
+import { DOMSelector } from '../dom-selectors';
+import { dispatchFakeEvent, dispatchKeyboardEvent, dispatchMouseEvent, dispatchTouchEvent } from '../internals/dispatch-events';
+import { patchElementFocus } from '../internals/element-focus';
+import { createMouseEvent } from '../internals/event-objects';
+import { getChildren, setComponentProps } from '../internals/query';
+import { typeInElement } from '../internals/type-in-element';
+import { SpyObject } from '../mock';
+import { Token } from '../token';
+import { isString, QueryOptions, QueryType, SpectatorElement } from '../types';
 
 const KEY_UP = 'keyup';
 
-export class Spectator<Component> {
-  fixture: ComponentFixture<Component>;
-  component: Component;
-  element: Element;
-  debugElement: DebugElement;
+/**
+ * @publicApi
+ */
+export class Spectator<C> extends BaseSpectator {
+  constructor(public fixture: ComponentFixture<any>, public debugElement: DebugElement, public component: C, public element: Element) {
+    super();
+  }
 
   get<T>(type: Token<T> | Token<any>, fromComponentInjector = false): SpyObject<T> {
     if (fromComponentInjector) {
       return this.debugElement.injector.get(type) as SpyObject<T>;
     }
-    return TestBed.get(type);
+
+    return super.get(type);
   }
 
   detectChanges() {
@@ -38,14 +44,14 @@ export class Spectator<Component> {
     }
   }
 
-  query<R extends Element>(selector: string | DOMSelector, options?: { root: boolean }): R;
-  query<R>(directive: Type<R>): R;
-  query<R>(directiveOrSelector: Type<any> | string, options: { read: Token<R> }): R;
-  query<R>(directiveOrSelector: QueryType, options?: QueryOptions<R>): R {
+  query<R extends Element>(selector: string | DOMSelector, options?: { root: boolean }): R | null;
+  query<R>(directive: Type<R>): R | null;
+  query<R>(directiveOrSelector: Type<any> | string, options: { read: Token<R> }): R | null;
+  query<R>(directiveOrSelector: QueryType, options?: QueryOptions<R>): R | null {
     if ((options || {}).root && isString(directiveOrSelector)) {
       return document.querySelector(directiveOrSelector) as any;
     }
-    return _getChildren<R>(this.debugElement)(directiveOrSelector, options)[0] || null;
+    return getChildren<R>(this.debugElement)(directiveOrSelector, options)[0] || null;
   }
 
   queryAll<R extends Element[]>(selector: string | DOMSelector, options?: { root: boolean }): R[];
@@ -55,31 +61,31 @@ export class Spectator<Component> {
     if ((options || {}).root && isString(directiveOrSelector)) {
       return Array.from(document.querySelectorAll(directiveOrSelector)) as any[];
     }
-    return _getChildren<R>(this.debugElement)(directiveOrSelector, options);
+    return getChildren<R>(this.debugElement)(directiveOrSelector, options);
   }
 
-  queryLast<R extends Element[]>(selector: string | DOMSelector, options?: { root: boolean }): R;
-  queryLast<R>(directive: Type<R>): R;
-  queryLast<R>(directiveOrSelector: Type<any> | string, options: { read: Token<R> }): R;
-  queryLast<R>(directiveOrSelector: QueryType, options?: QueryOptions<R>): R {
+  queryLast<R extends Element[]>(selector: string | DOMSelector, options?: { root: boolean }): R | null;
+  queryLast<R>(directive: Type<R>): R | null;
+  queryLast<R>(directiveOrSelector: Type<any> | string, options: { read: Token<R> }): R | null;
+  queryLast<R>(directiveOrSelector: QueryType, options?: QueryOptions<R>): R | null {
     if ((options || {}).root && isString(directiveOrSelector)) {
       return document.querySelector(directiveOrSelector) as any;
     }
-    const result = _getChildren<R>(this.debugElement)(directiveOrSelector, options);
+    const result = getChildren<R>(this.debugElement)(directiveOrSelector, options);
     if (result && result.length) {
       return result[result.length - 1];
     }
     return null;
   }
 
-  setInput<K extends keyof Component>(input: Partial<Component>);
-  setInput<K extends keyof Component>(input: K, inputValue: Component[K]);
-  setInput<K extends keyof Component>(input: Partial<Component> | K, inputValue?: Component[K]) {
-    _setInput(input, inputValue, this.component);
+  setInput<K extends keyof C>(input: Partial<C>);
+  setInput<K extends keyof C>(input: K, inputValue: C[K]);
+  setInput<K extends keyof C>(input: Partial<C> | K, value?: C[K]) {
+    setComponentProps(this.component, input, value);
     this.detectComponentChanges();
   }
 
-  output<T, K extends keyof Component = keyof Component>(output: K): Observable<T> {
+  output<T, K extends keyof C = keyof C>(output: K): Observable<T> {
     const observable = this.component[output];
     if (observable instanceof Observable) {
       return observable as Observable<T>;
@@ -95,14 +101,14 @@ export class Spectator<Component> {
   }
 
   blur(selector: SpectatorElement) {
-    let element = this.getNativeElement(selector);
+    const element = this.getNativeElement(selector);
     patchElementFocus(element as HTMLElement);
     element.blur();
     this.detectChanges();
   }
 
   focus(selector: SpectatorElement) {
-    let element = this.getNativeElement(selector);
+    const element = this.getNativeElement(selector);
     patchElementFocus(element as HTMLElement);
     element.focus();
     this.detectChanges();
@@ -184,33 +190,5 @@ export class Spectator<Component> {
     }
 
     return element;
-  }
-}
-
-export function _getChildren<R>(debugElementRoot: DebugElement) {
-  return function(directiveOrSelector: QueryType, options: QueryOptions<R> = { root: false, read: undefined }): R[] {
-    if (directiveOrSelector instanceof DOMSelector) {
-      return directiveOrSelector.execute(debugElementRoot.nativeElement) as any[];
-    }
-
-    let debugElements = debugElementRoot.queryAll(isString(directiveOrSelector) ? By.css(directiveOrSelector) : By.directive(directiveOrSelector));
-
-    if (options.read) {
-      return debugElements.map(debug => debug.injector.get(options.read));
-    } else if (isString(directiveOrSelector)) {
-      return debugElements.map(debug => debug.nativeElement);
-    } else {
-      return debugElements.map(debug => debug.componentInstance);
-    }
-  };
-}
-
-export function _setInput(input, inputValue, component) {
-  if (isString(input)) {
-    component[input] = inputValue;
-  } else {
-    for (let p in input) {
-      component[p] = input[p];
-    }
   }
 }

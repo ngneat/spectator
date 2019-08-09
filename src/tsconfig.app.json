@@ -3,6 +3,7 @@
   "compilerOptions": {
     "outDir": "../out-tsc/app",
     "baseUrl": ".",
+    "strictNullChecks": false,
     "paths": {
       "@netbasal/spectator/jest": [
         "../projects/spectator/jest/src/index.ts"

@@ -1,5 +1,7 @@
 import { createHostComponentFactory, SpectatorWithHost, SpyObject } from '@netbasal/spectator';
+
 import { WidgetService } from '../widget.service';
+
 import { WidgetComponent } from './widget.component';
 
 describe('WidgetComponent', () => {

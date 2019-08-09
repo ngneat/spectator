@@ -1,18 +1,22 @@
-import { DebugElement, ElementRef, Provider, Type } from '@angular/core';
-import { DOMSelector, Token } from '@netbasal/spectator';
+import { DebugElement, ElementRef, Type } from '@angular/core';
 
-export type HashMap<T = any> = { [key: string]: T };
+import { DOMSelector } from './dom-selectors';
+import { Token } from './token';
 
-export interface CreateComponentOptions<Component> {
-  detectChanges?: boolean;
-  providers?: Provider[];
-  props?: Partial<Component> & HashMap;
-}
+type OptionalPropertyNames<T> = {
+  [K in keyof T]-?: undefined extends T[K] ? K : never;
+}[keyof T];
+type OptionalProperties<T> = Pick<T, OptionalPropertyNames<T>>;
+
+export type OptionalsRequired<T> = Required<OptionalProperties<T>> & Partial<T>;
 
 export type SpectatorElement = string | Element | DebugElement | ElementRef | Window | Document;
 
 export type QueryType = Type<any> | DOMSelector | string;
-export type QueryOptions<R> = { read?: Token<R>; root?: boolean };
+export interface QueryOptions<R> {
+  read?: Token<R>;
+  root?: boolean;
+}
 
 export function isString(value: any): value is string {
   return typeof value === 'string';

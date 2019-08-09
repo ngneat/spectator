@@ -33,6 +33,24 @@ describe('ZippyComponent', () => {
     expect(host.query('.zippy__title')).toHaveText('Zippy title');
   });
 
+  it('should display the title from component property', () => {
+    host = createHost(`<zippy></zippy>`, {
+      props: {
+        title: 'ZIPPY'
+      }
+    });
+    expect(host.query('.zippy__title')).toHaveText('ZIPPY');
+  });
+
+  it('should display the title from host property', () => {
+    host = createHost(`<zippy [title]="title"></zippy>`, {
+      hostProps: {
+        title: 'ZIPPY2'
+      }
+    });
+    expect(host.query('.zippy__title')).toHaveText('ZIPPY2');
+  });
+
   it('should support objects', () => {
     host = createHost(`<zippy></zippy>`, {
       detectChanges: true,
