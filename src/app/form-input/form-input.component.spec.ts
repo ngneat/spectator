@@ -33,13 +33,15 @@ describe('FormInputComponent', () => {
     imports: [ReactiveFormsModule]
   });
 
-  beforeEach(() =>
-    (spectator = createComponent({
-      props: {
-        subnetControl: group,
-        enableSubnet: true
-      }
-    })));
+  beforeEach(
+    () =>
+      (spectator = createComponent({
+        props: {
+          subnetControl: group,
+          enableSubnet: true
+        }
+      }))
+  );
 
   it('should work', () => {
     expect(spectator.component).toBeDefined();

@@ -1,60 +1,27 @@
-import { TestBed, TestModuleMetadata } from '@angular/core/testing';
 import { Type } from '@angular/core';
-import { MockProvider, mockProvider, SpyObject } from './mock';
-import { BrowserDynamicTestingModule } from '@angular/platform-browser-dynamic/testing';
+
+import { SpyObject } from './mock';
+import { createServiceFactory } from './spectator-service/create-factory';
+import { SpectatorServiceOptions } from './spectator-service/options';
+import { SpectatorService, SpectatorService as NewSpectatorService } from './spectator-service/spectator-service';
 import { Token } from './token';
-import { isType } from './types';
 
-export interface SpectatorService<S> {
-  service: S;
+/**
+ * @deprecated Deprecated in favour of createServiceFactory(). Will be removed in Spectator 5.
+ */
+export function createService<S>(typeOrOptions: SpectatorServiceOptions<S> | Type<S>): SpectatorService<S> {
+  // tslint:disable-next-line:no-shadowed-variable
+  const createService = createServiceFactory<S>(typeOrOptions);
+  let spectator: NewSpectatorService<S>;
 
-  get<T>(token: Token<T> | Token<any>): SpyObject<T>;
-}
-
-export type ServiceOptions<S> = TestModuleMetadata & {
-  service?: Type<S>;
-  mocks?: Type<any>[];
-  mockProvider?: MockProvider;
-  entryComponents?: any[];
-};
-
-const defaultOptions: ServiceOptions<any> = {
-  mockProvider: mockProvider
-};
-
-export function createService<Service>(typeOrOptions: ServiceOptions<Service> | Type<Service>): SpectatorService<Service> {
-  const service = isType(typeOrOptions) ? typeOrOptions : typeOrOptions.service;
-
-  const module: ServiceOptions<Service> = {
-    providers: [service]
-  };
-
-  if (!isType(typeOrOptions)) {
-    const merged = Object.assign({}, defaultOptions, typeOrOptions);
-
-    (merged.mocks || []).forEach(type => module.providers.push(merged.mockProvider(type)));
-    module.providers = [...module.providers, ...(merged.providers || [])];
-    module.declarations = merged.declarations || [];
-    module.imports = merged.imports || [];
-
-    TestBed.overrideModule(BrowserDynamicTestingModule, {
-      set: {
-        entryComponents: merged.entryComponents || []
-      }
-    });
-  }
-
-  beforeEach(() => {
-    TestBed.configureTestingModule(module);
-    const eagerInit = TestBed.get(service);
-  });
+  beforeEach(() => (spectator = createService()));
 
   return {
-    get service(): Service {
-      return TestBed.get(service);
+    get service(): S {
+      return spectator.service;
     },
     get<T>(token: Token<T>): SpyObject<T> {
-      return TestBed.get(token);
+      return spectator.get(token);
     }
   };
 }
