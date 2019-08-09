@@ -2,16 +2,13 @@ import { Provider, Type } from '@angular/core';
 import { async, TestBed } from '@angular/core/testing';
 
 import { BaseSpectatorOverrides } from '../base/options';
+import { setComponentProps } from '../internals/query';
 import * as customMatchers from '../matchers';
 import { isType } from '../types';
 
 import { initialSpectatorModule } from './initial-module';
 import { getSpectatorDefaultOptions, SpectatorOptions } from './options';
 import { Spectator } from './spectator';
-
-interface HashMap<T = any> {
-  [key: string]: T;
-}
 
 /**
  * @publicApi
@@ -23,27 +20,27 @@ export type SpectatorFactory<Component> = (options?: SpectatorOverrides<Componen
  */
 export interface SpectatorOverrides<Component> extends BaseSpectatorOverrides {
   detectChanges?: boolean;
-  props?: Partial<Component> & HashMap;
+  props?: Partial<Component> & {
+    [key: string]: any;
+  };
 }
 
 /**
  * @publicApi
  */
 export function createTestComponentFactory<C>(typeOrOptions: Type<C> | SpectatorOptions<C>): SpectatorFactory<C> {
-  const component = isType(typeOrOptions) ? typeOrOptions : typeOrOptions.component;
-  const options = isType(typeOrOptions) ? getSpectatorDefaultOptions({ component }) : getSpectatorDefaultOptions(typeOrOptions);
+  const options = isType(typeOrOptions) ? getSpectatorDefaultOptions({ component: typeOrOptions }) : getSpectatorDefaultOptions(typeOrOptions);
 
   const moduleMetadata = initialSpectatorModule<C>(options);
-  const componentProviders = options.componentProviders;
 
   beforeEach(async(() => {
     jasmine.addMatchers(customMatchers as any);
     TestBed.configureTestingModule(moduleMetadata);
 
-    if (componentProviders) {
+    if (options.componentProviders.length) {
       TestBed.overrideComponent(options.component, {
         set: {
-          providers: componentProviders
+          providers: options.componentProviders
         }
       });
     }
@@ -61,15 +58,9 @@ export function createTestComponentFactory<C>(typeOrOptions: Type<C> | Spectator
       });
     }
 
-    const fixture = TestBed.createComponent(options.component);
+    const spectator = createSpectator(options);
 
-    const spectator = new Spectator<C>(fixture, fixture.debugElement, fixture.componentInstance, fixture.debugElement.nativeElement);
-
-    if (props) {
-      Object.keys(props).forEach(input => {
-        spectator.component[input] = props[input];
-      });
-    }
+    setComponentProps(spectator.component, props);
 
     if (options.detectChanges && detectChanges) {
       spectator.detectChanges();
@@ -77,4 +68,10 @@ export function createTestComponentFactory<C>(typeOrOptions: Type<C> | Spectator
 
     return spectator;
   };
+}
+
+function createSpectator<C>(options: Required<SpectatorOptions<C>>): Spectator<C> {
+  const fixture = TestBed.createComponent(options.component);
+
+  return new Spectator<C>(fixture, fixture.debugElement, fixture.componentInstance, fixture.debugElement.nativeElement);
 }

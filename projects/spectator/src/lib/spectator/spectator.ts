@@ -8,7 +8,7 @@ import { DOMSelector } from '../dom-selectors';
 import { dispatchFakeEvent, dispatchKeyboardEvent, dispatchMouseEvent, dispatchTouchEvent } from '../internals/dispatch-events';
 import { patchElementFocus } from '../internals/element-focus';
 import { createMouseEvent } from '../internals/event-objects';
-import { _getChildren, _setInput } from '../internals/query';
+import { getChildren, setComponentProps } from '../internals/query';
 import { typeInElement } from '../internals/type-in-element';
 import { SpyObject } from '../mock';
 import { Token } from '../token';
@@ -51,7 +51,7 @@ export class Spectator<C> extends BaseSpectator {
     if ((options || {}).root && isString(directiveOrSelector)) {
       return document.querySelector(directiveOrSelector) as any;
     }
-    return _getChildren<R>(this.debugElement)(directiveOrSelector, options)[0] || null;
+    return getChildren<R>(this.debugElement)(directiveOrSelector, options)[0] || null;
   }
 
   queryAll<R extends Element[]>(selector: string | DOMSelector, options?: { root: boolean }): R[];
@@ -61,7 +61,7 @@ export class Spectator<C> extends BaseSpectator {
     if ((options || {}).root && isString(directiveOrSelector)) {
       return Array.from(document.querySelectorAll(directiveOrSelector)) as any[];
     }
-    return _getChildren<R>(this.debugElement)(directiveOrSelector, options);
+    return getChildren<R>(this.debugElement)(directiveOrSelector, options);
   }
 
   queryLast<R extends Element[]>(selector: string | DOMSelector, options?: { root: boolean }): R | null;
@@ -71,7 +71,7 @@ export class Spectator<C> extends BaseSpectator {
     if ((options || {}).root && isString(directiveOrSelector)) {
       return document.querySelector(directiveOrSelector) as any;
     }
-    const result = _getChildren<R>(this.debugElement)(directiveOrSelector, options);
+    const result = getChildren<R>(this.debugElement)(directiveOrSelector, options);
     if (result && result.length) {
       return result[result.length - 1];
     }
@@ -80,8 +80,8 @@ export class Spectator<C> extends BaseSpectator {
 
   setInput<K extends keyof C>(input: Partial<C>);
   setInput<K extends keyof C>(input: K, inputValue: C[K]);
-  setInput<K extends keyof C>(input: Partial<C> | K, inputValue?: C[K]) {
-    _setInput(input, inputValue, this.component);
+  setInput<K extends keyof C>(input: Partial<C> | K, value?: C[K]) {
+    setComponentProps(this.component, input, value);
     this.detectComponentChanges();
   }
 

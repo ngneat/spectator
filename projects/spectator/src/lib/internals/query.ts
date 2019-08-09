@@ -4,7 +4,7 @@ import { By } from '@angular/platform-browser';
 import { DOMSelector } from '../dom-selectors';
 import { isString, QueryOptions, QueryType } from '../types';
 
-export function _getChildren<R>(debugElementRoot: DebugElement) {
+export function getChildren<R>(debugElementRoot: DebugElement) {
   return function(directiveOrSelector: QueryType, options: QueryOptions<R> = { root: false, read: undefined }): R[] {
     if (directiveOrSelector instanceof DOMSelector) {
       return directiveOrSelector.execute(debugElementRoot.nativeElement) as any[];
@@ -22,13 +22,15 @@ export function _getChildren<R>(debugElementRoot: DebugElement) {
   };
 }
 
-export function _setInput(input, inputValue, component) {
-  if (isString(input)) {
-    component[input] = inputValue;
+export function setComponentProps(component: any, key: any, value: any);
+export function setComponentProps(component: any, keyValues: any);
+export function setComponentProps(component: any, keyOrKeyValues: any, value?: any) {
+  if (isString(keyOrKeyValues)) {
+    component[keyOrKeyValues] = value;
   } else {
     // tslint:disable-next-line:forin
-    for (const p in input) {
-      component[p] = input[p];
+    for (const p in keyOrKeyValues) {
+      component[p] = keyOrKeyValues[p];
     }
   }
 }
