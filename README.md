@@ -59,36 +59,37 @@ describe('ButtonComponent', () => {
 The `createTestComponentFactory` function can optionally take the following options which extends the basic Angular Testing Module options:
 
 ```ts
-  const createComponent = createTestComponentFactory({
-     component: ButtonComponent,
-     imports: [],
-     providers: [],
-     declarations: [],
-     entryComponents: [],
-     componentProviders: [], // Override the component's providers 
-     mocks: [], // Providers that will automatically mocked out
-     detectChanges: false, // Defaults to true
-     declareComponent: false, // Defaults to true
-     disableAnimations: false, // Defaults to true
-     shallow: true, // Defaults to false
-  });
+const createComponent = createTestComponentFactory({
+  component: ButtonComponent,
+  imports: [],
+  providers: [],
+  declarations: [],
+  entryComponents: [],
+  componentProviders: [], // Override the component's providers 
+  mocks: [], // Providers that will automatically mocked out
+  detectChanges: false, // Defaults to true
+  declareComponent: false, // Defaults to true
+  disableAnimations: false, // Defaults to true
+  shallow: true, // Defaults to false
+});
 ```
 
 The `createComponent()` function optionally takes the following options:
 ```ts
-  it('should set the title according to the [title] input', () => {
-    spectator = createComponent({
-      // The component inputs
-      props: {
-        title: 'Click'
-      },
-      // Override the component's providers
-      providers: [],
-      // Whether to run change detection (defaults to true)
-      detectChanges: false 
-    });
-    expect(spectator.query('button')).toHaveText('Click');
+it('should set the title according to the [title] input', () => {
+  spectator = createComponent({
+    // The component inputs
+    props: {
+      title: 'Click'
+    },
+    // Override the component's providers
+    providers: [],
+    // Whether to run change detection (defaults to true)
+    detectChanges: false 
   });
+
+  expect(spectator.query('button')).toHaveText('Click');
+});
 ```
 The `createComponent()` method returns an instance of `Spectator` which exposes the following API:
 
@@ -181,6 +182,9 @@ Spectator's API includes convenient methods for querying the DOM as part of a te
 spectator.query('div > ul.nav li:first-child');
 // Returns an array of all matching HTMLElements
 spectator.queryAll('div > ul.nav li');
+
+// Query from the document context
+spectator.query('div', { root: true });
 
 spectator.query('app-child', { read: ChildServiceService });
 ```
