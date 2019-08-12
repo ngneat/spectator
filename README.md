@@ -9,7 +9,7 @@
 [![styled with prettier](https://img.shields.io/badge/styled_with-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
 [![Build Status](https://semaphoreci.com/api/v1/netanel7799/spectator/branches/master/badge.svg)](https://semaphoreci.com/netanel7799/spectator)
 
-> Angular Tests Made Easy
+> Angular Tests Done Right
 
 # 😎 Spectator
 Spectator helps you get rid of all the boilerplate grunt work, leaving you with readable, sleek and streamlined unit tests.
@@ -23,6 +23,7 @@ Spectator helps you get rid of all the boilerplate grunt work, leaving you with 
 - ✅ HTTP testing support
 - ✅ Built-in support for entry components
 - ✅ Built-in support for component's providers
+- ✅ Strongly Typed
 
 #Table of Contents
 TODO
@@ -471,6 +472,17 @@ We need to create an HTTP factory by using the `createHTTPFactory()` function, p
 
 ## Routing Testing
 TODO
+
+## Global Injections
+It's possible to define injections which will be available for each test without the need to re-declare them in each test:
+```ts
+// test.ts
+import { defineGlobalsInjections } from '@netbasal/spectator';
+
+defineGlobalsInjections({
+  imports: [TranslateModule],
+});
+```
 
 ## Jest Support
 By default, Spectator uses Jasmine for creating spies. If you are using Jest as test framework instead, you can let Spectator create Jest-compatible spies.
