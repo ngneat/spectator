@@ -1,5 +1,5 @@
 <p align="center">
- <img width="100%" height="100%" src="https://i.ibb.co/gZXjhfm/SPECTATOR-3-01.png">
+ <img width="100%" height="100%" src="https://i.ibb.co/fkdk1Tp/SPECTATOR-4-02.png">
 </p>
 
 [![Downloads](https://img.shields.io/npm/dt/@netbasal/spectator.svg?style=flat-square)]()
@@ -13,7 +13,6 @@
 
 > Angular Tests Done Right
 
-# 😎 Spectator
 Spectator helps you get rid of all the boilerplate grunt work, leaving you with readable, sleek and streamlined unit tests.
 
 ## Features
