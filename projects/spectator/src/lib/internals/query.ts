@@ -4,27 +4,31 @@ import { By } from '@angular/platform-browser';
 import { DOMSelector } from '../dom-selectors';
 import { isString, QueryOptions, QueryType } from '../types';
 
-export function getChildren<R>(debugElementRoot: DebugElement) {
-  return function(directiveOrSelector: QueryType, options: QueryOptions<R> = { root: false, read: undefined }): R[] {
+export function getChildren<R>(debugElementRoot: DebugElement): (directiveOrSelector: QueryType, options?: QueryOptions<R>) => R[] {
+  return (directiveOrSelector: QueryType, options: QueryOptions<R> = { root: false, read: undefined }): R[] => {
     if (directiveOrSelector instanceof DOMSelector) {
       return directiveOrSelector.execute(debugElementRoot.nativeElement) as any[];
     }
 
-    const debugElements = debugElementRoot.queryAll(isString(directiveOrSelector) ? By.css(directiveOrSelector) : By.directive(directiveOrSelector));
+    const debugElements = debugElementRoot.queryAll(
+      isString(directiveOrSelector) ? By.css(directiveOrSelector) : By.directive(directiveOrSelector)
+    );
 
     if (options.read) {
       return debugElements.map(debug => debug.injector.get(options.read));
-    } else if (isString(directiveOrSelector)) {
-      return debugElements.map(debug => debug.nativeElement);
-    } else {
-      return debugElements.map(debug => debug.componentInstance);
     }
+
+    if (isString(directiveOrSelector)) {
+      return debugElements.map(debug => debug.nativeElement);
+    }
+
+    return debugElements.map(debug => debug.componentInstance);
   };
 }
 
-export function setComponentProps(component: any, key: any, value: any);
-export function setComponentProps(component: any, keyValues: any);
-export function setComponentProps(component: any, keyOrKeyValues: any, value?: any) {
+export function setComponentProps(component: any, key: any, value: any): void;
+export function setComponentProps(component: any, keyValues: any): void;
+export function setComponentProps(component: any, keyOrKeyValues: any, value?: any): void {
   if (isString(keyOrKeyValues)) {
     component[keyOrKeyValues] = value;
   } else {

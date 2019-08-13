@@ -6,36 +6,18 @@
  * found in the LICENSE file at https://github.com/NetanelBasal/spectator/blob/master/LICENSE
  */
 
-/**
- *
- * @param hex
- * @returns
- */
-export function hex2rgb(hex) {
-  let h = hex.replace('#', '');
-  h = h.match(new RegExp('(.{' + h.length / 3 + '})', 'g'));
+export function hex2rgb(hex: string): string {
+  const h = hex.replace('#', '');
+  const matches = h.match(new RegExp('(.{' + h.length / 3 + '})', 'g'))!;
+  const [r, g, b] = matches.map(match => parseInt(match.length === 1 ? match + match : match, 16));
 
-  for (let i = 0; i < h.length; i++) {
-    h[i] = parseInt(h[i].length === 1 ? h[i] + h[i] : h[i], 16);
-  }
-
-  return 'rgb(' + h.join(',') + ')';
+  return `rgb(${r},${g},${b})`;
 }
 
-/**
- *
- * @param value
- * @returns
- */
-export function isHex(value: string) {
+export function isHex(value: string): boolean {
   return /^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/.test(value);
 }
 
-/**
- *
- * @param value
- * @returns
- */
-export function trim(value: string) {
+export function trim(value: string): string {
   return value.replace(/\s/g, '');
 }

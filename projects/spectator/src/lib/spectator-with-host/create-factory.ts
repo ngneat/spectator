@@ -16,7 +16,7 @@ import { SpectatorWithHost } from './spectator-with-host';
 /**
  * @publicApi
  */
-export type SpectatorWithHostFactory<C, H = HostComponent> = (template: string, options?: SpectatorWithHostOverrides<C, H>) => SpectatorWithHost<C, H>;
+export type SpectatorWithHostFactory<C, H> = (template: string, options?: SpectatorWithHostOverrides<C, H>) => SpectatorWithHost<C, H>;
 
 /**
  * @publicApi
@@ -32,8 +32,12 @@ export interface SpectatorWithHostOverrides<C, H> extends SpectatorOverrides<C> 
 /**
  * @publicApi
  */
-export function createHostComponentFactory<C, H = HostComponent>(typeOrOptions: Type<C> | SpectatorWithHostOptions<C, H>): SpectatorWithHostFactory<C, H> {
-  const options = isType(typeOrOptions) ? getSpectatorWithHostDefaultOptions<C, H>({ component: typeOrOptions }) : getSpectatorWithHostDefaultOptions(typeOrOptions);
+export function createHostComponentFactory<C, H = HostComponent>(
+  typeOrOptions: Type<C> | SpectatorWithHostOptions<C, H>
+): SpectatorWithHostFactory<C, H> {
+  const options = isType(typeOrOptions)
+    ? getSpectatorWithHostDefaultOptions<C, H>({ component: typeOrOptions })
+    : getSpectatorWithHostDefaultOptions(typeOrOptions);
 
   const moduleMetadata = initialSpectatorWithHostModule<C, H>(options);
 
@@ -85,5 +89,11 @@ function createSpectatorWithHost<C, H>(options: Required<SpectatorWithHostOption
   const hostFixture = TestBed.createComponent(options.host);
   const debugElement = hostFixture.debugElement.query(By.directive(options.component));
 
-  return new SpectatorWithHost<C, H>(hostFixture.componentInstance, hostFixture.debugElement, hostFixture.nativeElement, hostFixture, debugElement);
+  return new SpectatorWithHost<C, H>(
+    hostFixture.componentInstance,
+    hostFixture.debugElement,
+    hostFixture.nativeElement,
+    hostFixture,
+    debugElement
+  );
 }

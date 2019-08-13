@@ -23,6 +23,8 @@ const defaultSpectatorWithHostOptions: OptionalsRequired<SpectatorWithHostOption
 /**
  * @internal
  */
-export function getSpectatorWithHostDefaultOptions<C, H>(overrides: SpectatorWithHostOptions<C, H>): Required<SpectatorWithHostOptions<C, H>> {
+export function getSpectatorWithHostDefaultOptions<C, H>(
+  overrides: SpectatorWithHostOptions<C, H>
+): Required<SpectatorWithHostOptions<C, H>> {
   return merge(defaultSpectatorWithHostOptions, overrides) as Required<SpectatorWithHostOptions<C, H>>;
 }
