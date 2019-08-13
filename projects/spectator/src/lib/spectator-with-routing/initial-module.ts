@@ -1,7 +1,7 @@
 import { ActivatedRoute, Router } from '@angular/router';
-import { initialSpectatorModule } from '@netbasal/spectator';
 
 import { ModuleMetadata } from '../base/initial-module';
+import { initialSpectatorModule } from '../spectator/initial-module';
 
 import { ActivatedRouteStub } from './activated-route-stub';
 import { SpectatorWithRoutingOptions } from './options';
