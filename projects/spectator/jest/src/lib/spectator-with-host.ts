@@ -24,6 +24,7 @@ export class SpectatorWithHost<C, H = HostComponent> extends BaseSpectatorWithHo
  * @publicApi
  */
 export type SpectatorWithHostFactory<C, H> = (template: string, overrides?: SpectatorWithHostOverrides<C, H>) => SpectatorWithHost<C, H>;
+
 /**
  * @publicApi
  */
@@ -33,5 +34,5 @@ export function createHostComponentFactory<C, H = HostComponent>(
   return baseCreateHostComponentFactory({
     mockProvider,
     ...(isType(typeOrOptions) ? { component: typeOrOptions } : typeOrOptions)
-  }) as SpectatorWithHostFactory<C, H>;
+  });
 }
