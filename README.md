@@ -200,8 +200,8 @@ spectator.query(MyComponent);
 spectator.query(MyComponent, { read: SomeService });
 
 spectator.query(MyComponent, { read: ElementRef });
-host.queryLast(ChildComponent);
-host.queryAll(ChildComponent);
+spectator.queryLast(ChildComponent);
+spectator.queryAll(ChildComponent);
 ```
 #### DOMSelector
 Spectator allows you to query for elements using selectors inspired by [dom-testing-library](https://github.com/testing-library/dom-testing-library). The available selectors are:
@@ -222,26 +222,26 @@ Testing a component with a host is a more elegant and powerful technique to test
 import { createHostComponentFactory } from '@netbasal/spectator';
 
 describe('ZippyComponent', () => {
-  let host: SpectatorWithHost<ZippyComponent>;
-
-  const createHost = createHostComponentFactory(ZippyComponent);
+  const createComponent = createHostComponentFactory(ZippyComponent);
+  
+  let spectator: SpectatorWithHost<ZippyComponent>;
 
   it('should display the title from host property', () => {
-    host = createHost(`<zippy [title]="title"></zippy>`, {
+    spectator = createComponent(`<zippy [title]="title"></zippy>`, {
       hostProps: {
         title: 'ZIPPY2'
       }
     });
-    expect(host.query('.zippy__title')).toHaveText('ZIPPY2');
+    expect(spectator.query('.zippy__title')).toHaveText('ZIPPY2');
   });
 
   it('should display the "Close" word if open', () => {
-      host = createHost(`<zippy title="Zippy title">Zippy content</zippy>`);
+    spectator = createComponent(`<zippy title="Zippy title">Zippy content</zippy>`);
 
-      host.click('.zippy__title');
+    spectator.click('.zippy__title');
 
-      expect(host.query('.arrow')).toHaveText('Close');
-      expect(host.query('.arrow')).not.toHaveText('Open');
+    expect(spectator.query('.arrow')).toHaveText('Close');
+    expect(spectator.query('.arrow')).not.toHaveText('Open');
   });
 });
 ```
@@ -264,16 +264,16 @@ class CustomHostComponent {
 }
 
 describe('With Custom Host Component', function () {
-  let host: SpectatorWithHost<ZippyComponent, CustomHostComponent>;
-
-  const createHost = createHostComponentFactory({
+  const createComponent = createHostComponentFactory({
     component: ZippyComponent,
     host: CustomHostComponent
   });
+  
+  let spectator: SpectatorWithHost<ZippyComponent, CustomHostComponent>;
 
   it('should display the host component title', () => {
-    host = createHost(`<zippy [title]="title"></zippy>`);
-    expect(host.query('.zippy__title')).toHaveText('Custom HostComponent');
+    spectator = createComponent(`<zippy [title]="title"></zippy>`);
+    expect(spectator.query('.zippy__title')).toHaveText('Custom HostComponent');
   });
 });
 ```
@@ -300,7 +300,7 @@ describe('ButtonComponent', () => {
   });
 
   it('should react to route changes', () => {
-    spectator.setParam('productId', '5');
+    spectator.setRouteParam('productId', '5');
 
      // your test here...
   });
@@ -364,28 +364,29 @@ export class HighlightDirective {
 Let's see how we can test directives easily with Spectator:
 ```ts
 describe('HighlightDirective', () => {
-  let host: SpectatorWithHost<HighlightDirective>;
-  const createHost = createHostComponentFactory(HighlightDirective);
+  const createComponent = createHostComponentFactory(HighlightDirective);
+  
+  let spectator: SpectatorWithHost<HighlightDirective>;
 
   beforeEach(() => {
-    host = createHost(`<div highlight>Testing Highlight Directive</div>`);
+    spectator = createComponent(`<div highlight>Testing Highlight Directive</div>`);
   });
 
   it('should change the background color', () => {
-    host.dispatchMouseEvent(host.element, 'mouseover');
+    spectator.dispatchMouseEvent(spectator.element, 'mouseover');
 
-    expect(host.element).toHaveStyle({
+    expect(spectator.element).toHaveStyle({
       backgroundColor: 'rgba(0,0,0, 0.1)'
     });
 
-    host.dispatchMouseEvent(host.element, 'mouseout');
-    expect(host.element).toHaveStyle({
+    spectator.dispatchMouseEvent(spectator.element, 'mouseout');
+    expect(spectator.element).toHaveStyle({
       backgroundColor: '#fff'
     });
   });
 
   it('should get the instance', () => {
-    const instance = host.query(HighlightDirective);
+    const instance = spectator.query(HighlightDirective);
     expect(instance).toBeDefined();
   });
 });
@@ -437,21 +438,25 @@ The following example shows how to test the `AuthService` with Spectator:
 import { createService } from "@netbasal/spectator";
 
 describe("AuthService", () => {
-  const spectator = createService({
+  const createService = createServiceFactory({
     service: AuthService,
     providers: [],
     entryComponents: [],
     mocks: [DateService]
   });
+  
+  let spectator: SpectatorService<AuthService>;
+  
+  beforeEach(() => spectator = createService());
 
   it("should not be logged in", () => {
-    let dateService = spectator.get(DateService);
+    const dateService = spectator.get(DateService);
     dateService.isExpired.and.returnValue(true);
     expect(spectator.service.isLoggedIn()).toBeFalsy();
   });
 
   it("should be logged in", () => {
-    let dateService = spectator.get(DateService);
+    const dateService = spectator.get(DateService);
     dateService.isExpired.and.returnValue(false);
     expect(spectator.service.isLoggedIn()).toBeTruthy();
   });
@@ -468,13 +473,13 @@ dateService.isExpired.andCallFake(() => fake);
 ```
 However, if you use Jest as test framework and you want to utilize its mocking mechanism instead, import the `mockProvider()` from `@netbasal/spectator/jest`. This will automatically use the `jest.fn()` function to create a Jest compatible mock instead.
 
-The `createService()` function returns a plain object with the following properties:
-- `service` - Get an instance of the service
+The `createService()` function returns a `SpectatorService` with the following properties:
+- `service` - Get an instance of the service under test
 - `get()` - A proxy for Angular `TestBed.get()`
 
 `mockProvider()` doesn't include properties. In case you need to have properties on your mock you can use 2nd argument:
 ```ts
- const spectator = createService({
+ const createService = createServiceFactory({
     service: AuthService,
     providers: [
       mockProvider(OtherService, {
@@ -487,7 +492,7 @@ The `createService()` function returns a plain object with the following propert
 ```
 
 ## Testing Angular's HTTP Client 
-Spector makes testing data services, which use the Angular HTTP module, a lot easier. For example, let's say that you have data service with two methods, one performs a GET and one a POST:
+Spectator makes testing data services, which use the Angular HTTP module, a lot easier. For example, let's say that you have data service with two methods, one performs a GET and one a POST:
 
 ```ts
 export class TodosDataService {
@@ -509,26 +514,26 @@ import { TodosDataService } from './todos-data.service';
 import { createHTTPFactory, HTTPMethod } from '@netbasal/spectator';
 
 describe('HttpClient testing', () => {
-  let http = createHTTPFactory<TodosDataService>(TodosDataService);
+  const createHttpService = createHttpFactory(TodosDataService);
+    
+  let spectator: SpectatorHttp<TodosDataService>;
+    
+  beforeEach(() => spectator = createService());
 
   it('can test HttpClient.get', () => {
-    let { dataService, controller, expectOne } = http();
-
-    dataService.get().subscribe();
-    expectOne('todos', HTTPMethod.GET);
+    spectator.dataService.get().subscribe();
+    expectOne('todos', HttpMethod.GET);
   });
 
   it('can test HttpClient.post', () => {
-    let { dataService, controller, expectOne } = http();
+    spectator.dataService.post(1).subscribe();
 
-    dataService.post(1).subscribe();
-
-    const req = expectOne('todos', HTTPMethod.POST);
+    const req = expectOne('todos', HttpMethod.POST);
     expect(req.request.body['id']).toEqual(1);
   });
 });
 ```
-We need to create an HTTP factory by using the `createHTTPFactory()` function, passing the data service that you want to test. The `createHTTPFactory()` returns a function which can be called to get an instance of SpectatorHTTP with the following properties:
+We need to create an HTTP factory by using the `createHttpFactory()` function, passing the data service that you want to test. The `createHttpFactory()` returns a factory which can be called to get a `SpectatorHttp` with the following properties:
 - `controller` - A proxy for Angular `HttpTestingController`
 - `httpClient` - A proxy for Angular `HttpClient`
 - `dataService` - The data service instance
