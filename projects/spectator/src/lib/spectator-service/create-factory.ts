@@ -11,13 +11,13 @@ import { SpectatorService } from './spectator-service';
 /**
  * @pubicApi
  */
-export type SpectatorServiceFactory<S> = (overrides?: CreateServiceOverrides<S>) => SpectatorService<S>;
+export type SpectatorServiceFactory<S> = (overrides?: SpectatorServiceOverrides<S>) => SpectatorService<S>;
 
 /**
  * @pubicApi
  */
 // tslint:disable-next-line:no-empty-interface
-export interface CreateServiceOverrides<S> extends BaseSpectatorOverrides {}
+export interface SpectatorServiceOverrides<S> extends BaseSpectatorOverrides {}
 
 /**
  * @pubicApi
@@ -32,8 +32,8 @@ export function createServiceFactory<S>(typeOrOptions: Type<S> | SpectatorServic
     TestBed.configureTestingModule(moduleMetadata);
   });
 
-  return (overrides?: CreateServiceOverrides<S>) => {
-    const defaults: CreateServiceOverrides<S> = { providers: [] };
+  return (overrides?: SpectatorServiceOverrides<S>) => {
+    const defaults: SpectatorServiceOverrides<S> = { providers: [] };
     const { providers } = { ...defaults, ...overrides };
 
     if (providers && providers.length) {

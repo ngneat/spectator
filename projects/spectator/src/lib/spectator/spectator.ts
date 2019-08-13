@@ -24,7 +24,7 @@ export class Spectator<C> extends BaseSpectator {
     super();
   }
 
-  get<T>(type: Token<T> | Token<any>, fromComponentInjector = false): SpyObject<T> {
+  public get<T>(type: Token<T> | Token<any>, fromComponentInjector: boolean = false): SpyObject<T> {
     if (fromComponentInjector) {
       return this.debugElement.injector.get(type) as SpyObject<T>;
     }
@@ -32,11 +32,11 @@ export class Spectator<C> extends BaseSpectator {
     return super.get(type);
   }
 
-  detectChanges() {
+  public detectChanges(): void {
     this.fixture.detectChanges();
   }
 
-  detectComponentChanges() {
+  public detectComponentChanges(): void {
     if (this.debugElement) {
       this.debugElement.injector.get(ChangeDetectorRef).detectChanges();
     } else {
@@ -44,97 +44,138 @@ export class Spectator<C> extends BaseSpectator {
     }
   }
 
-  query<R extends Element>(selector: string | DOMSelector, options?: { root: boolean }): R | null;
-  query<R>(directive: Type<R>): R | null;
-  query<R>(directiveOrSelector: Type<any> | string, options: { read: Token<R> }): R | null;
-  query<R>(directiveOrSelector: QueryType, options?: QueryOptions<R>): R | null {
+  public query<R extends Element>(selector: string | DOMSelector, options?: { root: boolean }): R | null;
+  public query<R>(directive: Type<R>): R | null;
+  public query<R>(directiveOrSelector: Type<any> | string, options: { read: Token<R> }): R | null;
+  public query<R>(directiveOrSelector: QueryType, options?: QueryOptions<R>): R | Element | null {
     if ((options || {}).root && isString(directiveOrSelector)) {
-      return document.querySelector(directiveOrSelector) as any;
+      return document.querySelector(directiveOrSelector);
     }
+
     return getChildren<R>(this.debugElement)(directiveOrSelector, options)[0] || null;
   }
 
-  queryAll<R extends Element[]>(selector: string | DOMSelector, options?: { root: boolean }): R[];
-  queryAll<R>(directive: Type<R>): R[];
-  queryAll<R>(directiveOrSelector: Type<any> | string, options: { read: Token<R> }): R[];
-  queryAll<R>(directiveOrSelector: QueryType, options?: QueryOptions<R>): R[] {
+  public queryAll<R extends Element[]>(selector: string | DOMSelector, options?: { root: boolean }): R[];
+  public queryAll<R>(directive: Type<R>): R[];
+  public queryAll<R>(directiveOrSelector: Type<any> | string, options: { read: Token<R> }): R[];
+  public queryAll<R>(directiveOrSelector: QueryType, options?: QueryOptions<R>): R[] | Element[] {
     if ((options || {}).root && isString(directiveOrSelector)) {
-      return Array.from(document.querySelectorAll(directiveOrSelector)) as any[];
+      return Array.from(document.querySelectorAll(directiveOrSelector));
     }
+
     return getChildren<R>(this.debugElement)(directiveOrSelector, options);
   }
 
-  queryLast<R extends Element[]>(selector: string | DOMSelector, options?: { root: boolean }): R | null;
-  queryLast<R>(directive: Type<R>): R | null;
-  queryLast<R>(directiveOrSelector: Type<any> | string, options: { read: Token<R> }): R | null;
-  queryLast<R>(directiveOrSelector: QueryType, options?: QueryOptions<R>): R | null {
+  public queryLast<R extends Element[]>(selector: string | DOMSelector, options?: { root: boolean }): R | null;
+  public queryLast<R>(directive: Type<R>): R | null;
+  public queryLast<R>(directiveOrSelector: Type<any> | string, options: { read: Token<R> }): R | null;
+  public queryLast<R>(directiveOrSelector: QueryType, options?: QueryOptions<R>): R | Element | null {
     if ((options || {}).root && isString(directiveOrSelector)) {
-      return document.querySelector(directiveOrSelector) as any;
+      return document.querySelector(directiveOrSelector);
     }
     const result = getChildren<R>(this.debugElement)(directiveOrSelector, options);
     if (result && result.length) {
       return result[result.length - 1];
     }
+
     return null;
   }
 
-  setInput<K extends keyof C>(input: Partial<C>);
-  setInput<K extends keyof C>(input: K, inputValue: C[K]);
-  setInput<K extends keyof C>(input: Partial<C> | K, value?: C[K]) {
+  public setInput<K extends keyof C>(input: Partial<C>): void;
+  public setInput<K extends keyof C>(input: K, inputValue: C[K]): void;
+  public setInput<K extends keyof C>(input: Partial<C> | K, value?: C[K]): void {
     setComponentProps(this.component, input, value);
     this.detectComponentChanges();
   }
 
-  output<T, K extends keyof C = keyof C>(output: K): Observable<T> {
+  public output<T, K extends keyof C = keyof C>(output: K): Observable<T> {
     const observable = this.component[output];
-    if (observable instanceof Observable) {
-      return observable as Observable<T>;
-    } else {
+
+    if (!(observable instanceof Observable)) {
       throw new Error(`${output} is not an @Output`);
     }
+
+    return observable as Observable<T>;
   }
 
-  click(selector: SpectatorElement) {
+  public click(selector: SpectatorElement): void {
     const element = this.getNativeElement(selector);
+
+    if (!(element instanceof HTMLElement)) {
+      throw new Error(`Cannot click: ${selector} is not a HTMLElement`);
+    }
+
     element.click();
     this.detectChanges();
   }
 
-  blur(selector: SpectatorElement) {
+  public blur(selector: SpectatorElement): void {
     const element = this.getNativeElement(selector);
-    patchElementFocus(element as HTMLElement);
+
+    if (!(element instanceof HTMLElement)) {
+      throw new Error(`Cannot blur: ${selector} is not a HTMLElement`);
+    }
+
+    patchElementFocus(element);
     element.blur();
     this.detectChanges();
   }
 
-  focus(selector: SpectatorElement) {
+  public focus(selector: SpectatorElement): void {
     const element = this.getNativeElement(selector);
-    patchElementFocus(element as HTMLElement);
+
+    if (!(element instanceof HTMLElement)) {
+      throw new Error(`Cannot focus: ${selector} is not a HTMLElement`);
+    }
+
+    patchElementFocus(element);
     element.focus();
     this.detectChanges();
   }
 
-  dispatchMouseEvent(selector: SpectatorElement, type: string, x = 0, y = 0, event = createMouseEvent(type, x, y)): MouseEvent {
-    const _event = dispatchMouseEvent(this.getNativeElement(selector), type, x, y, event);
+  public dispatchMouseEvent(
+    selector: SpectatorElement,
+    type: string,
+    x: number = 0,
+    y: number = 0,
+    event: MouseEvent = createMouseEvent(type, x, y)
+  ): MouseEvent {
+    const element = this.getNativeElement(selector);
+
+    if (!(element instanceof Node)) {
+      throw new Error(`Cannot dispatch mouse event: ${selector} is not a node`);
+    }
+
+    const dispatchedEvent = dispatchMouseEvent(element, type, x, y, event);
     this.detectChanges();
-    return _event;
+
+    return dispatchedEvent;
   }
 
-  dispatchKeyboardEvent(selector: SpectatorElement, type: string, keyCode: number, target?: Element): KeyboardEvent;
-  dispatchKeyboardEvent(selector: SpectatorElement, type: string, key: string, target?: Element): KeyboardEvent;
-  dispatchKeyboardEvent(selector: SpectatorElement, type: string, keyOrKeyCode: string | number, target?: Element): KeyboardEvent {
-    const _event = dispatchKeyboardEvent(this.getNativeElement(selector), type, keyOrKeyCode, target);
+  public dispatchKeyboardEvent(selector: SpectatorElement, type: string, keyCode: number, target?: Element): KeyboardEvent;
+  public dispatchKeyboardEvent(selector: SpectatorElement, type: string, key: string, target?: Element): KeyboardEvent;
+  public dispatchKeyboardEvent(selector: SpectatorElement, type: string, keyOrKeyCode: string | number, target?: Element): KeyboardEvent {
+    const element = this.getNativeElement(selector);
+
+    if (!(element instanceof Node)) {
+      throw new Error(`Cannot dispatch keyboard event: ${selector} is not a node`);
+    }
+
+    const event = dispatchKeyboardEvent(element, type, keyOrKeyCode, target);
+
     this.detectChanges();
-    return _event;
+
+    return event;
   }
 
-  dispatchFakeEvent(selector: SpectatorElement, type: string, canBubble?: boolean): Event {
-    const _event = dispatchFakeEvent(this.getNativeElement(selector), type, canBubble);
+  public dispatchFakeEvent(selector: SpectatorElement, type: string, canBubble?: boolean): Event {
+    const event = dispatchFakeEvent(this.getNativeElement(selector), type, canBubble);
     this.detectChanges();
-    return _event;
+
+    return event;
   }
 
-  get keyboard() {
+  public get keyboard(): any {
     return {
       pressKey: (key: string, selector: SpectatorElement = this.element, event = KEY_UP) => {
         this.dispatchKeyboardEvent(selector, event, key);
@@ -154,22 +195,20 @@ export class Spectator<C> extends BaseSpectator {
     };
   }
 
-  dispatchTouchEvent(selector: SpectatorElement, type: string, x = 0, y = 0) {
-    const _event = dispatchTouchEvent(this.getNativeElement(selector), type, x, y);
+  public dispatchTouchEvent(selector: SpectatorElement, type: string, x: number = 0, y: number = 0): void {
+    dispatchTouchEvent(this.getNativeElement(selector), type, x, y);
     this.detectChanges();
-    return _event;
   }
 
-  typeInElement(value: string, selector: SpectatorElement) {
-    const _event = typeInElement(value, this.getNativeElement(selector));
+  public typeInElement(value: string, selector: SpectatorElement): void {
+    typeInElement(value, this.getNativeElement(selector));
     this.detectChanges();
-    return _event;
   }
 
-  private getNativeElement(selector: SpectatorElement) {
+  private getNativeElement(selector: SpectatorElement): HTMLElement | Window | Document {
     let element;
 
-    /** Support global objects window and document **/
+    // Support global objects window and document
     if (selector === window || selector === document) {
       return selector;
     }
@@ -179,6 +218,7 @@ export class Spectator<C> extends BaseSpectator {
       if (exists) {
         element = exists.nativeElement;
       } else {
+        // tslint:disable:no-console
         console.error(`${selector} does not exists`);
       }
     } else {

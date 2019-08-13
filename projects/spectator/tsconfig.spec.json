@@ -1,0 +1,26 @@
+{
+  "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    "outDir": "../../out-tsc/spec",
+    "types": [
+      "jasmine",
+      "node"
+    ],
+    "baseUrl": ".",
+    "paths": {
+      "@netbasal/spectator": [
+        "src/public_api.ts"
+      ],
+      "@netbasal/spectator/jest": [
+        "jest/src/public_api.ts"
+      ]
+    }
+  },
+  "files": [
+    "test/test.ts"
+  ],
+  "include": [
+    "test/**/*.spec.ts",
+    "src/lib/matchers-types.d.ts"
+  ]
+}

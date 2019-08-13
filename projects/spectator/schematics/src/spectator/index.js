@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const schematics_1 = require("@angular-devkit/schematics");
 const core_1 = require("@angular-devkit/core");
+const schematics_1 = require("@angular-devkit/schematics");
 const config_1 = require("@schematics/angular/utility/config");
 function spectatorComponentSchematic(options) {
     return schematics_1.chain([

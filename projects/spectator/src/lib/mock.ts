@@ -7,16 +7,22 @@ type Writable<T> = { -readonly [P in keyof T]: T[P] };
  * @publicApi
  */
 export interface CompatibleSpy extends jasmine.Spy {
-  /** By chaining the spy with and.returnValue, all calls to the function will return a specific
-   * value. */
+  /**
+   * By chaining the spy with and.returnValue, all calls to the function will return a specific
+   * value.
+   */
   andReturn(val: any): void;
 
-  /** By chaining the spy with and.callFake, all calls to the spy will delegate to the supplied
-   * function. */
+  /**
+   * By chaining the spy with and.callFake, all calls to the spy will delegate to the supplied
+   * function.
+   */
   andCallFake(fn: Function): this;
 
-  /** removes all recorded calls */
-  reset();
+  /**
+   * removes all recorded calls
+   */
+  reset(): void;
 }
 
 /**
@@ -24,14 +30,16 @@ export interface CompatibleSpy extends jasmine.Spy {
  */
 export type SpyObject<T> = T &
   { [P in keyof T]: T[P] extends Function ? T[P] & CompatibleSpy : T[P] } & {
-    /** casts to type without readonly properties */
-    castToWritable: () => Writable<T>;
+    /**
+     * Casts to type without readonly properties
+     */
+    castToWritable(): Writable<T>;
   };
 
 /**
  * @internal
  */
-export function installProtoMethods(mock: any, proto: any, createSpyFn: Function) {
+export function installProtoMethods<T>(mock: any, proto: any, createSpyFn: Function): void {
   if (proto === null || proto === Object.prototype) {
     return;
   }
@@ -53,25 +61,26 @@ export function installProtoMethods(mock: any, proto: any, createSpyFn: Function
   installProtoMethods(mock, Object.getPrototypeOf(proto), createSpyFn);
 
   mock.castToWritable = () => mock;
-
-  return mock;
 }
 
 /**
  * @publicApi
  */
 export function createSpyObject<T>(type: Type<T>, template?: Partial<Record<keyof T, any>>): SpyObject<T> {
-  const mock: any = Object.assign({}, template) || {};
+  const mock: any = { ...template } || {};
 
-  return installProtoMethods(mock, type.prototype, name => {
-    const newSpy: CompatibleSpy = jasmine.createSpy(name) as any;
-    newSpy.andCallFake = <any>newSpy.and.callFake;
-    newSpy.andReturn = <any>newSpy.and.returnValue;
-    newSpy.reset = <any>newSpy.calls.reset;
+  installProtoMethods<T>(mock, type.prototype, name => {
+    const newSpy: jasmine.Spy & Partial<CompatibleSpy> = jasmine.createSpy(name);
+    newSpy.andCallFake = (fn: (...args: any[]) => any) => <any>newSpy.and.callFake(fn);
+    newSpy.andReturn = val => newSpy.and.returnValue(val);
+    newSpy.reset = () => newSpy.calls.reset();
     // revisit return null here (previously needed for rtts_assert).
     newSpy.and.returnValue(null);
+
     return newSpy;
   });
+
+  return mock;
 }
 
 /**
@@ -80,9 +89,7 @@ export function createSpyObject<T>(type: Type<T>, template?: Partial<Record<keyo
 export function mockProvider<T>(type: Type<T>, properties?: Partial<Record<keyof T, any>>): FactoryProvider {
   return {
     provide: type,
-    useFactory: function() {
-      return createSpyObject(type, properties);
-    }
+    useFactory: () => createSpyObject(type, properties)
   };
 }
 

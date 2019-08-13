@@ -27,7 +27,9 @@ export interface SpectatorOverrides<C> extends BaseSpectatorOverrides {
  * @publicApi
  */
 export function createTestComponentFactory<C>(typeOrOptions: Type<C> | SpectatorOptions<C>): SpectatorFactory<C> {
-  const options = isType(typeOrOptions) ? getSpectatorDefaultOptions({ component: typeOrOptions }) : getSpectatorDefaultOptions(typeOrOptions);
+  const options = isType(typeOrOptions)
+    ? getSpectatorDefaultOptions({ component: typeOrOptions })
+    : getSpectatorDefaultOptions(typeOrOptions);
 
   const moduleMetadata = initialSpectatorModule<C>(options);
 
