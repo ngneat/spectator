@@ -1,5 +1,5 @@
 <p align="center">
- <img width="100%" height="100%" src="https://i.ibb.co/fkdk1Tp/SPECTATOR-4-02.png">
+ <img width="100%" height="100%" src="https://i.ibb.co/56pQ9Mg/SPECTATOR-4-02.jpg">
 </p>
 
 [![Downloads](https://img.shields.io/npm/dt/@netbasal/spectator.svg?style=flat-square)]()
