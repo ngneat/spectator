@@ -13,10 +13,12 @@ export class ActivatedRouteStub extends ActivatedRoute {
   private testParams: Params = {};
   private testQueryParams: Params = {};
   private testData: Data = {};
+  private testFragment: string | null = null;
 
-  private paramsSubject = new ReplaySubject(1);
-  private queryParamsSubject = new ReplaySubject(1);
-  private dataSubject = new ReplaySubject(1);
+  private readonly paramsSubject = new ReplaySubject<Params>(1);
+  private readonly queryParamsSubject = new ReplaySubject<Params>(1);
+  private readonly dataSubject = new ReplaySubject<Data>(1);
+  private readonly fragmentSubject = new ReplaySubject<string | null>(1);
 
   constructor(options?: RouteOptions) {
     super();
@@ -30,66 +32,73 @@ export class ActivatedRouteStub extends ActivatedRoute {
     this.params = this.paramsSubject.asObservable();
     this.queryParams = this.queryParamsSubject.asObservable();
     this.data = this.dataSubject.asObservable();
+    this.fragment = this.fragmentSubject.asObservable() as Observable<string>;
 
     this.triggerNavigation();
   }
 
-  get paramMap(): Observable<ParamMap> {
+  public get paramMap(): Observable<ParamMap> {
     return this.paramsSubject.asObservable().pipe(map(params => convertToParamMap(params)));
   }
 
-  get snapshot(): ActivatedRouteSnapshot {
+  public get snapshot(): ActivatedRouteSnapshot {
     const snapshot = new ActivatedRouteSnapshot();
 
     snapshot.params = this.testParams;
     snapshot.queryParams = this.testQueryParams;
     snapshot.data = this.testData;
+    snapshot.fragment = this.testFragment!;
 
     return snapshot;
   }
 
-  setParams(params: Params) {
+  public setParams(params: Params): void {
     this.testParams = params;
   }
 
-  setParam(name: string, value: string) {
+  public setParam(name: string, value: string): void {
     this.testParams = { ...this.testParams, [name]: value };
   }
 
-  setQueryParams(queryParams: Params) {
+  public setQueryParams(queryParams: Params): void {
     this.testQueryParams = queryParams;
   }
 
-  setQueryParam(name: string, value: string) {
+  public setQueryParam(name: string, value: string): void {
     this.testQueryParams = { ...this.testQueryParams, [name]: value };
   }
 
-  setAllData(data: Data) {
+  public setAllData(data: Data): void {
     this.testData = data;
   }
 
-  setData(name: string, value: string) {
+  public setData(name: string, value: string): void {
     this.testData = { ...this.testData, [name]: value };
   }
 
-  get children(): ActivatedRouteStub[] {
+  public setFragment(fragment: string | null): void {
+    this.testFragment = fragment;
+  }
+
+  public get children(): ActivatedRouteStub[] {
     return [this];
   }
 
-  get parent(): ActivatedRouteStub {
+  public get parent(): ActivatedRouteStub {
     return this;
   }
 
   /**
    * Simulates a route navigation by updating the Params, QueryParams and Data observable streams.
    */
-  triggerNavigation(): void {
+  public triggerNavigation(): void {
     this.paramsSubject.next(this.testParams);
     this.queryParamsSubject.next(this.testQueryParams);
     this.dataSubject.next(this.testData);
+    this.fragmentSubject.next(this.testFragment);
   }
 
-  toString(): string {
+  public toString(): string {
     return 'activatedRouteStub';
   }
 }

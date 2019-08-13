@@ -10,14 +10,14 @@ import { RouteOptions } from './route-options';
  * @publicApi
  */
 export class SpectatorWithRouting<C> extends Spectator<C> {
-  constructor(fixture: ComponentFixture<any>, debugElement: DebugElement, private activatedRouteStub: ActivatedRouteStub) {
+  constructor(fixture: ComponentFixture<any>, debugElement: DebugElement, private readonly activatedRouteStub: ActivatedRouteStub) {
     super(fixture, debugElement, debugElement.componentInstance, debugElement.nativeElement);
   }
 
   /**
    * Simulates a route navigation by updating the Params, QueryParams and Data observable streams.
    */
-  triggerNavigation(options?: RouteOptions): void {
+  public triggerNavigation(options?: RouteOptions): void {
     if (options && options.params) {
       this.activatedRouteStub.setParams(options.params);
     }
@@ -30,13 +30,17 @@ export class SpectatorWithRouting<C> extends Spectator<C> {
       this.activatedRouteStub.setAllData(options.data);
     }
 
+    if (options && options.fragment) {
+      this.activatedRouteStub.setFragment(options.fragment);
+    }
+
     this.triggerNavigationAndUpdate();
   }
 
   /**
    * Updates the route params and triggers a route navigation.
    */
-  setRouteParam(name: string, value: string): void {
+  public setRouteParam(name: string, value: string): void {
     this.activatedRouteStub.setParam(name, value);
     this.triggerNavigationAndUpdate();
   }
@@ -44,7 +48,7 @@ export class SpectatorWithRouting<C> extends Spectator<C> {
   /**
    * Updates the route query params and triggers a route navigation.
    */
-  setRouteQueryParam(name: string, value: string): void {
+  public setRouteQueryParam(name: string, value: string): void {
     this.activatedRouteStub.setQueryParam(name, value);
     this.triggerNavigationAndUpdate();
   }
@@ -52,8 +56,16 @@ export class SpectatorWithRouting<C> extends Spectator<C> {
   /**
    * Updates the route data and triggers a route navigation.
    */
-  setRouteData(name: string, value: string): void {
+  public setRouteData(name: string, value: string): void {
     this.activatedRouteStub.setData(name, value);
+    this.triggerNavigationAndUpdate();
+  }
+
+  /**
+   * Updates the route fragment and triggers a route navigation.
+   */
+  public setRouteFragment(fragment: string | null): void {
+    this.activatedRouteStub.setFragment(fragment);
     this.triggerNavigationAndUpdate();
   }
 

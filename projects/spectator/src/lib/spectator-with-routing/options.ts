@@ -14,6 +14,7 @@ const defaultRoutingOptions: OptionalsRequired<SpectatorWithRoutingOptions<unkno
   params: {},
   queryParams: {},
   data: {},
+  fragment: null,
   mockRouterLinks: true
 };
 

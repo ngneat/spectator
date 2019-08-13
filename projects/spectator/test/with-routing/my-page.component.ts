@@ -16,24 +16,26 @@ import { map } from 'rxjs/operators';
   `
 })
 export class MyPageComponent implements OnInit {
-  public title: string;
-  public dynamicTitle: string;
-  private foo?: string;
-  private bar?: string;
-  private baz$: Observable<string>;
+  public title?: string;
+  public dynamicTitle?: string;
+  public foo?: string;
+  public bar?: string;
+  public baz$!: Observable<string>;
+  public fragment!: string | null;
 
   constructor(private route: ActivatedRoute, private router: Router) {}
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
     this.title = this.route.snapshot.data.title;
     this.route.data.subscribe(data => (this.dynamicTitle = data.dynamicTitle));
 
     this.route.params.subscribe(params => (this.foo = params.foo));
     this.route.paramMap.subscribe(params => (this.bar = params.get('bar')!));
     this.baz$ = this.route.queryParams.pipe(map(params => params.baz));
+    this.route.fragment.subscribe(fragment => this.fragment = fragment);
   }
 
-  navigate(): void {
+  public navigate(): void {
     this.router.navigate(['bar']);
   }
 }

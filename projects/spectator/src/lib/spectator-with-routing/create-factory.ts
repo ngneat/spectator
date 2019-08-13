@@ -27,7 +27,9 @@ export type SpectatorWithRoutingFactory<C> = (options?: SpectatorWithRoutingOver
  * @publicApi
  */
 export function createRoutedComponentFactory<C>(typeOrOptions: Type<C> | SpectatorWithRoutingOptions<C>): SpectatorWithRoutingFactory<C> {
-  const options = isType(typeOrOptions) ? getRoutingDefaultOptions<C>({ component: typeOrOptions }) : getRoutingDefaultOptions(typeOrOptions);
+  const options = isType(typeOrOptions) ?
+    getRoutingDefaultOptions<C>({ component: typeOrOptions }) :
+    getRoutingDefaultOptions(typeOrOptions);
 
   const moduleMetadata = initialRoutingModule<C>(options);
 

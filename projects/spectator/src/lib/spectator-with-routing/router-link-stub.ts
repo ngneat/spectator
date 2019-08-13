@@ -1,4 +1,4 @@
-import { forwardRef, Directive, HostListener, Input } from '@angular/core';
+import { Directive, HostListener, Input } from '@angular/core';
 import { RouterLink } from '@angular/router';
 
 // tslint:disable
@@ -8,7 +8,7 @@ import { RouterLink } from '@angular/router';
   providers: [
     {
       provide: RouterLink,
-      useExisting: forwardRef(() => RouterLinkDirectiveStub)
+      useExisting: RouterLinkDirectiveStub
     }
   ]
 })

@@ -21,17 +21,13 @@ export function initialRoutingModule<S>(options: Required<SpectatorWithRoutingOp
 
   moduleMetadata.providers.push([
     {
-      provide: ActivatedRouteStub,
+      provide: ActivatedRoute,
       useFactory: () =>
         new ActivatedRouteStub({
           params: options.params,
           queryParams: options.queryParams,
           data: options.data
         })
-    },
-    {
-      provide: ActivatedRoute,
-      useExisting: ActivatedRouteStub
     }
   ]);
 

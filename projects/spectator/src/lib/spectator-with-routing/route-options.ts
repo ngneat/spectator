@@ -4,4 +4,5 @@ export interface RouteOptions {
   params?: Params;
   queryParams?: Params;
   data?: Data;
+  fragment?: string | null;
 }

@@ -71,7 +71,7 @@ export function createSpyObject<T>(type: Type<T>, template?: Partial<Record<keyo
 
   installProtoMethods<T>(mock, type.prototype, name => {
     const newSpy: jasmine.Spy & Partial<CompatibleSpy> = jasmine.createSpy(name);
-    newSpy.andCallFake = (fn: (...args: any[]) => any) => <any>newSpy.and.callFake(fn);
+    newSpy.andCallFake = (fn: (...args: any[]) => any) => <any> newSpy.and.callFake(fn);
     newSpy.andReturn = val => newSpy.and.returnValue(val);
     newSpy.reset = () => newSpy.calls.reset();
     // revisit return null here (previously needed for rtts_assert).

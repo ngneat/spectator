@@ -57,12 +57,15 @@ describe('MyPageComponent', () => {
       expect(spectator.query('.foo')).toHaveText('A');
       expect(spectator.query('.bar')).toHaveText('X');
       expect(spectator.query('.baz')).toHaveText('3');
+      expect(spectator.component.fragment).toBeNull();
 
       spectator.setRouteQueryParam('baz', 'Y');
+      spectator.setRouteFragment('lorem');
 
       expect(spectator.query('.foo')).toHaveText('A');
       expect(spectator.query('.bar')).toHaveText('X');
       expect(spectator.query('.baz')).toHaveText('Y');
+      expect(spectator.component.fragment).toBe('lorem');
     });
 
     it('should support snapshot data', () => {
