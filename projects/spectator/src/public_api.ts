@@ -6,7 +6,7 @@ export { initialSpectatorModule } from './lib/spectator/initial-module';
 
 export { SpectatorWithHost } from './lib/spectator-with-host/spectator-with-host';
 export { SpectatorWithHostOptions } from './lib/spectator-with-host/options';
-export { createHostComponentFactory, SpectatorWithHostFactory } from './lib/spectator-with-host/create-factory';
+export { createHostComponentFactory, SpectatorWithHostFactory, SpectatorWithHostOverrides } from './lib/spectator-with-host/create-factory';
 export { initialSpectatorWithHostModule } from './lib/spectator-with-host/initial-module';
 export { HostComponent, HostModule } from './lib/spectator-with-host/host-component';
 

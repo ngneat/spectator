@@ -1,4 +1,4 @@
-import { Directive, HostListener, Input } from '@angular/core';
+import { Directive, HostListener, Input, NgModule } from '@angular/core';
 import { RouterLink } from '@angular/router';
 
 // tslint:disable
@@ -24,3 +24,14 @@ export class RouterLinkDirectiveStub {
     return true;
   }
 }
+
+/*
+  This is an unused module to resolve the ng build error:
+    'Cannot determine the module for class RouterLinkDirectiveStub'
+
+  Reference: https://github.com/angular/issues/13590
+*/
+@NgModule({
+  declarations: [RouterLinkDirectiveStub]
+})
+export class RouterLinkDirectiveStubModule {}

@@ -1,7 +1,7 @@
 import { Router, RouterLink } from '@angular/router';
 import { createRoutedComponentFactory } from '@netbasal/spectator/jest';
 
-import { MyPageComponent } from './my-page.component';
+import { MyPageComponent } from '../../../test/with-routing/my-page.component';
 
 describe('MyPageComponent', () => {
   describe('simple use', () => {
@@ -89,6 +89,7 @@ describe('MyPageComponent', () => {
     it('should mock routerLinks', () => {
       const spectator = createComponent();
 
+      // tslint:disable-next-line:no-unnecessary-type-assertion
       const link1 = spectator.query('.link-1', { read: RouterLink })!;
 
       expect(link1.routerLink).toEqual(['foo']);
