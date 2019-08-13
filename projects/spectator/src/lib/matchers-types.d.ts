@@ -10,6 +10,10 @@ declare namespace jasmine {
 
     toHaveAttribute(attr: string, val?: string): boolean;
 
+    toHaveProp({ prop, val }: { prop: string; val: string }): boolean;
+
+    toHaveProperty(prop: string, val: string | boolean): boolean;
+
     toHaveProperty(prop: string, val: string | boolean): boolean;
 
     toHaveText(text: string | Function, exact?: boolean): boolean;
