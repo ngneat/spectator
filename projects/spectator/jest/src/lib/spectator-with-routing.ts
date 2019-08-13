@@ -31,5 +31,5 @@ export function createRoutedComponentFactory<C>(typeOrOptions: SpectatorWithRout
   return baseCreateRoutedComponentFactory({
     mockProvider,
     ...(isType(typeOrOptions) ? { component: typeOrOptions } : typeOrOptions)
-  }) as SpectatorWithRoutingFactory<C>;
+  });
 }
