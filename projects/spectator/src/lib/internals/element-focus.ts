@@ -7,7 +7,7 @@ import { dispatchFakeEvent } from './dispatch-events';
  *
  * patchElementFocus(triggerEl);
  */
-export function patchElementFocus(element: HTMLElement) {
+export function patchElementFocus(element: HTMLElement): void {
   element.focus = () => dispatchFakeEvent(element, 'focus');
   element.blur = () => dispatchFakeEvent(element, 'blur');
 }

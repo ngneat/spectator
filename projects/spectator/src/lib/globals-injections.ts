@@ -6,10 +6,10 @@ let globals: TestModuleMetadata = {
   imports: []
 };
 
-export function defineGlobalsInjections(config: TestModuleMetadata) {
+export function defineGlobalsInjections(config: TestModuleMetadata): void {
   globals = { ...globals, ...config };
 }
 
-export function getGlobalsInjections() {
+export function getGlobalsInjections(): TestModuleMetadata {
   return globals;
 }
