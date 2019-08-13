@@ -1,0 +1,14 @@
+{
+  "extends": "../tsconfig.spec.json",
+  "compilerOptions": {
+    "types": [
+      "jest",
+      "node"
+    ]
+  },
+  "files": [],
+  "include": [
+    "test/**/*.spec.ts",
+    "../src/lib/matchers-types.d.ts"
+  ]
+}
