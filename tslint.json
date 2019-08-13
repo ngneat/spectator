@@ -79,6 +79,7 @@
     ],
     "prefer-function-over-method": false,
     "prefer-template": false,
+    "whitespace": false,
     "promise-function-async": false,
     "quotemark": [
       true,
