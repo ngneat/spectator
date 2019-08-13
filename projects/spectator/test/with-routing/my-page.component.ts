@@ -23,7 +23,7 @@ export class MyPageComponent implements OnInit {
   public baz$!: Observable<string>;
   public fragment!: string | null;
 
-  constructor(private route: ActivatedRoute, private router: Router) {}
+  constructor(private readonly route: ActivatedRoute, private readonly router: Router) {}
 
   public ngOnInit(): void {
     this.title = this.route.snapshot.data.title;
@@ -32,7 +32,7 @@ export class MyPageComponent implements OnInit {
     this.route.params.subscribe(params => (this.foo = params.foo));
     this.route.paramMap.subscribe(params => (this.bar = params.get('bar')!));
     this.baz$ = this.route.queryParams.pipe(map(params => params.baz));
-    this.route.fragment.subscribe(fragment => this.fragment = fragment);
+    this.route.fragment.subscribe(fragment => (this.fragment = fragment));
   }
 
   public navigate(): void {
