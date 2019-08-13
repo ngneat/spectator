@@ -19,7 +19,7 @@ export interface SpectatorService<S> extends BaseSpectatorService<S> {
 }
 
 /**
- * @pubicApi
+ * @publicApi
  */
 export type SpectatorServiceFactory<S> = (overrides?: SpectatorServiceOverrides<S>) => SpectatorService<S>;
 

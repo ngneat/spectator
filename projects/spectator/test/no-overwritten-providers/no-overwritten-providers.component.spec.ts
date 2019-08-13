@@ -10,7 +10,7 @@ describe('ComponentWithoutOverwrittenProvidersComponent', () => {
       componentProviders: [mockProvider(DummyService)]
     });
 
-    it("should not overwrite component's providers and work using createHostComponentFactory", () => {
+    it('should not overwrite component\'s providers and work using createHostComponentFactory', () => {
       const { component } = createHost(`
         <app-component-without-overwritten-providers>
         </app-component-without-overwritten-providers>
