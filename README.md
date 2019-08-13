@@ -42,8 +42,8 @@ import { ButtonComponent } from './button.component';
 import { Spectator, createTestComponentFactory } from '@netbasal/spectator';
 
 describe('ButtonComponent', () => {
-  let spectator: Spectator<ButtonComponent>;
   const createComponent = createTestComponentFactory(ButtonComponent);
+  let spectator: Spectator<ButtonComponent>;
   
   beforeEach(() => spectator = createComponent());
 
@@ -80,7 +80,7 @@ const createComponent = createTestComponentFactory({
 The `createComponent()` function optionally takes the following options:
 ```ts
 it('should set the title according to the [title] input', () => {
-  spectator = createComponent({
+  const spectator = createComponent({
     // The component inputs
     props: {
       title: 'Click'
@@ -278,6 +278,70 @@ describe('With Custom Host Component', function () {
   });
 });
 ```
+
+
+## Testing Routed Components
+
+For components which use routing, there is a special factory available that extends the default one, and provides a stubbed `ActivatedRoute` so that you can configure additional routing options.
+
+```ts
+describe('ButtonComponent', () => {
+  const createComponent = createRoutedComponentFactory({
+    component: ProductDetailsComponent,
+    params: { productId: '3' },
+    data: { title: 'Some title' }
+  });
+
+  let spectator: SpectatorWithRouting<ProductDetailsComponent>;
+  
+  beforeEach(() => spectator = createComponent());
+
+  it('should display route data title', () => {
+    expect(spectator.query('.title')).toHaveTest('Some title');
+  });
+
+  it('should react to route changes', () => {
+    spectator.setParam('productId', '5');
+
+     // your test here...
+  });
+});
+```
+
+### Updating Route
+The `SpectatorWithRoute` API includes convenient methods for updating the current route:
+
+```ts
+interface SpectatorWithRouting<C> extends Spectator<C> {
+  /**
+   * Simulates a route navigation by updating the Params, QueryParams and Data observable streams.
+   */
+  triggerNavigation(options?: RouteOptions): void;
+
+  /**
+   * Updates the route params and triggers a route navigation.
+   */
+  setRouteParam(name: string, value: string): void;
+
+  /**
+   * Updates the route query params and triggers a route navigation.
+   */
+  setRouteQueryParam(name: string, value: string): void;
+
+  /**
+   * Updates the route data and triggers a route navigation.
+   */
+  setRouteData(name: string, value: string): void;
+}
+```
+
+### Routing features
+
+* Updating params, queryParams, data and fragments
+* Stubs both `ActivatedRoute` and its `ActivatedRouteSnapshot`
+* Default Router mocking
+* Default RouterLink directive stubs
+
 ## Testing Directives
 Let's say we have the following directive:
 
@@ -471,9 +535,6 @@ We need to create an HTTP factory by using the `createHTTPFactory()` function, p
 - `dataService` - The data service instance
 - `get()` - A proxy for Angular `TestBed.get()`
 - `expectOne()` - Expect that a single request was made which matches the given URL and it's method, and return its mock request
-
-## Routing Testing
-TODO
 
 ## Global Injections
 It's possible to define injections which will be available for each test without the need to re-declare them in each test:

@@ -24,9 +24,9 @@ describe('ViewChildrenComponent', () => {
     const serviceFromChild = spectator.query(ChildComponent, { read: ChildServiceService });
     const div = spectator.query('div');
     const component = spectator.query(ChildComponent);
-    const { nativeElement } = spectator.query(ChildComponent, {
+    spectator.query(ChildComponent, {
       read: ElementRef
-    })!;
+    });
     const button = spectator.query('button');
 
     expect(serviceFromChild).toBeDefined();
