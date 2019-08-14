@@ -141,7 +141,7 @@ export class Spectator<C> {
    *
    * @param selector
    */
-  click(selector: SpectatorElement) {
+  click(selector: SpectatorElement = this.element) {
     const element = this.getNativeElement(selector);
     element.click();
     this.detectChanges();
@@ -186,7 +186,7 @@ export class Spectator<C> {
    * @param y
    * @param event
    */
-  dispatchMouseEvent(selector: SpectatorElement, type: string, x = 0, y = 0, event = createMouseEvent(type, x, y)): MouseEvent {
+  dispatchMouseEvent(selector: SpectatorElement = this.element, type: string, x = 0, y = 0, event = createMouseEvent(type, x, y)): MouseEvent {
     const _event = dispatchMouseEvent(this.getNativeElement(selector), type, x, y, event);
     this.detectChanges();
     return _event;
@@ -202,7 +202,7 @@ export class Spectator<C> {
    */
   dispatchKeyboardEvent(selector: SpectatorElement, type: string, keyCode: number, target?: Element): KeyboardEvent;
   dispatchKeyboardEvent(selector: SpectatorElement, type: string, key: string, target?: Element): KeyboardEvent;
-  dispatchKeyboardEvent(selector: SpectatorElement, type: string, keyOrKeyCode: string | number, target?: Element): KeyboardEvent {
+  dispatchKeyboardEvent(selector: SpectatorElement = this.element, type: string, keyOrKeyCode: string | number, target?: Element): KeyboardEvent {
     const _event = dispatchKeyboardEvent(this.getNativeElement(selector), type, keyOrKeyCode, target);
     this.detectChanges();
     return _event;
@@ -215,7 +215,7 @@ export class Spectator<C> {
    * @param canBubble
    * @returns
    */
-  dispatchFakeEvent(selector: SpectatorElement | Window, type: string, canBubble?: boolean): Event {
+  dispatchFakeEvent(selector: SpectatorElement | Window = this.element, type: string, canBubble?: boolean): Event {
     const _event = dispatchFakeEvent(this.getNativeElement(selector), type, canBubble);
     this.detectChanges();
     return _event;
@@ -246,7 +246,7 @@ export class Spectator<C> {
    * @param y
    * @returns
    */
-  dispatchTouchEvent(selector: SpectatorElement, type: string, x = 0, y = 0) {
+  dispatchTouchEvent(selector: SpectatorElement = this.element, type: string, x = 0, y = 0) {
     const _event = dispatchTouchEvent(this.getNativeElement(selector), type, x, y);
     this.detectChanges();
     return _event;
@@ -257,7 +257,7 @@ export class Spectator<C> {
    * @param value
    * @param element
    */
-  typeInElement(value: string, selector: SpectatorElement) {
+  typeInElement(value: string, selector: SpectatorElement = this.element) {
     const _event = typeInElement(value, this.getNativeElement(selector));
     this.detectChanges();
     return _event;

@@ -32,4 +32,11 @@ describe('DatoAutoFocusDirective', function() {
     host.setHostInput({ isFocused: true });
     expect(host.element).toBeFocused();
   });
+
+  it('should be able to type in input', () => {
+    host = createHost(`<input [datoAutoFocus]="isFocused">`);
+
+    host.typeInElement('foo');
+    expect(host.element).toHaveValue('foo');
+  });
 });
