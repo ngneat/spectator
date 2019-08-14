@@ -6,7 +6,7 @@ export { initialSpectatorModule } from './lib/spectator/initial-module';
 
 export { SpectatorWithHost } from './lib/spectator-with-host/spectator-with-host';
 export { SpectatorWithHostOptions } from './lib/spectator-with-host/options';
-export { createHostComponentFactory, SpectatorWithHostFactory } from './lib/spectator-with-host/create-factory';
+export { createHostComponentFactory, SpectatorWithHostFactory, SpectatorWithHostOverrides } from './lib/spectator-with-host/create-factory';
 export { initialSpectatorWithHostModule } from './lib/spectator-with-host/initial-module';
 export { HostComponent, HostModule } from './lib/spectator-with-host/host-component';
 
@@ -14,6 +14,15 @@ export { SpectatorService } from './lib/spectator-service/spectator-service';
 export { SpectatorServiceOptions } from './lib/spectator-service/options';
 export { SpectatorServiceFactory, createServiceFactory, SpectatorServiceOverrides } from './lib/spectator-service/create-factory';
 export { createService } from './lib/spectator-service/create-service';
+
+export { SpectatorWithRouting } from './lib/spectator-with-routing/spectator-with-routing';
+export { SpectatorWithRoutingOptions } from './lib/spectator-with-routing/options';
+export {
+  SpectatorWithRoutingFactory,
+  createRoutedComponentFactory,
+  SpectatorWithRoutingOverrides
+} from './lib/spectator-with-routing/create-factory';
+export { ActivatedRouteStub } from './lib/spectator-with-routing/activated-route-stub';
 
 export { SpectatorHttp, HttpMethod } from './lib/spectator-http/spectator-http';
 export { SpectatorHttpOptions } from './lib/spectator-http/options';

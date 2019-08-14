@@ -16,7 +16,7 @@ import { SpectatorWithHost } from './spectator-with-host';
 /**
  * @publicApi
  */
-export type SpectatorWithHostFactory<C, H> = (template: string, options?: SpectatorWithHostOverrides<C, H>) => SpectatorWithHost<C, H>;
+export type SpectatorWithHostFactory<C, H> = (template: string, overrides?: SpectatorWithHostOverrides<C, H>) => SpectatorWithHost<C, H>;
 
 /**
  * @publicApi
