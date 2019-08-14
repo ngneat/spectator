@@ -55,7 +55,7 @@ export class Spectator<C> extends BaseSpectator {
     return getChildren<R>(this.debugElement)(directiveOrSelector, options)[0] || null;
   }
 
-  public queryAll<R extends Element[]>(selector: string | DOMSelector, options?: { root: boolean }): R[];
+  public queryAll<R extends Element>(selector: string | DOMSelector, options?: { root: boolean }): R[];
   public queryAll<R>(directive: Type<R>): R[];
   public queryAll<R>(directiveOrSelector: Type<any> | string, options: { read: Token<R> }): R[];
   public queryAll<R>(directiveOrSelector: QueryType, options?: QueryOptions<R>): R[] | Element[] {
