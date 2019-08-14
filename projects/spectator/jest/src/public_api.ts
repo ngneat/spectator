@@ -7,3 +7,4 @@ export * from './lib/spectator';
 export * from './lib/spectator-http';
 export * from './lib/spectator-service';
 export * from './lib/spectator-with-host';
+export * from './lib/spectator-with-routing';
