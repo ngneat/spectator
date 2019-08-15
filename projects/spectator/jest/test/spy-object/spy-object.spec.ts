@@ -1,6 +1,6 @@
-import { createSpyObject } from '@netbasal/spectator';
+import { createSpyObject } from '@netbasal/spectator/jest';
 
-import { Person } from './person';
+import { Person } from '../../../test/spy-object/person';
 
 describe('SpyObject', () => {
   it('should mock all public methods', () => {
@@ -9,10 +9,10 @@ describe('SpyObject', () => {
     person.sayHi.andReturn('Bye!');
   });
 
-  it('should enable spying on properties', () => {
+  it('should keep getters/setters', () => {
     const person = createSpyObject(Person);
     person.birthYear = 1990;
-    spyOnProperty(person, 'age', 'get').and.returnValue(29);
+    jest.spyOn(person, 'age', 'get').mockReturnValue(29);
 
     expect(person.age).toBe(29);
   });

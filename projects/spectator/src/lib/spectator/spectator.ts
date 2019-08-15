@@ -98,7 +98,7 @@ export class Spectator<C> extends BaseSpectator {
     return observable as Observable<T>;
   }
 
-  public click(selector: SpectatorElement): void {
+  public click(selector: SpectatorElement = this.element): void {
     const element = this.getNativeElement(selector);
 
     if (!(element instanceof HTMLElement)) {
@@ -109,7 +109,7 @@ export class Spectator<C> extends BaseSpectator {
     this.detectChanges();
   }
 
-  public blur(selector: SpectatorElement): void {
+  public blur(selector: SpectatorElement = this.element): void {
     const element = this.getNativeElement(selector);
 
     if (!(element instanceof HTMLElement)) {
@@ -121,7 +121,7 @@ export class Spectator<C> extends BaseSpectator {
     this.detectChanges();
   }
 
-  public focus(selector: SpectatorElement): void {
+  public focus(selector: SpectatorElement = this.element): void {
     const element = this.getNativeElement(selector);
 
     if (!(element instanceof HTMLElement)) {
@@ -134,7 +134,7 @@ export class Spectator<C> extends BaseSpectator {
   }
 
   public dispatchMouseEvent(
-    selector: SpectatorElement,
+    selector: SpectatorElement = this.element,
     type: string,
     x: number = 0,
     y: number = 0,
@@ -154,7 +154,12 @@ export class Spectator<C> extends BaseSpectator {
 
   public dispatchKeyboardEvent(selector: SpectatorElement, type: string, keyCode: number, target?: Element): KeyboardEvent;
   public dispatchKeyboardEvent(selector: SpectatorElement, type: string, key: string, target?: Element): KeyboardEvent;
-  public dispatchKeyboardEvent(selector: SpectatorElement, type: string, keyOrKeyCode: string | number, target?: Element): KeyboardEvent {
+  public dispatchKeyboardEvent(
+    selector: SpectatorElement = this.element,
+    type: string,
+    keyOrKeyCode: string | number,
+    target?: Element
+  ): KeyboardEvent {
     const element = this.getNativeElement(selector);
 
     if (!(element instanceof Node)) {
@@ -168,7 +173,7 @@ export class Spectator<C> extends BaseSpectator {
     return event;
   }
 
-  public dispatchFakeEvent(selector: SpectatorElement, type: string, canBubble?: boolean): Event {
+  public dispatchFakeEvent(selector: SpectatorElement = this.element, type: string, canBubble?: boolean): Event {
     const event = dispatchFakeEvent(this.getNativeElement(selector), type, canBubble);
     this.detectChanges();
 
@@ -195,12 +200,12 @@ export class Spectator<C> extends BaseSpectator {
     };
   }
 
-  public dispatchTouchEvent(selector: SpectatorElement, type: string, x: number = 0, y: number = 0): void {
+  public dispatchTouchEvent(selector: SpectatorElement = this.element, type: string, x: number = 0, y: number = 0): void {
     dispatchTouchEvent(this.getNativeElement(selector), type, x, y);
     this.detectChanges();
   }
 
-  public typeInElement(value: string, selector: SpectatorElement): void {
+  public typeInElement(value: string, selector: SpectatorElement = this.element): void {
     typeInElement(value, this.getNativeElement(selector));
     this.detectChanges();
   }
