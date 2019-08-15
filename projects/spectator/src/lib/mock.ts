@@ -53,8 +53,10 @@ export function installProtoMethods<T>(mock: any, proto: any, createSpyFn: Funct
 
     if (typeof descriptor.value === 'function' && key !== 'constructor' && typeof mock[key] === 'undefined') {
       mock[key] = createSpyFn(key);
-    } else if (descriptor.get || descriptor.set) {
-      Object.defineProperty(mock, key, descriptor);
+    } else if (descriptor.get && !mock.hasOwnProperty(key)) {
+      Object.defineProperty(mock, key, {
+        get: () => null
+      });
     }
   }
 

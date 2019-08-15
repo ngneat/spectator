@@ -18,7 +18,6 @@
     "contributors:generate": "all-contributors generate",
     "copy:readme": "cp README.md dist/spectator",
     "copy:schematics": "cp -r projects/spectator/schematics/src/ dist/spectator/schematics",
-    "postbump": "npm run build",
     "release": "cd projects/spectator && standard-version --infile ../../CHANGELOG.md"
   },
   "dependencies": {
@@ -85,5 +84,10 @@
       "prettier --write",
       "git add"
     ]
+  },
+  "standard-version": {
+    "scripts": {
+      "postbump": "npm run build"
+    }
   }
 }
