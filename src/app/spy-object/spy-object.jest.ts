@@ -12,12 +12,9 @@ describe('SpyObject', () => {
   it('should keep getters/setters', () => {
     const person = createSpyObject(Person);
     person.birthYear = 1990;
+    jest.spyOn(person, 'age', 'get').mockReturnValue(29);
 
     expect(person.age).toBe(29);
-
-    jest.spyOn(person, 'age', 'get').mockReturnValue(100);
-
-    expect(person.age).toBe(100);
   });
 
   it('should allow setting properties', () => {
