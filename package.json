@@ -21,7 +21,6 @@
     "build:schematics": "tsc -p projects/spectator/schematics/tsconfig.json",
     "copy:readme": "cp README.md dist/spectator",
     "copy:schematics": "cp -r projects/spectator/schematics/src/ dist/spectator/schematics",
-    "postbump": "npm run build:lib",
     "release": "cd projects/spectator && standard-version --infile ../../CHANGELOG.md"
   },
   "dependencies": {
@@ -96,5 +95,10 @@
       "prettier --write",
       "git add"
     ]
+  },
+  "standard-version": {
+    "scripts": {
+      "postbump": "npm run build"
+    }
   }
 }
