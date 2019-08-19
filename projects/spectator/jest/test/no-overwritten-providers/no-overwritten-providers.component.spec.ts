@@ -1,4 +1,4 @@
-import { createHostComponentFactory } from '@netbasal/spectator/jest';
+import { createHostFactory } from '@netbasal/spectator/jest';
 import { mockProvider } from '@netbasal/spectator';
 
 import { ComponentWithoutOverwrittenProvidersComponent } from '../../../test/no-overwritten-providers/no-overwritten-providers.component';
@@ -6,12 +6,12 @@ import { DummyService } from '../../../test/no-overwritten-providers/dummy.servi
 
 describe('ComponentWithoutOverwrittenProvidersComponent', () => {
   describe('with options', () => {
-    const createHost = createHostComponentFactory({
+    const createHost = createHostFactory({
       component: ComponentWithoutOverwrittenProvidersComponent,
       componentProviders: [mockProvider(DummyService)]
     });
 
-    it('should not overwrite component\'s providers and work using createHostComponentFactory', () => {
+    it('should not overwrite components providers and work using createHostFactory', () => {
       const { component } = createHost(`
         <app-component-without-overwritten-providers>
         </app-component-without-overwritten-providers>
@@ -23,9 +23,9 @@ describe('ComponentWithoutOverwrittenProvidersComponent', () => {
   });
 
   // describe('with component', () => {
-  //   let createHost = createHostComponentFactory(ComponentWithoutOverwrittenProvidersComponent);
+  //   let createHost = createHostFactory(ComponentWithoutOverwrittenProvidersComponent);
   //
-  //   it('should not overwrite component\'s providers and work using createHostComponentFactory', () => {
+  //   it('should not overwrite component\'s providers and work using createHostFactory', () => {
   //     const { component } = createHost(`
   //       <app-component-without-overwritten-providers>
   //       </app-component-without-overwritten-providers>

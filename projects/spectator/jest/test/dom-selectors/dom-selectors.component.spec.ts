@@ -1,19 +1,10 @@
-import {
-  createTestComponentFactory,
-  Spectator,
-  byAltText,
-  byLabel,
-  byPlaceholder,
-  byText,
-  byTitle,
-  byValue
-} from '@netbasal/spectator/jest';
+import { createComponentFactory, Spectator, byAltText, byLabel, byPlaceholder, byText, byTitle, byValue } from '@netbasal/spectator/jest';
 
 import { DomSelectorsComponent } from '../../../test/dom-selectors/dom-selectors.component';
 
 describe('DomSelectorsComponent', () => {
   let spectator: Spectator<DomSelectorsComponent>;
-  const createComponent = createTestComponentFactory(DomSelectorsComponent);
+  const createComponent = createComponentFactory(DomSelectorsComponent);
 
   beforeEach(() => {
     spectator = createComponent();

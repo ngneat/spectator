@@ -1,11 +1,11 @@
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { createHostComponentFactory, SpectatorWithHost, Spectator, createTestComponentFactory } from '@netbasal/spectator/jest';
+import { createHostFactory, SpectatorHost, Spectator, createComponentFactory } from '@netbasal/spectator/jest';
 
 import { FormInputComponent } from '../../../test/form-input/form-input.component';
 
 describe('FormInputComponent', () => {
-  let host: SpectatorWithHost<FormInputComponent>;
-  const createHost = createHostComponentFactory({
+  let host: SpectatorHost<FormInputComponent>;
+  const createHost = createHostFactory({
     component: FormInputComponent,
     imports: [ReactiveFormsModule]
   });
@@ -35,7 +35,7 @@ describe('FormInputComponent', () => {
     enableSubnet: true
   };
 
-  const createComponent = createTestComponentFactory({
+  const createComponent = createComponentFactory({
     component: FormInputComponent,
     imports: [ReactiveFormsModule]
   });

@@ -1,11 +1,11 @@
-import { createHostComponentFactory, SpectatorWithHost } from '@netbasal/spectator';
+import { createHostFactory, SpectatorWithHost } from '@netbasal/spectator';
 
 import { HelloComponent } from './hello.component';
 
 describe('HelloComponent', () => {
   let host: SpectatorWithHost<HelloComponent>;
 
-  const createHost = createHostComponentFactory(HelloComponent);
+  const createHost = createHostFactory(HelloComponent);
 
   it('should display the title', () => {
     host = createHost(`<hello></hello>`, {

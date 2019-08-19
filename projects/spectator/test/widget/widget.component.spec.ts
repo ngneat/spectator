@@ -1,4 +1,4 @@
-import { createHostComponentFactory, SpectatorWithHost, SpyObject } from '@netbasal/spectator';
+import { createHostFactory, SpectatorWithHost, SpyObject } from '@netbasal/spectator';
 
 import { WidgetService } from '../widget.service';
 
@@ -7,7 +7,7 @@ import { WidgetComponent } from './widget.component';
 describe('WidgetComponent', () => {
   let host: SpectatorWithHost<WidgetComponent>;
 
-  const createHost = createHostComponentFactory({
+  const createHost = createHostFactory({
     component: WidgetComponent,
     mocks: [WidgetService]
   });

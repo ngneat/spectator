@@ -1,4 +1,4 @@
-import { createHostComponentFactory, SpectatorWithHost } from '@netbasal/spectator';
+import { createHostFactory, SpectatorWithHost } from '@netbasal/spectator';
 import { fakeAsync, tick } from '@angular/core/testing';
 
 import { AsyncInputComponent } from './async-input.component';
@@ -6,7 +6,7 @@ import { AsyncInputComponent } from './async-input.component';
 describe('ZippyComponent', () => {
   let host: SpectatorWithHost<AsyncInputComponent>;
 
-  const createHost = createHostComponentFactory(AsyncInputComponent);
+  const createHost = createHostFactory(AsyncInputComponent);
 
   it('should work', () => {
     const { component } = createHost(`<app-async-input></app-async-input>`);

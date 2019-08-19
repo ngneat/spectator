@@ -1,11 +1,11 @@
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { createHostComponentFactory, SpectatorWithHost, Spectator, createTestComponentFactory } from '@netbasal/spectator';
+import { createHostFactory, SpectatorWithHost, Spectator, createComponentFactory } from '@netbasal/spectator';
 
 import { FormInputComponent } from './form-input.component';
 
 describe('FormInputComponent', () => {
   let host: SpectatorWithHost<FormInputComponent>;
-  const createHost = createHostComponentFactory({
+  const createHost = createHostFactory({
     component: FormInputComponent,
     imports: [ReactiveFormsModule]
   });
@@ -29,7 +29,7 @@ describe('FormInputComponent', () => {
   let spectator: Spectator<FormInputComponent>;
   const group = new FormGroup({ name: new FormControl('') });
 
-  const createComponent = createTestComponentFactory<FormInputComponent>({
+  const createComponent = createComponentFactory<FormInputComponent>({
     component: FormInputComponent,
     imports: [ReactiveFormsModule]
   });

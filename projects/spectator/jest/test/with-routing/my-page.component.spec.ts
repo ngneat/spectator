@@ -1,11 +1,11 @@
 import { Router, RouterLink } from '@angular/router';
-import { createRoutedComponentFactory } from '@netbasal/spectator/jest';
+import { createRoutingFactory } from '@netbasal/spectator/jest';
 
 import { MyPageComponent } from '../../../test/with-routing/my-page.component';
 
 describe('MyPageComponent', () => {
   describe('simple use', () => {
-    const createComponent = createRoutedComponentFactory(MyPageComponent);
+    const createComponent = createRoutingFactory(MyPageComponent);
 
     it('should create', () => {
       const spectator = createComponent();
@@ -15,7 +15,7 @@ describe('MyPageComponent', () => {
   });
 
   describe('route options', () => {
-    const createComponent = createRoutedComponentFactory({
+    const createComponent = createRoutingFactory({
       component: MyPageComponent,
       data: { title: 'lorem', dynamicTitle: 'ipsum' },
       params: { foo: '1', bar: '2' },
@@ -84,7 +84,7 @@ describe('MyPageComponent', () => {
   });
 
   describe('routerLinks', () => {
-    const createComponent = createRoutedComponentFactory(MyPageComponent);
+    const createComponent = createRoutingFactory(MyPageComponent);
 
     it('should mock routerLinks', () => {
       const spectator = createComponent();
@@ -97,7 +97,7 @@ describe('MyPageComponent', () => {
   });
 
   describe('default router mocking', () => {
-    const createComponent = createRoutedComponentFactory({
+    const createComponent = createRoutingFactory({
       component: MyPageComponent
     });
 

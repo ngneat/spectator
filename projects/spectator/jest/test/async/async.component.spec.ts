@@ -1,12 +1,12 @@
-import { createHostComponentFactory, SpectatorWithHost } from '@netbasal/spectator/jest';
+import { createHostFactory, SpectatorHost } from '@netbasal/spectator/jest';
 
 import { AsyncComponent } from '../../../test/async/async.component';
 import { QueryService } from '../../../test/query.service';
 
 describe('ZippyComponent', () => {
-  let host: SpectatorWithHost<AsyncComponent>;
+  let host: SpectatorHost<AsyncComponent>;
 
-  const createHost = createHostComponentFactory({
+  const createHost = createHostFactory({
     component: AsyncComponent,
     mocks: [QueryService]
   });
