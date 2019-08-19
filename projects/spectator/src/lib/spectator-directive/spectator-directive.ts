@@ -5,12 +5,12 @@ import { setProps } from '../internals/query';
 import { Token } from '../token';
 import { DomSpectator } from '../base/dom-spectator';
 import { SpyObject } from '../mock';
-import { HostComponent } from '../spectator-with-host/host-component';
+import { HostComponent } from '../spectator-host/host-component';
 
 /**
  * @publicApi
  */
-export class SpectatorForDirective<D, H = HostComponent> extends DomSpectator<D> {
+export class SpectatorDirective<D, H = HostComponent> extends DomSpectator<D> {
   constructor(
     public hostComponent: H,
     public fixture: ComponentFixture<H>,

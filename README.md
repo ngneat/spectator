@@ -33,16 +33,16 @@ TODO
 `ng add @netbasal/spectator`
 
 ## Testing Components
-Create a component factory by using the `createTestComponentFactory()` function, passing the component class that you want to test.
-The `createTestComponentFactory()` returns a function that will create a fresh component in each `it` block:
+Create a component factory by using the `createComponentFactory()` function, passing the component class that you want to test.
+The `createComponentFactory()` returns a function that will create a fresh component in each `it` block:
 
 ```ts
 import { ButtonComponent } from './button.component';
-import { Spectator, createTestComponentFactory } from '@netbasal/spectator';
+import { Spectator, createComponentFactory } from '@netbasal/spectator';
 
 describe('ButtonComponent', () => {
   let spectator: Spectator<ButtonComponent>;
-  const createComponent = createTestComponentFactory(ButtonComponent);
+  const createComponent = createComponentFactory(ButtonComponent);
   
   beforeEach(() => spectator = createComponent());
 
@@ -58,10 +58,10 @@ describe('ButtonComponent', () => {
 });
 ```
 
-The `createTestComponentFactory` function can optionally take the following options which extends the basic Angular Testing Module options:
+The `createComponentFactory` function can optionally take the following options which extends the basic Angular Testing Module options:
 
 ```ts
-const createComponent = createTestComponentFactory({
+const createComponent = createComponentFactory({
   component: ButtonComponent,
   imports: [],
   providers: [],
@@ -219,12 +219,12 @@ spectator.query(byText('By text'));
 Testing a component with a host is a more elegant and powerful technique to test your component. It basically gives you the ability to write your tests in the same way that you write your code. Let's see it in action:
 
 ```ts
-import { createHostComponentFactory } from '@netbasal/spectator';
+import { createHostFactory, SpectatorHost } from '@netbasal/spectator';
 
 describe('ZippyComponent', () => {
-  let host: SpectatorWithHost<ZippyComponent>;
+  let host: SpectatorHost<ZippyComponent>;
 
-  const createHost = createHostComponentFactory(ZippyComponent);
+  const createHost = createHostFactory(ZippyComponent);
 
   it('should display the title from host property', () => {
     host = createHost(`<zippy [title]="title"></zippy>`, {
@@ -245,7 +245,7 @@ describe('ZippyComponent', () => {
   });
 });
 ```
-The host method returns an instance of `SpectatorWithHost` which extends `Spectator` with the following additional API:
+The host method returns an instance of `SpectatorHost` which extends `Spectator` with the following additional API:
 - `hostFixture` - The host's fixture
 - `hostComponent` - The host's component instance
 - `hostElement` - The host's native element
@@ -264,9 +264,9 @@ class CustomHostComponent {
 }
 
 describe('With Custom Host Component', function () {
-  let host: SpectatorWithHost<ZippyComponent, CustomHostComponent>;
+  let host: SpectatorHost<ZippyComponent, CustomHostComponent>;
 
-  const createHost = createHostComponentFactory({
+  const createHost = createHostFactory({
     component: ZippyComponent,
     host: CustomHostComponent
   });
@@ -303,11 +303,12 @@ export class HighlightDirective {
 Let's see how we can test directives easily with Spectator:
 ```ts
 describe('HighlightDirective', () => {
-  let spectator: SpectatorForDirective<HighlightDirective>;
-  const createHost = createHostDirectiveFactory(HighlightDirective);
+  const createDirective = createDirectiveFactory(HighlightDirective);
+
+  let spectator: SpectatorDirective<HighlightDirective>;
 
   beforeEach(() => {
-    spectator = createHost(`<div highlight>Testing Highlight Directive</div>`);
+    spectator = createDirective(`<div highlight>Testing Highlight Directive</div>`);
   });
 
   it('should change the background color', () => {
@@ -373,15 +374,19 @@ export class AuthService {
 ```
 The following example shows how to test the `AuthService` with Spectator:
 ```ts
-import { createService } from "@netbasal/spectator";
+import { createServiceFactory } from "@netbasal/spectator";
 
 describe("AuthService", () => {
-  const spectator = createService({
+  const createService = createServiceFactory({
     service: AuthService,
     providers: [],
     entryComponents: [],
     mocks: [DateService]
   });
+
+  const spectator: SpectatorService<AuthService>;
+  
+  beforeEach(() => spectator = createService());
 
   it("should not be logged in", () => {
     let dateService = spectator.get(DateService);
@@ -413,7 +418,7 @@ The `createService()` function returns a plain object with the following propert
 
 `mockProvider()` doesn't include properties. In case you need to have properties on your mock you can use 2nd argument:
 ```ts
- const spectator = createService({
+  const createService = createServiceFactory({
     service: AuthService,
     providers: [
       mockProvider(OtherService, {
@@ -426,7 +431,7 @@ The `createService()` function returns a plain object with the following propert
 ```
 
 ## Testing Angular's HTTP Client 
-Spector makes testing data services, which use the Angular HTTP module, a lot easier. For example, let's say that you have data service with two methods, one performs a GET and one a POST:
+Spectator makes testing data services, which use the Angular HTTP module, a lot easier. For example, let's say that you have data service with two methods, one performs a GET and one a POST:
 
 ```ts
 export class TodosDataService {
@@ -444,30 +449,30 @@ export class TodosDataService {
 
 The test for the above service should look like:
 ```ts
+import { createHttpFactory, HttpMethod } from '@netbasal/spectator';
 import { TodosDataService } from './todos-data.service';
-import { createHTTPFactory, HTTPMethod } from '@netbasal/spectator';
 
 describe('HttpClient testing', () => {
-  let http = createHTTPFactory<TodosDataService>(TodosDataService);
+  let createHttp = createHttpFactory<TodosDataService>(TodosDataService);
 
   it('can test HttpClient.get', () => {
-    let { dataService, controller, expectOne } = http();
+    let spectator = createHttp();
 
-    dataService.get().subscribe();
-    expectOne('todos', HTTPMethod.GET);
+    spectator.dataService.get().subscribe();
+    spectator.expectOne('todos', HTTPMethod.GET);
   });
 
   it('can test HttpClient.post', () => {
-    let { dataService, controller, expectOne } = http();
+    let spectator = createHttp();
 
-    dataService.post(1).subscribe();
+    spectator.dataService.post(1).subscribe();
 
-    const req = expectOne('todos', HTTPMethod.POST);
+    const req = spectator.expectOne('todos', HttpMethod.POST);
     expect(req.request.body['id']).toEqual(1);
   });
 });
 ```
-We need to create an HTTP factory by using the `createHTTPFactory()` function, passing the data service that you want to test. The `createHTTPFactory()` returns a function which can be called to get an instance of SpectatorHTTP with the following properties:
+We need to create an HTTP factory by using the `createHttpFactory()` function, passing the data service that you want to test. The `createHttpFactory()` returns a function which can be called to get an instance of SpectatorHttp with the following properties:
 - `controller` - A proxy for Angular `HttpTestingController`
 - `httpClient` - A proxy for Angular `HttpClient`
 - `dataService` - The data service instance
@@ -492,18 +497,22 @@ defineGlobalsInjections({
 By default, Spectator uses Jasmine for creating spies. If you are using Jest as test framework instead, you can let Spectator create Jest-compatible spies.
 
 Just import one of the following functions from `@netbasal/spectator/jest`(instead of @netbasal/spectator), and it will use Jest instead of Jasmine.
-`createTestComponentFactory()`, `createHostComponentFactory()`, `createService()`, `createHTTPFactory()`, `mockProvider()`
+`createComponentFactory()`, `createHostFactory()`, `createServiceFactory()`, `createHttpFactory()`, `mockProvider()`
 
 ```ts
 import { AuthService } from './auth.service';
 import { DateService } from './date.service';
-import { createService } from '@netbasal/spectator/jest';
+import { createServiceFactory, SpectatorService } from '@netbasal/spectator/jest';
 
 describe('AuthService', () => {
-  const spectator = createService({
+  const createService = createServiceFactory({
     service: AuthService,
     mocks: [DateService]
   });
+  
+  let spectator: SpectatorService<AuthService>;
+  
+  beforeEach(() => spectator = createService());
 
   it('should not be logged in', () => {
     const dateService = spectator.get<DateService>(DateService);

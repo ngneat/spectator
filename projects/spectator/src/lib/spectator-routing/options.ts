@@ -4,12 +4,12 @@ import { OptionalsRequired } from '../types';
 
 import { RouteOptions } from './route-options';
 
-export type SpectatorWithRoutingOptions<C> = SpectatorOptions<C> &
+export type SpectatorRoutingOptions<C> = SpectatorOptions<C> &
   RouteOptions & {
     mockRouterLinks?: boolean;
   };
 
-const defaultRoutingOptions: OptionalsRequired<SpectatorWithRoutingOptions<unknown>> = {
+const defaultRoutingOptions: OptionalsRequired<SpectatorRoutingOptions<unknown>> = {
   ...getSpectatorDefaultOptions<unknown>(),
   params: {},
   queryParams: {},
@@ -21,6 +21,6 @@ const defaultRoutingOptions: OptionalsRequired<SpectatorWithRoutingOptions<unkno
 /**
  * @internal
  */
-export function getRoutingDefaultOptions<S>(overrides: SpectatorWithRoutingOptions<S>): Required<SpectatorWithRoutingOptions<S>> {
-  return merge(defaultRoutingOptions, overrides) as Required<SpectatorWithRoutingOptions<S>>;
+export function getRoutingDefaultOptions<S>(overrides: SpectatorRoutingOptions<S>): Required<SpectatorRoutingOptions<S>> {
+  return merge(defaultRoutingOptions, overrides) as Required<SpectatorRoutingOptions<S>>;
 }

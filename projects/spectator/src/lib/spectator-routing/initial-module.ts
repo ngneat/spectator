@@ -4,13 +4,13 @@ import { ModuleMetadata } from '../base/initial-module';
 import { initialSpectatorModule } from '../spectator/initial-module';
 
 import { ActivatedRouteStub } from './activated-route-stub';
-import { SpectatorWithRoutingOptions } from './options';
+import { SpectatorRoutingOptions } from './options';
 import { RouterLinkDirectiveStub } from './router-link-stub';
 
 /**
  * @internal
  */
-export function initialRoutingModule<S>(options: Required<SpectatorWithRoutingOptions<S>>): ModuleMetadata {
+export function initialRoutingModule<S>(options: Required<SpectatorRoutingOptions<S>>): ModuleMetadata {
   const moduleMetadata = initialSpectatorModule(options);
 
   if (options.mockRouterLinks) {

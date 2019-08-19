@@ -6,25 +6,22 @@ import { BrowserDynamicTestingModule } from '@angular/platform-browser-dynamic/t
 import { setProps } from '../internals/query';
 import * as customMatchers from '../matchers';
 import { isType } from '../types';
-import { HostComponent } from '../spectator-with-host/host-component';
+import { HostComponent } from '../spectator-host/host-component';
 import { BaseSpectatorOverrides } from '../base/options';
 
-import { initialSpectatorForDirectiveModule } from './initial-module';
-import { getSpectatorForDirectiveDefaultOptions, SpectatorForDirectiveOptions } from './options';
-import { SpectatorForDirective } from './spectator-for-directive';
+import { initialSpectatorDirectiveModule } from './initial-module';
+import { getSpectatorDirectiveDefaultOptions, SpectatorDirectiveOptions } from './options';
+import { SpectatorDirective } from './spectator-directive';
 
 /**
  * @publicApi
  */
-export type SpectatorForDirectiveFactory<D, H> = (
-  template: string,
-  overrides?: SpectatorForDirectiveOverrides<D, H>
-) => SpectatorForDirective<D, H>;
+export type SpectatorDirectiveFactory<D, H> = (template: string, overrides?: SpectatorDirectiveOverrides<D, H>) => SpectatorDirective<D, H>;
 
 /**
  * @publicApi
  */
-export interface SpectatorForDirectiveOverrides<D, H> extends BaseSpectatorOverrides {
+export interface SpectatorDirectiveOverrides<D, H> extends BaseSpectatorOverrides {
   detectChanges?: boolean;
   props?: Partial<D>;
   hostProps?: H extends HostComponent
@@ -37,22 +34,22 @@ export interface SpectatorForDirectiveOverrides<D, H> extends BaseSpectatorOverr
 /**
  * @publicApi
  */
-export function createHostDirectiveFactory<D, H = HostComponent>(
-  typeOrOptions: Type<D> | SpectatorForDirectiveOptions<D, H>
-): SpectatorForDirectiveFactory<D, H> {
+export function createDirectiveFactory<D, H = HostComponent>(
+  typeOrOptions: Type<D> | SpectatorDirectiveOptions<D, H>
+): SpectatorDirectiveFactory<D, H> {
   const options = isType(typeOrOptions)
-    ? getSpectatorForDirectiveDefaultOptions<D, H>({ directive: typeOrOptions })
-    : getSpectatorForDirectiveDefaultOptions(typeOrOptions);
+    ? getSpectatorDirectiveDefaultOptions<D, H>({ directive: typeOrOptions })
+    : getSpectatorDirectiveDefaultOptions(typeOrOptions);
 
-  const moduleMetadata = initialSpectatorForDirectiveModule<D, H>(options);
+  const moduleMetadata = initialSpectatorDirectiveModule<D, H>(options);
 
   beforeEach(async(() => {
     jasmine.addMatchers(customMatchers as any);
     TestBed.configureTestingModule(moduleMetadata);
   }));
 
-  return (template: string, overrides?: SpectatorForDirectiveOverrides<D, H>) => {
-    const defaults: SpectatorForDirectiveOverrides<D, H> = { props: {}, hostProps: {} as any, detectChanges: true, providers: [] };
+  return (template: string, overrides?: SpectatorDirectiveOverrides<D, H>) => {
+    const defaults: SpectatorDirectiveOverrides<D, H> = { props: {}, hostProps: {} as any, detectChanges: true, providers: [] };
     const { detectChanges, props, hostProps, providers } = { ...defaults, ...overrides };
 
     if (providers && providers.length) {
@@ -69,7 +66,7 @@ export function createHostDirectiveFactory<D, H = HostComponent>(
       set: { template }
     });
 
-    const spectator = createSpectatorForDirective<D, H>(options);
+    const spectator = createSpectatorDirective<D, H>(options);
 
     setProps(spectator.directive, props);
     setProps(spectator.hostComponent, hostProps);
@@ -82,11 +79,11 @@ export function createHostDirectiveFactory<D, H = HostComponent>(
   };
 }
 
-function createSpectatorForDirective<D, H>(options: Required<SpectatorForDirectiveOptions<D, H>>): SpectatorForDirective<D, H> {
+function createSpectatorDirective<D, H>(options: Required<SpectatorDirectiveOptions<D, H>>): SpectatorDirective<D, H> {
   const hostFixture = TestBed.createComponent(options.host);
   const debugElement = hostFixture.debugElement.query(By.directive(options.directive));
 
-  return new SpectatorForDirective<D, H>(
+  return new SpectatorDirective<D, H>(
     hostFixture.componentInstance,
     hostFixture,
     hostFixture.debugElement,

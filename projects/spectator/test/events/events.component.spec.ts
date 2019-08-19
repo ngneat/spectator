@@ -1,11 +1,11 @@
-import { createTestComponentFactory, Spectator } from '@netbasal/spectator';
+import { createComponentFactory, Spectator } from '@netbasal/spectator';
 
 import { EventsComponent } from './events.component';
 
 describe('EventsComponent', () => {
   let spectator: Spectator<EventsComponent>;
 
-  const createComponent = createTestComponentFactory(EventsComponent);
+  const createComponent = createComponentFactory(EventsComponent);
 
   beforeEach(() => (spectator = createComponent()));
 

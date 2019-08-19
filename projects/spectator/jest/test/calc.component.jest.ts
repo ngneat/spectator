@@ -1,10 +1,10 @@
-import { createTestComponentFactory, Spectator } from '@netbasal/spectator/jest';
+import { createComponentFactory, Spectator } from '@netbasal/spectator/jest';
 
 import { CalcComponent } from './calc.component';
 
 describe('CalcComponent', () => {
   let spectator: Spectator<CalcComponent>;
-  const createComponent = createTestComponentFactory(CalcComponent);
+  const createComponent = createComponentFactory(CalcComponent);
 
   it('should be defined', () => {
     spectator = createComponent();

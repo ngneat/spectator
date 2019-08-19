@@ -1,4 +1,4 @@
-import { createTestComponentFactory, mockProvider, Spectator } from '@netbasal/spectator/jest';
+import { createComponentFactory, mockProvider, Spectator } from '@netbasal/spectator/jest';
 import { of } from 'rxjs';
 
 import { ButtonComponent } from '../../../test/button/button.component';
@@ -7,7 +7,7 @@ import { QueryService } from '../../../test/query.service';
 describe('ButtonComponent', () => {
   let spectator: Spectator<ButtonComponent>;
 
-  const createComponent = createTestComponentFactory<ButtonComponent>({
+  const createComponent = createComponentFactory<ButtonComponent>({
     component: ButtonComponent,
     componentProviders: [mockProvider(QueryService)]
   });
@@ -53,7 +53,7 @@ describe('ButtonComponent', () => {
 describe('ButtonComponent', () => {
   let spectator: Spectator<ButtonComponent>;
 
-  const createComponent = createTestComponentFactory<ButtonComponent>({
+  const createComponent = createComponentFactory<ButtonComponent>({
     component: ButtonComponent,
     componentProviders: [mockProvider(QueryService)],
     detectChanges: false
