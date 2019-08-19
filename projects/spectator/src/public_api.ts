@@ -10,6 +10,15 @@ export { createHostComponentFactory, SpectatorWithHostFactory, SpectatorWithHost
 export { initialSpectatorWithHostModule } from './lib/spectator-with-host/initial-module';
 export { HostComponent, HostModule } from './lib/spectator-with-host/host-component';
 
+export { SpectatorForDirective } from './lib/spectator-for-directive/spectator-for-directive';
+export { SpectatorForDirectiveOptions } from './lib/spectator-for-directive/options';
+export {
+  createHostDirectiveFactory,
+  SpectatorForDirectiveFactory,
+  SpectatorForDirectiveOverrides
+} from './lib/spectator-for-directive/create-factory';
+export { initialSpectatorForDirectiveModule } from './lib/spectator-for-directive/initial-module';
+
 export { SpectatorService } from './lib/spectator-service/spectator-service';
 export { SpectatorServiceOptions } from './lib/spectator-service/options';
 export { SpectatorServiceFactory, createServiceFactory, SpectatorServiceOverrides } from './lib/spectator-service/create-factory';

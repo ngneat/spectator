@@ -278,6 +278,9 @@ describe('With Custom Host Component', function () {
 });
 ```
 ## Testing Directives
+
+There is a special test factory for testing directives.  
+
 Let's say we have the following directive:
 
 ```ts
@@ -300,28 +303,28 @@ export class HighlightDirective {
 Let's see how we can test directives easily with Spectator:
 ```ts
 describe('HighlightDirective', () => {
-  let host: SpectatorWithHost<HighlightDirective>;
-  const createHost = createHostComponentFactory(HighlightDirective);
+  let spectator: SpectatorForDirective<HighlightDirective>;
+  const createHost = createHostDirectiveFactory(HighlightDirective);
 
   beforeEach(() => {
-    host = createHost(`<div highlight>Testing Highlight Directive</div>`);
+    spectator = createHost(`<div highlight>Testing Highlight Directive</div>`);
   });
 
   it('should change the background color', () => {
-    host.dispatchMouseEvent(host.element, 'mouseover');
+    spectator.dispatchMouseEvent(spectator.element, 'mouseover');
 
-    expect(host.element).toHaveStyle({
+    expect(spectator.element).toHaveStyle({
       backgroundColor: 'rgba(0,0,0, 0.1)'
     });
 
-    host.dispatchMouseEvent(host.element, 'mouseout');
-    expect(host.element).toHaveStyle({
+    spectator.dispatchMouseEvent(spectator.element, 'mouseout');
+    expect(spectator.element).toHaveStyle({
       backgroundColor: '#fff'
     });
   });
 
   it('should get the instance', () => {
-    const instance = host.query(HighlightDirective);
+    const instance = spectator.directive;
     expect(instance).toBeDefined();
   });
 });
