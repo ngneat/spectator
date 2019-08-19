@@ -3,7 +3,7 @@ import { async, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { BrowserDynamicTestingModule } from '@angular/platform-browser-dynamic/testing';
 
-import { setComponentProps } from '../internals/query';
+import { setProps } from '../internals/query';
 import * as customMatchers from '../matchers';
 import { SpectatorOverrides } from '../spectator/create-factory';
 import { isType } from '../types';
@@ -74,8 +74,8 @@ export function createHostComponentFactory<C, H = HostComponent>(
 
     const spectator = createSpectatorWithHost<C, H>(options);
 
-    setComponentProps(spectator.component, props);
-    setComponentProps(spectator.hostComponent, hostProps);
+    setProps(spectator.component, props);
+    setProps(spectator.hostComponent, hostProps);
 
     if (options.detectChanges && detectChanges) {
       spectator.detectChanges();

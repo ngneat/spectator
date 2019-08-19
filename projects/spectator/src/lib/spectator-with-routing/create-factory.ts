@@ -2,7 +2,7 @@ import { Provider, Type } from '@angular/core';
 import { async, TestBed } from '@angular/core/testing';
 import { ActivatedRoute } from '@angular/router';
 
-import { setComponentProps } from '../internals/query';
+import { setProps } from '../internals/query';
 import * as customMatchers from '../matchers';
 import { SpectatorOverrides } from '../spectator/create-factory';
 import { isType } from '../types';
@@ -27,9 +27,9 @@ export type SpectatorWithRoutingFactory<C> = (options?: SpectatorWithRoutingOver
  * @publicApi
  */
 export function createRoutedComponentFactory<C>(typeOrOptions: Type<C> | SpectatorWithRoutingOptions<C>): SpectatorWithRoutingFactory<C> {
-  const options = isType(typeOrOptions) ?
-    getRoutingDefaultOptions<C>({ component: typeOrOptions }) :
-    getRoutingDefaultOptions(typeOrOptions);
+  const options = isType(typeOrOptions)
+    ? getRoutingDefaultOptions<C>({ component: typeOrOptions })
+    : getRoutingDefaultOptions(typeOrOptions);
 
   const moduleMetadata = initialRoutingModule<C>(options);
 
@@ -71,7 +71,7 @@ export function createRoutedComponentFactory<C>(typeOrOptions: Type<C> | Spectat
 
     const spectator = createSpectatorWithRouting(options);
 
-    setComponentProps(spectator.component, props);
+    setProps(spectator.component, props);
 
     if (options.detectChanges && detectChanges) {
       spectator.detectChanges();
