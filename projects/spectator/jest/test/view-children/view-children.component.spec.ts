@@ -1,5 +1,5 @@
 import { ElementRef } from '@angular/core';
-import { createHostComponentFactory, createTestComponentFactory, Spectator, SpectatorWithHost } from '@netbasal/spectator/jest';
+import { createHostFactory, createComponentFactory, Spectator, SpectatorHost } from '@netbasal/spectator/jest';
 
 import { ViewChildrenComponent } from '../../../test/view-children/view-children.component';
 import { ChildServiceService } from '../../../test/child-service.service';
@@ -7,7 +7,7 @@ import { ChildComponent } from '../../../test/child/child.component';
 
 describe('ViewChildrenComponent', () => {
   let spectator: Spectator<ViewChildrenComponent>;
-  const createComponent = createTestComponentFactory({
+  const createComponent = createComponentFactory({
     component: ViewChildrenComponent,
     providers: [ChildServiceService],
     declarations: [ChildComponent]
@@ -47,9 +47,9 @@ describe('ViewChildrenComponent', () => {
 });
 
 describe('ContentChild', () => {
-  let host: SpectatorWithHost<ViewChildrenComponent>;
+  let host: SpectatorHost<ViewChildrenComponent>;
 
-  const createHost = createHostComponentFactory({
+  const createHost = createHostFactory({
     component: ViewChildrenComponent,
     providers: [ChildServiceService],
     declarations: [ChildComponent]

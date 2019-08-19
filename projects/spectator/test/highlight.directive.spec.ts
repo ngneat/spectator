@@ -1,11 +1,11 @@
-import { createHostComponentFactory, SpectatorWithHost } from '@netbasal/spectator';
+import { createHostFactory, SpectatorWithHost } from '@netbasal/spectator';
 
 import { HighlightDirective } from './highlight.directive';
 
 describe('HighlightDirective', () => {
   let host: SpectatorWithHost<HighlightDirective>;
 
-  const createHost = createHostComponentFactory(HighlightDirective);
+  const createHost = createHostFactory(HighlightDirective);
 
   it('should change the background color', () => {
     host = createHost(`<div highlight>Testing HighlightDirective</div>`);

@@ -1,12 +1,12 @@
-import { createHostDirectiveFactory, SpectatorForDirective, SpectatorWithHost } from '@netbasal/spectator';
-import { createHostComponentFactory } from '@netbasal/spectator/jest';
+import { createDirectiveFactory, SpectatorDirective, SpectatorHost } from '@netbasal/spectator';
+import { createHostFactory } from '@netbasal/spectator/jest';
 
 import { HighlightDirective } from '../../test/highlight.directive';
 
 describe('HighlightDirective', () => {
-  let host: SpectatorWithHost<HighlightDirective>;
+  let host: SpectatorHost<HighlightDirective>;
 
-  const createHost = createHostComponentFactory(HighlightDirective);
+  const createHost = createHostFactory(HighlightDirective);
 
   // calculated styles not supported in JSDOM
   xit('should change the background color', () => {
@@ -26,9 +26,9 @@ describe('HighlightDirective', () => {
 });
 
 describe('HighlightDirective (createHostDirectiveFactory)', () => {
-  let host: SpectatorForDirective<HighlightDirective>;
+  let host: SpectatorDirective<HighlightDirective>;
 
-  const createHost = createHostDirectiveFactory(HighlightDirective);
+  const createHost = createDirectiveFactory(HighlightDirective);
 
   // calculated styles not supported in JSDOM
   xit('should change the background color', () => {
