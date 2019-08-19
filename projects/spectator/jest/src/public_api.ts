@@ -5,6 +5,7 @@ export * from './lib/http';
 export * from './lib/mock';
 export * from './lib/spectator';
 export * from './lib/spectator-http';
+export * from './lib/spectator-for-directive';
 export * from './lib/spectator-service';
 export * from './lib/spectator-with-host';
 export * from './lib/spectator-with-routing';

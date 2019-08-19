@@ -2,7 +2,7 @@ import { Provider, Type } from '@angular/core';
 import { async, TestBed } from '@angular/core/testing';
 
 import { BaseSpectatorOverrides } from '../base/options';
-import { setComponentProps } from '../internals/query';
+import { setProps } from '../internals/query';
 import * as customMatchers from '../matchers';
 import { isType } from '../types';
 
@@ -60,7 +60,7 @@ export function createTestComponentFactory<C>(typeOrOptions: Type<C> | Spectator
 
     const spectator = createSpectator(options);
 
-    setComponentProps(spectator.component, props);
+    setProps(spectator.component, props);
 
     if (options.detectChanges && detectChanges) {
       spectator.detectChanges();

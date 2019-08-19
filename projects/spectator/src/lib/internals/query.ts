@@ -26,15 +26,15 @@ export function getChildren<R>(debugElementRoot: DebugElement): (directiveOrSele
   };
 }
 
-export function setComponentProps(component: any, key: any, value: any): void;
-export function setComponentProps(component: any, keyValues: any): void;
-export function setComponentProps(component: any, keyOrKeyValues: any, value?: any): void {
+export function setProps(instance: any, key: any, value: any): void;
+export function setProps(instance: any, keyValues: any): void;
+export function setProps(instance: any, keyOrKeyValues: any, value?: any): void {
   if (isString(keyOrKeyValues)) {
-    component[keyOrKeyValues] = value;
+    instance[keyOrKeyValues] = value;
   } else {
     // tslint:disable-next-line:forin
     for (const p in keyOrKeyValues) {
-      component[p] = keyOrKeyValues[p];
+      instance[p] = keyOrKeyValues[p];
     }
   }
 }
