@@ -10,18 +10,18 @@ import { isType } from '../types';
 
 import { HostComponent } from './host-component';
 import { initialSpectatorWithHostModule } from './initial-module';
-import { getSpectatorWithHostDefaultOptions, SpectatorWithHostOptions } from './options';
-import { SpectatorWithHost } from './spectator-with-host';
+import { getSpectatorHostDefaultOptions, SpectatorHostOptions } from './options';
+import { SpectatorHost } from './spectator-host';
 
 /**
  * @publicApi
  */
-export type SpectatorWithHostFactory<C, H> = (template: string, overrides?: SpectatorWithHostOverrides<C, H>) => SpectatorWithHost<C, H>;
+export type SpectatorHostFactory<C, H> = (template: string, overrides?: SpectatorHostOverrides<C, H>) => SpectatorHost<C, H>;
 
 /**
  * @publicApi
  */
-export interface SpectatorWithHostOverrides<C, H> extends SpectatorOverrides<C> {
+export interface SpectatorHostOverrides<C, H> extends SpectatorOverrides<C> {
   hostProps?: H extends HostComponent
     ? {
         [key: string]: any;
@@ -30,14 +30,21 @@ export interface SpectatorWithHostOverrides<C, H> extends SpectatorOverrides<C> 
 }
 
 /**
- * @publicApi
+ * @deprecated Use createHostFactory instead. To be removed in v5.
  */
 export function createHostComponentFactory<C, H = HostComponent>(
-  typeOrOptions: Type<C> | SpectatorWithHostOptions<C, H>
-): SpectatorWithHostFactory<C, H> {
+  typeOrOptions: Type<C> | SpectatorHostOptions<C, H>
+): SpectatorHostFactory<C, H> {
+  return createHostFactory<C, H>(typeOrOptions);
+}
+
+/**
+ * @publicApi
+ */
+export function createHostFactory<C, H = HostComponent>(typeOrOptions: Type<C> | SpectatorHostOptions<C, H>): SpectatorHostFactory<C, H> {
   const options = isType(typeOrOptions)
-    ? getSpectatorWithHostDefaultOptions<C, H>({ component: typeOrOptions })
-    : getSpectatorWithHostDefaultOptions(typeOrOptions);
+    ? getSpectatorHostDefaultOptions<C, H>({ component: typeOrOptions })
+    : getSpectatorHostDefaultOptions(typeOrOptions);
 
   const moduleMetadata = initialSpectatorWithHostModule<C, H>(options);
 
@@ -54,8 +61,8 @@ export function createHostComponentFactory<C, H = HostComponent>(
     }
   }));
 
-  return (template: string, overrides?: SpectatorWithHostOverrides<C, H>) => {
-    const defaults: SpectatorWithHostOverrides<C, H> = { props: {}, hostProps: {} as any, detectChanges: true, providers: [] };
+  return (template: string, overrides?: SpectatorHostOverrides<C, H>) => {
+    const defaults: SpectatorHostOverrides<C, H> = { props: {}, hostProps: {} as any, detectChanges: true, providers: [] };
     const { detectChanges, props, hostProps, providers } = { ...defaults, ...overrides };
 
     if (providers && providers.length) {
@@ -72,7 +79,7 @@ export function createHostComponentFactory<C, H = HostComponent>(
       set: { template }
     });
 
-    const spectator = createSpectatorWithHost<C, H>(options);
+    const spectator = createSpectatorHost<C, H>(options);
 
     setProps(spectator.component, props);
     setProps(spectator.hostComponent, hostProps);
@@ -85,11 +92,11 @@ export function createHostComponentFactory<C, H = HostComponent>(
   };
 }
 
-function createSpectatorWithHost<C, H>(options: Required<SpectatorWithHostOptions<C, H>>): SpectatorWithHost<C, H> {
+function createSpectatorHost<C, H>(options: Required<SpectatorHostOptions<C, H>>): SpectatorHost<C, H> {
   const hostFixture = TestBed.createComponent(options.host);
   const debugElement = hostFixture.debugElement.query(By.directive(options.component));
 
-  return new SpectatorWithHost<C, H>(
+  return new SpectatorHost<C, H>(
     hostFixture.componentInstance,
     hostFixture.debugElement,
     hostFixture.nativeElement,

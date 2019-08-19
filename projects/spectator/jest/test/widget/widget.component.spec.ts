@@ -1,12 +1,12 @@
-import { createHostComponentFactory, SpectatorWithHost } from '@netbasal/spectator/jest';
+import { createHostFactory, SpectatorHost } from '@netbasal/spectator/jest';
 
 import { WidgetComponent } from '../../../test/widget/widget.component';
 import { WidgetService } from '../../../test/widget.service';
 
 describe('WidgetComponent', () => {
-  let host: SpectatorWithHost<WidgetComponent>;
+  let host: SpectatorHost<WidgetComponent>;
 
-  const createHost = createHostComponentFactory({
+  const createHost = createHostFactory({
     component: WidgetComponent,
     mocks: [WidgetService]
   });

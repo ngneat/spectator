@@ -1,12 +1,12 @@
-import { createHostComponentFactory, SpectatorWithHost } from '@netbasal/spectator/jest';
+import { createHostFactory, SpectatorHost } from '@netbasal/spectator/jest';
 
 import { ConsumeDynamicComponent } from '../../../test/consum-dynamic/consume-dynamic.component';
 import { DynamicComponent } from '../../../test/dynamic/dynamic.component';
 
 describe('ConsumeDynamicComponent', () => {
-  let host: SpectatorWithHost<ConsumeDynamicComponent>;
+  let host: SpectatorHost<ConsumeDynamicComponent>;
 
-  const createHost = createHostComponentFactory({
+  const createHost = createHostFactory({
     declarations: [DynamicComponent],
     entryComponents: [DynamicComponent],
     component: ConsumeDynamicComponent

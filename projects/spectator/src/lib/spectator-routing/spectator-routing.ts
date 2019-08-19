@@ -9,7 +9,7 @@ import { RouteOptions } from './route-options';
 /**
  * @publicApi
  */
-export class SpectatorWithRouting<C> extends Spectator<C> {
+export class SpectatorRouting<C> extends Spectator<C> {
   constructor(fixture: ComponentFixture<any>, debugElement: DebugElement, private readonly activatedRouteStub: ActivatedRouteStub) {
     super(fixture, debugElement, debugElement.componentInstance, debugElement.nativeElement);
   }

@@ -1,5 +1,5 @@
 import { of } from 'rxjs';
-import { createHostComponentFactory, SpectatorWithHost } from '@netbasal/spectator';
+import { createHostFactory, SpectatorWithHost } from '@netbasal/spectator';
 
 import { QueryService } from '../query.service';
 
@@ -8,7 +8,7 @@ import { AsyncComponent } from './async.component';
 describe('ZippyComponent', () => {
   let host: SpectatorWithHost<AsyncComponent>;
 
-  const createHost = createHostComponentFactory({
+  const createHost = createHostFactory({
     component: AsyncComponent,
     mocks: [QueryService]
   });

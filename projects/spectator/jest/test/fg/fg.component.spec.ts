@@ -1,4 +1,4 @@
-import { SpectatorWithHost, createHostComponentFactory } from '@netbasal/spectator/jest';
+import { SpectatorHost, createHostFactory } from '@netbasal/spectator/jest';
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 
@@ -12,9 +12,9 @@ class CustomHostComponent {
 }
 
 describe('With Custom Host Component', () => {
-  let host: SpectatorWithHost<FgComponent, CustomHostComponent>;
+  let host: SpectatorHost<FgComponent, CustomHostComponent>;
 
-  const createHost = createHostComponentFactory({
+  const createHost = createHostFactory({
     component: FgComponent,
     imports: [ReactiveFormsModule],
     host: CustomHostComponent

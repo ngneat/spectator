@@ -9,24 +9,24 @@ import { isType } from '../types';
 
 import { ActivatedRouteStub } from './activated-route-stub';
 import { initialRoutingModule } from './initial-module';
-import { getRoutingDefaultOptions, SpectatorWithRoutingOptions } from './options';
+import { getRoutingDefaultOptions, SpectatorRoutingOptions } from './options';
 import { RouteOptions } from './route-options';
-import { SpectatorWithRouting } from './spectator-with-routing';
+import { SpectatorRouting } from './spectator-routing';
 
 /**
  * @publicApi
  */
-export type SpectatorWithRoutingOverrides<C> = SpectatorOverrides<C> & RouteOptions;
+export type SpectatorRoutingOverrides<C> = SpectatorOverrides<C> & RouteOptions;
 
 /**
  * @publicApi
  */
-export type SpectatorWithRoutingFactory<C> = (options?: SpectatorWithRoutingOverrides<C>) => SpectatorWithRouting<C>;
+export type SpectatorRoutingFactory<C> = (options?: SpectatorRoutingOverrides<C>) => SpectatorRouting<C>;
 
 /**
  * @publicApi
  */
-export function createRoutedComponentFactory<C>(typeOrOptions: Type<C> | SpectatorWithRoutingOptions<C>): SpectatorWithRoutingFactory<C> {
+export function createRoutingFactory<C>(typeOrOptions: Type<C> | SpectatorRoutingOptions<C>): SpectatorRoutingFactory<C> {
   const options = isType(typeOrOptions)
     ? getRoutingDefaultOptions<C>({ component: typeOrOptions })
     : getRoutingDefaultOptions(typeOrOptions);
@@ -48,8 +48,8 @@ export function createRoutedComponentFactory<C>(typeOrOptions: Type<C> | Spectat
     TestBed.compileComponents();
   }));
 
-  return (overrides?: SpectatorWithRoutingOverrides<C>) => {
-    const defaults: SpectatorWithRoutingOverrides<C> = {
+  return (overrides?: SpectatorRoutingOverrides<C>) => {
+    const defaults: SpectatorRoutingOverrides<C> = {
       props: {},
       detectChanges: true,
       providers: []
@@ -69,7 +69,7 @@ export function createRoutedComponentFactory<C>(typeOrOptions: Type<C> | Spectat
       useValue: new ActivatedRouteStub({ params, queryParams, data })
     });
 
-    const spectator = createSpectatorWithRouting(options);
+    const spectator = createSpectatorRouting(options);
 
     setProps(spectator.component, props);
 
@@ -81,8 +81,8 @@ export function createRoutedComponentFactory<C>(typeOrOptions: Type<C> | Spectat
   };
 }
 
-function createSpectatorWithRouting<C>(options: Required<SpectatorWithRoutingOptions<C>>): SpectatorWithRouting<C> {
+function createSpectatorRouting<C>(options: Required<SpectatorRoutingOptions<C>>): SpectatorRouting<C> {
   const fixture = TestBed.createComponent(options.component);
 
-  return new SpectatorWithRouting<C>(fixture, fixture.debugElement, TestBed.get(ActivatedRoute));
+  return new SpectatorRouting<C>(fixture, fixture.debugElement, TestBed.get(ActivatedRoute));
 }

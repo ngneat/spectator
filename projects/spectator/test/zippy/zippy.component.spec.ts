@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { fakeAsync, tick } from '@angular/core/testing';
-import { createHostComponentFactory, SpectatorWithHost } from '@netbasal/spectator';
+import { createHostFactory, SpectatorWithHost } from '@netbasal/spectator';
 
 import { QueryService } from '../query.service';
 import { CalcComponent } from '../calc/calc.component';
@@ -10,7 +10,7 @@ import { ZippyComponent } from './zippy.component';
 describe('ZippyComponent', () => {
   let host: SpectatorWithHost<ZippyComponent>;
 
-  const createHost = createHostComponentFactory({
+  const createHost = createHostFactory({
     component: ZippyComponent,
     mocks: [QueryService],
     declarations: [CalcComponent],
@@ -165,7 +165,7 @@ class CustomHostComponent {
 describe('With Custom Host Component', () => {
   let host: SpectatorWithHost<ZippyComponent, CustomHostComponent>;
 
-  const createHost = createHostComponentFactory({
+  const createHost = createHostFactory({
     component: ZippyComponent,
     componentProviders: [{ provide: QueryService, useValue: 'componentProviders' }],
     host: CustomHostComponent

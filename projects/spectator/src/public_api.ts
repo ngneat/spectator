@@ -1,37 +1,34 @@
 /// <reference path="./lib/matchers-types.d.ts" />
 export { Spectator } from './lib/spectator/spectator';
 export { SpectatorOptions } from './lib/spectator/options';
-export { createTestComponentFactory, SpectatorFactory, SpectatorOverrides } from './lib/spectator/create-factory';
+export { createTestComponentFactory, createComponentFactory, SpectatorFactory, SpectatorOverrides } from './lib/spectator/create-factory';
 export { initialSpectatorModule } from './lib/spectator/initial-module';
 
-export { SpectatorWithHost } from './lib/spectator-with-host/spectator-with-host';
-export { SpectatorWithHostOptions } from './lib/spectator-with-host/options';
-export { createHostComponentFactory, SpectatorWithHostFactory, SpectatorWithHostOverrides } from './lib/spectator-with-host/create-factory';
-export { initialSpectatorWithHostModule } from './lib/spectator-with-host/initial-module';
-export { HostComponent, HostModule } from './lib/spectator-with-host/host-component';
-
-export { SpectatorForDirective } from './lib/spectator-for-directive/spectator-for-directive';
-export { SpectatorForDirectiveOptions } from './lib/spectator-for-directive/options';
+export { SpectatorWithHost, SpectatorHost } from './lib/spectator-host/spectator-host';
+export { SpectatorHostOptions } from './lib/spectator-host/options';
 export {
-  createHostDirectiveFactory,
-  SpectatorForDirectiveFactory,
-  SpectatorForDirectiveOverrides
-} from './lib/spectator-for-directive/create-factory';
-export { initialSpectatorForDirectiveModule } from './lib/spectator-for-directive/initial-module';
+  createHostComponentFactory,
+  createHostFactory,
+  SpectatorHostFactory,
+  SpectatorHostOverrides
+} from './lib/spectator-host/create-factory';
+export { initialSpectatorWithHostModule } from './lib/spectator-host/initial-module';
+export { HostComponent, HostModule } from './lib/spectator-host/host-component';
+
+export { SpectatorDirective } from './lib/spectator-directive/spectator-directive';
+export { SpectatorDirectiveOptions } from './lib/spectator-directive/options';
+export { createDirectiveFactory, SpectatorDirectiveFactory, SpectatorDirectiveOverrides } from './lib/spectator-directive/create-factory';
+export { initialSpectatorDirectiveModule } from './lib/spectator-directive/initial-module';
 
 export { SpectatorService } from './lib/spectator-service/spectator-service';
 export { SpectatorServiceOptions } from './lib/spectator-service/options';
 export { SpectatorServiceFactory, createServiceFactory, SpectatorServiceOverrides } from './lib/spectator-service/create-factory';
 export { createService } from './lib/spectator-service/create-service';
 
-export { SpectatorWithRouting } from './lib/spectator-with-routing/spectator-with-routing';
-export { SpectatorWithRoutingOptions } from './lib/spectator-with-routing/options';
-export {
-  SpectatorWithRoutingFactory,
-  createRoutedComponentFactory,
-  SpectatorWithRoutingOverrides
-} from './lib/spectator-with-routing/create-factory';
-export { ActivatedRouteStub } from './lib/spectator-with-routing/activated-route-stub';
+export { SpectatorRouting } from './lib/spectator-routing/spectator-routing';
+export { SpectatorRoutingOptions } from './lib/spectator-routing/options';
+export { SpectatorRoutingFactory, createRoutingFactory, SpectatorRoutingOverrides } from './lib/spectator-routing/create-factory';
+export { ActivatedRouteStub } from './lib/spectator-routing/activated-route-stub';
 
 export { SpectatorHttp, HttpMethod } from './lib/spectator-http/spectator-http';
 export { SpectatorHttpOptions } from './lib/spectator-http/options';

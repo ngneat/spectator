@@ -1,0 +1,28 @@
+import { Type } from '@angular/core';
+
+import { merge } from '../internals/merge';
+import { getSpectatorDefaultOptions, SpectatorOptions } from '../spectator/options';
+import { OptionalsRequired } from '../types';
+
+import { HostComponent } from './host-component';
+
+/**
+ * @publicApi
+ */
+export interface SpectatorHostOptions<C = any, H = HostComponent> extends SpectatorOptions<C> {
+  host?: Type<H>;
+  template?: string;
+}
+
+const defaultSpectatorHostOptions: OptionalsRequired<SpectatorHostOptions> = {
+  ...getSpectatorDefaultOptions(),
+  host: HostComponent,
+  template: ''
+};
+
+/**
+ * @internal
+ */
+export function getSpectatorHostDefaultOptions<C, H>(overrides: SpectatorHostOptions<C, H>): Required<SpectatorHostOptions<C, H>> {
+  return merge(defaultSpectatorHostOptions, overrides) as Required<SpectatorHostOptions<C, H>>;
+}

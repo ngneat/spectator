@@ -1,4 +1,4 @@
-import { createHostComponentFactory, createService, createTestComponentFactory, Spectator } from '@netbasal/spectator';
+import { createHostFactory, createService, createComponentFactory, Spectator } from '@netbasal/spectator';
 import { InjectionToken } from '@angular/core';
 
 import { ConsumerService } from './consumer.service';
@@ -10,7 +10,7 @@ const MY_TOKEN = new InjectionToken<AbstractQueryService>('some-token');
 
 describe('Injection tokens', () => {
   describe('with Spectator', () => {
-    const createComponent = createTestComponentFactory({
+    const createComponent = createComponentFactory({
       component: ZippyComponent,
       mocks: [WidgetService],
       providers: [
@@ -62,7 +62,7 @@ describe('Injection tokens', () => {
   });
 
   describe('with SpectatorWithHost', () => {
-    const createHost = createHostComponentFactory({
+    const createHost = createHostFactory({
       component: ZippyComponent,
       mocks: [WidgetService],
       providers: [

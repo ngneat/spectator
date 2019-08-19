@@ -1,11 +1,11 @@
-import { createHostComponentFactory, SpectatorWithHost } from '@netbasal/spectator/jest';
+import { createHostFactory, SpectatorHost } from '@netbasal/spectator/jest';
 
 import { AppUnlessDirective } from '../../../test/unless/unless.component';
 
 describe('HelloComponent', () => {
-  let host: SpectatorWithHost<AppUnlessDirective>;
+  let host: SpectatorHost<AppUnlessDirective>;
 
-  const createHost = createHostComponentFactory(AppUnlessDirective);
+  const createHost = createHostFactory(AppUnlessDirective);
 
   it('should work', () => {
     host = createHost(`<div *appUnless="false">Hello world</div>`);
