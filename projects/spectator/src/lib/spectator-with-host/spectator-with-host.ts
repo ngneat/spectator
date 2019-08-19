@@ -2,7 +2,7 @@ import { DebugElement, Type } from '@angular/core';
 import { ComponentFixture } from '@angular/core/testing';
 
 import { DOMSelector } from '../dom-selectors';
-import { getChildren, setComponentProps } from '../internals/query';
+import { getChildren, setProps } from '../internals/query';
 import { Spectator } from '../spectator/spectator';
 import { Token } from '../token';
 import { isString, QueryOptions, QueryType } from '../types';
@@ -53,7 +53,7 @@ export class SpectatorWithHost<C, H = HostComponent> extends Spectator<C> {
   public setHostInput<K extends keyof H>(input: Partial<H>): void;
   public setHostInput<K extends keyof H>(input: K, inputValue: H[K]): void;
   public setHostInput<K extends keyof H>(input: Partial<H> | K, value?: H[K]): void {
-    setComponentProps(this.hostComponent, input, value);
+    setProps(this.hostComponent, input, value);
     this.detectChanges();
   }
 }
