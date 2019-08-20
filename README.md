@@ -26,11 +26,30 @@ Spectator helps you get rid of all the boilerplate grunt work, leaving you with 
 - ✅ Built-in support for component's providers
 - ✅ Strongly Typed
 
-#Table of Contents
-TODO
+## Table of Contents
+
+- [Installation](#installation)
+- [Testing Components](#testing-components)
+- [Events API](#events-api)
+  - [Keyboard Helpers](#keyboard-helpers)
+- [Queries](#queries)
+  - [String Selector](#string-selector)
+  - [Type Selector](#type-selector)
+  - [DOM Selector](#dom-selector)
+- [Testing with Host](#testing-with-host)
+  - [Custom Host Component](#custom-host-component)
+- [Testing Directives](#testing-directives)
+- [Testing Services](#testing-services)
+  - [Mock Services](#mock-services)
+- [Testing Angular's HTTP Client](#testing-angular's-http-client)
+- [Routing Testing](#routing-testing)
+- [Global Injections](#global-injections)
+- [Jest Support](jJest-support)
+- [Custom Matchers](#custom-matchers)
+
 
 ## Installation
-`ng add @netbasal/spectator`
+`ng add @ngneat/spectator`
 
 ## Testing Components
 Create a component factory by using the `createComponentFactory()` function, passing the component class that you want to test.
@@ -133,7 +152,10 @@ it('should emit the $event on click', () => {
 
 ## Events API
 Each one of the events can accept a `SpectatorElement` which can be one of the following: 
-`type SpectatorElement = string | Element | DebugElement | ElementRef | Window | Document;`
+
+```ts
+type SpectatorElement = string | Element | DebugElement | ElementRef | Window | Document;
+```
 
 - `click()` - Triggers a click event:
 ```ts
@@ -151,14 +173,6 @@ spectator.focus(SpectatorElement);
 ```ts
 spectator.typeInElement(value, SpectatorElement);
 ```
-#### Keyboard Helpers
-```ts
-spectator.keyboard.pressEnter();
-spectator.keyboard.pressEscape();
-spectator.keyboard.pressTab();
-spectator.keyboard.pressBackspace();
-spectator.keyboard.pressKey('a');
-```
 - `dispatchMouseEvent()` - Triggers a mouse event:
 ```ts
 spectator.dispatchMouseEvent(SpectatorElement, 'mouseout');
@@ -172,12 +186,22 @@ spectator.dispatchKeyboardEvent(SpectatorElement, 'keyup', 'Escape');
 ```ts
 spectator.dispatchTouchEvent(SpectatorElement, type, x, y);
 ```
+
+### Keyboard Helpers
+```ts
+spectator.keyboard.pressEnter();
+spectator.keyboard.pressEscape();
+spectator.keyboard.pressTab();
+spectator.keyboard.pressBackspace();
+spectator.keyboard.pressKey('a');
+```
+
 Note that each one of the above methods will also run `detectChanges()`.
 
-### Queries
+## Queries
 Spectator's API includes convenient methods for querying the DOM as part of a test: `query`, `queryAll`, `queryLast` , `queryHost` and `queryHostAll`. All query methods are polymorphic and allow you to query using any of the following techniques:
 
-#### String selector:
+### String Selector:
  Pass a string selector (in the same style as you would when using jQuery or document.querySelector) to query for elements that match that path in the DOM. This method for querying is equivalent to Angular's By.css predicate. Note that native HTML elements will be returned. For example:
  ```ts
 // Returns a single HTMLElement
@@ -190,7 +214,7 @@ spectator.query('div', { root: true });
 
 spectator.query('app-child', { read: ChildServiceService });
 ```
- #### Type selector:
+ ### Type Selector:
 Pass a type (such as a component, directive or provider class) to query for instances of that type in the DOM. This is equivalent to Angular's `By.directive` predicate. You can optionally pass in a second parameter to read a specific injection token from the matching elements' injectors. For example:
 ```ts
 // Returns a single instance of MyComponent (if present)
@@ -203,7 +227,7 @@ spectator.query(MyComponent, { read: ElementRef });
 host.queryLast(ChildComponent);
 host.queryAll(ChildComponent);
 ```
-#### DOMSelector
+### DOM Selector
 Spectator allows you to query for elements using selectors inspired by [dom-testing-library](https://github.com/testing-library/dom-testing-library). The available selectors are:
 
 ```ts
@@ -331,32 +355,6 @@ describe('HighlightDirective', () => {
 });
 ```
 
-## Custom Matchers
-```ts
-expect('.zippy__content').not.toExist();
-expect('.zippy__content').toHaveLength(3);
-expect('.zippy__content').toHaveId('id');
-expect('.zippy__content').toHaveClass('class');
-expect('.zippy__content').toHaveClass('class a, class b');
-expect(spectator.query('.zippy')).toHaveAttribute('id', 'zippy');
-expect(spectator.query('.checkbox')).toHaveProperty('checked', true);
-expect('.zippy__content').toHaveText('Content');
-expect('.zippy__content').toHaveText((text) => text.includes('..'));
-expect('.zippy__content').toHaveValue('value');
-expect(spectator.element).toHaveStyle({backgroundColor: 'rgba(0, 0, 0, 0.1)'});
-expect('.zippy__content').toHaveData({data: 'role', val: 'admin'});
-expect('.checkbox').toBeChecked();
-expect('.button').toBeDisabled();
-expect('div').toBeEmpty();
-expect('div').toBeHidden();
-expect('element').toBeSelected();
-expect('element').toBeVisible();
-expect('input').toBeFocused();
-expect('div').toBeMatchedBy('.js-something');
-expect('div').toHaveDescendant('.child');
-expect('div').toHaveDescendantWithText({selector: '.child', text: 'text'});
-```
-
 ## Testing Services
 When testing a service it’s often the case that we want to mock other services in its DI, as we focus on the service being tested. For example:
 ```ts
@@ -402,7 +400,7 @@ describe("AuthService", () => {
 });
 ```
 
-#### Mock Services
+### Mock Services
 Every service that we pass to the `mocks` property will be called with the `mockProvider()` function. The `mockProvider()` function converts each service method to a jasmine spy. (i.e `jasmine.createSpy()`). Here are some of the methods it exposes:
 ```ts
 dateService.isExpired.and.callThrough();
@@ -526,6 +524,32 @@ describe('AuthService', () => {
     expect(spectator.service.isLoggedIn()).toBeTruthy();
   });
 });
+```
+
+## Custom Matchers
+```ts
+expect('.zippy__content').not.toExist();
+expect('.zippy__content').toHaveLength(3);
+expect('.zippy__content').toHaveId('id');
+expect('.zippy__content').toHaveClass('class');
+expect('.zippy__content').toHaveClass('class a, class b');
+expect(spectator.query('.zippy')).toHaveAttribute('id', 'zippy');
+expect(spectator.query('.checkbox')).toHaveProperty('checked', true);
+expect('.zippy__content').toHaveText('Content');
+expect('.zippy__content').toHaveText((text) => text.includes('..'));
+expect('.zippy__content').toHaveValue('value');
+expect(spectator.element).toHaveStyle({backgroundColor: 'rgba(0, 0, 0, 0.1)'});
+expect('.zippy__content').toHaveData({data: 'role', val: 'admin'});
+expect('.checkbox').toBeChecked();
+expect('.button').toBeDisabled();
+expect('div').toBeEmpty();
+expect('div').toBeHidden();
+expect('element').toBeSelected();
+expect('element').toBeVisible();
+expect('input').toBeFocused();
+expect('div').toBeMatchedBy('.js-something');
+expect('div').toHaveDescendant('.child');
+expect('div').toHaveDescendantWithText({selector: '.child', text: 'text'});
 ```
 
 ## Contributors
