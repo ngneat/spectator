@@ -1,4 +1,4 @@
-import { createService, mockProvider } from '@netbasal/spectator';
+import { createService, mockProvider } from '@ngneat/spectator';
 import { Subject } from 'rxjs';
 
 import { ConsumerService } from './consumer.service';

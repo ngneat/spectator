@@ -1,5 +1,5 @@
 import { <%= classify(name)%>Directive } from './<%= dasherize(name)%>.directive';
-import { createHostComponentFactory, SpectatorWithHost } from '@netbasal/spectator';
+import { createHostComponentFactory, SpectatorWithHost } from '@ngneat/spectator';
 
 describe('<%= classify(name)%>Directive ', () => {
   let host: SpectatorWithHost<<%= classify(name)%>Directive>;

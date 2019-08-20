@@ -1,1 +1,1 @@
-export { byAltText, byLabel, byPlaceholder, byText, byTitle, byValue, byTestId } from '@netbasal/spectator';
+export { byAltText, byLabel, byPlaceholder, byText, byTitle, byValue, byTestId } from '@ngneat/spectator';

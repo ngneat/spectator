@@ -47,7 +47,7 @@ Then, in the root of your consuming app,
 Tell `npm` to link to the package:
 
 ```
-npm link @netbasal/spectator
+npm link @ngneat/spectator
 ```
 
 Run tests while preserving symlinks:
