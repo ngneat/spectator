@@ -1,4 +1,4 @@
-import { createService } from '@netbasal/spectator/jest';
+import { createService } from '@ngneat/spectator/jest';
 
 import { AuthService } from '../../test/auth.service';
 import { DateService } from '../../test/date.service';

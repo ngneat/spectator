@@ -1,4 +1,4 @@
-import { createComponentFactory, Spectator } from '@netbasal/spectator';
+import { createComponentFactory, Spectator } from '@ngneat/spectator';
 
 import { EventsComponent } from './events.component';
 

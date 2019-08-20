@@ -1,4 +1,4 @@
-import { createHostFactory, SpectatorHost } from '@netbasal/spectator/jest';
+import { createHostFactory, SpectatorHost } from '@ngneat/spectator/jest';
 
 import { AppUnlessDirective } from '../../../test/unless/unless.component';
 

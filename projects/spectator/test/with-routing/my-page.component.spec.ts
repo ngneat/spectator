@@ -1,5 +1,5 @@
 import { Router, RouterLink } from '@angular/router';
-import { createRoutingFactory } from '@netbasal/spectator';
+import { createRoutingFactory } from '@ngneat/spectator';
 
 import { MyPageComponent } from './my-page.component';
 

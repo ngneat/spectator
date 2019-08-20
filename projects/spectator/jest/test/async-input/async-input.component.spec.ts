@@ -1,4 +1,4 @@
-import { createHostFactory, SpectatorHost } from '@netbasal/spectator/jest';
+import { createHostFactory, SpectatorHost } from '@ngneat/spectator/jest';
 import { fakeAsync, tick } from '@angular/core/testing';
 
 import { AsyncInputComponent } from '../../../test/async-input/async-input.component';

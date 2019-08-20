@@ -1,4 +1,4 @@
-import { createHostFactory, createService, createComponentFactory, Spectator } from '@netbasal/spectator/jest';
+import { createHostFactory, createService, createComponentFactory, Spectator } from '@ngneat/spectator/jest';
 import { InjectionToken } from '@angular/core';
 
 import { ConsumerService } from '../../test/consumer.service';

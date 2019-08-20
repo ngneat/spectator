@@ -1,7 +1,7 @@
 import { fakeAsync, tick } from '@angular/core/testing';
 import { defer } from 'rxjs';
-import { HTTPMethod } from '@netbasal/spectator';
-import { createHTTPFactory, mockProvider, SpyObject } from '@netbasal/spectator/jest';
+import { HTTPMethod } from '@ngneat/spectator';
+import { createHTTPFactory, mockProvider, SpyObject } from '@ngneat/spectator/jest';
 
 import { TodosDataService, UserService } from '../../test/todos-data.service';
 

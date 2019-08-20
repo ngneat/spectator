@@ -22,7 +22,7 @@
       "dom"
     ],
     "paths": {
-      "@netbasal/spectator": [
+      "@ngneat/spectator": [
         "dist/spectator"
       ]
     }

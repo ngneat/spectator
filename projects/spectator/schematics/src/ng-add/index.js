@@ -5,7 +5,7 @@ const tasks_1 = require("@angular-devkit/schematics/tasks");
 const schematics_utilities_1 = require("schematics-utilities");
 function addPackageJsonDependencies() {
     return (host, context) => {
-        const dependencies = [{ type: schematics_utilities_1.NodeDependencyType.Dev, version: '~3.2.1', name: '@netbasal/spectator' }];
+        const dependencies = [{ type: schematics_utilities_1.NodeDependencyType.Dev, version: '~3.2.1', name: '@ngneat/spectator' }];
         dependencies.forEach(dependency => {
             schematics_utilities_1.addPackageJsonDependency(host, dependency);
             context.logger.info(`✅️ Added "${dependency.name}" into ${dependency.type}`);

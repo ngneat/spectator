@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { fakeAsync, tick } from '@angular/core/testing';
-import { createHostFactory, SpectatorHost } from '@netbasal/spectator/jest';
+import { createHostFactory, SpectatorHost } from '@ngneat/spectator/jest';
 
 import { ZippyComponent } from '../../../test/zippy/zippy.component';
 import { QueryService } from '../../../test/query.service';

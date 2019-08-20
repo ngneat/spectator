@@ -1,5 +1,5 @@
 import { <%= classify(name)%>Component } from './<%= dasherize(name)%>.component';
-import { Spectator, createTestComponentFactory } from '@netbasal/spectator';
+import { Spectator, createTestComponentFactory } from '@ngneat/spectator';
 
 describe('<%= classify(name)%>Component', () => {
   let spectator: Spectator<<%= classify(name)%>Component>;
