@@ -1,0 +1,130 @@
+{
+  "createComponentFactory": {
+    "prefix": "spec-comp",
+    "body": [
+      "import { Spectator, createComponentFactory } from '@ngneat/spectator';",
+      "import { ${1:name}Component } from './${2:path}.component';",
+      "",
+      "describe('${1:name}Component', () => {",
+      "  let spectator: Spectator<${1:name}Component>;",
+      "  const createComponent = createComponentFactory(${1:name}Component);",
+      "  ",
+      "  beforeEach(() => spectator = createComponent());",
+      "",
+      "  it('should ', () => {",
+      "    expect(spectator.query('button')).toHaveClass('success');",
+      "  });",
+      "});"
+    ],
+    "description": "createComponentFactory"
+  },
+  "createHostFactory": {
+    "prefix": "spec-host",
+    "body": [
+      "import { createHostFactory, SpectatorHost } from '@ngneat/spectator';",
+      "import { ${1:name}Component } from './${2:path}.component';",
+      "",
+      "describe('${1:name}Component', () => {",
+      "  let spectator: SpectatorHost<${1:name}Component>;",
+      "  const createHost = createHostFactory(${1:name}Component);",
+      "",
+      "  it('should ', () => {",
+      "    spectator = createHost(`<zippy>Hello</zippy>`);",
+      "    expect(spectator.query('.zippy__title')).toHaveText('Hello');",
+      "  });",
+      "",
+      "});"
+    ],
+    "description": "createHostFactory"
+  },
+  "createDirectiveFactory": {
+    "prefix": "spec-directive",
+    "body": [
+      "import { SpectatorDirective, createDirectiveFactory } from '@ngneat/spectator';",
+      "import { ${1:name}Directive } from './${2:path}.directive';",
+      "",
+      "describe('${1:name}Directive', () => {",
+      "  let spectator: SpectatorDirective<HighlightDirective>;",
+      "  const createDirective = createDirectiveFactory(HighlightDirective);",
+      "",
+      "",
+      "  beforeEach(() => {",
+      "    spectator = createDirective(`<div ${3:selector}></div>`);",
+      "  });",
+      "",
+      "  it('should ', () => {",
+      "     ",
+      "  });",
+      "});"
+    ],
+    "description": "createDirectiveFactory"
+  },
+  "createServiceFactory": {
+    "prefix": "spec-service",
+    "body": [
+      "import { createServiceFactory, SpectatorService } from '@ngneat/spectator';",
+      "import { ${1:name}Service } from './${2:path}.service';",
+      "",
+      "describe('${1:name}Service', () => {",
+      "  let spectator: SpectatorService<${1:name}Service>;",
+      "  const createService = createServiceFactory({",
+      "    service: ${1:name}Service,",
+      "    mocks: []",
+      "  });",
+      "",
+      "  ",
+      "  beforeEach(() => spectator = createService());",
+      "",
+      "  it('should ', () => {",
+      "    ",
+      "  });",
+      "});"
+    ],
+    "description": "createServiceFactory"
+  },
+  "createHttpFactory": {
+    "prefix": "spec-http",
+    "body": [
+      "import { createHttpFactory, HttpMethod, SpectatorHttp } from '@ngneat/spectator';",
+      "import { ${1:name}Service } from './${2:path}.service';",
+      "",
+      "describe('${1:name}Service', () => {",
+      "  let spectator: SpectatorHttp<${1:name}Service>;",
+      "  const createHttp = createHttpFactory(${1:name}Service);",
+      "",
+      "  beforeEach(() => spectator = createHttp());",
+      "",
+      "  it('should test HttpClient.get', () => {",
+      "    spectator.dataService.get().subscribe();",
+      "    spectator.expectOne('todos', HTTPMethod.GET);",
+      "  });",
+      "});"
+    ],
+    "description": "createHttpFactory"
+  },
+  "createRoutingFactory": {
+    "prefix": "spec-routing",
+    "body": [
+      "import { createRoutingFactory, SpectatorRouting } from '@ngneat/spectator';",
+      "import { ${1:name}Component } from './${2:path}.component';",
+      "",
+      "describe('${1:name}Component', () => {",
+      "  let spectator: SpectatorRouting<${1:name}Component>; ",
+      "  const createComponent = createRoutingFactory({",
+      "    component: ${1:name}Component,",
+      "    data: {},",
+      "    params: {},",
+      "    queryParams: {}",
+      "  });",
+      "",
+      "  beforeEach(() => spectator = createComponent());",
+      "",
+      "  it('should ', () => {",
+      "      ",
+      "  });",
+      "",
+      "});"
+    ],
+    "description": "createRoutingFactory"
+  }
+}
