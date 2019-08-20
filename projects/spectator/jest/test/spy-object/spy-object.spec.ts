@@ -1,4 +1,4 @@
-import { createSpyObject } from '@netbasal/spectator/jest';
+import { createSpyObject } from '@ngneat/spectator/jest';
 
 import { Person } from '../../../test/spy-object/person';
 

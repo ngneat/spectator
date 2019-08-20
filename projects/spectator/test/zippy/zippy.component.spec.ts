@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { fakeAsync, tick } from '@angular/core/testing';
-import { createHostFactory, SpectatorWithHost } from '@netbasal/spectator';
+import { createHostFactory, SpectatorWithHost } from '@ngneat/spectator';
 
 import { QueryService } from '../query.service';
 import { CalcComponent } from '../calc/calc.component';

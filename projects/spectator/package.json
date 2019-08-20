@@ -1,5 +1,5 @@
 {
-  "name": "@netbasal/spectator",
+  "name": "@ngneat/spectator",
   "description": "Angular tests made easy",
   "author": "Netanel Basal <netanel7799s@gmail.com>",
   "version": "3.12.0",

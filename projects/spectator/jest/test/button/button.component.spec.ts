@@ -1,4 +1,4 @@
-import { createComponentFactory, mockProvider, Spectator } from '@netbasal/spectator/jest';
+import { createComponentFactory, mockProvider, Spectator } from '@ngneat/spectator/jest';
 import { of } from 'rxjs';
 
 import { ButtonComponent } from '../../../test/button/button.component';

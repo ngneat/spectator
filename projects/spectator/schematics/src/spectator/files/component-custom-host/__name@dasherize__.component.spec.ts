@@ -1,5 +1,5 @@
 import { <%= classify(name)%>Component } from './<%= dasherize(name)%>.component';
-import { createHostComponentFactory, SpectatorWithHost } from '@netbasal/spectator';
+import { createHostComponentFactory, SpectatorWithHost } from '@ngneat/spectator';
 import { Component } from '@angular/core';
 
 @Component({ selector: 'custom-host', template: '' })

@@ -8,10 +8,10 @@
     ],
     "baseUrl": ".",
     "paths": {
-      "@netbasal/spectator": [
+      "@ngneat/spectator": [
         "src/public_api.ts"
       ],
-      "@netbasal/spectator/jest": [
+      "@ngneat/spectator/jest": [
         "jest/src/public_api.ts"
       ]
     }

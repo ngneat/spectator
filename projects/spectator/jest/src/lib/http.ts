@@ -1,5 +1,5 @@
 import { FactoryProvider, Type } from '@angular/core';
-import { createHTTPFactory as baseCreateHTTPFactory, SpectatorHTTP } from '@netbasal/spectator';
+import { createHTTPFactory as baseCreateHTTPFactory, SpectatorHTTP } from '@ngneat/spectator';
 
 /**
  * @deprecated Deprecated in favour of createHttpFactory

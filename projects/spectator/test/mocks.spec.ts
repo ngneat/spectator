@@ -1,4 +1,4 @@
-import { mockProvider } from '@netbasal/spectator';
+import { mockProvider } from '@ngneat/spectator';
 
 import { WidgetService } from './widget.service';
 

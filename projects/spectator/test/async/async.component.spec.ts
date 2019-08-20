@@ -1,5 +1,5 @@
 import { of } from 'rxjs';
-import { createHostFactory, SpectatorWithHost } from '@netbasal/spectator';
+import { createHostFactory, SpectatorWithHost } from '@ngneat/spectator';
 
 import { QueryService } from '../query.service';
 

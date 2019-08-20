@@ -3,7 +3,7 @@
   "extends": ["@schematics/angular"],
   "schematics": {
     "ng-add": {
-      "description": "Install the @netbasal/spectator library",
+      "description": "Install the @ngneat/spectator library",
       "factory": "./ng-add/index",
       "schema": "./ng-add/schema.json"
     },
