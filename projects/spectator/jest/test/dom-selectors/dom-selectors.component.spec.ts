@@ -1,4 +1,4 @@
-import { createComponentFactory, Spectator, byAltText, byLabel, byPlaceholder, byText, byTitle, byValue } from '@netbasal/spectator/jest';
+import { createComponentFactory, Spectator, byAltText, byLabel, byPlaceholder, byText, byTitle, byValue } from '@ngneat/spectator/jest';
 
 import { DomSelectorsComponent } from '../../../test/dom-selectors/dom-selectors.component';
 

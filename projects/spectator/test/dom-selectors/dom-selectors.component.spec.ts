@@ -1,4 +1,4 @@
-import { byAltText, byLabel, byPlaceholder, byText, byTitle, byValue, createComponentFactory, Spectator } from '@netbasal/spectator';
+import { byAltText, byLabel, byPlaceholder, byText, byTitle, byValue, createComponentFactory, Spectator } from '@ngneat/spectator';
 
 import { DomSelectorsComponent } from './dom-selectors.component';
 

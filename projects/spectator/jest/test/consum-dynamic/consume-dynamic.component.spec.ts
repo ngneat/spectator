@@ -1,4 +1,4 @@
-import { createHostFactory, SpectatorHost } from '@netbasal/spectator/jest';
+import { createHostFactory, SpectatorHost } from '@ngneat/spectator/jest';
 
 import { ConsumeDynamicComponent } from '../../../test/consum-dynamic/consume-dynamic.component';
 import { DynamicComponent } from '../../../test/dynamic/dynamic.component';

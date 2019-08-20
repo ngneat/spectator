@@ -7,7 +7,7 @@ import {
   SpectatorHostOptions,
   SpectatorHostOverrides,
   Token
-} from '@netbasal/spectator';
+} from '@ngneat/spectator';
 
 import { mockProvider, SpyObject } from './mock';
 
