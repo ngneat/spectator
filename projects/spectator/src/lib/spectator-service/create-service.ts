@@ -7,6 +7,9 @@ import { createServiceFactory } from './create-factory';
 import { SpectatorServiceOptions } from './options';
 import { SpectatorService } from './spectator-service';
 
+/**
+ * @deprecated Deprecated in favour of createServiceFactory(). Will be removed in Spectator 5.
+ */
 export function createService<S>(typeOrOptions: SpectatorServiceOptions<S> | Type<S>): SpectatorService<S> {
   const serviceFactory = createServiceFactory<S>(typeOrOptions);
 
