@@ -56,8 +56,8 @@ Create a component factory by using the `createComponentFactory()` function, pas
 The `createComponentFactory()` returns a function that will create a fresh component in each `it` block:
 
 ```ts
-import { ButtonComponent } from './button.component';
 import { Spectator, createComponentFactory } from '@ngneat/spectator';
+import { ButtonComponent } from './button.component';
 
 describe('ButtonComponent', () => {
   let spectator: Spectator<ButtonComponent>;
@@ -97,7 +97,7 @@ const createComponent = createComponentFactory({
 
 The `createComponent()` function optionally takes the following options:
 ```ts
-it('should set the title according to the [title] input', () => {
+it('should...', () => {
   spectator = createComponent({
     // The component inputs
     props: {
@@ -252,10 +252,10 @@ describe('ZippyComponent', () => {
   it('should display the title from host property', () => {
     spectator = createHost(`<zippy [title]="title"></zippy>`, {
       hostProps: {
-        title: 'ZIPPY2'
+        title: 'Spectator is Awesome'
       }
     });
-    expect(spectator.query('.zippy__title')).toHaveText('ZIPPY2');
+    expect(spectator.query('.zippy__title')).toHaveText('Spectator is Awesome');
   });
 
   it('should display the "Close" word if open', () => {
@@ -370,8 +370,9 @@ export class AuthService {
 The following example shows how to test the `AuthService` with Spectator:
 ```ts
 import { createServiceFactory } from "@ngneat/spectator";
+import { AuthService } from 'auth.service.ts';
 
-describe("AuthService", () => {
+describe('AuthService', () => {
   let spectator: SpectatorService<AuthService>;
   const createService = createServiceFactory({
     service: AuthService,
@@ -382,13 +383,13 @@ describe("AuthService", () => {
 
   beforeEach(() => spectator = createService());
 
-  it("should not be logged in", () => {
+  it('should not be logged in', () => {
     let dateService = spectator.get(DateService);
     dateService.isExpired.and.returnValue(true);
     expect(spectator.service.isLoggedIn()).toBeFalsy();
   });
 
-  it("should be logged in", () => {
+  it('should be logged in', () => {
     let dateService = spectator.get(DateService);
     dateService.isExpired.and.returnValue(false);
     expect(spectator.service.isLoggedIn()).toBeTruthy();
@@ -494,9 +495,9 @@ Just import one of the following functions from `@ngneat/spectator/jest`(instead
 `createComponentFactory()`, `createHostFactory()`, `createServiceFactory()`, `createHttpFactory()`, `mockProvider()`
 
 ```ts
+import { createServiceFactory, SpectatorService } from '@ngneat/spectator/jest';
 import { AuthService } from './auth.service';
 import { DateService } from './date.service';
-import { createServiceFactory, SpectatorService } from '@ngneat/spectator/jest';
 
 describe('AuthService', () => {
   let spectator: SpectatorService<AuthService>;
