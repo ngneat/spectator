@@ -24,7 +24,7 @@ export interface SpectatorService<S> extends BaseSpectatorService<S> {
 export type SpectatorServiceFactory<S> = (overrides?: SpectatorServiceOverrides<S>) => SpectatorService<S>;
 
 /**
- * @publicApi
+ * @deprecated Deprecated in favour of createServiceFactory(). Will be removed in Spectator 5.
  */
 export function createService<S>(typeOrOptions: SpectatorServiceOptions<S> | Type<S>): SpectatorService<S> {
   return baseCreateService({
