@@ -28,7 +28,11 @@ function showGreeting() {
     };
 }
 function default_1(options) {
-    return schematics_1.chain([options && options.skipPackageJson ? schematics_1.noop() : addPackageJsonDependencies(), options && options.skipInstall ? schematics_1.noop() : installPackageJsonDependencies(), options && options.skipGreeting ? schematics_1.noop() : showGreeting()]);
+    return schematics_1.chain([
+        options && options.skipPackageJson ? schematics_1.noop() : addPackageJsonDependencies(),
+        options && options.skipInstall ? schematics_1.noop() : installPackageJsonDependencies(),
+        options && options.skipGreeting ? schematics_1.noop() : showGreeting()
+    ]);
 }
 exports.default = default_1;
 //# sourceMappingURL=index.js.map
