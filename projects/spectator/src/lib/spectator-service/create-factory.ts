@@ -32,6 +32,15 @@ export function createServiceFactory<S>(typeOrOptions: Type<S> | SpectatorServic
     TestBed.configureTestingModule(moduleMetadata);
   });
 
+  afterEach(() => {
+    const testedService = TestBed.get(service);
+
+    if (typeof testedService.ngOnDestroy === 'function') {
+      // tslint:disable-next-line:no-life-cycle-call
+      testedService.ngOnDestroy();
+    }
+  });
+
   return (overrides?: SpectatorServiceOverrides<S>) => {
     const defaults: SpectatorServiceOverrides<S> = { providers: [] };
     const { providers } = { ...defaults, ...overrides };
