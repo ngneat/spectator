@@ -3,14 +3,14 @@ import { Subscription, Subject } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class SubjectService {
-  public subject = new Subject();
+  public subject = new Subject<string>();
 }
 
 @Injectable({ providedIn: 'root' })
 export class NgOnDestroyService implements OnDestroy {
-  private subscription: Subscription;
+  private readonly subscription: Subscription;
 
-  constructor(private subjectService: SubjectService) {
+  constructor(private readonly subjectService: SubjectService) {
     this.subscription = this.subjectService.subject.subscribe();
   }
 

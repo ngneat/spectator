@@ -4,7 +4,7 @@ import { Subject } from 'rxjs';
 import { NgOnDestroyService, SubjectService } from './ng-on-destroy.service';
 
 describe('NgOnDestroyService', () => {
-  const subjectAcrossMultipleTests$ = new Subject();
+  const subjectAcrossMultipleTests$ = new Subject<string>();
 
   const createService = createServiceFactory({
     service: NgOnDestroyService,
