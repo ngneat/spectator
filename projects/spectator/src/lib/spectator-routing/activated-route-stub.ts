@@ -27,6 +27,7 @@ export class ActivatedRouteStub extends ActivatedRoute {
       this.testParams = options.params || {};
       this.testQueryParams = options.queryParams || {};
       this.testData = options.data || {};
+      this.testFragment = options.fragment || null;
     }
 
     this.params = this.paramsSubject.asObservable();

@@ -16,33 +16,35 @@
 Spectator helps you get rid of all the boilerplate grunt work, leaving you with readable, sleek and streamlined unit tests.
 
 ## Features
-- ✅ Testing `ng-content`
-- ✅ Custom Jasmine Matchers (toHaveClass, toBeDisabled..)
+- ✅ Support for testing Angular components, directives and services
+- ✅ Easy DOM querying
 - ✅ Clean API for triggering keyboard/mouse/touch events
-- ✅ Services testing support
+- ✅ Testing `ng-content`
+- ✅ Custom Jasmine/Jest Matchers (toHaveClass, toBeDisabled..)
 - ✅ Routing testing support
 - ✅ HTTP testing support
 - ✅ Built-in support for entry components
-- ✅ Built-in support for component's providers
-- ✅ Strongly Typed
+- ✅ Built-in support for component providers
+- ✅ Auto-mocking providers
+- ✅ Strongly typed
 
 ## Table of Contents
 
 - [Installation](#installation)
 - [Testing Components](#testing-components)
-- [Events API](#events-api)
-  - [Keyboard Helpers](#keyboard-helpers)
-- [Queries](#queries)
-  - [String Selector](#string-selector)
-  - [Type Selector](#type-selector)
-  - [DOM Selector](#dom-selector)
+  - [Events API](#events-api)
+  - [Keyboard helpers](#keyboard-helpers)
+  - [Queries](#queries)
+    - [String selector](#string-selector)
+    - [Type selector](#type-selector)
+    - [DOM selector](#dom-selector)
 - [Testing with Host](#testing-with-host)
   - [Custom Host Component](#custom-host-component)
+- [Testing with Routing](#routing-testing)
 - [Testing Directives](#testing-directives)
 - [Testing Services](#testing-services)
   - [Mock Services](#mock-services)
-- [Testing Angular's HTTP Client](#testing-angular's-http-client)
-- [Routing Testing](#routing-testing)
+- [Testing with HTTP](#testing-with-http)
 - [Global Injections](#global-injections)
 - [Jest Support](jJest-support)
 - [Custom Matchers](#custom-matchers)
@@ -51,7 +53,7 @@ Spectator helps you get rid of all the boilerplate grunt work, leaving you with 
 ## Installation
 `ng add @ngneat/spectator`
 
-## Testing Components
+## Testing components
 Create a component factory by using the `createComponentFactory()` function, passing the component class that you want to test.
 The `createComponentFactory()` returns a function that will create a fresh component in each `it` block:
 
@@ -60,8 +62,8 @@ import { Spectator, createComponentFactory } from '@ngneat/spectator';
 import { ButtonComponent } from './button.component';
 
 describe('ButtonComponent', () => {
-  let spectator: Spectator<ButtonComponent>;
   const createComponent = createComponentFactory(ButtonComponent);
+  let spectator: Spectator<ButtonComponent>;
   
   beforeEach(() => spectator = createComponent());
 
@@ -150,12 +152,14 @@ it('should emit the $event on click', () => {
 });
 ```
 
-## Events API
+### Events API
 Each one of the events can accept a `SpectatorElement` which can be one of the following: 
 
 ```ts
 type SpectatorElement = string | Element | DebugElement | ElementRef | Window | Document;
 ```
+
+If not provided, the default element will be the host element of the component under test.
 
 - `click()` - Triggers a click event:
 ```ts
@@ -187,7 +191,7 @@ spectator.dispatchKeyboardEvent(SpectatorElement, 'keyup', 'Escape');
 spectator.dispatchTouchEvent(SpectatorElement, type, x, y);
 ```
 
-### Keyboard Helpers
+### Keyboard helpers
 ```ts
 spectator.keyboard.pressEnter();
 spectator.keyboard.pressEscape();
@@ -198,10 +202,10 @@ spectator.keyboard.pressKey('a');
 
 Note that each one of the above methods will also run `detectChanges()`.
 
-## Queries
-Spectator's API includes convenient methods for querying the DOM as part of a test: `query`, `queryAll`, `queryLast` , `queryHost` and `queryHostAll`. All query methods are polymorphic and allow you to query using any of the following techniques:
+### Queries
+The Spectator API includes convenient methods for querying the DOM as part of a test: `query`, `queryAll`, `queryLast` , `queryHost` and `queryHostAll`. All query methods are polymorphic and allow you to query using any of the following techniques.
 
-### String Selector:
+#### String selector
  Pass a string selector (in the same style as you would when using jQuery or document.querySelector) to query for elements that match that path in the DOM. This method for querying is equivalent to Angular's By.css predicate. Note that native HTML elements will be returned. For example:
  ```ts
 // Returns a single HTMLElement
@@ -214,7 +218,7 @@ spectator.query('div', { root: true });
 
 spectator.query('app-child', { read: ChildServiceService });
 ```
- ### Type Selector:
+#### Type selector
 Pass a type (such as a component, directive or provider class) to query for instances of that type in the DOM. This is equivalent to Angular's `By.directive` predicate. You can optionally pass in a second parameter to read a specific injection token from the matching elements' injectors. For example:
 ```ts
 // Returns a single instance of MyComponent (if present)
@@ -227,7 +231,7 @@ spectator.query(MyComponent, { read: ElementRef });
 host.queryLast(ChildComponent);
 host.queryAll(ChildComponent);
 ```
-### DOM Selector
+#### DOM selector
 Spectator allows you to query for elements using selectors inspired by [dom-testing-library](https://github.com/testing-library/dom-testing-library). The available selectors are:
 
 ```ts
@@ -240,14 +244,16 @@ spectator.query(byText('By text'));
 ```
 
 ## Testing with Host
-Testing a component with a host is a more elegant and powerful technique to test your component. It basically gives you the ability to write your tests in the same way that you write your code. Let's see it in action:
+Testing a component with a host component is a more elegant and powerful technique to test your component.
+It basically gives you the ability to write your tests in the same way that you write your code. Let's see it in action:
 
 ```ts
 import { createHostFactory, SpectatorHost } from '@ngneat/spectator';
 
 describe('ZippyComponent', () => {
-  let spectator: SpectatorHost<ZippyComponent>;
   const createHost = createHostFactory(ZippyComponent);
+
+  let spectator: SpectatorHost<ZippyComponent>;
 
   it('should display the title from host property', () => {
     spectator = createHost(`<zippy [title]="title"></zippy>`, {
@@ -259,12 +265,12 @@ describe('ZippyComponent', () => {
   });
 
   it('should display the "Close" word if open', () => {
-      spectator = createHost(`<zippy title="Zippy title">Zippy content</zippy>`);
+    spectator = createHost(`<zippy title="Zippy title">Zippy content</zippy>`);
 
-      spectator.click('.zippy__title');
+    spectator.click('.zippy__title');
 
-      expect(spectator.query('.arrow')).toHaveText('Close');
-      expect(spectator.query('.arrow')).not.toHaveText('Open');
+    expect(spectator.query('.arrow')).toHaveText('Close');
+    expect(spectator.query('.arrow')).not.toHaveText('Open');
   });
 });
 ```
@@ -299,6 +305,72 @@ describe('With Custom Host Component', function () {
   });
 });
 ```
+
+## Testing with Routing
+For components which use routing, there is a special factory available that extends the default one, and provides a stubbed `ActivatedRoute` so that you can configure additional routing options.
+
+```ts
+describe('ButtonComponent', () => {
+  const createComponent = createRoutingFactory({
+    component: ProductDetailsComponent,
+    params: { productId: '3' },
+    data: { title: 'Some title' }
+  });
+
+  let spectator: SpectatorRouting<ProductDetailsComponent>;
+  
+  beforeEach(() => spectator = createComponent());
+
+  it('should display route data title', () => {
+    expect(spectator.query('.title')).toHaveTest('Some title');
+  });
+
+  it('should react to route changes', () => {
+    spectator.setParam('productId', '5');
+
+     // your test here...
+  });
+});
+```
+
+### Updating Route
+The `SpectatorRouting` API includes convenient methods for updating the current route:
+
+```ts
+interface SpectatorRouting<C> extends Spectator<C> {
+  /**
+   * Simulates a route navigation by updating the Params, QueryParams and Data observable streams.
+   */
+  triggerNavigation(options?: RouteOptions): void;
+
+  /**
+   * Updates the route params and triggers a route navigation.
+   */
+  setRouteParam(name: string, value: string): void;
+
+  /**
+   * Updates the route query params and triggers a route navigation.
+   */
+  setRouteQueryParam(name: string, value: string): void;
+
+  /**
+   * Updates the route data and triggers a route navigation.
+   */
+  setRouteData(name: string, value: string): void;
+  
+  /**
+   * Updates the route fragment and triggers a route navigation.
+   */
+  setRouteFragment(fragment: string | null): void;
+}
+```
+
+### Routing features
+
+* It automatically provides a stub implementation for `ActivatedRoute`
+* You can configure the `params`, `queryParams`, `fragments` and `data`. You can also update them, to test how your component reacts on changes.
+* It provides a stub for `RouterLink` directives
+
 ## Testing Directives
 
 There is a special test factory for testing directives.  
@@ -325,8 +397,9 @@ export class HighlightDirective {
 Let's see how we can test directives easily with Spectator:
 ```ts
 describe('HighlightDirective', () => {
-  let spectator: SpectatorDirective<HighlightDirective>;
   const createDirective = createDirectiveFactory(HighlightDirective);
+
+  let spectator: SpectatorDirective<HighlightDirective>;
 
   beforeEach(() => {
     spectator = createDirective(`<div highlight>Testing Highlight Directive</div>`);
@@ -425,19 +498,19 @@ The `createService()` function returns a plain object with the following propert
   });
 ```
 
-## Testing Angular's HTTP Client 
+## Testing with HTTP 
 Spectator makes testing data services, which use the Angular HTTP module, a lot easier. For example, let's say that you have data service with two methods, one performs a GET and one a POST:
 
 ```ts
 export class TodosDataService {
-  constructor(private http) {}
+  constructor(private httpClient: HttpClient) {}
 
-  get() {
-    return this.http.get('todos');
+  getTodos() {
+    return this.httpClient.get('api/todos');
   }
 
-  post(id: number) {
-    return this.http.post('todos', { id });
+  postTodo(id: number) {
+    return this.httpClient.post('api/todos', { id });
   }
 }
 ```
@@ -448,20 +521,21 @@ import { createHttpFactory, HttpMethod } from '@ngneat/spectator';
 import { TodosDataService } from './todos-data.service';
 
 describe('HttpClient testing', () => {
-  let spectator: SpectatorHTTP<TodosDataService>
   const createHttp = createHttpFactory(TodosDataService);
+  
+  let spectator: SpectatorHttp<TodosDataService>;
 
   beforeEach(() => spectator = createHttp());
 
   it('can test HttpClient.get', () => {
-    spectator.dataService.get().subscribe();
-    spectator.expectOne('todos', HTTPMethod.GET);
+    spectator.dataService.getTodos().subscribe();
+    spectator.expectOne('api/todos', HttpMethod.GET);
   });
 
   it('can test HttpClient.post', () => {
-    spectator.dataService.post(1).subscribe();
+    spectator.dataService.postTodo(1).subscribe();
 
-    const req = spectator.expectOne('todos', HttpMethod.POST);
+    const req = spectator.expectOne('api/todos', HttpMethod.POST);
     expect(req.request.body['id']).toEqual(1);
   });
 });
@@ -472,9 +546,6 @@ We need to create an HTTP factory by using the `createHttpFactory()` function, p
 - `dataService` - The data service instance
 - `get()` - A proxy for Angular `TestBed.get()`
 - `expectOne()` - Expect that a single request was made which matches the given URL and it's method, and return its mock request
-
-## Routing Testing
-TODO
 
 ## Global Injections
 It's possible to define injections which will be available for each test without the need to re-declare them in each test:
