@@ -1,17 +1,17 @@
 {
   "name": "@ngneat/spectator",
-  "description": "Angular tests made easy",
+  "description": "A powerful tool to simplify your Angular tests",
   "author": "Netanel Basal <netanel7799s@gmail.com>",
-  "version": "3.12.0",
+  "version": "4.0.0-rc.1",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/NetanelBasal/spectator"
+    "url": "https://github.com/ngneat/spectator"
   },
   "bugs": {
-    "url": "https://github.com/NetanelBasal/spectator/issues"
+    "url": "https://github.com/ngneat/spectator/issues"
   },
-  "homepage": "https://github.com/NetanelBasal/spectator#readme",
+  "homepage": "https://github.com/ngneat/spectator#readme",
   "keywords": [
     "angular unit test",
     "angular simplified tests",
