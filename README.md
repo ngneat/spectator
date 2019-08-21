@@ -40,13 +40,13 @@ Spectator helps you get rid of all the boilerplate grunt work, leaving you with 
     - [DOM selector](#dom-selector)
 - [Testing with Host](#testing-with-host)
   - [Custom Host Component](#custom-host-component)
-- [Testing with Routing](#routing-testing)
+- [Testing with Routing](#testing-with-routing)
 - [Testing Directives](#testing-directives)
 - [Testing Services](#testing-services)
   - [Mock Services](#mock-services)
 - [Testing with HTTP](#testing-with-http)
 - [Global Injections](#global-injections)
-- [Jest Support](jJest-support)
+- [Jest Support](#jest-support)
 - [Custom Matchers](#custom-matchers)
 
 
