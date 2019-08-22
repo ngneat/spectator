@@ -4,7 +4,7 @@
   "description": "Angular tests made easy",
   "scripts": {
     "ng": "ng",
-    "build": "ng build && npm run build:schematics && npm run copy:schematics && npm run copy:readme",
+    "build": "ng build && npm run build:schematics && npm run copy:schematics && npm run copy:docs",
     "build:schematics": "tsc -p projects/spectator/schematics/tsconfig.json",
     "test": "ng test",
     "test:jest": "ng run spectator:test-jest",
@@ -16,7 +16,7 @@
     "precommit": "lint-staged",
     "contributors:add": "all-contributors add",
     "contributors:generate": "all-contributors generate",
-    "copy:readme": "cp README.md dist/spectator",
+    "copy:docs": "cp *.md dist/spectator",
     "copy:schematics": "cp -r projects/spectator/schematics/src/ dist/spectator/schematics",
     "release": "cd projects/spectator && standard-version --infile ../../CHANGELOG.md"
   },
