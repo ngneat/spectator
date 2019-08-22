@@ -22,11 +22,11 @@ export class SpectatorHost<C, H = HostComponent> extends Spectator<C> {
     public hostComponent: H,
     public hostDebugElement: DebugElement,
     public hostElement: HTMLElement,
-    fixture: ComponentFixture<any>,
+    public hostFixture: ComponentFixture<any>,
     debugElement?: DebugElement
   ) {
     super(
-      fixture,
+      hostFixture,
       debugElement || hostDebugElement,
       debugElement ? debugElement.componentInstance : hostComponent,
       debugElement ? debugElement.nativeElement : hostDebugElement.nativeElement
