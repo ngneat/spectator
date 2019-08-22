@@ -13,6 +13,7 @@ export interface SpectatorOptions<C = any> extends BaseSpectatorOptions {
   componentProviders?: any[];
   detectChanges?: boolean;
   declareComponent?: boolean;
+  componentMocks?: Type<any>[];
 }
 
 const defaultSpectatorOptions: OptionalsRequired<SpectatorOptions> = {
@@ -20,7 +21,8 @@ const defaultSpectatorOptions: OptionalsRequired<SpectatorOptions> = {
   shallow: false,
   declareComponent: true,
   detectChanges: true,
-  componentProviders: []
+  componentProviders: [],
+  componentMocks: []
 };
 
 /**
