@@ -4,7 +4,7 @@ import { createHttpFactory, CreateHttpOverrides } from './spectator-http/create-
 import { HttpMethod as HTTPMethod, SpectatorHttp } from './spectator-http/spectator-http';
 
 /**
- * @deprecated Deprecated in favour of createHttpFactory
+ * @deprecated Deprecated in favour of createHttpFactory. Te be removed in v5.
  */
 export function createHTTPFactory<S>(
   dataService: Type<S>,
@@ -20,6 +20,7 @@ export function createHTTPFactory<S>(
 
     return {
       dataService: spectator.dataService,
+      service: spectator.service,
       controller: spectator.controller,
       httpClient: spectator.httpClient,
       expectOne: spectator.expectOne.bind(spectator),
