@@ -115,6 +115,8 @@ We did this in order to be consistent with the new factories we introduced:
 
 The new `SpectatorHttp` has a more consistent API and supports more options, like mocks, entry components, etc.
 
+We also deprecated the `dataService` property in favour of `service`;
+
 :warning: Before:
 
 ```ts
@@ -135,7 +137,7 @@ let spectator: SpectatorHttp<SomeService>;
 beforeEach(() => spectator = createHttp());
 
 it('...', () => {
-  spectator.dataService.foo();
+  spectator.service.foo();
 });
 ```
 
