@@ -79,6 +79,12 @@ const fooDirective = spectator.query('.some-element', { read: FooDirective });
 
 The `MockComponent` and `MockDirective` were deprecated in v3 and have been removed in v4. Please use the corresponding mock functions from the `ng-mocks` library.
 
+### Component Providers
+
+In Spectator v3.x, due to a bug, all components default `providers` were removed by default.
+
+As of Spectator 4, the component providers are only replaced if you explicitly specify them using `componentProviders`.
+
 ## DEPRECATIONS :warning:
 
 Let's now discuss what we have deprecated, but not completely removed. Before Spectator releases v5, you will need to remove and replace all use of the following functionality:

@@ -42,19 +42,12 @@ export function createComponentFactory<C>(typeOrOptions: Type<C> | SpectatorOpti
 
   beforeEach(async(() => {
     jasmine.addMatchers(customMatchers as any);
-
-    @NgModule({
-      entryComponents: [moduleMetadata.entryComponents]
-    })
-    class EntryComponentModule {}
-
-    moduleMetadata.imports.push(EntryComponentModule);
     TestBed.configureTestingModule(moduleMetadata);
 
-    if (options.componentProviders.length) {
+    if (options.componentProviders.length || options.componentMocks.length) {
       TestBed.overrideComponent(options.component, {
         set: {
-          providers: options.componentProviders
+          providers: [...options.componentProviders, ...options.componentMocks.map(p => options.mockProvider(p))]
         }
       });
     }
