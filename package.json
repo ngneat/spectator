@@ -89,5 +89,6 @@
     "scripts": {
       "postbump": "npm run build"
     }
-  }
+  },
+  "version": "0.0.1"
 }
