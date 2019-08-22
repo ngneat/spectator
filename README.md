@@ -499,7 +499,7 @@ The `createService()` function returns a plain object with the following propert
 ```
 
 ## Testing with HTTP 
-Spectator makes testing data services, which use the Angular HTTP module, a lot easier. For example, let's say that you have data service with two methods, one performs a GET and one a POST:
+Spectator makes testing data services, which use the Angular HTTP module, a lot easier. For example, let's say that you have service with two methods, one performs a GET and one a POST:
 
 ```ts
 export class TodosDataService {
@@ -528,22 +528,22 @@ describe('HttpClient testing', () => {
   beforeEach(() => spectator = createHttp());
 
   it('can test HttpClient.get', () => {
-    spectator.dataService.getTodos().subscribe();
+    spectator.service.getTodos().subscribe();
     spectator.expectOne('api/todos', HttpMethod.GET);
   });
 
   it('can test HttpClient.post', () => {
-    spectator.dataService.postTodo(1).subscribe();
+    spectator.service.postTodo(1).subscribe();
 
     const req = spectator.expectOne('api/todos', HttpMethod.POST);
     expect(req.request.body['id']).toEqual(1);
   });
 });
 ```
-We need to create an HTTP factory by using the `createHttpFactory()` function, passing the data service that you want to test. The `createHttpFactory()` returns a function which can be called to get an instance of SpectatorHttp with the following properties:
+We need to create an HTTP factory by using the `createHttpFactory()` function, passing the service that you want to test. The `createHttpFactory()` returns a function which can be called to get an instance of SpectatorHttp with the following properties:
 - `controller` - A proxy for Angular `HttpTestingController`
 - `httpClient` - A proxy for Angular `HttpClient`
-- `dataService` - The data service instance
+- `service` - The service instance
 - `get()` - A proxy for Angular `TestBed.get()`
 - `expectOne()` - Expect that a single request was made which matches the given URL and it's method, and return its mock request
 
