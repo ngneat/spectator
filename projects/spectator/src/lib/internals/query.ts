@@ -22,7 +22,7 @@ export function getChildren<R>(debugElementRoot: DebugElement): (directiveOrSele
       return debugElements.map(debug => debug.nativeElement);
     }
 
-    return debugElements.map(debug => debug.componentInstance);
+    return debugElements.map(debug => debug.injector.get(directiveOrSelector));
   };
 }
 
