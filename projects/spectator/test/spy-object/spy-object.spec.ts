@@ -17,6 +17,14 @@ describe('SpyObject', () => {
     expect(person.age).toBe(29);
   });
 
+  it('should enable setting properties by just assigning', () => {
+    const person = createSpyObject(Person);
+    person.birthYear = 1990;
+    (person as any).age = 29;
+
+    expect(person.age).toBe(29);
+  });
+
   it('should allow setting properties', () => {
     const person = createSpyObject(Person);
 
