@@ -89,7 +89,8 @@ const createComponent = createComponentFactory({
   declarations: [],
   entryComponents: [],
   componentProviders: [], // Override the component's providers 
-  mocks: [], // Providers that will automatically mocked out
+  mocks: [], // Providers that will automatically be mocked
+  componentMocks: [], // Component providers that will automatically be mocked
   detectChanges: false, // Defaults to true
   declareComponent: false, // Defaults to true
   disableAnimations: false, // Defaults to true

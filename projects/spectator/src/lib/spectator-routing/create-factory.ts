@@ -37,10 +37,10 @@ export function createRoutingFactory<C>(typeOrOptions: Type<C> | SpectatorRoutin
     jasmine.addMatchers(customMatchers as any);
     TestBed.configureTestingModule(moduleMetadata);
 
-    if (options.componentProviders.length) {
+    if (options.componentProviders.length || options.componentMocks.length) {
       TestBed.overrideComponent(options.component, {
         set: {
-          providers: options.componentProviders
+          providers: [...options.componentProviders, ...options.componentMocks.map(p => options.mockProvider(p))]
         }
       });
     }
