@@ -87,7 +87,7 @@ function createSpectatorDirective<D, H>(options: Required<SpectatorDirectiveOpti
     hostFixture.componentInstance,
     hostFixture,
     hostFixture.debugElement,
-    debugElement.componentInstance,
+    debugElement.injector.get(options.directive),
     debugElement.nativeElement
   );
 }
