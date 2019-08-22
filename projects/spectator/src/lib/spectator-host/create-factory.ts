@@ -1,4 +1,4 @@
-import { Provider, Type } from '@angular/core';
+import { Provider, Type, NgModule } from '@angular/core';
 import { async, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { BrowserDynamicTestingModule } from '@angular/platform-browser-dynamic/testing';
@@ -50,6 +50,13 @@ export function createHostFactory<C, H = HostComponent>(typeOrOptions: Type<C> |
 
   beforeEach(async(() => {
     jasmine.addMatchers(customMatchers as any);
+    @NgModule({
+      entryComponents: [moduleMetadata.entryComponents]
+    })
+    class EntryComponentModule {}
+
+    moduleMetadata.imports.push(EntryComponentModule);
+
     TestBed.configureTestingModule(moduleMetadata);
 
     if (options.componentProviders.length) {

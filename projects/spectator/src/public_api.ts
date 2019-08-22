@@ -40,3 +40,4 @@ export * from './lib/matchers';
 export * from './lib/mock';
 export * from './lib/token';
 export * from './lib/types';
+export { typeInElement } from './lib/internals/type-in-element';
