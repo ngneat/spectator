@@ -1,4 +1,4 @@
-import { Provider, Type } from '@angular/core';
+import { Provider, Type, NgModule } from '@angular/core';
 import { async, TestBed } from '@angular/core/testing';
 
 import { BaseSpectatorOverrides } from '../base/options';
@@ -42,6 +42,13 @@ export function createComponentFactory<C>(typeOrOptions: Type<C> | SpectatorOpti
 
   beforeEach(async(() => {
     jasmine.addMatchers(customMatchers as any);
+
+    @NgModule({
+      entryComponents: [moduleMetadata.entryComponents]
+    })
+    class EntryComponentModule {}
+
+    moduleMetadata.imports.push(EntryComponentModule);
     TestBed.configureTestingModule(moduleMetadata);
 
     if (options.componentProviders.length) {
