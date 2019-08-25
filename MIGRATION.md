@@ -69,11 +69,18 @@ const fooDirective = spectator.getDirectiveInstance(FooDirective);
 :white_check_mark: After:
 
 ```ts
-const fooDirective = spectator.query(FooDirective);
+const fooDirective = spectator.queryHost(FooDirective);
 ```
 ```ts
-const fooDirective = spectator.query('.some-element', { read: FooDirective });
+const fooDirective = spectator.queryHost('.some-element', { read: FooDirective });
 ```
+
+### Removed `spectator.$$('.some-selector')`
+
+For global queries, we removed the `spectator.$$('.some-selector')` method.
+ 
+Please use `spectator.query('.some-selector', { root: true })` instead.
+
 
 ### Removed `MockComponent` and `MockDirective`
 

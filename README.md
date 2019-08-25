@@ -43,10 +43,11 @@ Spectator helps you get rid of all the boilerplate grunt work, leaving you with 
 - [Testing with Routing](#testing-with-routing)
 - [Testing Directives](#testing-directives)
 - [Testing Services](#testing-services)
-  - [Mock Services](#mock-services)
+- [Mocking Providers](#mocking-providers)
+- [Jest Support](#jest-support)
 - [Testing with HTTP](#testing-with-http)
 - [Global Injections](#global-injections)
-- [Jest Support](#jest-support)
+- [Component Providers](#component-providers)
 - [Custom Matchers](#custom-matchers)
 
 
@@ -427,7 +428,37 @@ describe('HighlightDirective', () => {
 ```
 
 ## Testing Services
-When testing a service it’s often the case that we want to mock other services in its DI, as we focus on the service being tested. For example:
+
+The following example shows how to test a service with Spectator:
+
+```ts
+import { createServiceFactory, SpectatorService } from '@ngneat/spectator';
+
+import { AuthService } from 'auth.service.ts';
+
+describe('AuthService', () => {
+  const createService = createServiceFactory(AuthService);
+  
+  let spectator: SpectatorService<AuthService>;
+
+  beforeEach(() => spectator = createService());
+
+  it('should not be logged in', () => {
+    expect(spectator.service.isLoggedIn()).toBeFalsy();
+  });
+});
+```
+
+The `createService()` function returns `SpectatorService` with the following properties:
+- `service` - Get an instance of the service
+- `get()` - A proxy for Angular `TestBed.get()`
+
+### Additional options
+
+It's also possible to pass an object with options. For example, when testing a service 
+you often want to mock its dependencies, as we focus on the service being tested.
+
+For example:
 ```ts
 @Injectable()
 export class AuthService {
@@ -441,49 +472,50 @@ export class AuthService {
   }
 }
 ```
-The following example shows how to test the `AuthService` with Spectator:
+In this case we can mock the `DateService` dependency.
 ```ts
-import { createServiceFactory } from "@ngneat/spectator";
+import { createServiceFactory } from '@ngneat/spectator';
+
 import { AuthService } from 'auth.service.ts';
 
 describe('AuthService', () => {
-  let spectator: SpectatorService<AuthService>;
   const createService = createServiceFactory({
     service: AuthService,
     providers: [],
     entryComponents: [],
     mocks: [DateService]
   });
+  
+  let spectator: SpectatorService<AuthService>;
 
   beforeEach(() => spectator = createService());
 
-  it('should not be logged in', () => {
-    let dateService = spectator.get(DateService);
-    dateService.isExpired.and.returnValue(true);
-    expect(spectator.service.isLoggedIn()).toBeFalsy();
-  });
-
   it('should be logged in', () => {
-    let dateService = spectator.get(DateService);
+    const dateService = spectator.get(DateService);
     dateService.isExpired.and.returnValue(false);
+
     expect(spectator.service.isLoggedIn()).toBeTruthy();
   });
 });
 ```
 
-### Mock Services
-Every service that we pass to the `mocks` property will be called with the `mockProvider()` function. The `mockProvider()` function converts each service method to a jasmine spy. (i.e `jasmine.createSpy()`). Here are some of the methods it exposes:
+## Mocking Providers
+
+For every Spectator factory, we can easily mock any provider.
+
+Every service that we pass to the `mocks` property will be mocked using the `mockProvider()` function.
+The `mockProvider()` function converts each method into a Jasmine spy. (i.e `jasmine.createSpy()`).
+
+Here are some of the methods it exposes:
+
 ```ts
 dateService.isExpired.and.callThrough();
 dateService.isExpired.and.callFake(() => fake);
 dateService.isExpired.and.throwError('Error');
 dateService.isExpired.andCallFake(() => fake);
 ```
-However, if you use Jest as test framework and you want to utilize its mocking mechanism instead, import the `mockProvider()` from `@ngneat/spectator/jest`. This will automatically use the `jest.fn()` function to create a Jest compatible mock instead.
-
-The `createService()` function returns a plain object with the following properties:
-- `service` - Get an instance of the service
-- `get()` - A proxy for Angular `TestBed.get()`
+However, if you use Jest as test framework and you want to utilize its mocking mechanism instead, import the `mockProvider()` from `@ngneat/spectator/jest`.
+This will automatically use the `jest.fn()` function to create a Jest compatible mock instead.
 
 `mockProvider()` doesn't include properties. In case you need to have properties on your mock you can use 2nd argument:
 ```ts
@@ -497,6 +529,40 @@ The `createService()` function returns a plain object with the following propert
       })
     ],
   });
+```
+
+## Jest Support
+By default, Spectator uses Jasmine for creating spies. If you are using Jest as test framework instead, you can let Spectator create Jest-compatible spies.
+
+Just import one of the following functions from `@ngneat/spectator/jest`(instead of @ngneat/spectator), and it will use Jest instead of Jasmine.
+`createComponentFactory()`, `createHostFactory()`, `createServiceFactory()`, `createHttpFactory()`, `mockProvider()`
+
+```ts
+import { createServiceFactory, SpectatorService } from '@ngneat/spectator/jest';
+import { AuthService } from './auth.service';
+import { DateService } from './date.service';
+
+describe('AuthService', () => {
+  let spectator: SpectatorService<AuthService>;
+  const createService = createServiceFactory({
+    service: AuthService,
+    mocks: [DateService]
+  });
+  
+  beforeEach(() => spectator = createService());
+
+  it('should not be logged in', () => {
+    const dateService = spectator.get<DateService>(DateService);
+    dateService.isExpired.mockReturnValue(true);
+    expect(spectator.service.isLoggedIn()).toBeFalsy();
+  });
+
+  it('should be logged in', () => {
+    const dateService = spectator.get<DateService>(DateService);
+    dateService.isExpired.mockReturnValue(false);
+    expect(spectator.service.isLoggedIn()).toBeTruthy();
+  });
+});
 ```
 
 ## Testing with HTTP 
@@ -560,38 +626,53 @@ defineGlobalsInjections({
 });
 ```
 
-## Jest Support
-By default, Spectator uses Jasmine for creating spies. If you are using Jest as test framework instead, you can let Spectator create Jest-compatible spies.
+## Component Providers
 
-Just import one of the following functions from `@ngneat/spectator/jest`(instead of @ngneat/spectator), and it will use Jest instead of Jasmine.
-`createComponentFactory()`, `createHostFactory()`, `createServiceFactory()`, `createHttpFactory()`, `mockProvider()`
+By default, the original component providers (e.g. the `providers` on the `@Component`) are not touched.
+
+However, in most cases, you want to access component providers in your test or replace them with mocks. 
+
+For example:
 
 ```ts
-import { createServiceFactory, SpectatorService } from '@ngneat/spectator/jest';
-import { AuthService } from './auth.service';
-import { DateService } from './date.service';
-
-describe('AuthService', () => {
-  let spectator: SpectatorService<AuthService>;
-  const createService = createServiceFactory({
-    service: AuthService,
-    mocks: [DateService]
-  });
+@Component({
+  template: '...',
+  providers: [FooService]
+})
+class FooComponent {
+  constructor(private fooService: FooService} {}
   
-  beforeEach(() => spectator = createService());
+  // ...
+}
+```
 
-  it('should not be logged in', () => {
-    const dateService = spectator.get<DateService>(DateService);
-    dateService.isExpired.mockReturnValue(true);
-    expect(spectator.service.isLoggedIn()).toBeFalsy();
-  });
+Use the `componentProviders` to replace the `FooService` provider:
 
-  it('should be logged in', () => {
-    const dateService = spectator.get<DateService>(DateService);
-    dateService.isExpired.mockReturnValue(false);
-    expect(spectator.service.isLoggedIn()).toBeTruthy();
-  });
+```ts
+const createComponent = createComponentFactory({
+  component: FooComponent,
+  componentProviders: [
+    {
+      provide: FooService,
+      useValue: someThingElse
+    }
+  ]
+})
+```
+
+Or mock the service by using `componentMocks`:
+
+```ts
+const createComponent = createComponentFactory({
+  component: FooComponent,
+  componentMocks: [FooService]
 });
+```
+
+To access the provider, get it from the component injector using the `fromComponentInjector` parameter:
+
+```ts
+spectator.get(FooService, true)
 ```
 
 ## Custom Matchers
