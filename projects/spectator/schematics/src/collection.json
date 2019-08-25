@@ -2,11 +2,6 @@
   "$schema": "./node_modules/@angular-devkit/schematics/collection-schema.json",
   "extends": ["@schematics/angular"],
   "schematics": {
-    "ng-add": {
-      "description": "Install the @ngneat/spectator library",
-      "factory": "./ng-add/index",
-      "schema": "./ng-add/schema.json"
-    },
     "spectator-component": {
       "description": "Spectator component",
       "factory": "./spectator/index#spectatorComponentSchematic",
