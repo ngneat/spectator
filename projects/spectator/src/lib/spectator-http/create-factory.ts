@@ -11,18 +11,18 @@ import { getDefaultHttpOptions, SpectatorHttpOptions } from './options';
 import { SpectatorHttp } from './spectator-http';
 
 /**
- * @pubicApi
+ * @publicApi
  */
 export type SpectatorHttpFactory<S> = (overrides?: CreateHttpOverrides<S>) => SpectatorHttp<S>;
 
 /**
- * @pubicApi
+ * @publicApi
  */
 // tslint:disable-next-line:no-empty-interface
 export interface CreateHttpOverrides<S> extends BaseSpectatorOverrides {}
 
 /**
- * @pubicApi
+ * @publicApi
  */
 export function createHttpFactory<S>(typeOrOptions: Type<S> | SpectatorHttpOptions<S>): SpectatorHttpFactory<S> {
   const dataService = isType(typeOrOptions) ? typeOrOptions : typeOrOptions.dataService;
