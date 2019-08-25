@@ -9,18 +9,18 @@ import { getDefaultServiceOptions, SpectatorServiceOptions } from './options';
 import { SpectatorService } from './spectator-service';
 
 /**
- * @pubicApi
+ * @publicApi
  */
 export type SpectatorServiceFactory<S> = (overrides?: SpectatorServiceOverrides<S>) => SpectatorService<S>;
 
 /**
- * @pubicApi
+ * @publicApi
  */
 // tslint:disable-next-line:no-empty-interface
 export interface SpectatorServiceOverrides<S> extends BaseSpectatorOverrides {}
 
 /**
- * @pubicApi
+ * @publicApi
  */
 export function createServiceFactory<S>(typeOrOptions: Type<S> | SpectatorServiceOptions<S>): SpectatorServiceFactory<S> {
   const service = isType(typeOrOptions) ? typeOrOptions : typeOrOptions.service;

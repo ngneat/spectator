@@ -40,5 +40,6 @@ export * from './lib/matchers';
 export * from './lib/mock';
 export * from './lib/token';
 export * from './lib/types';
-export { typeInElement } from './lib/internals/type-in-element';
+export { typeInElement } from './lib/type-in-element';
 export { defineGlobalsInjections } from './lib/globals-injections';
+export { dispatchEvent, dispatchFakeEvent, dispatchKeyboardEvent, dispatchMouseEvent, dispatchTouchEvent } from './lib/dispatch-events';

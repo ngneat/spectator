@@ -10,8 +10,8 @@ import { SpyObject } from '../mock';
 import { getChildren, setProps } from '../internals/query';
 import { patchElementFocus } from '../internals/element-focus';
 import { createMouseEvent } from '../internals/event-objects';
-import { dispatchFakeEvent, dispatchKeyboardEvent, dispatchMouseEvent, dispatchTouchEvent } from '../internals/dispatch-events';
-import { typeInElement } from '../internals/type-in-element';
+import { dispatchFakeEvent, dispatchKeyboardEvent, dispatchMouseEvent, dispatchTouchEvent } from '../dispatch-events';
+import { typeInElement } from '../type-in-element';
 
 import { BaseSpectator } from './base-spectator';
 
