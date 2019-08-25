@@ -52,7 +52,14 @@ Spectator helps you get rid of all the boilerplate grunt work, leaving you with 
 
 
 ## Installation
-`ng add @ngneat/spectator`
+
+### NPM
+
+`npm install @ngneat/spectator --save-dev`
+
+### Yarn
+
+`yarn add @ngneat/spectator --dev`
 
 ## Testing components
 Create a component factory by using the `createComponentFactory()` function, passing the component class that you want to test.
