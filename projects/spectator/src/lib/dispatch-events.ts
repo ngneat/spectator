@@ -2,10 +2,12 @@
  * Credit - Angular Material
  */
 
-import { createFakeEvent, createKeyboardEvent, createMouseEvent, createTouchEvent } from './event-objects';
+import { createFakeEvent, createKeyboardEvent, createMouseEvent, createTouchEvent } from './internals/event-objects';
 
 /**
  * Utility to dispatch any event on a Node.
+ *
+ * @publicApi
  */
 export function dispatchEvent<E extends Event = Event>(node: Node | Window, event: E): E {
   node.dispatchEvent(event);
@@ -17,6 +19,8 @@ export function dispatchEvent<E extends Event = Event>(node: Node | Window, even
  * Shorthand to dispatch a fake event on a specified node.
  *
  * dispatchFakeEvent(element, 'mousedown');
+ *
+ * @publicApi
  */
 export function dispatchFakeEvent(node: Node | Window, type: string, canBubble?: boolean): Event {
   return dispatchEvent(node, createFakeEvent(type, canBubble));
@@ -26,6 +30,8 @@ export function dispatchFakeEvent(node: Node | Window, type: string, canBubble?:
  * Shorthand to dispatch a keyboard event with a specified key.
  *
  *  dispatchKeyboardEvent(calendarBodyEl, 'keydown', 'LEFT_ARROW');
+ *
+ *  @publicApi
  */
 export function dispatchKeyboardEvent(node: Node, type: string, keyOrKeyCode: string | number, target?: Element): KeyboardEvent {
   return dispatchEvent(node, createKeyboardEvent(type, keyOrKeyCode, target));
@@ -36,6 +42,8 @@ export function dispatchKeyboardEvent(node: Node, type: string, keyOrKeyCode: st
  *
  *  dispatchMouseEvent(rippleTarget, 'mousedown', 50, 75);
  *  dispatchMouseEvent(rippleTarget, 'mouseup');
+ *
+ *  @publicApi
  */
 export function dispatchMouseEvent(
   node: Node,
@@ -51,6 +59,8 @@ export function dispatchMouseEvent(
  * Shorthand to dispatch a touch event on the specified coordinates.
  *
  * dispatchTouchEvent(rippleTarget, 'touchstart');
+ *
+ * @publicApi
  */
 export function dispatchTouchEvent(node: HTMLElement | Window | Document, type: string, x: number = 0, y: number = 0): Event {
   return dispatchEvent(node, createTouchEvent(type, x, y));
