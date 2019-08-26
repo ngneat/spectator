@@ -1,22 +1,23 @@
+import { createDirectiveFactory, SpectatorDirective } from '@ngneat/spectator';
+
 import { <%= classify(name)%>Directive } from './<%= dasherize(name)%>.directive';
-import { createHostComponentFactory, SpectatorWithHost } from '@ngneat/spectator';
 
 describe('<%= classify(name)%>Directive ', () => {
-  let host: SpectatorWithHost<<%= classify(name)%>Directive>;
+  let spectator: SpectatorDirective<<%= classify(name)%>Directive>;
 
-  const createHost = createHostComponentFactory(<%= classify(name)%>Directive);
+  const createDirective = createDirectiveFactory(<%= classify(name)%>Directive);
 
   it('should change the background color', () => {
-    host = createHost(`<div highlight>Testing <%= classify(name)%>Directive</div>`);
+    spectator = createDirective(`<div highlight>Testing <%= classify(name)%>Directive</div>`);
 
-    host.dispatchMouseEvent(host.element, 'mouseover');
+    spectator.dispatchMouseEvent(spectator.element, 'mouseover');
 
-    expect(host.element).toHaveStyle({
+    expect(spectator.element).toHaveStyle({
       backgroundColor: 'rgba(0,0,0, 0.1)'
     });
 
-    host.dispatchMouseEvent(host.element, 'mouseout');
-    expect(host.element).toHaveStyle({
+    spectator.dispatchMouseEvent(spectator.element, 'mouseout');
+    expect(spectator.element).toHaveStyle({
       backgroundColor: '#fff'
     });
   });
