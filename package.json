@@ -4,7 +4,7 @@
   "description": "Angular tests made easy",
   "scripts": {
     "ng": "ng",
-    "build": "ng build && npm run build:schematics && npm run copy:schematics && npm run copy:docs",
+    "build": "ng build && npm run build:schematics && npm run copy:schematics && npm run copy:docs && npm run copy:bin",
     "build:schematics": "tsc -p projects/spectator/schematics/tsconfig.json",
     "test": "ng test",
     "test:jest": "ng run spectator:test-jest",
@@ -16,6 +16,7 @@
     "precommit": "lint-staged",
     "contributors:add": "all-contributors add",
     "contributors:generate": "all-contributors generate",
+    "copy:bin": "cp migrate.js dist/spectator",
     "copy:docs": "cp *.md dist/spectator",
     "copy:schematics": "cp -r projects/spectator/schematics/src/ dist/spectator/schematics",
     "postbump": "npm run build",
@@ -23,7 +24,8 @@
   },
   "dependencies": {
     "@testing-library/dom": "6.1.0",
-    "jquery": "3.4.1"
+    "jquery": "3.4.1",
+    "replace-in-file": "^4.1.3"
   },
   "devDependencies": {
     "@angular-builders/jest": "^8.0.4",
