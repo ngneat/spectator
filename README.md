@@ -2,8 +2,7 @@
  <img width="100%" height="100%" src="https://raw.githubusercontent.com/NetanelBasal/spectator/v4/image.svg?sanitize=true">
 </p>
 
-[![Downloads](https://img.shields.io/npm/dt/@ngneat/spectator.svg?style=flat-square)]()
-[![All Contributors](https://img.shields.io/badge/all_contributors-16-orange.svg?style=flat-square)](#contributors)
+[![All Contributors](https://img.shields.io/badge/all_contributors-13-orange.svg?style=flat-square)](#contributors)
 [![spectator](https://img.shields.io/badge/tested%20with-spectator-2196F3.svg?style=flat-square)]()
 [![MIT](https://img.shields.io/packagist/l/doctrine/orm.svg?style=flat-square)]()
 [![commitizen](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg?style=flat-square)]()
@@ -11,7 +10,7 @@
 [![styled with prettier](https://img.shields.io/badge/styled_with-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
 [![Build Status](https://travis-ci.org/ngneat/spectator.svg?branch=master)](https://travis-ci.org/ngneat/spectator)
 
-> Angular Tests Done Right
+> A Powerful Tool to Simplify Your Angular Tests
 
 Spectator helps you get rid of all the boilerplate grunt work, leaving you with readable, sleek and streamlined unit tests.
 
@@ -27,6 +26,7 @@ Spectator helps you get rid of all the boilerplate grunt work, leaving you with 
 - ✅ Built-in support for component providers
 - ✅ Auto-mocking providers
 - ✅ Strongly typed
+- ✅ Jest Support
 
 ## Table of Contents
 
@@ -35,9 +35,9 @@ Spectator helps you get rid of all the boilerplate grunt work, leaving you with 
   - [Events API](#events-api)
   - [Keyboard helpers](#keyboard-helpers)
   - [Queries](#queries)
-    - [String selector](#string-selector)
-    - [Type selector](#type-selector)
-    - [DOM selector](#dom-selector)
+    - [String Selector](#string-selector)
+    - [Type Selector](#type-selector)
+    - [DOM Selector](#dom-selector)
 - [Testing with Host](#testing-with-host)
   - [Custom Host Component](#custom-host-component)
 - [Testing with Routing](#testing-with-routing)
@@ -61,7 +61,7 @@ Spectator helps you get rid of all the boilerplate grunt work, leaving you with 
 
 `yarn add @ngneat/spectator --dev`
 
-## Testing components
+## Testing Components
 Create a component factory by using the `createComponentFactory()` function, passing the component class that you want to test.
 The `createComponentFactory()` returns a function that will create a fresh component in each `it` block:
 
@@ -70,8 +70,8 @@ import { Spectator, createComponentFactory } from '@ngneat/spectator';
 import { ButtonComponent } from './button.component';
 
 describe('ButtonComponent', () => {
+  let spectator: Spectator<ButtonComponent>;   
   const createComponent = createComponentFactory(ButtonComponent);
-  let spectator: Spectator<ButtonComponent>;
   
   beforeEach(() => spectator = createComponent());
 
@@ -143,17 +143,17 @@ spectator.detectChanges();
 - `setInput()` - Changes the value of an @Input() of the tested component:
 ```ts
 it('should...', () => {
-   spectator.setInput('className', 'danger');
+  spectator.setInput('className', 'danger');
 
-   spectator.setInput({
-     className: 'danger'
-   });
+  spectator.setInput({
+    className: 'danger'
+  });
 });
 ```
 - `output` - Returns an Observable @Output() of the tested component:
 ```ts
 it('should emit the $event on click', () => {
- let output;
+  let output;
   spectator.output('click').subscribe(result => (output = result));
 
   spectator.component.onClick({ type: 'click' });
@@ -214,7 +214,7 @@ Note that each one of the above methods will also run `detectChanges()`.
 ### Queries
 The Spectator API includes convenient methods for querying the DOM as part of a test: `query`, `queryAll`, `queryLast` , `queryHost` and `queryHostAll`. All query methods are polymorphic and allow you to query using any of the following techniques.
 
-#### String selector
+#### String Selector
  Pass a string selector (in the same style as you would when using jQuery or document.querySelector) to query for elements that match that path in the DOM. This method for querying is equivalent to Angular's By.css predicate. Note that native HTML elements will be returned. For example:
  ```ts
 // Returns a single HTMLElement
@@ -227,7 +227,7 @@ spectator.query('div', { root: true });
 
 spectator.query('app-child', { read: ChildServiceService });
 ```
-#### Type selector
+#### Type Selector
 Pass a type (such as a component, directive or provider class) to query for instances of that type in the DOM. This is equivalent to Angular's `By.directive` predicate. You can optionally pass in a second parameter to read a specific injection token from the matching elements' injectors. For example:
 ```ts
 // Returns a single instance of MyComponent (if present)
@@ -240,8 +240,8 @@ spectator.query(MyComponent, { read: ElementRef });
 host.queryLast(ChildComponent);
 host.queryAll(ChildComponent);
 ```
-#### DOM selector
-Spectator allows you to query for elements using selectors inspired by [dom-testing-library](https://github.com/testing-library/dom-testing-library). The available selectors are:
+#### DOM Selector
+Spectator allows you to query for elements using selectors inspired by [dom-testing-library](https://testing-library.com/docs/dom-testing-library/api-queries). The available selectors are:
 
 ```ts
 spectator.query(byPlaceholder('Please enter your email address'));
@@ -260,9 +260,8 @@ It basically gives you the ability to write your tests in the same way that you 
 import { createHostFactory, SpectatorHost } from '@ngneat/spectator';
 
 describe('ZippyComponent', () => {
-  const createHost = createHostFactory(ZippyComponent);
-
   let spectator: SpectatorHost<ZippyComponent>;
+  const createHost = createHostFactory(ZippyComponent);
 
   it('should display the title from host property', () => {
     spectator = createHost(`<zippy [title]="title"></zippy>`, {
@@ -320,14 +319,13 @@ For components which use routing, there is a special factory available that exte
 
 ```ts
 describe('ButtonComponent', () => {
+  let spectator: SpectatorRouting<ProductDetailsComponent>;
   const createComponent = createRoutingFactory({
     component: ProductDetailsComponent,
     params: { productId: '3' },
     data: { title: 'Some title' }
   });
 
-  let spectator: SpectatorRouting<ProductDetailsComponent>;
-  
   beforeEach(() => spectator = createComponent());
 
   it('should display route data title', () => {
@@ -374,7 +372,7 @@ interface SpectatorRouting<C> extends Spectator<C> {
 }
 ```
 
-### Routing features
+### Routing Features
 
 * It automatically provides a stub implementation for `ActivatedRoute`
 * You can configure the `params`, `queryParams`, `fragments` and `data`. You can also update them, to test how your component reacts on changes.
@@ -382,9 +380,7 @@ interface SpectatorRouting<C> extends Spectator<C> {
 
 ## Testing Directives
 
-There is a special test factory for testing directives.  
-
-Let's say we have the following directive:
+There is a special test factory for testing directives. Let's say we have the following directive:
 
 ```ts
 @Directive({ selector: '[highlight]' })
@@ -406,9 +402,8 @@ export class HighlightDirective {
 Let's see how we can test directives easily with Spectator:
 ```ts
 describe('HighlightDirective', () => {
-  const createDirective = createDirectiveFactory(HighlightDirective);
-
   let spectator: SpectatorDirective<HighlightDirective>;
+  const createDirective = createDirectiveFactory(HighlightDirective);
 
   beforeEach(() => {
     spectator = createDirective(`<div highlight>Testing Highlight Directive</div>`);
@@ -444,9 +439,8 @@ import { createServiceFactory, SpectatorService } from '@ngneat/spectator';
 import { AuthService } from 'auth.service.ts';
 
 describe('AuthService', () => {
-  const createService = createServiceFactory(AuthService);
-  
   let spectator: SpectatorService<AuthService>;
+  const createService = createServiceFactory(AuthService);
 
   beforeEach(() => spectator = createService());
 
@@ -460,7 +454,7 @@ The `createService()` function returns `SpectatorService` with the following pro
 - `service` - Get an instance of the service
 - `get()` - A proxy for Angular `TestBed.get()`
 
-### Additional options
+### Additional Options
 
 It's also possible to pass an object with options. For example, when testing a service 
 you often want to mock its dependencies, as we focus on the service being tested.
@@ -486,6 +480,7 @@ import { createServiceFactory } from '@ngneat/spectator';
 import { AuthService } from 'auth.service.ts';
 
 describe('AuthService', () => {
+  let spectator: SpectatorService<AuthService>;
   const createService = createServiceFactory({
     service: AuthService,
     providers: [],
@@ -493,8 +488,6 @@ describe('AuthService', () => {
     mocks: [DateService]
   });
   
-  let spectator: SpectatorService<AuthService>;
-
   beforeEach(() => spectator = createService());
 
   it('should be logged in', () => {
@@ -526,16 +519,16 @@ This will automatically use the `jest.fn()` function to create a Jest compatible
 
 `mockProvider()` doesn't include properties. In case you need to have properties on your mock you can use 2nd argument:
 ```ts
-  const createService = createServiceFactory({
-    service: AuthService,
-    providers: [
-      mockProvider(OtherService, {
-        name: 'Martin',
-        emitter: new Subject(),
-        mockedMethod: () => 'mocked'
-      })
-    ],
-  });
+const createService = createServiceFactory({
+  service: AuthService,
+  providers: [
+    mockProvider(OtherService, {
+      name: 'Martin',
+      emitter: new Subject(),
+      mockedMethod: () => 'mocked'
+    })
+  ],
+});
 ```
 
 ## Jest Support
@@ -595,10 +588,9 @@ import { createHttpFactory, HttpMethod } from '@ngneat/spectator';
 import { TodosDataService } from './todos-data.service';
 
 describe('HttpClient testing', () => {
+  let spectator: SpectatorHttp<TodosDataService>;
   const createHttp = createHttpFactory(TodosDataService);
   
-  let spectator: SpectatorHttp<TodosDataService>;
-
   beforeEach(() => spectator = createHttp());
 
   it('can test HttpClient.get', () => {
@@ -637,7 +629,7 @@ defineGlobalsInjections({
 
 By default, the original component providers (e.g. the `providers` on the `@Component`) are not touched.
 
-However, in most cases, you want to access component providers in your test or replace them with mocks. 
+However, in most cases, you want to access the component's providers in your test or replace them with mocks. 
 
 For example:
 
@@ -708,16 +700,25 @@ expect('div').toHaveDescendant('.child');
 expect('div').toHaveDescendantWithText({selector: '.child', text: 'text'});
 ```
 
+## Core Team
+
+<table>
+  <tr>
+    <td align="center"><a href="https://www.netbasal.com"><img src="https://avatars1.githubusercontent.com/u/6745730?v=4" width="100px;" alt="Netanel Basal"/><br /><sub><b>Netanel Basal</b></sub></a></td>
+    <td align="center"><a href="https://github.com/dirkluijk"><img src="https://avatars2.githubusercontent.com/u/2102973?v=4" width="100px;" alt="Dirk Luijk"/><br /><sub><b>Dirk Luijk</b></sub></a></td>
+    <td align="center"><a href="http://benjaminelliott.co.uk"><img src="https://avatars1.githubusercontent.com/u/4996462?v=4" width="100px;" alt="Ben Elliott"/><br /><sub><b>Ben Elliott</b></sub></a></td>
+    </tr>
+</table>
+
 ## Contributors
 
 Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
 
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
 <!-- prettier-ignore -->
-| [<img src="https://avatars3.githubusercontent.com/u/638818?v=4" width="100px;"/><br /><sub><b>I. Sinai</b></sub>](https://github.com/theblushingcrow)<br />[📖](https://github.com/NetanelBasal/spectator/commits?author=theblushingcrow "Documentation") [👀](#review-theblushingcrow "Reviewed Pull Requests") [🎨](#design-theblushingcrow "Design") | [<img src="https://avatars3.githubusercontent.com/u/18645670?v=4" width="100px;"/><br /><sub><b>Valentin Buryakov</b></sub>](https://github.com/valburyakov)<br />[💻](https://github.com/NetanelBasal/spectator/commits?author=valburyakov "Code") [🤔](#ideas-valburyakov "Ideas, Planning, & Feedback") | [<img src="https://avatars1.githubusercontent.com/u/6745730?v=4" width="100px;"/><br /><sub><b>Netanel Basal</b></sub>](https://www.netbasal.com)<br />[💻](https://github.com/NetanelBasal/spectator/commits?author=NetanelBasal "Code") [🔧](#tool-NetanelBasal "Tools") | [<img src="https://avatars1.githubusercontent.com/u/260431?v=4" width="100px;"/><br /><sub><b>Ben Grynhaus</b></sub>](https://github.com/bengry)<br />[🐛](https://github.com/NetanelBasal/spectator/issues?q=author%3Abengry "Bug reports") [💻](https://github.com/NetanelBasal/spectator/commits?author=bengry "Code") | [<img src="https://avatars1.githubusercontent.com/u/4996462?v=4" width="100px;"/><br /><sub><b>Ben Elliott</b></sub>](http://benjaminelliott.co.uk)<br />[💻](https://github.com/NetanelBasal/spectator/commits?author=benelliott "Code") | [<img src="https://avatars2.githubusercontent.com/u/681176?v=4" width="100px;"/><br /><sub><b>Martin Nuc</b></sub>](http://www.nuc.cz)<br />[💻](https://github.com/NetanelBasal/spectator/commits?author=MartinNuc "Code") | [<img src="https://avatars2.githubusercontent.com/u/2102973?v=4" width="100px;"/><br /><sub><b>Dirk Luijk</b></sub>](https://github.com/dirkluijk)<br />[💻](https://github.com/NetanelBasal/spectator/commits?author=dirkluijk "Code") |
+| [<img src="https://avatars3.githubusercontent.com/u/638818?v=4" width="100px;"/><br /><sub><b>I. Sinai</b></sub>](https://github.com/theblushingcrow)<br />[📖](https://github.com/ngneat/spectator/commits?author=theblushingcrow "Documentation") [👀](#review-theblushingcrow "Reviewed Pull Requests") [🎨](#design-theblushingcrow "Design") | [<img src="https://avatars3.githubusercontent.com/u/18645670?v=4" width="100px;"/><br /><sub><b>Valentin Buryakov</b></sub>](https://github.com/valburyakov)<br />[💻](https://github.com/ngneat/spectator/commits?author=valburyakov "Code") [🤔](#ideas-valburyakov "Ideas, Planning, & Feedback") | [<img src="https://avatars1.githubusercontent.com/u/260431?v=4" width="100px;"/><br /><sub><b>Ben Grynhaus</b></sub>](https://github.com/bengry)<br />[🐛](https://github.com/ngneat/spectator/issues?q=author%3Abengry "Bug reports") [💻](https://github.com/ngneat/spectator/commits?author=bengry "Code") | [<img src="https://avatars2.githubusercontent.com/u/681176?v=4" width="100px;"/><br /><sub><b>Martin Nuc</b></sub>](http://www.nuc.cz)<br />[💻](https://github.com/ngneat/spectator/commits?author=MartinNuc "Code") | [<img src="https://avatars1.githubusercontent.com/u/6364586?v=4" width="100px;"/><br /><sub><b>Lars Gyrup Brink Nielsen</b></sub>](https://medium.com/@LayZeeDK)<br />[📦](#platform-LayZeeDK "Packaging/porting to new platform") [⚠️](https://github.com/ngneat/spectator/commits?author=LayZeeDK "Tests") | [<img src="https://avatars0.githubusercontent.com/u/1910515?v=4" width="100px;"/><br /><sub><b>Andrew Grekov</b></sub>](https://github.com/thekiba)<br />[💻](https://github.com/ngneat/spectator/commits?author=thekiba "Code") [🔧](#tool-thekiba "Tools") | [<img src="https://avatars1.githubusercontent.com/u/3968?v=4" width="100px;"/><br /><sub><b>Jeroen Zwartepoorte</b></sub>](http://twitter.com/jpzwarte)<br />[💻](https://github.com/ngneat/spectator/commits?author=jpzwarte "Code") |
 | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| [<img src="https://avatars1.githubusercontent.com/u/6364586?v=4" width="100px;"/><br /><sub><b>Lars Gyrup Brink Nielsen</b></sub>](https://medium.com/@LayZeeDK)<br />[📦](#platform-LayZeeDK "Packaging/porting to new platform") [⚠️](https://github.com/NetanelBasal/spectator/commits?author=LayZeeDK "Tests") | [<img src="https://avatars0.githubusercontent.com/u/1910515?v=4" width="100px;"/><br /><sub><b>Andrew Grekov</b></sub>](https://github.com/thekiba)<br />[💻](https://github.com/NetanelBasal/spectator/commits?author=thekiba "Code") [🔧](#tool-thekiba "Tools") | [<img src="https://avatars1.githubusercontent.com/u/3968?v=4" width="100px;"/><br /><sub><b>Jeroen Zwartepoorte</b></sub>](http://twitter.com/jpzwarte)<br />[💻](https://github.com/NetanelBasal/spectator/commits?author=jpzwarte "Code") | [<img src="https://avatars1.githubusercontent.com/u/11634412?v=4" width="100px;"/><br /><sub><b>Oliver Schlegel</b></sub>](https://github.com/oschlegel)<br />[💻](https://github.com/NetanelBasal/spectator/commits?author=oschlegel "Code") | [<img src="https://avatars1.githubusercontent.com/u/10893959?v=4" width="100px;"/><br /><sub><b>Rex Ye</b></sub>](https://github.com/rexebin)<br />[🔧](#tool-rexebin "Tools") [💻](https://github.com/NetanelBasal/spectator/commits?author=rexebin "Code") | [<img src="https://avatars0.githubusercontent.com/u/36368505?v=4" width="100px;"/><br /><sub><b>tchmura</b></sub>](https://github.com/tchmura)<br />[💻](https://github.com/NetanelBasal/spectator/commits?author=tchmura "Code") | [<img src="https://avatars2.githubusercontent.com/u/4572798?v=4" width="100px;"/><br /><sub><b>Yoeri Nijs</b></sub>](http://www.theneuralnetwork.nl)<br />[💻](https://github.com/NetanelBasal/spectator/commits?author=YoeriNijs "Code") |
-| [<img src="https://avatars1.githubusercontent.com/u/44014?v=4" width="100px;"/><br /><sub><b>Anders Skarby</b></sub>](https://github.com/askarby)<br />[💻](https://github.com/NetanelBasal/spectator/commits?author=askarby "Code") | [<img src="https://avatars3.githubusercontent.com/u/444278?v=4" width="100px;"/><br /><sub><b>Gregor Woiwode</b></sub>](https://medium.com/@gregor.woiwode)<br />[💻](https://github.com/NetanelBasal/spectator/commits?author=GregOnNet "Code") |
+| [<img src="https://avatars1.githubusercontent.com/u/11634412?v=4" width="100px;"/><br /><sub><b>Oliver Schlegel</b></sub>](https://github.com/oschlegel)<br />[💻](https://github.com/ngneat/spectator/commits?author=oschlegel "Code") | [<img src="https://avatars1.githubusercontent.com/u/10893959?v=4" width="100px;"/><br /><sub><b>Rex Ye</b></sub>](https://github.com/rexebin)<br />[🔧](#tool-rexebin "Tools") [💻](https://github.com/ngneat/spectator/commits?author=rexebin "Code") | [<img src="https://avatars0.githubusercontent.com/u/36368505?v=4" width="100px;"/><br /><sub><b>tchmura</b></sub>](https://github.com/tchmura)<br />[💻](https://github.com/ngneat/spectator/commits?author=tchmura "Code") | [<img src="https://avatars2.githubusercontent.com/u/4572798?v=4" width="100px;"/><br /><sub><b>Yoeri Nijs</b></sub>](http://www.theneuralnetwork.nl)<br />[💻](https://github.com/ngneat/spectator/commits?author=YoeriNijs "Code") | [<img src="https://avatars1.githubusercontent.com/u/44014?v=4" width="100px;"/><br /><sub><b>Anders Skarby</b></sub>](https://github.com/askarby)<br />[💻](https://github.com/ngneat/spectator/commits?author=askarby "Code") | [<img src="https://avatars3.githubusercontent.com/u/444278?v=4" width="100px;"/><br /><sub><b>Gregor Woiwode</b></sub>](https://medium.com/@gregor.woiwode)<br />[💻](https://github.com/ngneat/spectator/commits?author=GregOnNet "Code") |
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
 This project follows the [all-contributors](https://allcontributors.org/docs/en/emoji-key) specification. Contributions of any kind welcome!

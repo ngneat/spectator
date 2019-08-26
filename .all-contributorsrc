@@ -1,6 +1,6 @@
 {
   "projectName": "spectator",
-  "projectOwner": "NetanelBasal",
+  "projectOwner": "ngneat",
   "repoType": "github",
   "repoHost": "https://github.com",
   "files": [
@@ -31,16 +31,6 @@
       ]
     },
     {
-      "login": "NetanelBasal",
-      "name": "Netanel Basal",
-      "avatar_url": "https://avatars1.githubusercontent.com/u/6745730?v=4",
-      "profile": "https://www.netbasal.com",
-      "contributions": [
-        "code",
-        "tool"
-      ]
-    },
-    {
       "login": "bengry",
       "name": "Ben Grynhaus",
       "avatar_url": "https://avatars1.githubusercontent.com/u/260431?v=4",
@@ -51,28 +41,10 @@
       ]
     },
     {
-      "login": "benelliott",
-      "name": "Ben Elliott",
-      "avatar_url": "https://avatars1.githubusercontent.com/u/4996462?v=4",
-      "profile": "http://benjaminelliott.co.uk",
-      "contributions": [
-        "code"
-      ]
-    },
-    {
       "login": "MartinNuc",
       "name": "Martin Nuc",
       "avatar_url": "https://avatars2.githubusercontent.com/u/681176?v=4",
       "profile": "http://www.nuc.cz",
-      "contributions": [
-        "code"
-      ]
-    },
-    {
-      "login": "dirkluijk",
-      "name": "Dirk Luijk",
-      "avatar_url": "https://avatars2.githubusercontent.com/u/2102973?v=4",
-      "profile": "https://github.com/dirkluijk",
       "contributions": [
         "code"
       ]
