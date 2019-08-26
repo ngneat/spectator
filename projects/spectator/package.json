@@ -2,7 +2,7 @@
   "name": "@ngneat/spectator",
   "description": "A powerful tool to simplify your Angular tests",
   "author": "Netanel Basal <netanel7799s@gmail.com>",
-  "version": "4.0.0-rc.6",
+  "version": "4.0.0-rc.7",
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -23,7 +23,7 @@
     "angular testing dumb components"
   ],
   "dependencies": {
-    "dom-testing-library": "3.16.0",
+    "@testing-library/dom": "6.1.0",
     "jquery": "3.4.1",
     "schematics-utilities": "^1.1.1"
   },

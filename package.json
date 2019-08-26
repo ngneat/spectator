@@ -22,7 +22,7 @@
     "release": "cd projects/spectator && standard-version --infile ../../CHANGELOG.md"
   },
   "dependencies": {
-    "dom-testing-library": "3.16.0",
+    "@testing-library/dom": "6.1.0",
     "jquery": "3.4.1"
   },
   "devDependencies": {
