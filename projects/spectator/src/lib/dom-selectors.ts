@@ -1,4 +1,4 @@
-import { Matcher, MatcherOptions, queries as DOMQueries } from 'dom-testing-library';
+import { Matcher, MatcherOptions, queries as DOMQueries } from '@testing-library/dom';
 
 export class DOMSelector {
   // Wrap selector functions in a class to make reflection easier in getChild
@@ -22,4 +22,5 @@ export const byTitle: DOMSelectorFactory = (matcher, options) => new DOMSelector
 
 export const byTestId: DOMSelectorFactory = (matcher, options) => new DOMSelector(el => DOMQueries.queryAllByTestId(el, matcher, options));
 
-export const byValue: DOMSelectorFactory = (matcher, options) => new DOMSelector(el => DOMQueries.queryAllByValue(el, matcher, options));
+export const byValue: DOMSelectorFactory = (matcher, options) =>
+  new DOMSelector(el => DOMQueries.queryAllByDisplayValue(el, matcher, options));
