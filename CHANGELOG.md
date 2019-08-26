@@ -8,38 +8,38 @@ All notable changes to this project will be documented in this file. See [standa
 
 ### Bug Fixes
 
-* expose event helpers ([e9c5576](https://github.com/ngneat/spectator/commit/e9c5576))
-* **directive:** fix missing directive instance ([bee85dd](https://github.com/ngneat/spectator/commit/bee85dd))
-* fix query regression and unit testing improvements ([bc0438b](https://github.com/ngneat/spectator/commit/bc0438b))
-* fix typing for queryAll ([a618e86](https://github.com/ngneat/spectator/commit/a618e86))
-* **host:** make host fixture visible again ([84b2910](https://github.com/ngneat/spectator/commit/84b2910))
-* **http:** backwards support for destructuring SpectatorHttp ([5115790](https://github.com/ngneat/spectator/commit/5115790))
-* **lib:** export global injections ([9f029fa](https://github.com/ngneat/spectator/commit/9f029fa))
-* **lib:** remove ng add schematic in favour of npm/yarn install ([976f29c](https://github.com/ngneat/spectator/commit/976f29c))
-* **mock:** allow assigning read-only properties ([6270640](https://github.com/ngneat/spectator/commit/6270640))
-* **schematics:** update schematics for v4 API changes ([5be2bf9](https://github.com/ngneat/spectator/commit/5be2bf9))
-* **spectator:** fix for querying directives ([e3ff1fa](https://github.com/ngneat/spectator/commit/e3ff1fa))
-* **tests:** support entry components ([9ebbb60](https://github.com/ngneat/spectator/commit/9ebbb60))
+* expose event helpers ([994bd7e](https://github.com/ngneat/spectator/commit/994bd7e))
+* **directive:** fix missing directive instance ([6e58ce1](https://github.com/ngneat/spectator/commit/6e58ce1))
+* fix query regression and unit testing improvements ([75f5512](https://github.com/ngneat/spectator/commit/75f5512))
+* fix typing for queryAll ([954f31b](https://github.com/ngneat/spectator/commit/954f31b))
+* **host:** make host fixture visible again ([9d98f25](https://github.com/ngneat/spectator/commit/9d98f25))
+* **http:** backwards support for destructuring SpectatorHttp ([d9bd304](https://github.com/ngneat/spectator/commit/d9bd304))
+* **lib:** export global injections ([897d1c8](https://github.com/ngneat/spectator/commit/897d1c8))
+* **lib:** remove ng add schematic in favour of npm/yarn install ([372f848](https://github.com/ngneat/spectator/commit/372f848))
+* **mock:** allow assigning read-only properties ([1542c24](https://github.com/ngneat/spectator/commit/1542c24))
+* **schematics:** update schematics for v4 API changes ([4175b30](https://github.com/ngneat/spectator/commit/4175b30))
+* **spectator:** fix for querying directives ([cdd3fd7](https://github.com/ngneat/spectator/commit/cdd3fd7))
+* **tests:** support entry components ([51b5481](https://github.com/ngneat/spectator/commit/51b5481))
 
 
 ### Code Refactoring
 
-* change NPM scope from [@netbasal](https://github.com/netbasal) to [@ngneat](https://github.com/ngneat) ([#160](https://github.com/ngneat/spectator/issues/160)) ([acaad48](https://github.com/ngneat/spectator/commit/acaad48))
-* **http:** rename dataService to service ([71aeef4](https://github.com/ngneat/spectator/commit/71aeef4))
+* change NPM scope from [@netbasal](https://github.com/netbasal) to [@ngneat](https://github.com/ngneat) ([#160](https://github.com/ngneat/spectator/issues/160)) ([9c19f98](https://github.com/ngneat/spectator/commit/9c19f98))
+* **http:** rename dataService to service ([abda34d](https://github.com/ngneat/spectator/commit/abda34d))
 
 
 ### Features
 
-* **lib:** v4 changes ([60634e6](https://github.com/ngneat/spectator/commit/60634e6))
-* **lib:** v4 changes ([bd4ca32](https://github.com/ngneat/spectator/commit/bd4ca32))
-* add factory for SpectatorForDirective ([#157](https://github.com/ngneat/spectator/issues/157)) ([0ec1ced](https://github.com/ngneat/spectator/commit/0ec1ced))
-* **service:** call OnDestroy lifecycle on service after each test ([e2de3d4](https://github.com/ngneat/spectator/commit/e2de3d4))
-* add migration CLI script ([1a4b433](https://github.com/ngneat/spectator/commit/1a4b433))
-* add routing support ([#151](https://github.com/ngneat/spectator/issues/151)) ([db914ce](https://github.com/ngneat/spectator/commit/db914ce))
-* add support for overrides ([baac11e](https://github.com/ngneat/spectator/commit/baac11e))
-* deprecate createService in favour of createServiceFactory ([d31c2dd](https://github.com/ngneat/spectator/commit/d31c2dd))
-* support for Angular 8 and Jasmine 3 ([#152](https://github.com/ngneat/spectator/issues/152)) ([33681a8](https://github.com/ngneat/spectator/commit/33681a8))
-* support for mocking component providers ([417323d](https://github.com/ngneat/spectator/commit/417323d))
+* **lib:** v4 changes ([50a599f](https://github.com/ngneat/spectator/commit/50a599f))
+* **lib:** v4 changes ([aaeb7f9](https://github.com/ngneat/spectator/commit/aaeb7f9))
+* add factory for SpectatorForDirective ([#157](https://github.com/ngneat/spectator/issues/157)) ([4d075da](https://github.com/ngneat/spectator/commit/4d075da))
+* **service:** call OnDestroy lifecycle on service after each test ([899d79f](https://github.com/ngneat/spectator/commit/899d79f))
+* add migration CLI script ([238cff5](https://github.com/ngneat/spectator/commit/238cff5))
+* add routing support ([#151](https://github.com/ngneat/spectator/issues/151)) ([aacfb25](https://github.com/ngneat/spectator/commit/aacfb25))
+* add support for overrides ([f45824c](https://github.com/ngneat/spectator/commit/f45824c))
+* deprecate createService in favour of createServiceFactory ([3a70424](https://github.com/ngneat/spectator/commit/3a70424))
+* support for Angular 8 and Jasmine 3 ([#152](https://github.com/ngneat/spectator/issues/152)) ([f84e73e](https://github.com/ngneat/spectator/commit/f84e73e))
+* support for mocking component providers ([6c9fa9e](https://github.com/ngneat/spectator/commit/6c9fa9e))
 
 
 ### BREAKING CHANGES
