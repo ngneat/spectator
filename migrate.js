@@ -1,45 +1,59 @@
-const replace = require('replace-in-file');
-const basePath = `...`;
-const files = `${basePath}/**/*.spec.ts`;
+#!/usr/bin/env node
+
+// tslint:disable
+
+const replace = require("replace-in-file");
 
 const lib = {
-  files,
   from: /@netbasal\/spectator/,
-  to: '@ngneat/spectator'
+  to: "@ngneat/spectator",
 };
 
 const componentFactory = {
-  files,
   from: /createTestComponentFactory/g,
-  to: 'createComponentFactory'
+  to: "createComponentFactory",
 };
 
 const hostFactory = {
-  files,
   from: /createHostComponentFactory/g,
-  to: 'createHostFactory'
+  to: "createHostFactory",
 };
 
 const httpFactory = {
-  files,
   from: /createHTTPFactory/g,
-  to: 'createHttpFactory'
+  to: "createHttpFactory",
 };
 
-const SpectatorWithHost = {
-  files,
+const spectatorWithHost = {
   from: /SpectatorWithHost/g,
-  to: 'SpectatorHost'
+  to: "SpectatorHost",
 };
 
-const SpectatorHTTP = {
-  files,
+const spectatorHTTP = {
   from: /SpectatorHTTP/g,
-  to: 'SpectatorHttp'
+  to: "SpectatorHttp",
 };
 
-const changes = [lib, componentFactory, hostFactory, httpFactory, SpectatorWithHost, SpectatorHTTP];
+const getDirectiveInstance = {
+  from: /\.getDirectiveInstance/g,
+  to: ".queryHost",
+};
 
-changes.forEach(options => {
-  replace.sync(options);
+const changes = [
+  lib,
+  componentFactory,
+  hostFactory,
+  httpFactory,
+  spectatorWithHost,
+  spectatorHTTP,
+  getDirectiveInstance
+];
+
+changes.forEach(({ from, to }) => {
+  replace.sync({
+    files: "**/*.spec.ts",
+    from,
+    ignore: "node_modules/**/*",
+    to,
+  });
 });

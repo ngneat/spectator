@@ -15,6 +15,16 @@ Short answer: to benefit from fixes and new features, you should upgrade to the 
 
 Please head to the [CHANGELOG](CHANGELOG.md) for a complete list of changes.
 
+## Migration Script
+
+For some of the changes, we created a migration script. After installing Spectator v4, just run:
+
+```bash
+$ spectator-migrate
+```
+
+This will apply some of the migration changes to your `*.spec.ts` files.
+
 ## BREAKING CHANGES :x:
 
 Let's first discuss what we changed or removed. You will need to make these changes in order to use Spectator 4.
