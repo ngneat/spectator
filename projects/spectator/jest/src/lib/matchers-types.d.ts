@@ -12,8 +12,6 @@ declare namespace jest {
 
     toHaveProperty(prop: string, val: string | boolean): boolean;
 
-    toHaveProperty(prop: string, val: string | boolean): boolean;
-
     toHaveText(text: string | Function, exact?: boolean): boolean;
 
     toHaveExactText(text: string | Function): boolean;
