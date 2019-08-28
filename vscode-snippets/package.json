@@ -1,9 +1,9 @@
 {
-  "name": "@ngneat/spectator-snippets",
+  "name": "spectator-snippets",
   "displayName": "Angular Spectator Snippets",
   "description": "Code snippets for Angular Spectator",
-  "version": "0.0.1",
-  "publisher": "shaharkazaz",
+  "version": "0.0.2",
+  "publisher": "NetanelBasal",
   "icon": "logo.png",
   "engines": {
     "vscode": "^1.30.0"
