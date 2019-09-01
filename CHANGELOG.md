@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="4.0.1"></a>
+## [4.0.1](https://github.com/ngneat/spectator/compare/v4.0.0...v4.0.1) (2019-09-01)
+
+
+### Bug Fixes
+
+* **mocks:** readd deprecated mocks ([a358f13](https://github.com/ngneat/spectator/commit/a358f13))
+* **vscode-snippets:** change snippet language ([7de9a8f](https://github.com/ngneat/spectator/commit/7de9a8f))
+* **vscode-snippets:** change snippet language ([#169](https://github.com/ngneat/spectator/issues/169)) ([08cac5f](https://github.com/ngneat/spectator/commit/08cac5f))
+
+
+
 <a name="4.0.0"></a>
 # [4.0.0](https://github.com/ngneat/spectator/compare/v3.12.0...v4.0.0) (2019-08-26)
 
