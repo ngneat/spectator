@@ -7,7 +7,7 @@ import { BaseSpectatorOverrides } from '../base/options';
 import { isType } from '../types';
 
 import { initialHttpModule } from './initial-module';
-import { getDefaultHttpOptions, SpectatorHttpOptions } from './options';
+import { getDefaultHttpOptions, isDeprecated, SpectatorHttpOptions } from './options';
 import { SpectatorHttp } from './spectator-http';
 
 /**
@@ -25,8 +25,8 @@ export interface CreateHttpOverrides<S> extends BaseSpectatorOverrides {}
  * @publicApi
  */
 export function createHttpFactory<S>(typeOrOptions: Type<S> | SpectatorHttpOptions<S>): SpectatorHttpFactory<S> {
-  const dataService = isType(typeOrOptions) ? typeOrOptions : typeOrOptions.dataService;
-  const options = isType(typeOrOptions) ? getDefaultHttpOptions<S>({ dataService }) : getDefaultHttpOptions(typeOrOptions);
+  const service = isType(typeOrOptions) ? typeOrOptions : isDeprecated(typeOrOptions) ? typeOrOptions.dataService : typeOrOptions.service;
+  const options = isType(typeOrOptions) ? getDefaultHttpOptions<S>({ service }) : getDefaultHttpOptions(typeOrOptions);
   const moduleMetadata = initialHttpModule(options);
 
   beforeEach(() => {
@@ -47,6 +47,6 @@ export function createHttpFactory<S>(typeOrOptions: Type<S> | SpectatorHttpOptio
       });
     }
 
-    return new SpectatorHttp<S>(TestBed.get(dataService), TestBed.get(HttpClient), TestBed.get(HttpTestingController));
+    return new SpectatorHttp<S>(TestBed.get(service), TestBed.get(HttpClient), TestBed.get(HttpTestingController));
   };
 }

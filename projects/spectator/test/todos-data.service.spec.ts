@@ -6,14 +6,14 @@ import { TodosDataService, UserService } from './todos-data.service';
 
 describe('HttpClient testing', () => {
   const http = createHttpFactory({
-    dataService: TodosDataService,
+    service: TodosDataService,
     mocks: [UserService]
   });
 
   it('can test HttpClient.get', () => {
     const spectatorHttp = http();
 
-    spectatorHttp.dataService.get().subscribe();
+    spectatorHttp.service.get().subscribe();
     spectatorHttp.expectOne('url', HttpMethod.GET);
   });
 
