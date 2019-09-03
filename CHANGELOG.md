@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="4.0.2"></a>
+## [4.0.2](https://github.com/ngneat/spectator/compare/v4.0.1...v4.0.2) (2019-09-03)
+
+
+### Bug Fixes
+
+* **http:** rename data service option to service ([99c2314](https://github.com/ngneat/spectator/commit/99c2314))
+* **http:** rename data service option to service ([#172](https://github.com/ngneat/spectator/issues/172)) ([7fdc41c](https://github.com/ngneat/spectator/commit/7fdc41c))
+
+
+
 <a name="4.0.1"></a>
 ## [4.0.1](https://github.com/ngneat/spectator/compare/v4.0.0...v4.0.1) (2019-09-01)
 
