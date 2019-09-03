@@ -8,7 +8,6 @@ All notable changes to this project will be documented in this file. See [standa
 
 ### Bug Fixes
 
-* **http:** rename data service option to service ([99c2314](https://github.com/ngneat/spectator/commit/99c2314))
 * **http:** rename data service option to service ([#172](https://github.com/ngneat/spectator/issues/172)) ([7fdc41c](https://github.com/ngneat/spectator/commit/7fdc41c))
 
 
@@ -20,7 +19,6 @@ All notable changes to this project will be documented in this file. See [standa
 ### Bug Fixes
 
 * **mocks:** readd deprecated mocks ([a358f13](https://github.com/ngneat/spectator/commit/a358f13))
-* **vscode-snippets:** change snippet language ([7de9a8f](https://github.com/ngneat/spectator/commit/7de9a8f))
 * **vscode-snippets:** change snippet language ([#169](https://github.com/ngneat/spectator/issues/169)) ([08cac5f](https://github.com/ngneat/spectator/commit/08cac5f))
 
 
