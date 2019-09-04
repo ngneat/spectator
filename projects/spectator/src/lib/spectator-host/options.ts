@@ -9,13 +9,13 @@ import { HostComponent } from './host-component';
 /**
  * @publicApi
  */
-export interface SpectatorHostOptions<C = any, H = HostComponent> extends SpectatorOptions<C> {
+export interface SpectatorHostOptions<C, H> extends SpectatorOptions<C> {
   host?: Type<H>;
   template?: string;
 }
 
-const defaultSpectatorHostOptions: OptionalsRequired<SpectatorHostOptions> = {
-  ...getSpectatorDefaultOptions(),
+const defaultSpectatorHostOptions: OptionalsRequired<SpectatorHostOptions<any, any>> = {
+  ...getSpectatorDefaultOptions<any>(),
   host: HostComponent,
   template: ''
 };
@@ -23,6 +23,6 @@ const defaultSpectatorHostOptions: OptionalsRequired<SpectatorHostOptions> = {
 /**
  * @internal
  */
-export function getSpectatorHostDefaultOptions<C, H>(overrides: SpectatorHostOptions<C, H>): Required<SpectatorHostOptions<C, H>> {
-  return merge(defaultSpectatorHostOptions, overrides) as Required<SpectatorHostOptions<C, H>>;
+export function getSpectatorHostDefaultOptions<C, H>(overrides?: SpectatorHostOptions<C, H>): Required<SpectatorHostOptions<C, H>> {
+  return merge(defaultSpectatorHostOptions, overrides);
 }

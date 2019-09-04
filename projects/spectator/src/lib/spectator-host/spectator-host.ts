@@ -21,16 +21,13 @@ export class SpectatorHost<C, H = HostComponent> extends Spectator<C> {
   constructor(
     public hostComponent: H,
     public hostDebugElement: DebugElement,
-    public hostElement: HTMLElement,
+    public hostElement: Element,
     public hostFixture: ComponentFixture<any>,
-    debugElement?: DebugElement
+    public debugElement: DebugElement,
+    public componentInstance: C,
+    public element: Element
   ) {
-    super(
-      hostFixture,
-      debugElement || hostDebugElement,
-      debugElement ? debugElement.componentInstance : hostComponent,
-      debugElement ? debugElement.nativeElement : hostDebugElement.nativeElement
-    );
+    super(hostFixture, debugElement, componentInstance, element);
   }
 
   public queryHost<R extends Element>(selector: string | DOMSelector, options?: { root: boolean }): R | null;
@@ -57,7 +54,7 @@ export class SpectatorHost<C, H = HostComponent> extends Spectator<C> {
 
   public setHostInput<K extends keyof H>(input: Partial<H>): void;
   public setHostInput<K extends keyof H>(input: K, inputValue: H[K]): void;
-  public setHostInput<K extends keyof H>(input: Partial<H> | K, value?: H[K]): void {
+  public setHostInput(input: any, value?: any): void {
     setProps(this.hostComponent, input, value);
     this.detectChanges();
   }

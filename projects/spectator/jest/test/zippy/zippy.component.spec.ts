@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { fakeAsync, tick } from '@angular/core/testing';
 import { createHostFactory, SpectatorHost } from '@ngneat/spectator/jest';
+import { FormControl } from '@angular/forms';
 
 import { ZippyComponent } from '../../../test/zippy/zippy.component';
 import { QueryService } from '../../../test/query.service';
@@ -43,7 +44,8 @@ describe('ZippyComponent', () => {
   it('should display the title from host property', () => {
     host = createHost(`<zippy [title]="title"></zippy>`, {
       hostProps: {
-        title: 'ZIPPY2'
+        title: 'ZIPPY2',
+        control: new FormControl(false)
       }
     });
     expect(host.query('.zippy__title')).toHaveText('ZIPPY2');

@@ -69,9 +69,7 @@ export function createRoutingFactory<C>(typeOrOptions: Type<C> | SpectatorRoutin
       useValue: new ActivatedRouteStub({ params, queryParams, data, fragment })
     });
 
-    const spectator = createSpectatorRouting(options);
-
-    setProps(spectator.component, props);
+    const spectator = createSpectatorRouting(options, props);
 
     if (options.detectChanges && detectChanges) {
       spectator.detectChanges();
@@ -81,8 +79,11 @@ export function createRoutingFactory<C>(typeOrOptions: Type<C> | SpectatorRoutin
   };
 }
 
-function createSpectatorRouting<C>(options: Required<SpectatorRoutingOptions<C>>): SpectatorRouting<C> {
+function createSpectatorRouting<C>(options: Required<SpectatorRoutingOptions<C>>, props?: Partial<C>): SpectatorRouting<C> {
   const fixture = TestBed.createComponent(options.component);
+  const debugElement = fixture.debugElement;
 
-  return new SpectatorRouting<C>(fixture, fixture.debugElement, TestBed.get(ActivatedRoute));
+  const component = setProps(fixture.componentInstance, props);
+
+  return new SpectatorRouting(fixture, debugElement, component, TestBed.get(ActivatedRoute));
 }

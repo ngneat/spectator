@@ -3,7 +3,12 @@ import { Component, NgModule } from '@angular/core';
 @Component({
   template: ''
 })
-export class HostComponent {}
+export class HostComponent {
+  // little trick to for type inference, so that nothing extends HostComponent.
+  protected readonly isHost = (): boolean => {
+    return true;
+  };
+}
 
 /*
   This is an unused module to resolve the ng build error:

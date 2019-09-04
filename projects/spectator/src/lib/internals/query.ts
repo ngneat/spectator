@@ -26,9 +26,9 @@ export function getChildren<R>(debugElementRoot: DebugElement): (directiveOrSele
   };
 }
 
-export function setProps(instance: any, key: any, value: any): void;
-export function setProps(instance: any, keyValues: any): void;
-export function setProps(instance: any, keyOrKeyValues: any, value?: any): void {
+export function setProps<T, K extends string | number | symbol, V>(instance: T, key: K, value: V): T & { [KEY in K]: V };
+export function setProps<T, KV>(instance: T, keyValues?: KV): T & KV;
+export function setProps(instance: any, keyOrKeyValues: any, value?: any): any {
   if (isString(keyOrKeyValues)) {
     instance[keyOrKeyValues] = value;
   } else {
@@ -37,4 +37,6 @@ export function setProps(instance: any, keyOrKeyValues: any, value?: any): void 
       instance[p] = keyOrKeyValues[p];
     }
   }
+
+  return instance;
 }

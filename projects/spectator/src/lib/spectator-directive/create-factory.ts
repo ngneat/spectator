@@ -16,19 +16,18 @@ import { SpectatorDirective } from './spectator-directive';
 /**
  * @publicApi
  */
-export type SpectatorDirectiveFactory<D, H> = (template: string, overrides?: SpectatorDirectiveOverrides<D, H>) => SpectatorDirective<D, H>;
+export type SpectatorDirectiveFactory<D, H> = <HP extends H extends HostComponent ? any : Partial<H>>(
+  template: string,
+  overrides?: SpectatorDirectiveOverrides<D, H, HP>
+) => SpectatorDirective<D, H & HP>;
 
 /**
  * @publicApi
  */
-export interface SpectatorDirectiveOverrides<D, H> extends BaseSpectatorOverrides {
+export interface SpectatorDirectiveOverrides<D, H, HP> extends BaseSpectatorOverrides {
   detectChanges?: boolean;
   props?: Partial<D>;
-  hostProps?: H extends HostComponent
-    ? {
-        [key: string]: any;
-      }
-    : Partial<H>;
+  hostProps?: HP;
 }
 
 /**
@@ -48,8 +47,8 @@ export function createDirectiveFactory<D, H = HostComponent>(
     TestBed.configureTestingModule(moduleMetadata);
   }));
 
-  return (template: string, overrides?: SpectatorDirectiveOverrides<D, H>) => {
-    const defaults: SpectatorDirectiveOverrides<D, H> = { props: {}, hostProps: {} as any, detectChanges: true, providers: [] };
+  return <HP>(template: string, overrides?: SpectatorDirectiveOverrides<D, H, HP>) => {
+    const defaults: SpectatorDirectiveOverrides<D, H, HP> = { props: {}, hostProps: {} as any, detectChanges: true, providers: [] };
     const { detectChanges, props, hostProps, providers } = { ...defaults, ...overrides };
 
     if (providers && providers.length) {
@@ -66,10 +65,7 @@ export function createDirectiveFactory<D, H = HostComponent>(
       set: { template }
     });
 
-    const spectator = createSpectatorDirective<D, H>(options);
-
-    setProps(spectator.directive, props);
-    setProps(spectator.hostComponent, hostProps);
+    const spectator = createSpectatorDirective(options, props, hostProps);
 
     if (options.detectChanges && detectChanges) {
       spectator.detectChanges();
@@ -79,15 +75,16 @@ export function createDirectiveFactory<D, H = HostComponent>(
   };
 }
 
-function createSpectatorDirective<D, H>(options: Required<SpectatorDirectiveOptions<D, H>>): SpectatorDirective<D, H> {
+function createSpectatorDirective<D, H, HP>(
+  options: Required<SpectatorDirectiveOptions<D, H>>,
+  props?: Partial<D>,
+  hostProps?: HP
+): SpectatorDirective<D, H & HP> {
   const hostFixture = TestBed.createComponent(options.host);
   const debugElement = hostFixture.debugElement.query(By.directive(options.directive));
 
-  return new SpectatorDirective<D, H>(
-    hostFixture.componentInstance,
-    hostFixture,
-    hostFixture.debugElement,
-    debugElement.injector.get(options.directive),
-    debugElement.nativeElement
-  );
+  const hostComponent = setProps(hostFixture.componentInstance, hostProps);
+  const directive = setProps(debugElement.injector.get(options.directive), props);
+
+  return new SpectatorDirective(hostComponent, hostFixture, hostFixture.debugElement, directive, debugElement.nativeElement);
 }

@@ -7,7 +7,7 @@ import { OptionalsRequired } from '../types';
 /**
  * @publicApi
  */
-export interface SpectatorOptions<C = any> extends BaseSpectatorOptions {
+export interface SpectatorOptions<C> extends BaseSpectatorOptions {
   component: Type<C>;
   shallow?: boolean;
   componentProviders?: any[];
@@ -16,7 +16,7 @@ export interface SpectatorOptions<C = any> extends BaseSpectatorOptions {
   componentMocks?: Type<any>[];
 }
 
-const defaultSpectatorOptions: OptionalsRequired<SpectatorOptions> = {
+const defaultSpectatorOptions: OptionalsRequired<SpectatorOptions<any>> = {
   ...getDefaultBaseOptions(),
   shallow: false,
   declareComponent: true,
@@ -29,5 +29,5 @@ const defaultSpectatorOptions: OptionalsRequired<SpectatorOptions> = {
  * @internal
  */
 export function getSpectatorDefaultOptions<C>(overrides?: SpectatorOptions<C>): Required<SpectatorOptions<C>> {
-  return merge(defaultSpectatorOptions, overrides) as Required<SpectatorOptions<C>>;
+  return merge(defaultSpectatorOptions, overrides);
 }
