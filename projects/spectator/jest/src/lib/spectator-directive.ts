@@ -14,7 +14,7 @@ import { mockProvider, SpyObject } from './mock';
 /**
  * @publicApi
  */
-export class SpectatorDirective<D, H> extends BaseSpectatorDirective<D, H> {
+export class SpectatorDirective<D, H = HostComponent> extends BaseSpectatorDirective<D, H> {
   public get<T>(type: Token<T> | Token<any>, fromComponentInjector: boolean = false): SpyObject<T> {
     return super.get(type, fromComponentInjector) as SpyObject<T>;
   }
@@ -23,7 +23,7 @@ export class SpectatorDirective<D, H> extends BaseSpectatorDirective<D, H> {
 /**
  * @publicApi
  */
-export type SpectatorDirectiveFactory<D, H> = <HP extends H extends HostComponent ? any : Partial<H>>(
+export type SpectatorDirectiveFactory<D, H = HostComponent> = <HP extends H extends HostComponent ? any : Partial<H>>(
   template: string,
   overrides?: SpectatorDirectiveOverrides<D, H, HP>
 ) => SpectatorDirective<D, H & HP>;

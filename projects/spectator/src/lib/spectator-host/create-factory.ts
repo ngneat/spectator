@@ -7,6 +7,7 @@ import { setProps } from '../internals/query';
 import * as customMatchers from '../matchers';
 import { SpectatorOverrides } from '../spectator/create-factory';
 import { isType } from '../types';
+import { nodeByDirective } from '../internals/node-by-directive';
 
 import { HostComponent } from './host-component';
 import { initialSpectatorWithHostModule } from './initial-module';
@@ -94,10 +95,15 @@ function createSpectatorHost<C, H, HP>(
   hostProps?: HP
 ): SpectatorHost<C, H & HP> {
   const hostFixture = TestBed.createComponent(options.host);
-  const debugElement = hostFixture.debugElement.query(By.directive(options.component));
+  const debugElement = hostFixture.debugElement.query(By.directive(options.component)) || hostFixture.debugElement;
+  const debugNode = hostFixture.debugElement.queryAllNodes(nodeByDirective(options.component))[0];
+
+  if (!debugNode) {
+    throw new Error('Cannot find component/directive in host template');
+  }
 
   const hostComponent = setProps(hostFixture.componentInstance, hostProps);
-  const component = setProps(debugElement.componentInstance, props);
+  const component = setProps(debugNode.injector.get(options.component), props);
 
   return new SpectatorHost(
     hostComponent,

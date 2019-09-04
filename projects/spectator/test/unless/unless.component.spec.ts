@@ -21,4 +21,9 @@ describe('HelloComponent', () => {
     host = createHost(`<div *appUnless="true">Hello world</div>`);
     expect(host.query('div')).not.toHaveText('Hello world');
   });
+
+  it('should find the instance', () => {
+    host = createHost(`<div *appUnless="true">Hello world</div>`);
+    expect(host.component).toEqual(jasmine.any(AppUnlessDirective));
+  });
 });

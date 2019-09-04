@@ -14,12 +14,12 @@ import { mockProvider, SpyObject } from './mock';
 /**
  * @deprecated Use SpectatorHost instead. To be removed in v5.
  */
-export type SpectatorWithHost<C, H> = SpectatorHost<C, H>;
+export type SpectatorWithHost<C, H = HostComponent> = SpectatorHost<C, H>;
 
 /**
  * @publicApi
  */
-export class SpectatorHost<C, H> extends BaseSpectatorHost<C, H> {
+export class SpectatorHost<C, H = HostComponent> extends BaseSpectatorHost<C, H> {
   public get<T>(type: Token<T> | Token<any>, fromComponentInjector: boolean = false): SpyObject<T> {
     return super.get(type, fromComponentInjector) as SpyObject<T>;
   }
