@@ -49,6 +49,20 @@ describe('ButtonComponent', () => {
     spectator.detectChanges();
     expect(spectator.query('p')).toHaveText('Netanel');
   });
+
+  it('should support contextmenu', () => {
+    spectator = createComponent();
+    spyOn(spectator.component, 'contextmenu');
+    spectator.mouse.contextmenu('.contextmenu');
+    expect(spectator.component.contextmenu).toHaveBeenCalled();
+  });
+
+  it('should support dblclick', () => {
+    spectator = createComponent();
+    spyOn(spectator.component, 'dblclick');
+    spectator.mouse.dblclick('.dblclick');
+    expect(spectator.component.dblclick).toHaveBeenCalled();
+  });
 });
 
 describe('ButtonComponent', () => {

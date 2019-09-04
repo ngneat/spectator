@@ -34,6 +34,7 @@ Spectator helps you get rid of all the boilerplate grunt work, leaving you with 
 - [Testing Components](#testing-components)
   - [Events API](#events-api)
   - [Keyboard helpers](#keyboard-helpers)
+  - [Mouse helpers](#mouse-helpers)
   - [Queries](#queries)
     - [String Selector](#string-selector)
     - [Type Selector](#type-selector)
@@ -207,6 +208,12 @@ spectator.keyboard.pressEscape();
 spectator.keyboard.pressTab();
 spectator.keyboard.pressBackspace();
 spectator.keyboard.pressKey('a');
+```
+
+### Mouse helpers
+```ts
+spectator.mouse.contextmenu('.selector');
+spectator.mouse.dblclick('.selector');
 ```
 
 Note that each one of the above methods will also run `detectChanges()`.

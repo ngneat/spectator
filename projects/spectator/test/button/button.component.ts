@@ -9,6 +9,8 @@ import { QueryService } from '../query.service';
   template: `
     <button class="{{ className }}" (click)="onClick($event)">{{ title }}</button>
     <p>{{ queryService.selectName() | async }}</p>
+    <div class="contextmenu" (contextmenu)="contextmenu()">Context menu</div>
+    <div class="dblclick" (dblclick)="dblclick()">dblclick</div>
   `,
   providers: [QueryService],
   styles: []
@@ -25,4 +27,8 @@ export class ButtonComponent {
   public onClick($event: any): void {
     this.click.emit($event);
   }
+
+  public contextmenu() {}
+
+  public dblclick() {}
 }

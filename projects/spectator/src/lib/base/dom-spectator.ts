@@ -169,7 +169,7 @@ export abstract class DomSpectator<I> extends BaseSpectator {
     return event;
   }
 
-  public get keyboard(): any {
+  public get keyboard() {
     return {
       pressKey: (key: string, selector: SpectatorElement = this.element, event = KEY_UP) => {
         this.dispatchKeyboardEvent(selector, event, key);
@@ -185,6 +185,17 @@ export abstract class DomSpectator<I> extends BaseSpectator {
       },
       pressBackspace: (selector: SpectatorElement = this.element, event = KEY_UP) => {
         this.dispatchKeyboardEvent(selector, event, 'Backspace');
+      }
+    };
+  }
+
+  public get mouse() {
+    return {
+      contextmenu: (selector: SpectatorElement = this.element) => {
+        this.dispatchMouseEvent(selector, 'contextmenu');
+      },
+      dblclick: (selector: SpectatorElement = this.element) => {
+        this.dispatchMouseEvent(selector, 'dblclick');
       }
     };
   }
