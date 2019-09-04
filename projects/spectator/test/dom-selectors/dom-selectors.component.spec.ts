@@ -2,7 +2,7 @@ import { byAltText, byLabel, byPlaceholder, byText, byTitle, byValue, createComp
 
 import { DomSelectorsComponent } from './dom-selectors.component';
 
-fdescribe('DomSelectorsComponent', () => {
+describe('DomSelectorsComponent', () => {
   let spectator: Spectator<DomSelectorsComponent>;
   const createComponent = createComponentFactory(DomSelectorsComponent);
 
