@@ -21,6 +21,7 @@ describe('Override type-safety', () => {
 
       host.hostComponent.control.patchValue('x');
       host.hostComponent.x = 'y';
+      // host.hostComponent.foo = 'y'; // should not compile
     });
   });
 
@@ -41,6 +42,8 @@ describe('Override type-safety', () => {
 
     it('should allow accessing the overridden property', () => {
       host.hostComponent.control.patchValue('x');
+      // host.hostComponent.x = 'y'; // should not compile
+      // host.hostComponent.foo = 'y'; // should not compile
     });
   });
 

@@ -17,16 +17,16 @@ import { SpectatorHost } from './spectator-host';
 /**
  * @publicApi
  */
-export type SpectatorHostFactory<C, H> = <HP extends H extends HostComponent ? any : Partial<H>>(
+export type SpectatorHostFactory<C, H> = <HP>(
   template: string,
   overrides?: SpectatorHostOverrides<C, H, HP>
-) => SpectatorHost<C, H & HP>;
+) => SpectatorHost<C, H & HostComponent extends H ? HP : unknown>;
 
 /**
  * @publicApi
  */
 export interface SpectatorHostOverrides<C, H, HP> extends SpectatorOverrides<C> {
-  hostProps?: HP;
+  hostProps?: HostComponent extends H ? HP : Partial<H>;
 }
 
 /**

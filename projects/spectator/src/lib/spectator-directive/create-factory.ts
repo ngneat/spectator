@@ -17,10 +17,10 @@ import { SpectatorDirective } from './spectator-directive';
 /**
  * @publicApi
  */
-export type SpectatorDirectiveFactory<D, H> = <HP extends H extends HostComponent ? any : Partial<H>>(
+export type SpectatorDirectiveFactory<D, H> = <HP>(
   template: string,
   overrides?: SpectatorDirectiveOverrides<D, H, HP>
-) => SpectatorDirective<D, H & HP>;
+) => SpectatorDirective<D, H & HostComponent extends H ? HP : unknown>;
 
 /**
  * @publicApi
@@ -28,7 +28,7 @@ export type SpectatorDirectiveFactory<D, H> = <HP extends H extends HostComponen
 export interface SpectatorDirectiveOverrides<D, H, HP> extends BaseSpectatorOverrides {
   detectChanges?: boolean;
   props?: Partial<D>;
-  hostProps?: HP;
+  hostProps?: HostComponent extends H ? HP : Partial<H>;
 }
 
 /**

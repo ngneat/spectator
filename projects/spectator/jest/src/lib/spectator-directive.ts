@@ -23,10 +23,10 @@ export class SpectatorDirective<D, H = HostComponent> extends BaseSpectatorDirec
 /**
  * @publicApi
  */
-export type SpectatorDirectiveFactory<D, H = HostComponent> = <HP extends H extends HostComponent ? any : Partial<H>>(
+export type SpectatorDirectiveFactory<D, H = HostComponent> = <HP>(
   template: string,
   overrides?: SpectatorDirectiveOverrides<D, H, HP>
-) => SpectatorDirective<D, H & HP>;
+) => SpectatorDirective<D, H & HostComponent extends H ? HP : unknown>;
 
 /**
  * @publicApi

@@ -28,10 +28,10 @@ export class SpectatorHost<C, H = HostComponent> extends BaseSpectatorHost<C, H>
 /**
  * @publicApi
  */
-export type SpectatorHostFactory<C, H> = <HP extends H extends HostComponent ? any : Partial<H>>(
+export type SpectatorHostFactory<C, H> = <HP>(
   template: string,
   overrides?: SpectatorHostOverrides<C, H, HP>
-) => SpectatorHost<C, H & HP>;
+) => SpectatorHost<C, H & HostComponent extends H ? HP : unknown>;
 
 /**
  * @deprecated Use createHostFactory instead. To be removed in v5.
