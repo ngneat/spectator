@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="4.1.0"></a>
+# [4.1.0](https://github.com/ngneat/spectator/compare/v4.0.2...v4.1.0) (2019-09-04)
+
+
+### Features
+
+* 🎸 mouse ([0303844](https://github.com/ngneat/spectator/commit/0303844))
+
+
+
 <a name="4.0.2"></a>
 ## [4.0.2](https://github.com/ngneat/spectator/compare/v4.0.1...v4.0.2) (2019-09-03)
 
