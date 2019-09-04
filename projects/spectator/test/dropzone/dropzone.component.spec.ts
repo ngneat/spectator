@@ -1,3 +1,4 @@
+/* tslint:disable */
 import { Component } from '@angular/core';
 import { DropzoneComponent } from './dropzone.component';
 import { DownloadComponent } from '../download/download.component';
