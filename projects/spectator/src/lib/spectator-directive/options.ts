@@ -8,7 +8,7 @@ import { HostComponent } from '../spectator-host/host-component';
 /**
  * @publicApi
  */
-export interface SpectatorDirectiveOptions<D = any, H = HostComponent> extends BaseSpectatorOptions {
+export interface SpectatorDirectiveOptions<D, H> extends BaseSpectatorOptions {
   directive: Type<D>;
   shallow?: boolean;
   detectChanges?: boolean;
@@ -16,7 +16,7 @@ export interface SpectatorDirectiveOptions<D = any, H = HostComponent> extends B
   template?: string;
 }
 
-const defaultSpectatorRoutingOptions: OptionalsRequired<SpectatorDirectiveOptions> = {
+const defaultSpectatorRoutingOptions: OptionalsRequired<SpectatorDirectiveOptions<any, any>> = {
   ...getDefaultBaseOptions(),
   host: HostComponent,
   template: '',
@@ -28,7 +28,7 @@ const defaultSpectatorRoutingOptions: OptionalsRequired<SpectatorDirectiveOption
  * @internal
  */
 export function getSpectatorDirectiveDefaultOptions<D, H>(
-  overrides: SpectatorDirectiveOptions<D, H>
+  overrides?: SpectatorDirectiveOptions<D, H>
 ): Required<SpectatorDirectiveOptions<D, H>> {
-  return merge(defaultSpectatorRoutingOptions, overrides) as Required<SpectatorDirectiveOptions<D, H>>;
+  return merge(defaultSpectatorRoutingOptions, overrides);
 }

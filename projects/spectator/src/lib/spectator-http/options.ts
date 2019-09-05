@@ -11,17 +11,17 @@ interface SpectatorHttpOptionsDeprecated<S = any> extends BaseSpectatorOptions {
   dataService: Type<S>;
 }
 
-interface SpectatorHttpOptionsNew<S = any> extends BaseSpectatorOptions {
+interface SpectatorHttpOptionsNew<S> extends BaseSpectatorOptions {
   service: Type<S>;
 }
 
-export type SpectatorHttpOptions<S = any> = SpectatorHttpOptionsDeprecated<S> | SpectatorHttpOptionsNew<S>;
+export type SpectatorHttpOptions<S> = SpectatorHttpOptionsDeprecated<S> | SpectatorHttpOptionsNew<S>;
 
-export function isDeprecated(options: SpectatorHttpOptions): options is SpectatorHttpOptionsDeprecated {
+export function isDeprecated(options: SpectatorHttpOptions<unknown>): options is SpectatorHttpOptionsDeprecated {
   return (options as any).dataService !== undefined;
 }
 
-const defaultHttpOptions: OptionalsRequired<SpectatorHttpOptions> = {
+const defaultHttpOptions: OptionalsRequired<SpectatorHttpOptions<any>> = {
   ...getDefaultBaseOptions()
 };
 
@@ -29,5 +29,5 @@ const defaultHttpOptions: OptionalsRequired<SpectatorHttpOptions> = {
  * @internal
  */
 export function getDefaultHttpOptions<S>(overrides: SpectatorHttpOptions<S>): Required<SpectatorHttpOptions<S>> {
-  return merge(defaultHttpOptions, overrides) as Required<SpectatorHttpOptions<S>>;
+  return merge(defaultHttpOptions, overrides);
 }

@@ -8,7 +8,7 @@ import { SpectatorDirectiveOptions } from './options';
 /**
  * @internal
  */
-export function initialSpectatorDirectiveModule<D, H = HostComponent>(options: Required<SpectatorDirectiveOptions<D>>): ModuleMetadata {
+export function initialSpectatorDirectiveModule<D, H>(options: Required<SpectatorDirectiveOptions<D, H>>): ModuleMetadata {
   const moduleMetadata = initialModule(options);
 
   moduleMetadata.declarations.push(options.directive);

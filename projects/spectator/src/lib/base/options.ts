@@ -39,6 +39,6 @@ const defaultOptions: OptionalsRequired<BaseSpectatorOptions> = {
 /**
  * @internal
  */
-export function getDefaultBaseOptions(options: BaseSpectatorOptions = {}): Required<BaseSpectatorOptions> {
+export function getDefaultBaseOptions(options?: BaseSpectatorOptions): Required<BaseSpectatorOptions> {
   return merge<BaseSpectatorOptions>(defaultOptions, options);
 }

@@ -1,4 +1,4 @@
-import { Provider, Type, NgModule } from '@angular/core';
+import { Provider, Type } from '@angular/core';
 import { async, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { BrowserDynamicTestingModule } from '@angular/platform-browser-dynamic/testing';
@@ -7,6 +7,7 @@ import { setProps } from '../internals/query';
 import * as customMatchers from '../matchers';
 import { SpectatorOverrides } from '../spectator/create-factory';
 import { isType } from '../types';
+import { nodeByDirective } from '../internals/node-by-directive';
 
 import { HostComponent } from './host-component';
 import { initialSpectatorWithHostModule } from './initial-module';
@@ -16,17 +17,16 @@ import { SpectatorHost } from './spectator-host';
 /**
  * @publicApi
  */
-export type SpectatorHostFactory<C, H> = (template: string, overrides?: SpectatorHostOverrides<C, H>) => SpectatorHost<C, H>;
+export type SpectatorHostFactory<C, H> = <HP>(
+  template: string,
+  overrides?: SpectatorHostOverrides<C, H, HP>
+) => SpectatorHost<C, H & HostComponent extends H ? HP : unknown>;
 
 /**
  * @publicApi
  */
-export interface SpectatorHostOverrides<C, H> extends SpectatorOverrides<C> {
-  hostProps?: H extends HostComponent
-    ? {
-        [key: string]: any;
-      }
-    : Partial<H>;
+export interface SpectatorHostOverrides<C, H, HP> extends SpectatorOverrides<C> {
+  hostProps?: HostComponent extends H ? HP : Partial<H>;
 }
 
 /**
@@ -61,8 +61,8 @@ export function createHostFactory<C, H = HostComponent>(typeOrOptions: Type<C> |
     }
   }));
 
-  return (template: string, overrides?: SpectatorHostOverrides<C, H>) => {
-    const defaults: SpectatorHostOverrides<C, H> = { props: {}, hostProps: {} as any, detectChanges: true, providers: [] };
+  return <HP>(template: string, overrides?: SpectatorHostOverrides<C, H, HP>) => {
+    const defaults: SpectatorHostOverrides<C, H, HP> = { props: {}, hostProps: {} as any, detectChanges: true, providers: [] };
     const { detectChanges, props, hostProps, providers } = { ...defaults, ...overrides };
 
     if (providers && providers.length) {
@@ -79,10 +79,7 @@ export function createHostFactory<C, H = HostComponent>(typeOrOptions: Type<C> |
       set: { template }
     });
 
-    const spectator = createSpectatorHost<C, H>(options);
-
-    setProps(spectator.component, props);
-    setProps(spectator.hostComponent, hostProps);
+    const spectator = createSpectatorHost(options, props, hostProps);
 
     if (options.detectChanges && detectChanges) {
       spectator.detectChanges();
@@ -92,15 +89,29 @@ export function createHostFactory<C, H = HostComponent>(typeOrOptions: Type<C> |
   };
 }
 
-function createSpectatorHost<C, H>(options: Required<SpectatorHostOptions<C, H>>): SpectatorHost<C, H> {
+function createSpectatorHost<C, H, HP>(
+  options: Required<SpectatorHostOptions<C, H>>,
+  props?: Partial<C>,
+  hostProps?: HP
+): SpectatorHost<C, H & HP> {
   const hostFixture = TestBed.createComponent(options.host);
-  const debugElement = hostFixture.debugElement.query(By.directive(options.component));
+  const debugElement = hostFixture.debugElement.query(By.directive(options.component)) || hostFixture.debugElement;
+  const debugNode = hostFixture.debugElement.queryAllNodes(nodeByDirective(options.component))[0];
 
-  return new SpectatorHost<C, H>(
-    hostFixture.componentInstance,
+  if (!debugNode) {
+    throw new Error(`Cannot find component/directive ${options.component} in host template 😔`);
+  }
+
+  const hostComponent = setProps(hostFixture.componentInstance, hostProps);
+  const component = setProps(debugNode.injector.get(options.component), props);
+
+  return new SpectatorHost(
+    hostComponent,
     hostFixture.debugElement,
     hostFixture.nativeElement,
     hostFixture,
-    debugElement
+    debugElement,
+    component,
+    debugElement.nativeElement
   );
 }

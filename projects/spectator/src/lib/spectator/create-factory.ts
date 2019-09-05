@@ -1,4 +1,4 @@
-import { Provider, Type, NgModule } from '@angular/core';
+import { Provider, Type } from '@angular/core';
 import { async, TestBed } from '@angular/core/testing';
 
 import { BaseSpectatorOverrides } from '../base/options';
@@ -35,7 +35,7 @@ export function createTestComponentFactory<C>(typeOrOptions: SpectatorOptions<C>
  */
 export function createComponentFactory<C>(typeOrOptions: Type<C> | SpectatorOptions<C>): SpectatorFactory<C> {
   const options = isType(typeOrOptions)
-    ? getSpectatorDefaultOptions({ component: typeOrOptions })
+    ? getSpectatorDefaultOptions<C>({ component: typeOrOptions })
     : getSpectatorDefaultOptions(typeOrOptions);
 
   const moduleMetadata = initialSpectatorModule<C>(options);
@@ -65,9 +65,7 @@ export function createComponentFactory<C>(typeOrOptions: Type<C> | SpectatorOpti
       });
     }
 
-    const spectator = createSpectator(options);
-
-    setProps(spectator.component, props);
+    const spectator = createSpectator(options, props);
 
     if (options.detectChanges && detectChanges) {
       spectator.detectChanges();
@@ -77,8 +75,11 @@ export function createComponentFactory<C>(typeOrOptions: Type<C> | SpectatorOpti
   };
 }
 
-function createSpectator<C>(options: Required<SpectatorOptions<C>>): Spectator<C> {
+function createSpectator<C>(options: Required<SpectatorOptions<C>>, props?: Partial<C>): Spectator<C> {
   const fixture = TestBed.createComponent(options.component);
+  const debugElement = fixture.debugElement;
 
-  return new Spectator<C>(fixture, fixture.debugElement, fixture.componentInstance, fixture.debugElement.nativeElement);
+  const component = setProps(fixture.componentInstance, props);
+
+  return new Spectator(fixture, debugElement, component, debugElement.nativeElement);
 }

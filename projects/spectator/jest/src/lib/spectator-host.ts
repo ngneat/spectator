@@ -28,13 +28,16 @@ export class SpectatorHost<C, H = HostComponent> extends BaseSpectatorHost<C, H>
 /**
  * @publicApi
  */
-export type SpectatorHostFactory<C, H> = (template: string, overrides?: SpectatorHostOverrides<C, H>) => SpectatorHost<C, H>;
+export type SpectatorHostFactory<C, H> = <HP>(
+  template: string,
+  overrides?: SpectatorHostOverrides<C, H, HP>
+) => SpectatorHost<C, H & HostComponent extends H ? HP : unknown>;
 
 /**
  * @deprecated Use createHostFactory instead. To be removed in v5.
  */
 export function createHostComponentFactory<C, H = HostComponent>(
-  typeOrOptions: SpectatorHostOptions<C, H> | Type<C>
+  typeOrOptions: Type<C> | SpectatorHostOptions<C, H>
 ): SpectatorHostFactory<C, H> {
   return createHostFactory<C, H>(typeOrOptions);
 }
@@ -42,7 +45,7 @@ export function createHostComponentFactory<C, H = HostComponent>(
 /**
  * @publicApi
  */
-export function createHostFactory<C, H = HostComponent>(typeOrOptions: SpectatorHostOptions<C, H> | Type<C>): SpectatorHostFactory<C, H> {
+export function createHostFactory<C, H = HostComponent>(typeOrOptions: Type<C> | SpectatorHostOptions<C, H>): SpectatorHostFactory<C, H> {
   return baseCreateHostFactory({
     mockProvider,
     ...(isType(typeOrOptions) ? { component: typeOrOptions } : typeOrOptions)

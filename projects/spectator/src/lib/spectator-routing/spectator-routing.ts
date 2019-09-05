@@ -10,8 +10,13 @@ import { RouteOptions } from './route-options';
  * @publicApi
  */
 export class SpectatorRouting<C> extends Spectator<C> {
-  constructor(fixture: ComponentFixture<any>, debugElement: DebugElement, private readonly activatedRouteStub: ActivatedRouteStub) {
-    super(fixture, debugElement, debugElement.componentInstance, debugElement.nativeElement);
+  constructor(
+    fixture: ComponentFixture<any>,
+    debugElement: DebugElement,
+    instance: C,
+    private readonly activatedRouteStub: ActivatedRouteStub
+  ) {
+    super(fixture, debugElement, instance, debugElement.nativeElement);
   }
 
   /**

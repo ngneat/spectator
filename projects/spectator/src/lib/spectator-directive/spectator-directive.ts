@@ -13,7 +13,7 @@ import { HostComponent } from '../spectator-host/host-component';
 export class SpectatorDirective<D, H = HostComponent> extends DomSpectator<D> {
   constructor(
     public hostComponent: H,
-    public fixture: ComponentFixture<H>,
+    public fixture: ComponentFixture<any>,
     public debugElement: DebugElement,
     protected instance: D,
     public element: Element
@@ -35,7 +35,7 @@ export class SpectatorDirective<D, H = HostComponent> extends DomSpectator<D> {
 
   public setHostInput<K extends keyof H>(input: Partial<H>): void;
   public setHostInput<K extends keyof H>(input: K, inputValue: H[K]): void;
-  public setHostInput<K extends keyof H>(input: Partial<H> | K, value?: H[K]): void {
+  public setHostInput(input: any, value?: any): void {
     setProps(this.hostComponent, input, value);
     this.detectChanges();
   }
