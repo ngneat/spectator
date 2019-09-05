@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="4.2.0"></a>
+# [4.2.0](https://github.com/ngneat/spectator/compare/v4.0.2...v4.2.0) (2019-09-05)
+
+
+### Bug Fixes
+
+* support structural directive in host/directive ([#178](https://github.com/ngneat/spectator/issues/178)) ([216f1c8](https://github.com/ngneat/spectator/commit/216f1c8))
+
+
+### Features
+
+* 🎸 mouse ([0303844](https://github.com/ngneat/spectator/commit/0303844))
+* **overrides:** improve type inference for host props overrides ([#178](https://github.com/ngneat/spectator/issues/178)) ([216f1c8](https://github.com/ngneat/spectator/commit/216f1c8))
+
+
+
 <a name="4.1.0"></a>
 # [4.1.0](https://github.com/ngneat/spectator/compare/v4.0.2...v4.1.0) (2019-09-04)
 
