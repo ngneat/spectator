@@ -99,7 +99,7 @@ function createSpectatorHost<C, H, HP>(
   const debugNode = hostFixture.debugElement.queryAllNodes(nodeByDirective(options.component))[0];
 
   if (!debugNode) {
-    throw new Error('Cannot find component/directive in host template');
+    throw new Error(`Cannot find component/directive ${options.component} in host template 😔`);
   }
 
   const hostComponent = setProps(hostFixture.componentInstance, hostProps);
