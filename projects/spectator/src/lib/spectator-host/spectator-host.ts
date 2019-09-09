@@ -25,7 +25,7 @@ export class SpectatorHost<C, H = HostComponent> extends Spectator<C> {
     public hostFixture: ComponentFixture<any>,
     public debugElement: DebugElement,
     componentInstance: C,
-    public element: Element
+    public element: HTMLElement
   ) {
     super(hostFixture, debugElement, componentInstance, element);
   }

@@ -9,7 +9,7 @@ import { DomSpectator } from '../base/dom-spectator';
  * @publicApi
  */
 export class Spectator<C> extends DomSpectator<C> {
-  constructor(public fixture: ComponentFixture<C>, public debugElement: DebugElement, protected instance: C, public element: Element) {
+  constructor(public fixture: ComponentFixture<C>, public debugElement: DebugElement, protected instance: C, public element: HTMLElement) {
     super(fixture, debugElement, instance, element);
   }
 
