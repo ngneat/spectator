@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="4.2.2"></a>
+## [4.2.2](https://github.com/ngneat/spectator/compare/v4.2.1...v4.2.2) (2019-09-10)
+
+
+### Bug Fixes
+
+* 🐛 refactor entry components for ivy ([06d2c11](https://github.com/ngneat/spectator/commit/06d2c11))
+
+
+
 <a name="4.2.1"></a>
 ## [4.2.1](https://github.com/ngneat/spectator/compare/v4.2.0...v4.2.1) (2019-09-09)
 
