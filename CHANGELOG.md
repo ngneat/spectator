@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="4.2.3"></a>
+## [4.2.3](https://github.com/ngneat/spectator/compare/v4.2.2...v4.2.3) (2019-09-17)
+
+
+### Bug Fixes
+
+* **spectator:** fix incorrect method typing ([#187](https://github.com/ngneat/spectator/issues/187)) ([a405438](https://github.com/ngneat/spectator/commit/a405438))
+
+
+
 <a name="4.2.2"></a>
 ## [4.2.2](https://github.com/ngneat/spectator/compare/v4.2.1...v4.2.2) (2019-09-10)
 
