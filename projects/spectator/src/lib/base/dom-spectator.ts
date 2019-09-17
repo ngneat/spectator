@@ -55,7 +55,7 @@ export abstract class DomSpectator<I> extends BaseSpectator {
     return getChildren<R>(this.debugElement)(directiveOrSelector, options);
   }
 
-  public queryLast<R extends Element[]>(selector: string | DOMSelector, options?: { root: boolean }): R | null;
+  public queryLast<R extends Element>(selector: string | DOMSelector, options?: { root: boolean }): R | null;
   public queryLast<R>(directive: Type<R>): R | null;
   public queryLast<R>(directiveOrSelector: Type<any> | string, options: { read: Token<R> }): R | null;
   public queryLast<R>(directiveOrSelector: QueryType, options?: QueryOptions<R>): R | Element | null {
