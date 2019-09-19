@@ -92,7 +92,7 @@ describe('MyPageComponent', () => {
       // tslint:disable-next-line:no-unnecessary-type-assertion
       const link1 = spectator.query('.link-1', { read: RouterLink })!;
 
-      expect(link1.routerLink).toEqual(['foo']);
+      expect(link1.routerLink).toEqual(['/foo']);
     });
   });
 

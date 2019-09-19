@@ -347,7 +347,7 @@ describe('ButtonComponent', () => {
 });
 ```
 
-### Updating Route
+### Triggering a navigation
 The `SpectatorRouting` API includes convenient methods for updating the current route:
 
 ```ts
@@ -379,11 +379,62 @@ interface SpectatorRouting<C> extends Spectator<C> {
 }
 ```
 
-### Routing Features
+### Integration testing with `RouterTestingModule`
 
-* It automatically provides a stub implementation for `ActivatedRoute`
-* You can configure the `params`, `queryParams`, `fragments` and `data`. You can also update them, to test how your component reacts on changes.
-* It provides a stub for `RouterLink` directives
+If you set the `stubsEnabled` option to `false`, you can pass a real routing configuration
+and setup an integration test using the `RouterTestingModule` from Angular.
+
+Note that this requires promises to resolve. One way to deal with this, is by making your test async:
+
+```ts
+describe('Routing integration test', () => {
+  const createComponent = createRoutingFactory({
+    component: MyComponent,
+    declarations: [OtherComponent],
+    stubsEnabled: false,
+    routes: [
+      {
+        path: '',
+        component: MyComponent
+      },
+      {
+        path: 'foo',
+        component: OtherComponent
+      }
+    ]
+  });
+
+  it('should navigate away using router link', async () => {
+    const spectator = createComponent();
+
+    // wait for promises to resolve...
+    await spectator.fixture.whenStable();
+    
+    // test the current route by asserting the location
+    expect(spectator.get(Location).path()).toBe('/');
+
+    // click on a router link
+    spectator.click('.link-1');
+
+    // don't forget to wait for promises to resolve...
+    await spectator.fixture.whenStable();
+    
+    // test the new route by asserting the location
+    expect(spectator.get(Location).path()).toBe('/foo');
+  });
+});
+```
+
+### Routing Options
+
+The `createRoutesFactory` function can take the following options, on top of the default Spectator options:
+
+* `params`: initial params to use in `ActivatedRoute` stub
+* `queryParams`: initial query params to use in `ActivatedRoute` stub
+* `data`: initial data to use in `ActivatedRoute` stub
+* `fragment`: initial fragment to use in `ActivatedRoute` stub
+* `stubsEnabled` (default: `true`): enables the `ActivatedRoute` stub, if set to `false` it uses `RouterTestingModule` instead
+* `routes`: if `stubsEnabled` is set to false, you can pass a `Routes` configuration for `RouterTestingModule`
 
 ## Testing Directives
 
