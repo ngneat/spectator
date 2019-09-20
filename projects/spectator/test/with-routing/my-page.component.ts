@@ -11,7 +11,7 @@ import { map } from 'rxjs/operators';
     <div class="foo">{{ foo }}</div>
     <div class="bar">{{ bar }}</div>
     <div class="baz">{{ baz$ | async }}</div>
-    <a class="link-1" [routerLink]="['foo']">Some link</a>
+    <a class="link-1" [routerLink]="['/foo']">Some link</a>
     <a class="link-2" (click)="navigate()">Other link</a>
   `
 })

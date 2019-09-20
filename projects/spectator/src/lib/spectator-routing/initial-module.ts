@@ -1,4 +1,6 @@
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Event, Router } from '@angular/router';
+import { RouterTestingModule } from '@angular/router/testing';
+import { Subject } from 'rxjs';
 
 import { ModuleMetadata } from '../base/initial-module';
 import { initialSpectatorModule } from '../spectator/initial-module';
@@ -6,6 +8,7 @@ import { initialSpectatorModule } from '../spectator/initial-module';
 import { ActivatedRouteStub } from './activated-route-stub';
 import { SpectatorRoutingOptions } from './options';
 import { RouterLinkDirectiveStub } from './router-link-stub';
+import { RouterStub } from './router-stub';
 
 /**
  * @internal
@@ -13,23 +16,41 @@ import { RouterLinkDirectiveStub } from './router-link-stub';
 export function initialRoutingModule<S>(options: Required<SpectatorRoutingOptions<S>>): ModuleMetadata {
   const moduleMetadata = initialSpectatorModule(options);
 
-  if (options.mockRouterLinks) {
+  if (options.mockRouterLinks && options.stubsEnabled) {
     moduleMetadata.declarations.push(RouterLinkDirectiveStub);
   }
 
-  moduleMetadata.providers.push(options.mockProvider(Router));
+  if (options.stubsEnabled) {
+    moduleMetadata.providers.push(
+      options.mockProvider(RouterStub, {
+        events: new Subject<Event>(),
+        emitRouterEvent(event: Event): void {
+          this.events.next(event);
+        }
+      }),
+      {
+        provide: Router,
+        useExisting: RouterStub
+      }
+    );
 
-  moduleMetadata.providers.push([
-    {
-      provide: ActivatedRoute,
-      useFactory: () =>
-        new ActivatedRouteStub({
+    moduleMetadata.providers.push(
+      {
+        provide: ActivatedRouteStub,
+        useValue: new ActivatedRouteStub({
           params: options.params,
           queryParams: options.queryParams,
           data: options.data
         })
-    }
-  ]);
+      },
+      {
+        provide: ActivatedRoute,
+        useExisting: ActivatedRouteStub
+      }
+    );
+  } else {
+    moduleMetadata.imports.push(RouterTestingModule.withRoutes(options.routes));
+  }
 
   return moduleMetadata;
 }

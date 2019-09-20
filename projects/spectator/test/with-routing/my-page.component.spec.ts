@@ -1,5 +1,7 @@
-import { Router, RouterLink } from '@angular/router';
+import { NavigationStart, Router, RouterLink } from '@angular/router';
 import { createRoutingFactory } from '@ngneat/spectator';
+import { Component } from '@angular/core';
+import { Location } from '@angular/common';
 
 import { MyPageComponent } from './my-page.component';
 
@@ -91,7 +93,7 @@ describe('MyPageComponent', () => {
 
       const link1 = spectator.query('.link-1', { read: RouterLink })!;
 
-      expect(link1.routerLink).toEqual(['foo']);
+      expect(link1.routerLink).toEqual(['/foo']);
     });
   });
 
@@ -106,6 +108,83 @@ describe('MyPageComponent', () => {
       spectator.click('.link-2');
 
       expect(spectator.get(Router).navigate).toHaveBeenCalledWith(['bar']);
+    });
+
+    it('should trigger router events', async () => {
+      const spectator = createComponent();
+
+      const subscriberSpy = jasmine.createSpy('subscriber');
+      const subscription = spectator.router.events.subscribe(subscriberSpy);
+      spyOn(console, 'warn');
+
+      spectator.emitRouterEvent(new NavigationStart(1, 'some-url'));
+
+      // tslint:disable-next-line:no-console
+      expect(console.warn).not.toHaveBeenCalled();
+      expect(subscriberSpy).toHaveBeenCalled();
+
+      subscription.unsubscribe();
+    });
+  });
+
+  describe('without stubs', () => {
+    @Component({
+      selector: 'dummy',
+      template: ''
+    })
+    class DummyComponent {}
+
+    const createComponent = createRoutingFactory({
+      component: MyPageComponent,
+      declarations: [DummyComponent],
+      stubsEnabled: false,
+      routes: [
+        {
+          path: '',
+          component: MyPageComponent
+        },
+        {
+          path: 'foo',
+          component: DummyComponent
+        }
+      ]
+    });
+
+    it('should navigate away using router', async () => {
+      const spectator = createComponent();
+
+      await spectator.fixture.whenStable();
+      expect(spectator.get(Location).path()).toBe('/');
+
+      await spectator.router.navigate(['/foo']);
+      expect(spectator.get(Location).path()).toBe('/foo');
+
+      await spectator.router.navigate(['/']);
+      expect(spectator.get(Location).path()).toBe('/');
+    });
+
+    it('should navigate away using router link', async () => {
+      const spectator = createComponent();
+
+      await spectator.fixture.whenStable();
+      expect(spectator.get(Location).path()).toBe('/');
+
+      spectator.click('.link-1');
+
+      await spectator.fixture.whenStable();
+      expect(spectator.get(Location).path()).toBe('/foo');
+    });
+
+    it('should not trigger router events', async () => {
+      const spectator = createComponent();
+      await spectator.fixture.whenStable();
+
+      spyOn(console, 'warn');
+
+      spectator.emitRouterEvent(new NavigationStart(1, 'some-url'));
+
+      // tslint:disable-next-line:no-console
+      expect(console.warn).toHaveBeenCalled();
     });
   });
 });

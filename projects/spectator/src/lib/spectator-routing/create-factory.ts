@@ -1,6 +1,6 @@
 import { Provider, Type } from '@angular/core';
 import { async, TestBed } from '@angular/core/testing';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 import { setProps } from '../internals/query';
 import * as customMatchers from '../matchers';
@@ -71,6 +71,8 @@ export function createRoutingFactory<C>(typeOrOptions: Type<C> | SpectatorRoutin
 
     const spectator = createSpectatorRouting(options, props);
 
+    spectator.router.initialNavigation();
+
     if (options.detectChanges && detectChanges) {
       spectator.detectChanges();
     }
@@ -85,5 +87,5 @@ function createSpectatorRouting<C>(options: Required<SpectatorRoutingOptions<C>>
 
   const component = setProps(fixture.componentInstance, props);
 
-  return new SpectatorRouting(fixture, debugElement, component, TestBed.get(ActivatedRoute));
+  return new SpectatorRouting(fixture, debugElement, component, TestBed.get(Router), TestBed.get(ActivatedRoute));
 }
