@@ -1,4 +1,4 @@
-import { Router, RouterLink } from '@angular/router';
+import { NavigationStart, Router, RouterLink } from '@angular/router';
 import { createRoutingFactory } from '@ngneat/spectator';
 import { Component } from '@angular/core';
 import { Location } from '@angular/common';
@@ -109,6 +109,22 @@ describe('MyPageComponent', () => {
 
       expect(spectator.get(Router).navigate).toHaveBeenCalledWith(['bar']);
     });
+
+    it('should trigger router events', async () => {
+      const spectator = createComponent();
+
+      const subscriberSpy = jasmine.createSpy('subscriber');
+      const subscription = spectator.router.events.subscribe(subscriberSpy);
+      spyOn(console, 'warn');
+
+      spectator.emitRouterEvent(new NavigationStart(1, 'some-url'));
+
+      // tslint:disable-next-line:no-console
+      expect(console.warn).not.toHaveBeenCalled();
+      expect(subscriberSpy).toHaveBeenCalled();
+
+      subscription.unsubscribe();
+    });
   });
 
   describe('without stubs', () => {
@@ -157,6 +173,18 @@ describe('MyPageComponent', () => {
 
       await spectator.fixture.whenStable();
       expect(spectator.get(Location).path()).toBe('/foo');
+    });
+
+    it('should not trigger router events', async () => {
+      const spectator = createComponent();
+      await spectator.fixture.whenStable();
+
+      spyOn(console, 'warn');
+
+      spectator.emitRouterEvent(new NavigationStart(1, 'some-url'));
+
+      // tslint:disable-next-line:no-console
+      expect(console.warn).toHaveBeenCalled();
     });
   });
 });

@@ -1,14 +1,14 @@
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Event, Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
-import { EMPTY } from 'rxjs';
+import { Subject } from 'rxjs';
 
 import { ModuleMetadata } from '../base/initial-module';
 import { initialSpectatorModule } from '../spectator/initial-module';
-import { SpyObject } from '../mock';
 
 import { ActivatedRouteStub } from './activated-route-stub';
 import { SpectatorRoutingOptions } from './options';
 import { RouterLinkDirectiveStub } from './router-link-stub';
+import { RouterStub } from './router-stub';
 
 /**
  * @internal
@@ -21,18 +21,18 @@ export function initialRoutingModule<S>(options: Required<SpectatorRoutingOption
   }
 
   if (options.stubsEnabled) {
-    moduleMetadata.providers.push({
-      provide: Router,
-      useFactory: () => {
-        const provider = options.mockProvider(Router);
-        const router = provider.useFactory() as SpyObject<Router>;
-
-        // this prevents the events property to be undefined
-        router.castToWritable().events = EMPTY;
-
-        return router;
+    moduleMetadata.providers.push(
+      options.mockProvider(RouterStub, {
+        events: new Subject<Event>(),
+        emitRouterEvent(event: Event): void {
+          this.events.next(event);
+        }
+      }),
+      {
+        provide: Router,
+        useExisting: RouterStub
       }
-    });
+    );
 
     moduleMetadata.providers.push(
       {

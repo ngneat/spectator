@@ -1,6 +1,8 @@
 /** Credit: Valentin Buryakov */
 import { FactoryProvider, Type } from '@angular/core';
 
+import { InjectableType } from './token';
+
 type Writable<T> = { -readonly [P in keyof T]: T[P] };
 
 /**
@@ -69,7 +71,7 @@ export function installProtoMethods<T>(mock: any, proto: any, createSpyFn: Funct
 /**
  * @publicApi
  */
-export function createSpyObject<T>(type: Type<T>, template?: Partial<Record<keyof T, any>>): SpyObject<T> {
+export function createSpyObject<T>(type: InjectableType<T>, template?: Partial<Record<keyof T, any>>): SpyObject<T> {
   const mock: any = { ...template } || {};
 
   installProtoMethods<T>(mock, type.prototype, name => {
@@ -89,7 +91,7 @@ export function createSpyObject<T>(type: Type<T>, template?: Partial<Record<keyo
 /**
  * @publicApi
  */
-export function mockProvider<T>(type: Type<T>, properties?: Partial<Record<keyof T, any>>): FactoryProvider {
+export function mockProvider<T>(type: InjectableType<T>, properties?: Partial<Record<keyof T, any>>): FactoryProvider {
   return {
     provide: type,
     useFactory: () => createSpyObject(type, properties)
