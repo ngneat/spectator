@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="4.3.0"></a>
+# [4.3.0](https://github.com/ngneat/spectator/compare/v4.2.3...v4.3.0) (2019-09-20)
+
+
+### Features
+
+* **routing:** add option to disable stubs and use RouterTestingModule ([#188](https://github.com/ngneat/spectator/issues/188)) ([2fb7390](https://github.com/ngneat/spectator/commit/2fb7390))
+
+
+
 <a name="4.2.3"></a>
 ## [4.2.3](https://github.com/ngneat/spectator/compare/v4.2.2...v4.2.3) (2019-09-17)
 
