@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="4.3.1"></a>
+## [4.3.1](https://github.com/ngneat/spectator/compare/v4.3.0...v4.3.1) (2019-09-24)
+
+
+### Bug Fixes
+
+* **mock:** make SpyObject properties writable by default ([3d0931f](https://github.com/ngneat/spectator/commit/3d0931f))
+
+
+
 <a name="4.3.0"></a>
 # [4.3.0](https://github.com/ngneat/spectator/compare/v4.2.3...v4.3.0) (2019-09-20)
 
