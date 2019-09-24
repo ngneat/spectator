@@ -36,6 +36,8 @@ describe('SpyObject', () => {
 
     person.castToWritable().name = 'Other name'; // should compile
 
+    person.name = 'Other name'; // should also compile since 4.3.1
+
     expect(person.name).toBe('Other name');
   });
 });

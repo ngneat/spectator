@@ -30,10 +30,12 @@ export interface CompatibleSpy extends jasmine.Spy {
 /**
  * @publicApi
  */
-export type SpyObject<T> = T &
-  { [P in keyof T]: T[P] extends Function ? T[P] & CompatibleSpy : T[P] } & {
+export type SpyObject<T> = Writable<T> &
+  { [P in keyof Writable<T>]: T[P] extends Function ? T[P] & CompatibleSpy : T[P] } & {
     /**
      * Casts to type without readonly properties
+     *
+     * @deprecated Not needed anymore as since 4.3.1 all properties of SpyObject are already writable
      */
     castToWritable(): Writable<T>;
   };

@@ -1,7 +1,12 @@
 import { FactoryProvider } from '@angular/core';
 import { installProtoMethods, CompatibleSpy, SpyObject as BaseSpyObject, InjectableType } from '@ngneat/spectator';
 
-export type SpyObject<T> = BaseSpyObject<T> & { [P in keyof T]: T[P] & (T[P] extends (...args: any[]) => infer R ? jest.Mock<R> : T[P]) };
+type Writable<T> = { -readonly [P in keyof T]: T[P] };
+
+export type SpyObject<T> = BaseSpyObject<T> &
+  {
+    [P in keyof Writable<T>]: T[P] & (T[P] extends (...args: any[]) => infer R ? jest.Mock<R> : T[P]);
+  };
 
 /**
  * @internal
