@@ -49,5 +49,5 @@ export function createHostFactory<C, H = HostComponent>(typeOrOptions: Type<C> |
   return baseCreateHostFactory({
     mockProvider,
     ...(isType(typeOrOptions) ? { component: typeOrOptions } : typeOrOptions)
-  });
+  }) as SpectatorHostFactory<C, H>;
 }

@@ -3,12 +3,17 @@ import {
   createComponentFactory as baseCreateComponentFactory,
   isType,
   Spectator as BaseSpectator,
-  SpectatorFactory,
   SpectatorOptions,
+  SpectatorOverrides,
   Token
 } from '@ngneat/spectator';
 
 import { mockProvider, SpyObject } from './mock';
+
+/**
+ * @publicApi
+ */
+export type SpectatorFactory<C> = (options?: SpectatorOverrides<C>) => Spectator<C>;
 
 /**
  * @deprecated Use createComponentFactory instead. To be removed in v5.
@@ -21,7 +26,7 @@ export function createComponentFactory<C>(typeOrOptions: SpectatorOptions<C> | T
   return baseCreateComponentFactory({
     mockProvider,
     ...(isType(typeOrOptions) ? { component: typeOrOptions } : typeOrOptions)
-  });
+  }) as SpectatorFactory<C>;
 }
 
 export class Spectator<C> extends BaseSpectator<C> {

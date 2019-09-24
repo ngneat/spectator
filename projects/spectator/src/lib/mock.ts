@@ -1,9 +1,16 @@
 /** Credit: Valentin Buryakov */
-import { FactoryProvider, Type } from '@angular/core';
+import { FactoryProvider } from '@angular/core';
 
 import { InjectableType } from './token';
 
-type Writable<T> = { -readonly [P in keyof T]: T[P] };
+type Writable<T> = { -readonly [P in keyof T]: T[P] } & {
+  /**
+   * Casts to type without readonly properties
+   *
+   * @deprecated Not needed anymore as since 4.3.1 all properties of SpyObject are already writable
+   */
+  castToWritable(): Writable<T>;
+};
 
 /**
  * @publicApi
@@ -30,15 +37,9 @@ export interface CompatibleSpy extends jasmine.Spy {
 /**
  * @publicApi
  */
-export type SpyObject<T> = Writable<T> &
-  { [P in keyof Writable<T>]: T[P] extends Function ? T[P] & CompatibleSpy : T[P] } & {
-    /**
-     * Casts to type without readonly properties
-     *
-     * @deprecated Not needed anymore as since 4.3.1 all properties of SpyObject are already writable
-     */
-    castToWritable(): Writable<T>;
-  };
+export type SpyObject<T> = {
+  [P in keyof Writable<T>]: Writable<T>[P] extends Function ? Writable<T>[P] & CompatibleSpy : Writable<T>[P];
+};
 
 /**
  * @internal

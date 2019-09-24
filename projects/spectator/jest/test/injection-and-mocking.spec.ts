@@ -1,4 +1,4 @@
-import { createHostFactory, createService, createComponentFactory, Spectator } from '@ngneat/spectator/jest';
+import { createHostFactory, createService, createComponentFactory, Spectator, SpectatorHost } from '@ngneat/spectator/jest';
 import { InjectionToken } from '@angular/core';
 
 import { ConsumerService } from '../../test/consumer.service';
@@ -78,7 +78,7 @@ describe('Injection tokens', () => {
       ]
     });
 
-    let host: Spectator<ZippyComponent>;
+    let host: SpectatorHost<ZippyComponent>;
 
     beforeEach(() => (host = createHost('<zippy></zippy>')));
 

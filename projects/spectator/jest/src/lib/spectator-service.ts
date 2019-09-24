@@ -30,7 +30,7 @@ export function createService<S>(typeOrOptions: SpectatorServiceOptions<S> | Typ
   return baseCreateService({
     mockProvider,
     ...(isType(typeOrOptions) ? { service: typeOrOptions } : typeOrOptions)
-  });
+  }) as SpectatorService<S>;
 }
 
 /**
@@ -40,5 +40,5 @@ export function createServiceFactory<S>(typeOrOptions: SpectatorServiceOptions<S
   return baseCreateServiceFactory({
     mockProvider,
     ...(isType(typeOrOptions) ? { service: typeOrOptions } : typeOrOptions)
-  });
+  }) as SpectatorServiceFactory<S>;
 }

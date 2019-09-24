@@ -35,5 +35,5 @@ export function createHttpFactory<S>(typeOrOptions: SpectatorHttpOptions<S> | Ty
   return baseCreateHttpFactory({
     mockProvider,
     ...(isType(typeOrOptions) ? { dataService: typeOrOptions } : typeOrOptions)
-  });
+  }) as SpectatorHttpFactory<S>;
 }

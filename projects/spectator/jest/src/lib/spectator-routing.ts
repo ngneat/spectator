@@ -31,5 +31,5 @@ export function createRoutingFactory<C>(typeOrOptions: SpectatorRoutingOptions<C
   return baseCreateRoutingFactory({
     mockProvider,
     ...(isType(typeOrOptions) ? { component: typeOrOptions } : typeOrOptions)
-  });
+  }) as SpectatorRoutingFactory<C>;
 }

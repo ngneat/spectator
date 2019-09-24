@@ -37,5 +37,5 @@ export function createDirectiveFactory<D, H = HostComponent>(
   return baseCreateDirectiveFactory({
     mockProvider,
     ...(isType(typeOrOptions) ? { directive: typeOrOptions } : typeOrOptions)
-  });
+  }) as SpectatorDirectiveFactory<D, H>;
 }
