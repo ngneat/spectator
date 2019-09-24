@@ -20,7 +20,6 @@ describe('WidgetComponent', () => {
   it('should call the service method on button click', () => {
     host = createHost(`<app-widget></app-widget>`);
     host.click('button');
-    const widgetService = host.component.widgetService as SpyObject<WidgetService>;
-    expect(widgetService.get).toHaveBeenCalled();
+    expect(host.get(WidgetService).get).toHaveBeenCalled();
   });
 });
