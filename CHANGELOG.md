@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="4.3.2"></a>
+## [4.3.2](https://github.com/ngneat/spectator/compare/v4.3.1...v4.3.2) (2019-09-24)
+
+
+### Bug Fixes
+
+* **mock:** fix typings error on TS 3.5 ([26fc6ba](https://github.com/ngneat/spectator/commit/26fc6ba))
+
+
+
 <a name="4.3.1"></a>
 ## [4.3.1](https://github.com/ngneat/spectator/compare/v4.3.0...v4.3.1) (2019-09-24)
 
