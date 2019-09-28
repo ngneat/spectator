@@ -66,7 +66,7 @@ export function createDirectiveFactory<D, H = HostComponent>(
       set: { template }
     });
 
-    const spectator = createSpectatorDirective(options, props, hostProps);
+    const spectator = createSpectatorDirective(options, props, hostProps, detectChanges);
 
     if (options.detectChanges && detectChanges) {
       spectator.detectChanges();
@@ -79,9 +79,16 @@ export function createDirectiveFactory<D, H = HostComponent>(
 function createSpectatorDirective<D, H, HP>(
   options: Required<SpectatorDirectiveOptions<D, H>>,
   props?: Partial<D>,
-  hostProps?: HP
+  hostProps?: HP,
+  detectChanges?: boolean
 ): SpectatorDirective<D, H & HP> {
   const hostFixture = TestBed.createComponent(options.host);
+
+  // run an initial change detection before querying the debug node
+  if (options.detectChanges && detectChanges) {
+    hostFixture.detectChanges();
+  }
+
   const debugElement = hostFixture.debugElement.query(By.directive(options.directive)) || hostFixture.debugElement;
   const debugNode = hostFixture.debugElement.queryAllNodes(nodeByDirective(options.directive))[0];
 
