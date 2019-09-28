@@ -79,7 +79,7 @@ export function createHostFactory<C, H = HostComponent>(typeOrOptions: Type<C> |
       set: { template }
     });
 
-    const spectator = createSpectatorHost(options, props, hostProps);
+    const spectator = createSpectatorHost(options, props, hostProps, detectChanges);
 
     if (options.detectChanges && detectChanges) {
       spectator.detectChanges();
@@ -92,9 +92,16 @@ export function createHostFactory<C, H = HostComponent>(typeOrOptions: Type<C> |
 function createSpectatorHost<C, H, HP>(
   options: Required<SpectatorHostOptions<C, H>>,
   props?: Partial<C>,
-  hostProps?: HP
+  hostProps?: HP,
+  detectChanges?: boolean
 ): SpectatorHost<C, H & HP> {
   const hostFixture = TestBed.createComponent(options.host);
+
+  // run an initial change detection before querying the debug node
+  if (options.detectChanges && detectChanges) {
+    hostFixture.detectChanges();
+  }
+
   const debugElement = hostFixture.debugElement.query(By.directive(options.component)) || hostFixture.debugElement;
   const debugNode = hostFixture.debugElement.queryAllNodes(nodeByDirective(options.component))[0];
 
@@ -104,6 +111,10 @@ function createSpectatorHost<C, H, HP>(
 
   const hostComponent = setProps(hostFixture.componentInstance, hostProps);
   const component = setProps(debugNode.injector.get(options.component), props);
+
+  if (options.detectChanges && detectChanges) {
+    hostFixture.detectChanges();
+  }
 
   return new SpectatorHost(
     hostComponent,
