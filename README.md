@@ -325,7 +325,7 @@ describe('With Custom Host Component', function () {
 For components which use routing, there is a special factory available that extends the default one, and provides a stubbed `ActivatedRoute` so that you can configure additional routing options.
 
 ```ts
-describe('ButtonComponent', () => {
+describe('ProductDetailsComponent', () => {
   let spectator: SpectatorRouting<ProductDetailsComponent>;
   const createComponent = createRoutingFactory({
     component: ProductDetailsComponent,
@@ -336,7 +336,7 @@ describe('ButtonComponent', () => {
   beforeEach(() => spectator = createComponent());
 
   it('should display route data title', () => {
-    expect(spectator.query('.title')).toHaveTest('Some title');
+    expect(spectator.query('.title')).toHaveText('Some title');
   });
 
   it('should react to route changes', () => {
