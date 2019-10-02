@@ -9,6 +9,7 @@ import { AsyncComponent } from './async/async.component';
 import { AutoFocusDirective } from './auto-focus.directive';
 import { ButtonComponent } from './button/button.component';
 import { CalcComponent } from './calc/calc.component';
+import { CalcTextAreaComponent } from './calc-textarea/calc-textarea.component';
 import { ChildServiceService } from './child-service.service';
 import { ChildComponent } from './child/child.component';
 import { ClickComponent } from './click/click.component';
@@ -37,6 +38,7 @@ import { EventsComponent } from './events/events.component';
     ButtonComponent,
     HighlightDirective,
     CalcComponent,
+    CalcTextAreaComponent,
     DynamicComponent,
     ConsumeDynamicComponent,
     ViewChildrenComponent,
