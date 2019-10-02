@@ -15,5 +15,5 @@ export function typeInElement(value: string, element: HTMLElement | Document | W
 
   element.focus();
   element.value = value;
-  dispatchFakeEvent(element, element.tagName.toLowerCase(), true);
+  dispatchFakeEvent(element, 'input', true);
 }
