@@ -161,6 +161,16 @@ it('should emit the $event on click', () => {
   expect(output).toEqual({ type: 'click' });
 });
 ```
+- `tick(millis?: number)` - Run the fakeAsync `tick()` function and call `detectChanges()`:
+```ts
+it('should work with tick', fakeAsync(() => {
+  spectator = createComponent(ZippyComponent);
+  spectator.component.update();
+  expect(spectator.component.updatedAsync).toBeFalsy();
+  spectator.tick(6000);
+  expect(spectator.component.updatedAsync).not.toBeFalsy();
+}))
+```
 
 ### Events API
 Each one of the events can accept a `SpectatorElement` which can be one of the following: 

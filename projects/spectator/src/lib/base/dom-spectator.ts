@@ -1,6 +1,6 @@
 import { ChangeDetectorRef, DebugElement, ElementRef, Type } from '@angular/core';
 import { Observable } from 'rxjs';
-import { ComponentFixture } from '@angular/core/testing';
+import { ComponentFixture, tick } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
 import { Token } from '../token';
@@ -85,6 +85,11 @@ export abstract class DomSpectator<I> extends BaseSpectator {
     }
 
     return observable as Observable<T>;
+  }
+
+  public tick(millis?: number): void {
+    tick(millis);
+    this.detectChanges();
   }
 
   public click(selector: SpectatorElement = this.element): void {

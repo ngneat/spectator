@@ -26,7 +26,7 @@ describe('ZippyComponent', () => {
         widgets: ''
       }
     });
-    tick();
+    host.tick();
     host.detectChanges();
     expect(host.query('div')).toExist();
   }));

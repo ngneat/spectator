@@ -172,7 +172,7 @@ describe('With Custom Host Component', () => {
     host = createHost(`<zippy [title]="title"></zippy>`);
     host.component.update();
     expect(host.component.updatedAsync).toBeFalsy();
-    tick(6000);
+    host.tick(6000);
     expect(host.component.updatedAsync).not.toBeFalsy();
   }));
 
