@@ -793,11 +793,11 @@ add it to your `angular.json`:
 ng config cli.defaultCollection @ngneat/spectator
 ```
 
-The `spectator` schematics extend the default `@schematics/angular` collection. If you want to set defaults for schematics such as generating components with scss file, you must change the schematics package name from `@schematics/angular` to `@netbasal/spectator` in `angular.json`:
+The `spectator` schematics extend the default `@schematics/angular` collection. If you want to set defaults for schematics such as generating components with scss file, you must change the schematics package name from `@schematics/angular` to `@ngneat/spectator` in `angular.json`:
 
 ```json
 "schematics": {
-  "@ngneat/spectator:component": {
+  "@ngneat/spectator:spectator-component": {
     "styleext": "scss"
   }
 }
