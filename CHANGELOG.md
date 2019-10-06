@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="4.4.0"></a>
+# [4.4.0](https://github.com/ngneat/spectator/compare/v4.3.4...v4.4.0) (2019-10-06)
+
+
+### Features
+
+* 🎸 add tick helper ([059be16](https://github.com/ngneat/spectator/commit/059be16))
+
+
+
 <a name="4.3.4"></a>
 ## [4.3.4](https://github.com/ngneat/spectator/compare/v4.3.3...v4.3.4) (2019-10-02)
 
