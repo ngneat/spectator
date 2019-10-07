@@ -20,7 +20,7 @@ Please head to the [CHANGELOG](CHANGELOG.md) for a complete list of changes.
 For some of the changes, we created a migration script. After installing Spectator v4, just run:
 
 ```bash
-$ spectator-migrate
+$ node node_modules/@ngneat/spectator/migrate.js
 ```
 
 This will apply some of the migration changes to your `*.spec.ts` files.
