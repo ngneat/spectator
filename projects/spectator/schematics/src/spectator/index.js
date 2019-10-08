@@ -3,11 +3,15 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const core_1 = require("@angular-devkit/core");
 const schematics_1 = require("@angular-devkit/schematics");
 const config_1 = require("@schematics/angular/utility/config");
+const parse_name_1 = require("@schematics/angular/utility/parse-name");
 function spectatorComponentSchematic(options) {
     return schematics_1.chain([
         schematics_1.externalSchematic('@schematics/angular', 'component', Object.assign({}, options, { skipTests: true, spec: false })),
         (tree, _context) => {
             _ensurePath(tree, options);
+            const parsedPath = parse_name_1.parseName(options.path, options.name);
+            options.name = parsedPath.name;
+            options.path = parsedPath.path;
             const movePath = core_1.normalize(options.path + '/' + core_1.strings.dasherize(options.name) || '');
             const specTemplateRule = schematics_1.apply(schematics_1.url(`./files/${options.withHost ? 'component-host' : options.withCustomHost ? 'component-custom-host' : 'component'}`), [
                 schematics_1.template(Object.assign({}, core_1.strings, options)),
