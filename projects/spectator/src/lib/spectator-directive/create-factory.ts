@@ -20,7 +20,7 @@ import { SpectatorDirective } from './spectator-directive';
 export type SpectatorDirectiveFactory<D, H> = <HP>(
   template: string,
   overrides?: SpectatorDirectiveOverrides<D, H, HP>
-) => SpectatorDirective<D, H & HostComponent extends H ? HP : unknown>;
+) => SpectatorDirective<D, H & (HostComponent extends H ? HP : unknown)>;
 
 /**
  * @publicApi

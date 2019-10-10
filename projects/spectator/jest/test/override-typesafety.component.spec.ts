@@ -12,27 +12,27 @@ describe('Override type-safety', () => {
     });
 
     it('should allow accessing the overridden property', () => {
-      const host = createHost('<my-component></my-component>', {
+      const spectator = createHost('<my-component></my-component>', {
         hostProps: {
           control: new FormControl(),
           x: 'x'
         }
       });
 
-      host.hostComponent.control.patchValue('x');
-      host.hostComponent.x = 'y';
-      // host.hostComponent.foo = 'y'; // should not compile
+      spectator.hostComponent.control.patchValue('x');
+      spectator.hostComponent.x = 'y';
+      // spectator.hostComponent.foo = 'y'; // should not compile
     });
   });
 
   describe('Default host without type inference and custom properties', () => {
-    let host: SpectatorHost<MyComponent, { control: FormControl }>;
+    let spectator: SpectatorHost<MyComponent, { control: FormControl }>;
     const createHost = createHostFactory({
       component: MyComponent
     });
 
     beforeEach(() => {
-      host = createHost('<my-component></my-component>', {
+      spectator = createHost('<my-component></my-component>', {
         hostProps: {
           control: new FormControl(),
           x: 'x'
@@ -41,9 +41,9 @@ describe('Override type-safety', () => {
     });
 
     it('should allow accessing the overridden property', () => {
-      host.hostComponent.control.patchValue('x');
-      // host.hostComponent.x = 'y'; // should not compile
-      // host.hostComponent.foo = 'y'; // should not compile
+      spectator.hostComponent.control.patchValue('x');
+      // spectator.hostComponent.x = 'y'; // should not compile
+      // spectator.hostComponent.foo = 'y'; // should not compile
     });
   });
 
@@ -53,7 +53,7 @@ describe('Override type-safety', () => {
       public foo: string = 'bar';
     }
 
-    let host: SpectatorHost<MyComponent, CustomHostComponent>;
+    let spectator: SpectatorHost<MyComponent, CustomHostComponent>;
     const createHost = createHostFactory({
       component: MyComponent,
       host: CustomHostComponent,
@@ -61,17 +61,46 @@ describe('Override type-safety', () => {
     });
 
     beforeEach(() => {
-      host = createHost('<my-component></my-component>', {
+      spectator = createHost('<my-component></my-component>', {
         hostProps: {
           // control: new FormControl(), // should not compile
           foo: 'x'
         }
       });
+
+      expect(spectator.hostComponent.foo).toBe('x');
     });
 
     it('should allow setting the defined properties', () => {
-      host.hostComponent.foo = 'bar';
-      // host.hostComponent.bar = 'bar'; // should not compile
+      spectator.hostComponent.foo = 'bar';
+      // spectator.hostComponent.bar = 'bar'; // should not compile
+    });
+  });
+
+  describe('Custom Host should not allow custom properties (type inference)', () => {
+    @Component({ template: '' })
+    class CustomHostComponent {
+      public foo: string = 'bar';
+    }
+
+    const createHost = createHostFactory({
+      component: MyComponent,
+      host: CustomHostComponent,
+      imports: [ReactiveFormsModule]
+    });
+
+    it('should allow setting the defined properties', () => {
+      const spectator = createHost('<my-component></my-component>', {
+        hostProps: {
+          // control: new FormControl(), // should not compile
+          foo: 'x'
+        }
+      });
+
+      expect(spectator.hostComponent.foo).toBe('x');
+
+      spectator.hostComponent.foo = 'bar';
+      // spectator.hostComponent.bar = 'bar'; // should not compile
     });
   });
 });
