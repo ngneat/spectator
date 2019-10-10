@@ -350,7 +350,7 @@ describe('ProductDetailsComponent', () => {
   });
 
   it('should react to route changes', () => {
-    spectator.setParam('productId', '5');
+    spectator.setRouteParam('productId', '5');
 
      // your test here...
   });
