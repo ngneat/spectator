@@ -151,6 +151,24 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "mehmet-erim",
+      "name": "Mehmet Erim",
+      "avatar_url": "https://avatars0.githubusercontent.com/u/34455572?v=4",
+      "profile": "https://github.com/mehmet-erim",
+      "contributions": [
+        "doc"
+      ]
+    },
+    {
+      "login": "Plysepter",
+      "name": "Brett Eckert",
+      "avatar_url": "https://avatars0.githubusercontent.com/u/8854614?v=4",
+      "profile": "https://github.com/Plysepter",
+      "contributions": [
+        "code"
+      ]
     }
   ]
 }
