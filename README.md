@@ -39,7 +39,7 @@ Spectator helps you get rid of all the boilerplate grunt work, leaving you with 
     - [String Selector](#string-selector)
     - [Type Selector](#type-selector)
     - [DOM Selector](#dom-selector)
-  - [Mocking components](#mocking-providers)
+  - [Mocking Components](#mocking-components)
 - [Testing with Host](#testing-with-host)
   - [Custom Host Component](#custom-host-component)
 - [Testing with Routing](#testing-with-routing)
@@ -269,8 +269,8 @@ spectator.query(byAltText('By alt text'));
 spectator.query(byLabel('By label'));
 spectator.query(byText('By text'));
 ```
-#### Mocking components
-If you need to mock components, you can use the [ng-mocks](https://github.com/ike18t/ng-mocks) library. Instead of using `CUSTOM_ELEMENTS_SCHEMA` which might hide some issues and won't help you to set inputs, outputs, etc, `ng-mocks` will auto mock the inputs, outputs, etc for you.
+#### Mocking Components
+If you need to mock components, you can use the [ng-mocks](https://github.com/ike18t/ng-mocks) library. Instead of using `CUSTOM_ELEMENTS_SCHEMA`,which might hide some issues and won't help you to set inputs, outputs, etc., `ng-mocks` will auto mock the inputs, outputs, etc. for you.
 
 Example:
 
