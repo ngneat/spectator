@@ -20,7 +20,7 @@ import { SpectatorHost } from './spectator-host';
 export type SpectatorHostFactory<C, H> = <HP>(
   template: string,
   overrides?: SpectatorHostOverrides<C, H, HP>
-) => SpectatorHost<C, H & HostComponent extends H ? HP : unknown>;
+) => SpectatorHost<C, H & (HostComponent extends H ? HP : unknown)>;
 
 /**
  * @publicApi
