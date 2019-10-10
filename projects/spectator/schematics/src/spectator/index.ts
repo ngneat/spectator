@@ -1,6 +1,19 @@
 import { experimental, normalize, strings } from '@angular-devkit/core';
-import { apply, chain, externalSchematic, mergeWith, move, template, url, MergeStrategy, Rule, SchematicContext, Tree } from '@angular-devkit/schematics';
+import {
+  apply,
+  chain,
+  externalSchematic,
+  mergeWith,
+  move,
+  template,
+  url,
+  MergeStrategy,
+  Rule,
+  SchematicContext,
+  Tree
+} from '@angular-devkit/schematics';
 import { getWorkspace } from '@schematics/angular/utility/config';
+import { parseName } from '@schematics/angular/utility/parse-name';
 
 import { ComponentOptions, DirectiveOptions, ServiceOptions } from './schema';
 export function spectatorComponentSchematic(options: ComponentOptions): Rule {
@@ -12,14 +25,21 @@ export function spectatorComponentSchematic(options: ComponentOptions): Rule {
     }),
     (tree: Tree, _context: SchematicContext): Rule => {
       _ensurePath(tree, options);
+      const parsedPath = parseName(options.path as string, options.name);
+      options.name = parsedPath.name;
+      options.path = parsedPath.path;
+
       const movePath = normalize(options.path + '/' + strings.dasherize(options.name) || '');
-      const specTemplateRule = apply(url(`./files/${options.withHost ? 'component-host' : options.withCustomHost ? 'component-custom-host' : 'component'}`), [
-        template({
-          ...strings,
-          ...options
-        }),
-        move(movePath)
-      ]);
+      const specTemplateRule = apply(
+        url(`./files/${options.withHost ? 'component-host' : options.withCustomHost ? 'component-custom-host' : 'component'}`),
+        [
+          template({
+            ...strings,
+            ...options
+          }),
+          move(movePath)
+        ]
+      );
       return mergeWith(specTemplateRule, MergeStrategy.Default);
     }
   ]);
