@@ -19,26 +19,26 @@ describe('FormSelectComponent', () => {
   });
 
   it('should set the correct options on multi select', () => {
-    const select = spectator.query('#test-multi-select');
-    spectator.selectOption(select || undefined, ['1', '2']);
+    const select = spectator.query('#test-multi-select') as HTMLSelectElement;
+    spectator.selectOption(select, ['1', '2']);
     expect(select).toHaveSelectedOptions(['1', '2']);
   });
 
   it('should set the correct options on multi select and return true with not', () => {
-    const select = spectator.query('#test-multi-select');
-    spectator.selectOption(select || undefined, ['1', '2']);
+    const select = spectator.query('#test-multi-select') as HTMLSelectElement;
+    spectator.selectOption(select, ['1', '2']);
     expect(select).not.toHaveSelectedOptions(['1', '2', '3']);
   });
 
   it('should set one option on multi select', () => {
-    const select = spectator.query('#test-multi-select');
-    spectator.selectOption(select || undefined, '1');
+    const select = spectator.query('#test-multi-select') as HTMLSelectElement;
+    spectator.selectOption(select, '1');
     expect(select).toHaveSelectedOptions('1');
   });
 
   it('should set the correct option on standard select', () => {
-    const select = spectator.query('#test-single-select');
-    spectator.selectOption(select || undefined, '1');
+    const select = spectator.query('#test-single-select') as HTMLSelectElement;
+    spectator.selectOption(select, '1');
     expect(select).toHaveSelectedOptions('1');
   });
 });
