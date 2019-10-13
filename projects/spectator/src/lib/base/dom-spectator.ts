@@ -14,6 +14,7 @@ import { dispatchFakeEvent, dispatchKeyboardEvent, dispatchMouseEvent, dispatchT
 import { typeInElement } from '../type-in-element';
 
 import { BaseSpectator } from './base-spectator';
+import { selectOption } from '../select-option';
 
 const KEY_UP = 'keyup';
 
@@ -212,6 +213,11 @@ export abstract class DomSpectator<I> extends BaseSpectator {
 
   public typeInElement(value: string, selector: SpectatorElement = this.element): void {
     typeInElement(value, this.getNativeElement(selector));
+    this.detectChanges();
+  }
+
+  public selectOption(selector: SpectatorElement = this.element, options: string | string[]): void {
+    selectOption(options, this.getNativeElement(selector));
     this.detectChanges();
   }
 

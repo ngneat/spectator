@@ -41,5 +41,7 @@ declare namespace jasmine {
     toHaveDescendant(selector: string | Element): boolean;
 
     toHaveDescendantWithText({ selector, text }: { selector: string; text: string }): boolean;
+
+    toHaveSelectedOptions(expected): boolean;
   }
 }
