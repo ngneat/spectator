@@ -13,7 +13,19 @@ import { Component, ChangeDetectionStrategy } from '@angular/core';
       <option value="2">2</option>
       <option value="3">3</option>
     </select>
+    <select id="test-onchange-select" (change)="handleChange()" multiple>
+      <option value="1">1</option>
+      <option value="2">2</option>
+      <option value="3">3</option>
+    </select>
   `,
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class FormSelectComponent {}
+export class FormSelectComponent {
+  /**
+   * Empty method to spy on
+   */
+  public handleChange(): void {
+    return;
+  }
+}

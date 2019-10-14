@@ -1,12 +1,9 @@
-import { By } from '@angular/platform-browser';
-import { FormGroup, FormControl } from '@angular/forms';
-import { createHostFactory, SpectatorWithHost, Spectator, createComponentFactory } from '@ngneat/spectator';
+import { Spectator, createComponentFactory } from '@ngneat/spectator';
 
 import { FormSelectComponent } from './form-select.component';
 
 describe('FormSelectComponent', () => {
   let spectator: Spectator<FormSelectComponent>;
-  const group = new FormGroup({ name: new FormControl('') });
 
   const createComponent = createComponentFactory<FormSelectComponent>({
     component: FormSelectComponent
@@ -40,5 +37,25 @@ describe('FormSelectComponent', () => {
     const select = spectator.query('#test-single-select') as HTMLSelectElement;
     spectator.selectOption(select, '1');
     expect(select).toHaveSelectedOptions('1');
+  });
+
+  it('should dispatch correct number of change events', () => {
+    const onChangeSpy = spyOn(spectator.component, 'handleChange');
+    const select = spectator.query('#test-onchange-select') as HTMLSelectElement;
+
+    spectator.selectOption(select, ['1', '2'], true);
+
+    expect(select).toHaveSelectedOptions(['1', '2']);
+    expect(onChangeSpy).toHaveBeenCalledTimes(2);
+  });
+
+  it('should not dispatch correct number of change events', () => {
+    const onChangeSpy = spyOn(spectator.component, 'handleChange');
+    const select = spectator.query('#test-onchange-select') as HTMLSelectElement;
+
+    spectator.selectOption(select, ['1', '2'], false);
+
+    expect(select).toHaveSelectedOptions(['1', '2']);
+    expect(onChangeSpy).not.toHaveBeenCalledTimes(2);
   });
 });

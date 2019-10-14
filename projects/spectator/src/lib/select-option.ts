@@ -6,10 +6,15 @@ import { isString } from './types';
  * the `change` event, simulating the user selecting an option
  * @param options Options to be selected.
  * @param element Element onto which to select the options.
+ * @param emitEvents boolean to dispatch change event when option selected
  *
  * selectOption('al' | ['al', 'ab'], select);
  */
-export function selectOption(options: string | string[], element: HTMLElement | HTMLSelectElement | Document | Window): void {
+export function selectOption(
+  options: string | string[],
+  element: HTMLElement | HTMLSelectElement | Document | Window,
+  emitEvents: boolean
+): void {
   if (!(element instanceof HTMLSelectElement)) {
     return;
   }
@@ -22,7 +27,7 @@ export function selectOption(options: string | string[], element: HTMLElement | 
       return;
     }
 
-    setOptionSelected(option, element);
+    setOptionSelected(option, element, emitEvents);
   } else {
     if (!element.multiple) {
       return;
@@ -30,7 +35,7 @@ export function selectOption(options: string | string[], element: HTMLElement | 
 
     element.querySelectorAll('option').forEach(opt => {
       if (options.includes(opt.value)) {
-        setOptionSelected(opt, element);
+        setOptionSelected(opt, element, emitEvents);
       }
     });
   }
@@ -40,10 +45,13 @@ export function selectOption(options: string | string[], element: HTMLElement | 
  * Set the option in the HTMLSelectElement to selected
  * @param option HTMLOptionElement to select
  * @param select HTMLSelectElement to add the options to
+ * @param emitEvents boolean to dispatch change event when option selected
  *
  * setOptionSelected(option, element);
  */
-function setOptionSelected(option: HTMLOptionElement, select: HTMLSelectElement): void {
+function setOptionSelected(option: HTMLOptionElement, select: HTMLSelectElement, emitEvents: boolean): void {
   option.selected = true;
-  dispatchFakeEvent(select, 'change', true);
+  if (emitEvents) {
+    dispatchFakeEvent(select, 'change', true);
+  }
 }
