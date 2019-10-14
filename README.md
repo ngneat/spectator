@@ -289,6 +289,11 @@ it('should set the correct option on standard select', () => {
 
 It also allows you to check if your `change` event handler is acting correctly for each item selected. You can disable this if you need to pre set choices without dispatching the change event.
 
+API:
+```ts
+spectator.selectOption(selectElement: HTMLSelectElemnt, options: string | string[], emitEvents: boolean = true);
+```
+
 Example:
 ```ts
 it('should dispatch correct number of change events', () => {
