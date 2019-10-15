@@ -7,7 +7,7 @@ export type SpyObject<T> = BaseSpyObject<T> & { [P in keyof T]: T[P] & (T[P] ext
  * @internal
  */
 export function createSpyObject<T>(type: InjectableType<T>, template?: Partial<Record<keyof T, any>>): SpyObject<T> {
-  const mock: any = template || {};
+  const mock: any = { ...template } || {};
 
   installProtoMethods(mock, type.prototype, () => {
     const jestFn = jest.fn();
