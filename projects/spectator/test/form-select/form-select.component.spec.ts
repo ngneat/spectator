@@ -43,7 +43,7 @@ describe('FormSelectComponent', () => {
     const onChangeSpy = spyOn(spectator.component, 'handleChange');
     const select = spectator.query('#test-onchange-select') as HTMLSelectElement;
 
-    spectator.selectOption(select, ['1', '2'], true);
+    spectator.selectOption(select, ['1', '2'], { emitEvents: true });
 
     expect(select).toHaveSelectedOptions(['1', '2']);
     expect(onChangeSpy).toHaveBeenCalledTimes(2);
@@ -53,7 +53,7 @@ describe('FormSelectComponent', () => {
     const onChangeSpy = spyOn(spectator.component, 'handleChange');
     const select = spectator.query('#test-onchange-select') as HTMLSelectElement;
 
-    spectator.selectOption(select, ['1', '2'], false);
+    spectator.selectOption(select, ['1', '2'], { emitEvents: false });
 
     expect(select).toHaveSelectedOptions(['1', '2']);
     expect(onChangeSpy).not.toHaveBeenCalledTimes(2);
