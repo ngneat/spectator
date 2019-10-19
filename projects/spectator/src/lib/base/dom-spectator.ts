@@ -216,11 +216,15 @@ export abstract class DomSpectator<I> extends BaseSpectator {
     this.detectChanges();
   }
 
-  public selectOption(selector: SpectatorElement = this.element, options: string | string[], emitEvents: boolean = true): void {
+  public selectOption(
+    selector: SpectatorElement = this.element,
+    options: string | string[],
+    config: { emitEvents: boolean } = { emitEvents: true }
+  ): void {
     if (!selector) {
       throw new Error(`Cannot find select: ${selector}`);
     }
-    selectOption(options, this.getNativeElement(selector), emitEvents);
+    selectOption(options, this.getNativeElement(selector), config);
     this.detectChanges();
   }
 

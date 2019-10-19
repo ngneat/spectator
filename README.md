@@ -291,7 +291,7 @@ It also allows you to check if your `change` event handler is acting correctly f
 
 API:
 ```ts
-spectator.selectOption(selectElement: HTMLSelectElemnt, options: string | string[], emitEvents: boolean = true);
+spectator.selectOption(selectElement: HTMLSelectElemnt, options: string | string[], config: { emitEvents: boolean } = { emitEvents: true });
 ```
 
 Example:
@@ -300,7 +300,7 @@ it('should dispatch correct number of change events', () => {
   const onChangeSpy = spyOn(spectator.component, 'handleChange');
   const select = spectator.query('#test-onchange-select') as HTMLSelectElement;
 
-  spectator.selectOption(select, ['1', '2'], true);
+  spectator.selectOption(select, ['1', '2'], { emitEvents: true});
 
   expect(select).toHaveSelectedOptions(['1', '2']);
   expect(onChangeSpy).toHaveBeenCalledTimes(2);
@@ -310,7 +310,7 @@ it('should not dispatch correct number of change events', () => {
   const onChangeSpy = spyOn(spectator.component, 'handleChange');
   const select = spectator.query('#test-onchange-select') as HTMLSelectElement;
 
-  spectator.selectOption(select, ['1', '2'], false);
+  spectator.selectOption(select, ['1', '2'], { emitEvents: false});
 
   expect(select).toHaveSelectedOptions(['1', '2']);
   expect(onChangeSpy).not.toHaveBeenCalledTimes(2);

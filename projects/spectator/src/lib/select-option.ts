@@ -6,14 +6,14 @@ import { isString } from './types';
  * the `change` event, simulating the user selecting an option
  * @param options Options to be selected.
  * @param element Element onto which to select the options.
- * @param emitEvents boolean to dispatch change event when option selected
+ * @param config Object with extra config to dispatch change event when option selected
  *
- * selectOption('al' | ['al', 'ab'], select);
+ * selectOption('al' | ['al', 'ab'], select, config);
  */
 export function selectOption(
   options: string | string[],
   element: HTMLElement | HTMLSelectElement | Document | Window,
-  emitEvents: boolean
+  config: { emitEvents: boolean }
 ): void {
   if (!(element instanceof HTMLSelectElement)) {
     return;
@@ -27,7 +27,7 @@ export function selectOption(
       return;
     }
 
-    setOptionSelected(option, element, emitEvents);
+    setOptionSelected(option, element, config);
   } else {
     if (!element.multiple) {
       return;
@@ -35,7 +35,7 @@ export function selectOption(
 
     element.querySelectorAll('option').forEach(opt => {
       if (options.includes(opt.value)) {
-        setOptionSelected(opt, element, emitEvents);
+        setOptionSelected(opt, element, config);
       }
     });
   }
@@ -45,13 +45,13 @@ export function selectOption(
  * Set the option in the HTMLSelectElement to selected
  * @param option HTMLOptionElement to select
  * @param select HTMLSelectElement to add the options to
- * @param emitEvents boolean to dispatch change event when option selected
+ * @param config Object with extra config to dispatch change event when option selected
  *
- * setOptionSelected(option, element);
+ * setOptionSelected(option, element, config);
  */
-function setOptionSelected(option: HTMLOptionElement, select: HTMLSelectElement, emitEvents: boolean): void {
+function setOptionSelected(option: HTMLOptionElement, select: HTMLSelectElement, config: { emitEvents: boolean }): void {
   option.selected = true;
-  if (emitEvents) {
+  if (config.emitEvents) {
     dispatchFakeEvent(select, 'change', true);
   }
 }
