@@ -269,6 +269,54 @@ spectator.query(byAltText('By alt text'));
 spectator.query(byLabel('By label'));
 spectator.query(byText('By text'));
 ```
+#### Testing Select Elements
+Spectator allows you to test `<select></select>` elements easily, and supports multi select.
+
+Example:
+```ts
+it('should set the correct options on multi select', () => {
+  const select = spectator.query('#test-multi-select') as HTMLSelectElement;
+  spectator.selectOption(select, ['1', '2']);
+  expect(select).toHaveSelectedOptions(['1', '2']);
+});
+
+it('should set the correct option on standard select', () => {
+  const select = spectator.query('#test-single-select') as HTMLSelectElement;
+  spectator.selectOption(select, '1');
+  expect(select).toHaveSelectedOptions('1');
+});
+```
+
+It also allows you to check if your `change` event handler is acting correctly for each item selected. You can disable this if you need to pre set choices without dispatching the change event.
+
+API:
+```ts
+spectator.selectOption(selectElement: HTMLSelectElemnt, options: string | string[], config: { emitEvents: boolean } = { emitEvents: true });
+```
+
+Example:
+```ts
+it('should dispatch correct number of change events', () => {
+  const onChangeSpy = spyOn(spectator.component, 'handleChange');
+  const select = spectator.query('#test-onchange-select') as HTMLSelectElement;
+
+  spectator.selectOption(select, ['1', '2'], { emitEvents: true});
+
+  expect(select).toHaveSelectedOptions(['1', '2']);
+  expect(onChangeSpy).toHaveBeenCalledTimes(2);
+});
+
+it('should not dispatch correct number of change events', () => {
+  const onChangeSpy = spyOn(spectator.component, 'handleChange');
+  const select = spectator.query('#test-onchange-select') as HTMLSelectElement;
+
+  spectator.selectOption(select, ['1', '2'], { emitEvents: false});
+
+  expect(select).toHaveSelectedOptions(['1', '2']);
+  expect(onChangeSpy).not.toHaveBeenCalledTimes(2);
+});
+```
+
 #### Mocking Components
 If you need to mock components, you can use the [ng-mocks](https://github.com/ike18t/ng-mocks) library. Instead of using `CUSTOM_ELEMENTS_SCHEMA`,which might hide some issues and won't help you to set inputs, outputs, etc., `ng-mocks` will auto mock the inputs, outputs, etc. for you.
 

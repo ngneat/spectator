@@ -357,3 +357,15 @@ export const toHaveDescendantWithText = comparator((el, { selector, text }) => {
 
   return { pass, message };
 });
+
+export const toHaveSelectedOptions = comparator((el, expected) => {
+  const actual = $(el).val();
+  const pass = JSON.stringify([...actual]) === JSON.stringify([...expected]);
+
+  const expectedOptionsString = Array.isArray(expected)
+    ? expected.reduce((acc: string, val: string, i) => acc + `${i === expected.length ? '' : ','}${val}`)
+    : expected;
+  const message = () => `Expected element${pass ? ' not' : ''} to have options '[${expectedOptionsString}]' but had '[${actual}]'`;
+
+  return { pass, message };
+});
