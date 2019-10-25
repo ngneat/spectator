@@ -91,6 +91,7 @@ For global queries, we removed the `spectator.$$('.some-selector')` method.
  
 Please use `spectator.query('.some-selector', { root: true })` instead.
 
+### Removed `patchElementFocus` method.
 
 ### Removed `MockComponent` and `MockDirective`
 
