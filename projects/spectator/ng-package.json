@@ -7,6 +7,7 @@
   "whitelistedNonPeerDependencies": [
     "@testing-library/dom",
     "jquery",
+    "@types/jasmine",
     "schematics-utilities",
     "replace-in-file"
   ]
