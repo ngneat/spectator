@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="4.5.1"></a>
+## [4.5.1](https://github.com/ngneat/spectator/compare/v4.5.0...v4.5.1) (2019-11-06)
+
+
+### Bug Fixes
+
+* 🐛 add jasmine to deps ([7b87583](https://github.com/ngneat/spectator/commit/7b87583))
+
+
+
 <a name="4.5.0"></a>
 # [4.5.0](https://github.com/ngneat/spectator/compare/v4.4.2...v4.5.0) (2019-10-21)
 
