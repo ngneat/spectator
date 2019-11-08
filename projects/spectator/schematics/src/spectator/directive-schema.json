@@ -81,6 +81,11 @@
       "type": "boolean",
       "default": false,
       "description": "When true, applies lint fixes after generating the directive."
+    },
+    "jest": {
+      "type": "boolean",
+      "default": false,
+      "description": "When true, uses Jest to create mocks."
     }
   },
   "required": [
