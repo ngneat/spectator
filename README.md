@@ -291,7 +291,7 @@ It also allows you to check if your `change` event handler is acting correctly f
 
 API:
 ```ts
-spectator.selectOption(selectElement: HTMLSelectElemnt, options: string | string[], config: { emitEvents: boolean } = { emitEvents: true });
+spectator.selectOption(selectElement: HTMLSelectElement, options: string | string[] | HTMLOptionElement | HTMLOptionElement[], config: { emitEvents: boolean } = { emitEvents: true });
 ```
 
 Example:
@@ -314,6 +314,16 @@ it('should not dispatch correct number of change events', () => {
 
   expect(select).toHaveSelectedOptions(['1', '2']);
   expect(onChangeSpy).not.toHaveBeenCalledTimes(2);
+});
+```
+You can also select `<option>` elements by passing the `HTMLOptionElement`(s) as arguments to `selectOption`. This is particularly useful when you are using `[ngValue]` binding on the `<option>`:
+```ts
+it('should set the correct option on single select when passing the element', () => {
+  const select = spectator.query('#test-single-select-element') as HTMLSelectElement;
+
+  spectator.selectOption(select, spectator.query(byText('Two')) as HTMLOptionElement);
+
+  expect((spectator.query(byText('Two')) as HTMLOptionElement).selected).toBe(true);
 });
 ```
 
