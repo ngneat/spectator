@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="4.6.0"></a>
+# [4.6.0](https://github.com/ngneat/spectator/compare/v4.5.2...v4.6.0) (2019-11-19)
+
+
+### Features
+
+* selectOption accepts HTMLOptionElements ([#229](https://github.com/ngneat/spectator/issues/229)) ([f41966e](https://github.com/ngneat/spectator/commit/f41966e))
+
+
+
 <a name="4.5.2"></a>
 ## [4.5.2](https://github.com/ngneat/spectator/compare/v4.5.0...v4.5.2) (2019-11-07)
 
