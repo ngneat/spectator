@@ -323,7 +323,7 @@ it('should set the correct option on single select when passing the element', ()
 
   spectator.selectOption(select, spectator.query(byText('Two')) as HTMLOptionElement);
 
-  expect((spectator.query(byText('Two')) as HTMLOptionElement).selected).toBe(true);
+  expect(select).toHaveSelectedOptions(spectator.query(byText('Two')) as HTMLOptionElement);
 });
 ```
 

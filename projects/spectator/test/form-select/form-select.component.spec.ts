@@ -68,9 +68,8 @@ describe('FormSelectComponent', () => {
 
     spectator.selectOption(select, spectator.query(byText('Two')) as HTMLOptionElement);
 
-    expect((spectator.query(byText('One')) as HTMLOptionElement).selected).toBe(false);
-    expect((spectator.query(byText('Two')) as HTMLOptionElement).selected).toBe(true);
-    expect((spectator.query(byText('Three')) as HTMLOptionElement).selected).toBe(false);
+    expect(select).toHaveSelectedOptions(spectator.query(byText('Two')) as HTMLOptionElement);
+    expect(select).not.toHaveSelectedOptions(spectator.query(byText('One')) as HTMLOptionElement);
   });
 
   it('should set the correct option on multi select when passing the elements', () => {
@@ -79,8 +78,7 @@ describe('FormSelectComponent', () => {
 
     spectator.selectOption(select, optionElements);
 
-    expect((spectator.query(byText('Four')) as HTMLOptionElement).selected).toBe(true);
-    expect((spectator.query(byText('Five')) as HTMLOptionElement).selected).toBe(true);
-    expect((spectator.query(byText('Six')) as HTMLOptionElement).selected).toBe(false);
+    expect(select).toHaveSelectedOptions(optionElements);
+    expect(select).not.toHaveSelectedOptions([...optionElements, spectator.query(byText('Six')) as HTMLOptionElement]);
   });
 });

@@ -4,6 +4,7 @@
 import $ from 'jquery';
 
 import { hex2rgb, isHex, trim } from './internals/rgb-to-hex';
+import { isHTMLOptionElementArray } from './types';
 
 const hasProperty = (actual: unknown, expected: unknown): boolean => {
   return expected === undefined ? actual !== undefined : actual === expected;
@@ -359,6 +360,38 @@ export const toHaveDescendantWithText = comparator((el, { selector, text }) => {
 });
 
 export const toHaveSelectedOptions = comparator((el, expected) => {
+  if (expected instanceof HTMLOptionElement) {
+    const actual = $(el).find(':selected');
+
+    const pass = actual.is($(expected));
+
+    const message = () =>
+      `Expected element${pass ? ' not' : ''} to have options '[${expected.outerHTML}]' but had '[${actual[0].outerHTML}]'`;
+
+    return { pass, message };
+  }
+
+  if (isHTMLOptionElementArray(expected)) {
+    const actual = $(el).find(':selected');
+
+    const pass = actual.length === expected.length && actual.toArray().every((_, index) => $(actual[index]).is(expected[index]));
+
+    const expectedOptionsString = $(expected)
+      .get()
+      .map(option => option.outerHTML)
+      .join(',');
+
+    const actualOptionsString = actual
+      .get()
+      .map(option => option.outerHTML)
+      .join(',');
+
+    const message = () =>
+      `Expected element${pass ? ' not' : ''} to have options '[${expectedOptionsString}]' but had '[${actualOptionsString}]'`;
+
+    return { pass, message };
+  }
+
   const actual = $(el).val();
   const pass = JSON.stringify([...actual]) === JSON.stringify([...expected]);
 

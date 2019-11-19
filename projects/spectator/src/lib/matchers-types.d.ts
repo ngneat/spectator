@@ -1,3 +1,5 @@
+import { SelectOptions } from './types';
+
 declare namespace jasmine {
   interface Matchers<T> {
     toExist(): boolean;
@@ -42,6 +44,6 @@ declare namespace jasmine {
 
     toHaveDescendantWithText({ selector, text }: { selector: string; text: string }): boolean;
 
-    toHaveSelectedOptions(expected: string | string[]): boolean;
+    toHaveSelectedOptions(expected: SelectOptions): boolean;
   }
 }
