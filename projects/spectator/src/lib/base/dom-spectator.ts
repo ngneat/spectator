@@ -218,7 +218,7 @@ export abstract class DomSpectator<I> extends BaseSpectator {
 
   public selectOption(
     selector: SpectatorElement = this.element,
-    options: string | string[],
+    options: string | string[] | HTMLOptionElement | HTMLOptionElement[],
     config: { emitEvents: boolean } = { emitEvents: true }
   ): void {
     if (!selector) {

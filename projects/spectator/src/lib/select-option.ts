@@ -1,5 +1,5 @@
 import { dispatchFakeEvent } from './dispatch-events';
-import { isString } from './types';
+import { isString, isHTMLOptionElementArray, SelectOptions } from './types';
 
 /**
  * Focuses a select element, selects the correct options and dispatches
@@ -11,7 +11,7 @@ import { isString } from './types';
  * selectOption('al' | ['al', 'ab'], select, config);
  */
 export function selectOption(
-  options: string | string[],
+  options: SelectOptions,
   element: HTMLElement | HTMLSelectElement | Document | Window,
   config: { emitEvents: boolean }
 ): void {
@@ -28,16 +28,22 @@ export function selectOption(
     }
 
     setOptionSelected(option, element, config);
+  } else if (options instanceof HTMLOptionElement) {
+    setOptionSelected(options, element, config);
   } else {
     if (!element.multiple) {
       return;
     }
 
-    element.querySelectorAll('option').forEach(opt => {
-      if (options.includes(opt.value)) {
-        setOptionSelected(opt, element, config);
-      }
-    });
+    if (isHTMLOptionElementArray(options)) {
+      options.forEach(option => setOptionSelected(option, element, config));
+    } else {
+      element.querySelectorAll('option').forEach(opt => {
+        if (options.includes(opt.value)) {
+          setOptionSelected(opt, element, config);
+        }
+      });
+    }
   }
 }
 

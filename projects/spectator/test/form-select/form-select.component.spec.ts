@@ -1,4 +1,7 @@
+import { ReactiveFormsModule } from '@angular/forms';
 import { Spectator, createComponentFactory } from '@ngneat/spectator';
+
+import { byText } from '../../src/public_api';
 
 import { FormSelectComponent } from './form-select.component';
 
@@ -6,7 +9,8 @@ describe('FormSelectComponent', () => {
   let spectator: Spectator<FormSelectComponent>;
 
   const createComponent = createComponentFactory<FormSelectComponent>({
-    component: FormSelectComponent
+    component: FormSelectComponent,
+    imports: [ReactiveFormsModule]
   });
 
   beforeEach(() => (spectator = createComponent()));
@@ -57,5 +61,24 @@ describe('FormSelectComponent', () => {
 
     expect(select).toHaveSelectedOptions(['1', '2']);
     expect(onChangeSpy).not.toHaveBeenCalledTimes(2);
+  });
+
+  it('should set the correct option on single select when passing the element', () => {
+    const select = spectator.query('#test-single-select-element') as HTMLSelectElement;
+
+    spectator.selectOption(select, spectator.query(byText('Two')) as HTMLOptionElement);
+
+    expect(select).toHaveSelectedOptions(spectator.query(byText('Two')) as HTMLOptionElement);
+    expect(select).not.toHaveSelectedOptions(spectator.query(byText('One')) as HTMLOptionElement);
+  });
+
+  it('should set the correct option on multi select when passing the elements', () => {
+    const select = spectator.query('#test-multi-select-element') as HTMLSelectElement;
+    const optionElements = [spectator.query(byText('Four')) as HTMLOptionElement, spectator.query(byText('Five')) as HTMLOptionElement];
+
+    spectator.selectOption(select, optionElements);
+
+    expect(select).toHaveSelectedOptions(optionElements);
+    expect(select).not.toHaveSelectedOptions([...optionElements, spectator.query(byText('Six')) as HTMLOptionElement]);
   });
 });

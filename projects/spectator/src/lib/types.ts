@@ -18,10 +18,16 @@ export interface QueryOptions<R> {
   root?: boolean;
 }
 
+export type SelectOptions = string | string[] | HTMLOptionElement | HTMLOptionElement[];
+
 export function isString(value: any): value is string {
   return typeof value === 'string';
 }
 
 export function isType(v: any): v is Type<any> {
   return typeof v === 'function';
+}
+
+export function isHTMLOptionElementArray(value: any): value is HTMLOptionElement[] {
+  return Array.isArray(value) && !!value.length && value.every(item => item instanceof HTMLOptionElement);
 }
