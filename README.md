@@ -316,7 +316,7 @@ it('should not dispatch correct number of change events', () => {
   expect(onChangeSpy).not.toHaveBeenCalledTimes(2);
 });
 ```
-You can also select `<option>` elements by passing the `HTMLOptionElement`(s) as arguments to `selectOption`. This is particularly useful when you are using `[ngValue]` binding on the `<option>`:
+You can also pass `HTMLOptionElement`(s) as arguments to `selectOption` and the `toHaveSelectedOptions` matcher. This is particularly useful when you are using `[ngValue]` binding on the `<option>`:
 ```ts
 it('should set the correct option on single select when passing the element', () => {
   const select = spectator.query('#test-single-select-element') as HTMLSelectElement;
