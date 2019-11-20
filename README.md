@@ -191,7 +191,7 @@ When used like this, however, Spectator internally adds the component `ButtonCom
 Type ButtonComponent is part of the declarations of 2 modules [...]
 ```
 
-It is possible to tell Spectator not to add the component to the declarations of the internal module and, instead, use the manually defined module as is. Simply set the `declareComponent` property of the factory options to `false`:
+It is possible to tell Spectator not to add the component to the declarations of the internal module and, instead, use the explicitly defined module as is. Simply set the `declareComponent` property of the factory options to `false`:
 
 ```ts
 const createComponent = createComponentFactory({
