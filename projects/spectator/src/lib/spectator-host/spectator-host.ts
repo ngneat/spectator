@@ -41,7 +41,7 @@ export class SpectatorHost<C, H = HostComponent> extends Spectator<C> {
     return getChildren<R>(this.hostDebugElement)(directiveOrSelector, options)[0] || null;
   }
 
-  public queryHostAll<R extends Element[]>(selector: string | DOMSelector, options?: { root: boolean }): R[];
+  public queryHostAll<R extends Element>(selector: string | DOMSelector, options?: { root: boolean }): R[];
   public queryHostAll<R>(directive: Type<R>): R[];
   public queryHostAll<R>(directiveOrSelector: Type<any> | string, options: { read: Token<R> }): R[];
   public queryHostAll<R>(directiveOrSelector: QueryType, options?: QueryOptions<R>): R[] | Element[] {
