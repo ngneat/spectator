@@ -6,17 +6,23 @@ declare namespace jasmine {
 
     toHaveId(id: string | number): boolean;
 
-    toHaveClass(className: string): boolean;
+    toHaveClass(className: string | string[]): boolean;
 
-    toHaveAttribute(attr: string, val?: string): boolean;
+    toHaveAttribute(attr: string | object, val?: string): boolean;
 
-    toHaveProperty(prop: string, val: string | boolean): boolean;
+    toHaveProperty(prop: string | object, val?: string | boolean): boolean;
 
-    toHaveText(text: string | Function, exact?: boolean): boolean;
+    toContainProperty(prop: string | object, val?: string): boolean;
 
-    toHaveExactText(text: string | Function): boolean;
+    toHaveText(text: string | string[] | Function, exact?: boolean): boolean;
 
-    toHaveValue(value: string): boolean;
+    toContainText(text: string | string[] | Function, exact?: boolean): boolean;
+
+    toHaveExactText(text: string | string[] | Function): boolean;
+
+    toHaveValue(value: string | string[]): boolean;
+
+    toContainValue(value: string | string[]): boolean;
 
     toHaveStyle(style: { [styleKey: string]: any }): boolean;
 
