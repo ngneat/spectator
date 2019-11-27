@@ -4,10 +4,35 @@
 import $ from 'jquery';
 
 import { hex2rgb, isHex, trim } from './internals/rgb-to-hex';
-import { isHTMLOptionElementArray } from './types';
+import { isHTMLOptionElementArray, isObject } from './types';
 
 const hasProperty = (actual: unknown, expected: unknown): boolean => {
   return expected === undefined ? actual !== undefined : actual === expected;
+};
+
+const containsProperty = (actual: string, expected: unknown): boolean => {
+  return expected === undefined ? true : actual.includes(expected as string);
+};
+
+const checkProperty = (
+  el: HTMLElement,
+  prop: object,
+  predicate: (actual, expected) => boolean
+): { pass: boolean; message: () => string } => {
+  let pass = false;
+  let failing = '';
+
+  for (const key of Object.keys(prop)) {
+    const actual = $(el).prop(key);
+    const addendum = prop[key] !== undefined ? ` with value '${prop[key]}'` : '';
+
+    pass = predicate(actual, prop[key]);
+    failing = !pass ? `'${prop}'${addendum}, but had '${actual}'` : '';
+  }
+
+  const message = () => `Expected element${pass ? ' not' : ''} to have property ${failing}`;
+
+  return { pass, message };
 };
 
 const hasCss = (el: HTMLElement, css: { [key: string]: string }) => {
@@ -35,7 +60,27 @@ const hasCss = (el: HTMLElement, css: { [key: string]: string }) => {
   return true;
 };
 
-const hasSameText = (el: HTMLElement, expected: string | ((s: string) => boolean), exact = false) => {
+const hasSameText = (el: HTMLElement, expected: string | string[] | ((s: string) => boolean), exact = false) => {
+  if (expected && Array.isArray(expected)) {
+    let actual: string;
+    let pass = false;
+    let failing: string;
+
+    $(el).each((i, e) => {
+      actual = exact ? $(e).text() : $.trim($(e).text());
+      pass = exact ? actual === expected[i] : actual.includes(expected[i]);
+      if (!pass) {
+        failing = expected[i];
+
+        return false;
+      }
+    });
+
+    const message = () => `Expected element${pass ? ' not' : ''} to have ${exact ? 'exact' : ''} text '${failing}', but had '${actual}'`;
+
+    return { pass, message };
+  }
+
   const actual = exact ? $(el).text() : $.trim($(el).text());
 
   if (expected && typeof expected !== 'string') {
@@ -46,7 +91,7 @@ const hasSameText = (el: HTMLElement, expected: string | ((s: string) => boolean
     return { pass, message };
   }
 
-  const pass = exact ? actual === expected : actual.indexOf(expected) !== -1;
+  const pass = exact && !Array.isArray(expected) ? actual === expected : actual.indexOf(expected) !== -1;
   const message = () => `Expected element${pass ? ' not' : ''} to have ${exact ? 'exact' : ''} text '${expected}', but had '${actual}'`;
 
   return { pass, message };
@@ -96,8 +141,18 @@ export const toHaveId = comparator((el, expected) => {
  *
  * expect('.zippy__content').toHaveClass('class');
  * expect('.zippy__content').toHaveClass('class a, class b');
+ * expect('.zippy__content').toHaveClass(['class a, class b']);
  */
-export const toHaveClass = comparator((el, expected: string) => {
+export const toHaveClass = comparator((el, expected: string | string[]) => {
+  if (expected && Array.isArray(expected)) {
+    const actual: string = $(el).attr('class');
+    const expectedClasses = expected.join(' ');
+    const pass = $(el).hasClass(expectedClasses);
+    const message = () => `Expected element${pass ? ' not' : ''} to have value '${expectedClasses}', but had '${actual}'`;
+
+    return { pass, message };
+  }
+
   const actual = $(el).attr('class');
   const pass = $(el).hasClass(expected);
   const message = () => `Expected element${pass ? ' not' : ''} to have class '${expected}', but had '${actual}'`;
@@ -108,7 +163,22 @@ export const toHaveClass = comparator((el, expected: string) => {
 /**
  * expect(host.query('.zippy')).toHaveAttribute('id', 'zippy');
  */
-export const toHaveAttribute = comparator((el, attr, val) => {
+export const toHaveAttribute = comparator((el, attr: string | object, val) => {
+  if (isObject(attr)) {
+    let pass = false;
+    let failing: string;
+
+    for (const key of Object.keys(attr)) {
+      const actual = $(el).attr(key);
+      const addendum = attr[key] !== undefined ? ` with value '${attr[key]}'` : '';
+      pass = hasProperty(actual, attr[key]);
+      failing = !pass ? `'${attr}'${addendum}, but had '${actual}'` : '';
+    }
+    const message = () => `Expected element${pass ? ' not' : ''} to have attribute ${failing}`;
+
+    return { pass, message };
+  }
+
   const actual = $(el).attr(attr);
   const addendum = val !== undefined ? ` with value '${val}'` : '';
   const pass = hasProperty(actual, val);
@@ -119,8 +189,13 @@ export const toHaveAttribute = comparator((el, attr, val) => {
 
 /**
  *  expect(host.query('.checkbox')).toHaveProperty('checked', true);
+ *  expect(host.query('.checkbox')).toHaveProperty({checked: true});
  */
 export const toHaveProperty = comparator((el, prop, val) => {
+  if (isObject(prop)) {
+    return checkProperty(el, prop, hasProperty);
+  }
+
   const actual = $(el).prop(prop);
   const addendum = val !== undefined ? ` with value '${val}'` : '';
   const pass = hasProperty(actual, val);
@@ -129,9 +204,23 @@ export const toHaveProperty = comparator((el, prop, val) => {
   return { pass, message };
 });
 
+export const toContainProperty = comparator((el, prop, val) => {
+  if (isObject(prop)) {
+    return checkProperty(el, prop, containsProperty);
+  }
+
+  const actual = $(el).prop(prop);
+  const addendum = val !== undefined ? ` with value '${val}'` : '';
+  const pass = containsProperty(actual, val);
+  const message = () => `Expected element${pass ? ' not' : ''} to have property '${prop}'${addendum}, but had '${actual}'`;
+
+  return { pass, message };
+});
+
 /**
  *
  * expect('.zippy__content').toHaveText('Content');
+ * expect('.zippy__content').toHaveText(['Content A', 'Content B']);
  *
  * expect('.zippy__content').toHaveText((text) => text.includes('..');
  */
@@ -139,17 +228,42 @@ export const toHaveText = comparator((el, expected, exact = false) => hasSameTex
 
 export const toHaveExactText = comparator((el, expected) => hasSameText(el, expected, true));
 
+export const toContainText = toHaveText;
+
 /**
  *
  * expect('.zippy__content').toHaveValue('value');
+ * expect('.zippy__content').toHaveValue(['value a', 'value b']);
  */
 export const toHaveValue = comparator((el, expected) => {
+  if (expected && Array.isArray(expected)) {
+    let actual: string;
+    let pass = false;
+    let failing: string;
+
+    $(el).each((i, e) => {
+      actual = $(e).val();
+      pass = actual === expected[i];
+      if (!pass) {
+        failing = expected[i];
+
+        return false;
+      }
+    });
+
+    const message = () => `Expected element${pass ? ' not' : ''} to have value '${failing}', but had '${actual}'`;
+
+    return { pass, message };
+  }
+
   const actual = $(el).val();
   const pass = actual === expected;
   const message = () => `Expected element${pass ? ' not' : ''} to have value '${expected}', but had '${actual}'`;
 
   return { pass, message };
 });
+
+export const toContainValue = toHaveValue;
 
 /**
  *

@@ -31,3 +31,7 @@ export function isType(v: any): v is Type<any> {
 export function isHTMLOptionElementArray(value: any): value is HTMLOptionElement[] {
   return Array.isArray(value) && !!value.length && value.every(item => item instanceof HTMLOptionElement);
 }
+
+export function isObject(v: any): v is object {
+  return v && typeof v === 'object';
+}
