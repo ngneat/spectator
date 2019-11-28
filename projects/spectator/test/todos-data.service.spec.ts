@@ -35,6 +35,14 @@ describe('HttpClient testing', () => {
     spectatorHttp.expectOne('two', HttpMethod.GET);
   });
 
+  it('should test concurrent requests', () => {
+    const spectatorHttp = http();
+
+    spectatorHttp.service.concurrentRequests().subscribe();
+    const reqs = spectatorHttp.expectConcurrent(['one', 'two', 'three'].map(url => ({ url, method: HttpMethod.POST })));
+    spectatorHttp.flushAll(reqs, Array.from({ length: 3 }, _ => ({})));
+  });
+
   it('should work with external service', fakeAsync(() => {
     const spectatorHttp = http();
     spectatorHttp.get(UserService).getUser.andCallFake(() => {

@@ -739,7 +739,8 @@ describe('AuthService', () => {
 ```
 
 ## Testing with HTTP 
-Spectator makes testing data services, which use the Angular HTTP module, a lot easier. For example, let's say that you have service with two methods, one performs a GET and one a POST:
+Spectator makes testing data services, which use the Angular HTTP module, a lot easier. For example, let's say that you have service with three methods, one performs a GET, one a POST and one performs
+concurrent requests:
 
 ```ts
 export class TodosDataService {
@@ -751,6 +752,13 @@ export class TodosDataService {
 
   postTodo(id: number) {
     return this.httpClient.post('api/todos', { id });
+  }
+
+  collectTodos() {
+    return merge(
+      this.http.get('/api1/todos'),
+      this.http.get('/api2/todos')
+    );
   }
 }
 ```
@@ -777,6 +785,16 @@ describe('HttpClient testing', () => {
     const req = spectator.expectOne('api/todos', HttpMethod.POST);
     expect(req.request.body['id']).toEqual(1);
   });
+
+  it('can test current http requests', () => {
+    spectator.service.getTodos().subscribe();
+    const reqs = spectator.expectConcurrent([
+        { url: '/api1/todos', method: HttpMethod.GET },
+        { URL: '/api2/todos', method: HttpMethod.GET }
+    ]);
+    
+    spectator.flushAll(reqs, [{}, {}, {}]);
+  });
 });
 ```
 We need to create an HTTP factory by using the `createHttpFactory()` function, passing the service that you want to test. The `createHttpFactory()` returns a function which can be called to get an instance of SpectatorHttp with the following properties:
@@ -785,6 +803,7 @@ We need to create an HTTP factory by using the `createHttpFactory()` function, p
 - `service` - The service instance
 - `get()` - A proxy for Angular `TestBed.get()`
 - `expectOne()` - Expect that a single request was made which matches the given URL and it's method, and return its mock request
+
 
 ## Global Injections
 It's possible to define injections which will be available for each test without the need to re-declare them in each test:

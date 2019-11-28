@@ -17,6 +17,11 @@ export enum HttpMethod {
   OPTIONS = 'OPTIONS'
 }
 
+export interface HttpExpect {
+  url: string;
+  method: HttpMethod;
+}
+
 /**
  * @publicApi
  */
@@ -32,6 +37,7 @@ export class SpectatorHttp<S> extends BaseSpectator {
     // small workaround to prevent issues if destructuring SpectatorHttp, which was common in Spectator 3
     // remove in v5?
     this.expectOne = this.expectOne.bind(this);
+    this.expectConcurrent = this.expectConcurrent.bind(this);
     this.dataService = service;
   }
 
@@ -47,5 +53,24 @@ export class SpectatorHttp<S> extends BaseSpectator {
     this.controller.verify();
 
     return req;
+  }
+
+  public expectConcurrent(expectations: HttpExpect[]): TestRequest[] {
+    const requests = expectations.map((expectation: HttpExpect) => {
+      return this.controller.expectOne({
+        url: expectation.url,
+        method: expectation.method
+      });
+    });
+
+    this.controller.verify();
+
+    return requests;
+  }
+
+  public flushAll(requests: TestRequest[], args: any[]): void {
+    requests.forEach((request: TestRequest, idx: number) => {
+      request.flush(args[idx]);
+    });
   }
 }
