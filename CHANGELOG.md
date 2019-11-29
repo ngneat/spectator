@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="4.7.0"></a>
+# [4.7.0](https://github.com/ngneat/spectator/compare/v4.6.0...v4.7.0) (2019-11-29)
+
+
+### Bug Fixes
+
+* **spectator:** fix for incorrect type definition on queryHostAll ([#230](https://github.com/ngneat/spectator/issues/230)) ([#237](https://github.com/ngneat/spectator/issues/237)) ([e936af7](https://github.com/ngneat/spectator/commit/e936af7))
+
+
+### Features
+
+* **matchers:** add more custom matchers to the API [#217](https://github.com/ngneat/spectator/issues/217) ([#235](https://github.com/ngneat/spectator/issues/235)) ([64fc816](https://github.com/ngneat/spectator/commit/64fc816))
+* **spectator:** added expectConcurrent to spectator-http ([#231](https://github.com/ngneat/spectator/issues/231)) ([#238](https://github.com/ngneat/spectator/issues/238)) ([9468a0a](https://github.com/ngneat/spectator/commit/9468a0a))
+
+
+
 <a name="4.6.0"></a>
 # [4.6.0](https://github.com/ngneat/spectator/compare/v4.5.2...v4.6.0) (2019-11-19)
 
