@@ -24,6 +24,8 @@ export function createHTTPFactory<S>(
       controller: spectator.controller,
       httpClient: spectator.httpClient,
       expectOne: spectator.expectOne.bind(spectator),
+      expectConcurrent: spectator.expectConcurrent.bind(spectator),
+      flushAll: spectator.flushAll,
       get: spectator.get.bind(spectator)
     };
   };

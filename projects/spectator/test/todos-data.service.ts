@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { defer, Observable } from 'rxjs';
+import { defer, Observable, merge } from 'rxjs';
 import { concatMap } from 'rxjs/operators';
 
 export class UserService {
@@ -27,6 +27,10 @@ export class TodosDataService {
         return this.http.get('two');
       })
     );
+  }
+
+  public concurrentRequests(): Observable<any> {
+    return merge(this.http.post('one', {}), this.http.post('two', {}), this.http.post('three', {}));
   }
 
   public requestWithExternalService(): Observable<any> {
