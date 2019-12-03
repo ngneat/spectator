@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="4.8.0"></a>
+# [4.8.0](https://github.com/ngneat/spectator/compare/v4.7.0...v4.8.0) (2019-12-03)
+
+
+### Features
+
+* **spectator:** added directiveProviders to spectator-directive… ([#240](https://github.com/ngneat/spectator/issues/240)) ([fd7ce10](https://github.com/ngneat/spectator/commit/fd7ce10))
+
+
+
 <a name="4.7.0"></a>
 # [4.7.0](https://github.com/ngneat/spectator/compare/v4.6.0...v4.7.0) (2019-11-29)
 
