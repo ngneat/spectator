@@ -866,6 +866,9 @@ To access the provider, get it from the component injector using the `fromCompon
 spectator.get(FooService, true)
 ```
 
+The same rules also apply to directives using the `directiveProviders` and `directiveMocks` parameters.
+
+
 ## Custom Matchers
 ```ts
 expect('.zippy__content').not.toExist();
