@@ -29,6 +29,7 @@ export interface SpectatorDirectiveOverrides<D, H, HP> extends BaseSpectatorOver
   detectChanges?: boolean;
   props?: Partial<D>;
   hostProps?: HostComponent extends H ? HP : Partial<H>;
+  directiveProviders?: Provider[];
 }
 
 /**
@@ -49,7 +50,12 @@ export function createDirectiveFactory<D, H = HostComponent>(
   }));
 
   return <HP>(template: string, overrides?: SpectatorDirectiveOverrides<D, H, HP>) => {
-    const defaults: SpectatorDirectiveOverrides<D, H, HP> = { props: {}, hostProps: {} as any, detectChanges: true, providers: [] };
+    const defaults: SpectatorDirectiveOverrides<D, H, HP> = {
+      props: {},
+      hostProps: {} as any,
+      detectChanges: true,
+      providers: []
+    };
     const { detectChanges, props, hostProps, providers } = { ...defaults, ...overrides };
 
     if (providers && providers.length) {
@@ -65,6 +71,12 @@ export function createDirectiveFactory<D, H = HostComponent>(
     }).overrideComponent(options.host, {
       set: { template }
     });
+
+    if (options.directiveProviders.length || options.directiveMocks.length) {
+      TestBed.overrideDirective(options.directive, {
+        set: { providers: [...options.directiveProviders, ...options.directiveMocks.map(p => options.mockProvider(p))] }
+      });
+    }
 
     const spectator = createSpectatorDirective(options, props, hostProps);
 

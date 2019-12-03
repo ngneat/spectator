@@ -1,4 +1,4 @@
-import { Type } from '@angular/core';
+import { Type, Provider } from '@angular/core';
 
 import { merge } from '../internals/merge';
 import { OptionalsRequired } from '../types';
@@ -14,6 +14,8 @@ export interface SpectatorDirectiveOptions<D, H> extends BaseSpectatorOptions {
   detectChanges?: boolean;
   host?: Type<H>;
   template?: string;
+  directiveProviders?: Provider[];
+  directiveMocks?: Type<any>[];
 }
 
 const defaultSpectatorRoutingOptions: OptionalsRequired<SpectatorDirectiveOptions<any, any>> = {
@@ -21,7 +23,9 @@ const defaultSpectatorRoutingOptions: OptionalsRequired<SpectatorDirectiveOption
   host: HostComponent,
   template: '',
   shallow: false,
-  detectChanges: true
+  detectChanges: true,
+  directiveProviders: [],
+  directiveMocks: []
 };
 
 /**
