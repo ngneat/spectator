@@ -4,7 +4,6 @@ import { <%= classify(name)%>Component } from './<%= dasherize(name)%>.component
 
 describe('<%= classify(name)%>Component', () => {
   let spectator: Spectator<<%= classify(name)%>Component>;
-
   const createComponent = createComponentFactory(<%= classify(name)%>Component);
 
   it('should create', () => {

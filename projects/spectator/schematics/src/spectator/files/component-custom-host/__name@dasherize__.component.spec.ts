@@ -10,7 +10,6 @@ class CustomHostComponent {
 
 describe('<%= classify(name)%>Component', () => {
   let host: SpectatorHost<<%= classify(name)%>Component, CustomHostComponent>;
-
   const createHost = createHostFactory({
     component: <%= classify(name)%>Component,
     host: CustomHostComponent

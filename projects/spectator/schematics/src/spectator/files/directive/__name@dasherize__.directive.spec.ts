@@ -4,7 +4,6 @@ import { <%= classify(name)%>Directive } from './<%= dasherize(name)%>.directive
 
 describe('<%= classify(name)%>Directive ', () => {
   let spectator: SpectatorDirective<<%= classify(name)%>Directive>;
-
   const createDirective = createDirectiveFactory(<%= classify(name)%>Directive);
 
   it('should change the background color', () => {
