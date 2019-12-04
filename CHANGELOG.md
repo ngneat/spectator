@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="4.8.1"></a>
+## [4.8.1](https://github.com/ngneat/spectator/compare/v4.8.0...v4.8.1) (2019-12-04)
+
+
+### Bug Fixes
+
+* 🐛 revert service schematics ([8d7c59d](https://github.com/ngneat/spectator/commit/8d7c59d)), closes [#242](https://github.com/ngneat/spectator/issues/242)
+
+
+
 <a name="4.8.0"></a>
 # [4.8.0](https://github.com/ngneat/spectator/compare/v4.7.0...v4.8.0) (2019-12-03)
 
