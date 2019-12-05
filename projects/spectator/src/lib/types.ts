@@ -24,6 +24,10 @@ export function isString(value: any): value is string {
   return typeof value === 'string';
 }
 
+export function isNumber(value: any): value is number {
+  return typeof value === 'number';
+}
+
 export function isType(v: any): v is Type<any> {
   return typeof v === 'function';
 }

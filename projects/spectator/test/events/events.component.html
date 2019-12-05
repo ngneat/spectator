@@ -1,3 +1,4 @@
 <h1>{{ event }}</h1>
-<input type="text" (blur)="onBlur()" (focus)="onFocus()" (keyup.a)="onPressA()">
+<input type="text" (blur)="onBlur()" (focus)="onFocus()" (keyup.a)="onPressA()" (keyup.control.a)="onPressCtrlA()"
+        (keyup.control.shift.a)="onPressCtrlShiftA()">
 

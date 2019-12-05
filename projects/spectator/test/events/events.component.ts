@@ -19,4 +19,12 @@ export class EventsComponent {
   public onPressA(): void {
     this.event = 'pressed a';
   }
+
+  public onPressCtrlA(): void {
+    this.event = 'pressed ctrl.a';
+  }
+
+  public onPressCtrlShiftA(): void {
+    this.event = 'pressed ctrl.shift.a';
+  }
 }
