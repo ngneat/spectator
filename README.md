@@ -220,6 +220,8 @@ spectator.keyboard.pressEscape();
 spectator.keyboard.pressTab();
 spectator.keyboard.pressBackspace();
 spectator.keyboard.pressKey('a');
+spectator.keyboard.pressKey('ctrl.a');
+spectator.keyboard.pressKey('ctrl.shift.a');
 ```
 
 ### Mouse helpers

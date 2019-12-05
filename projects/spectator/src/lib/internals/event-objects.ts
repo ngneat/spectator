@@ -2,6 +2,8 @@
  * Credit - Angular Material
  */
 
+import { parseKeyOptions } from './key-parser';
+
 /** Creates a browser MouseEvent with the specified options. */
 export function createMouseEvent(type: string, x: number = 0, y: number = 0, button: number = 0): MouseEvent {
   const event = document.createEvent('MouseEvent');
@@ -36,17 +38,38 @@ export function createTouchEvent(type: string, pageX: number = 0, pageY: number 
 
 /** Dispatches a keydown event from an element. */
 export function createKeyboardEvent(type: string, keyOrKeyCode: string | number, target?: Element): KeyboardEvent {
-  const key = typeof keyOrKeyCode === 'string' && keyOrKeyCode;
-  const keyCode = typeof keyOrKeyCode === 'number' && keyOrKeyCode;
+  const { key, keyCode, modifiers } = parseKeyOptions(keyOrKeyCode);
 
   const event = document.createEvent('KeyboardEvent') as any;
   const originalPreventDefault = event.preventDefault;
 
   // Firefox does not support `initKeyboardEvent`, but supports `initKeyEvent`.
   if (event.initKeyEvent) {
-    event.initKeyEvent(type, true, true, window, 0, 0, 0, 0, 0, keyCode);
+    event.initKeyEvent(type, true, true, window, modifiers.control, modifiers.alt, modifiers.shift, modifiers.meta, keyCode);
   } else {
-    event.initKeyboardEvent(type, true, true, window, 0, key, 0, '', false);
+    // `initKeyboardEvent` expects to receive modifiers as a whitespace-delimited string
+    // See https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/initKeyboardEvent
+    const modifiersStr = (modifiers.control
+      ? 'Control '
+      : '' + modifiers.alt
+      ? 'Alt '
+      : '' + modifiers.shift
+      ? 'Shift '
+      : '' + modifiers.meta
+      ? 'Meta'
+      : ''
+    ).trim();
+    event.initKeyboardEvent(
+      type,
+      true /* canBubble */,
+      true /* cancelable */,
+      window /* view */,
+      0 /* char */,
+      key /* key */,
+      0 /* location */,
+      modifiersStr /* modifiersList */,
+      false /* repeat */
+    );
   }
 
   // Webkit Browsers don't set the keyCode when calling the init function.
@@ -54,7 +77,11 @@ export function createKeyboardEvent(type: string, keyOrKeyCode: string | number,
   Object.defineProperties(event, {
     keyCode: { get: () => keyCode },
     key: { get: () => key },
-    target: { get: () => target }
+    target: { get: () => target },
+    altKey: { get: () => !!modifiers.alt },
+    ctrlKey: { get: () => !!modifiers.control },
+    shiftKey: { get: () => !!modifiers.shift },
+    metaKey: { get: () => !!modifiers.meta }
   });
 
   // IE won't set `defaultPrevented` on synthetic events so we need to do it manually.
