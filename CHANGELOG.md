@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="4.9.0"></a>
+# [4.9.0](https://github.com/ngneat/spectator/compare/v4.8.1...v4.9.0) (2019-12-05)
+
+
+### Features
+
+* added modifier key support to keyboard api ([#241](https://github.com/ngneat/spectator/issues/241)) ([#243](https://github.com/ngneat/spectator/issues/243)) ([34769bd](https://github.com/ngneat/spectator/commit/34769bd))
+
+
+
 <a name="4.8.1"></a>
 ## [4.8.1](https://github.com/ngneat/spectator/compare/v4.8.0...v4.8.1) (2019-12-04)
 
