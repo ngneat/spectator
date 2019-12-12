@@ -52,6 +52,11 @@
       "type": "boolean",
       "default": false,
       "description": "When true, generate specs for data service"
+    },
+    "jest": {
+      "type": "boolean",
+      "default": false,
+      "description": "When true, uses Jest to create mocks."
     }
   },
   "required": [

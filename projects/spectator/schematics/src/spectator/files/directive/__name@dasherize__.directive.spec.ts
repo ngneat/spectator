@@ -1,4 +1,4 @@
-import { createDirectiveFactory, SpectatorDirective } from '@ngneat/spectator';
+import { createDirectiveFactory, SpectatorDirective } from '@ngneat/spectator<% if (jest) { %>/jest<% } %>';
 
 import { <%= classify(name)%>Directive } from './<%= dasherize(name)%>.directive';
 

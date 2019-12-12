@@ -1,4 +1,4 @@
-import { createHostFactory, SpectatorHost } from '@ngneat/spectator';
+import { createHostFactory, SpectatorHost } from '@ngneat/spectator<% if (jest) { %>/jest<% } %>';
 
 import { <%= classify(name)%>Component } from './<%= dasherize(name)%>.component';
 

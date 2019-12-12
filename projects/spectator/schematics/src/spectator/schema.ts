@@ -61,6 +61,10 @@ export class ComponentOptions {
    * Specifies the view encapsulation strategy.
    */
   viewEncapsulation?: ViewEncapsulation;
+  /**
+   * Specifies if Jest is to be used for mocking
+   */
+  jest?: boolean;
 }
 export class ServiceOptions {
   name: string;
@@ -78,6 +82,10 @@ export class ServiceOptions {
    * Specifies if a spec file is generated.
    */
   spec?: boolean;
+  /**
+   * Specifies if Jest is to be used for mocking
+   */
+  jest?: boolean;
 }
 export class DirectiveOptions {
   name: string;
@@ -114,4 +122,8 @@ export class DirectiveOptions {
    * Specifies if a spec file is generated.
    */
   spec?: boolean;
+  /**
+   * Specifies if Jest is to be used for mocking
+   */
+  jest?: boolean;
 }

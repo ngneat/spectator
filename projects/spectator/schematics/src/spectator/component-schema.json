@@ -139,6 +139,11 @@
       "type": "boolean",
       "default": false,
       "description": "When true, create spec with custom host"
+    },
+    "jest": {
+      "type": "boolean",
+      "default": false,
+      "description": "When true, uses Jest to create mocks."
     }
   },
   "required": [
