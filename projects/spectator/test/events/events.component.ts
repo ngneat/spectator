@@ -27,4 +27,8 @@ export class EventsComponent {
   public onPressCtrlShiftA(): void {
     this.event = 'pressed ctrl.shift.a';
   }
+
+  public onPressDot(): void {
+    this.event = 'pressed dot';
+  }
 }

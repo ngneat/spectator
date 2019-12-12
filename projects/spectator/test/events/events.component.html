@@ -1,4 +1,7 @@
 <h1>{{ event }}</h1>
-<input type="text" (blur)="onBlur()" (focus)="onFocus()" (keyup.a)="onPressA()" (keyup.control.a)="onPressCtrlA()"
-        (keyup.control.shift.a)="onPressCtrlShiftA()">
-
+<input type="text" (blur)="onBlur()" (focus)="onFocus()"
+       (keyup.a)="onPressA()"
+       (keyup.control.a)="onPressCtrlA()"
+       (keyup.control.shift.a)="onPressCtrlShiftA()"
+       (keyup.dot)="onPressDot()"
+>

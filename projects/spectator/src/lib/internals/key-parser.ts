@@ -26,7 +26,7 @@ export const parseKeyOptions = (keyOrKeyCode: string | number): KeyOptions => {
 };
 
 const parseKey = (keyStr: string): KeyOptions => {
-  if (keyStr.indexOf('.') < 0) {
+  if (keyStr.indexOf('.') < 0 || '.' === keyStr) {
     return { key: keyStr, keyCode: false, modifiers: {} };
   }
 
@@ -55,7 +55,7 @@ const parseKey = (keyStr: string): KeyOptions => {
 
           return mods;
         default:
-          throw new Error(`invalid key modifier: ${part}`);
+          throw new Error(`invalid key modifier: ${part ? part : 'undefined'}, keyStr: ${keyStr}`);
       }
     },
     { alt: false, control: false, shift: false, meta: false }
