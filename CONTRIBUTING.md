@@ -11,16 +11,10 @@ To develop Spectator locally, simply do the following:
 Install dependencies:
 
 ```bash
-npm i
+npm install
 ```
 
-Run the demo app:
-
-```bash
-npm start
-```
-
-Run the demo app tests:
+Run the tests:
 
 ```bash
 npm test
@@ -29,7 +23,7 @@ npm test
 Build the library:
 
 ```bash
-npm run build:lib
+npm run build
 ```
 
 ## Using `npm link`
@@ -53,7 +47,7 @@ Then, in the root of your consuming app,
 Tell `npm` to link to the package:
 
 ```
-npm link @netbasal/spectator
+npm link @ngneat/spectator
 ```
 
 Run tests while preserving symlinks:

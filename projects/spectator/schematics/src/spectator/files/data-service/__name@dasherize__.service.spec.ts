@@ -1,23 +1,14 @@
+import { createHttpFactory, HttpMethod } from '@ngneat/spectator';
 import { <%= classify(name)%>Service } from './<%= dasherize(name)%>.service';
-import { createHTTPFactory, HTTPMethod } from '@netbasal/spectator';
 
-describe('HttpClient testing', () => {
-  const http = createHTTPFactory<<%= classify(name)%>Service>(<%= classify(name)%>Service);
+describe('<%= classify(name)%>Service', () => {
+  let spectator: SpectatorHttp<<%= classify(name)%>Service>;
+  const createHttp = createHttpFactory(<%= classify(name)%>Service);
 
-  it('can test HttpClient.get', () => {
-    const { dataService, controller, expectOne } = http();
+  beforeEach(() => spectator = createHttp());
 
-    dataService.get().subscribe();
-    expectOne('url', HTTPMethod.GET);
-  });
-
-  it('can test HttpClient.post', () => {
-    const { dataService, controller, expectOne } = http();
-
-    dataService.post(1).subscribe();
-
-    const req = expectOne('url', HTTPMethod.POST);
-    expect(req.request.body['id']).toEqual(1);
-
+ it('can test HttpClient.get', () => {
+    // spectator.service.getTodos().subscribe();
+    // spectator.expectOne('api/todos', HttpMethod.GET);
   });
 });

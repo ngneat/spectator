@@ -1,12 +1,13 @@
+import { createServiceFactory, SpectatorService } from '@ngneat/spectator';
 import { <%= classify(name)%>Service } from './<%= dasherize(name)%>.service';
-import { createService } from '@netbasal/spectator';
 
-describe('<%= classify(name)%>Service Without Mock', () => {
-  const spectator = createService(<%= classify(name)%>Service);
-  // const spectator = createService({ service: <%= classify(name)%>Service, mocks: [OtherService] });
+describe('<%= classify(name)%>Service', () => {
+  let spectator: SpectatorService<<%= classify(name)%>Service>;
+  const createService = createServiceFactory(<%= classify(name)%>Service);
 
-  it('should be 0', () => {
-    expect(spectator.service.counter).toEqual(0);
+  beforeEach(() => spectator = createService());
+
+  it('should...', () => {
+    expect(spectator.service).toBeFalsy();
   });
-
 });

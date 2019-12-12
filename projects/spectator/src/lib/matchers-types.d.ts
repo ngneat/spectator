@@ -6,25 +6,23 @@ declare namespace jasmine {
 
     toHaveId(id: string | number): boolean;
 
-    toHaveClass(className: string): boolean;
-    /**
-     * @deprecated
-     */
-    toHaveAttr({ attr, val }: { attr: string; val: string }): boolean;
-    toHaveAttribute(attr: string, val?: string): boolean;
-    /**
-     * @deprecated
-     */
-    toHaveProp({ prop, val }: { prop: string; val: string }): boolean;
-    toHaveProperty(prop: string, val: string | boolean): boolean;
+    toHaveClass(className: string | string[]): boolean;
 
-    toHaveProperty(prop: string, val: string | boolean): boolean;
+    toHaveAttribute(attr: string | object, val?: string): boolean;
 
-    toHaveText(text: string | Function, exact?: boolean): boolean;
+    toHaveProperty(prop: string | object, val?: string | boolean): boolean;
 
-    toHaveExactText(text: string | Function): boolean;
+    toContainProperty(prop: string | object, val?: string): boolean;
 
-    toHaveValue(value: string): boolean;
+    toHaveText(text: string | string[] | Function, exact?: boolean): boolean;
+
+    toContainText(text: string | string[] | Function, exact?: boolean): boolean;
+
+    toHaveExactText(text: string | string[] | Function): boolean;
+
+    toHaveValue(value: string | string[]): boolean;
+
+    toContainValue(value: string | string[]): boolean;
 
     toHaveStyle(style: { [styleKey: string]: any }): boolean;
 
@@ -49,5 +47,7 @@ declare namespace jasmine {
     toHaveDescendant(selector: string | Element): boolean;
 
     toHaveDescendantWithText({ selector, text }: { selector: string; text: string }): boolean;
+
+    toHaveSelectedOptions(expected: string | string[] | HTMLOptionElement | HTMLOptionElement[]): boolean;
   }
 }

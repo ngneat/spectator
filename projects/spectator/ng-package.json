@@ -5,8 +5,10 @@
     "entryFile": "src/public_api.ts"
   },
   "whitelistedNonPeerDependencies": [
-    "dom-testing-library",
+    "@testing-library/dom",
     "jquery",
-    "schematics-utilities"
+    "@types/jasmine",
+    "schematics-utilities",
+    "replace-in-file"
   ]
 }
