@@ -253,6 +253,24 @@
         "code",
         "ideas"
       ]
+    },
+    {
+      "login": "IlCallo",
+      "name": "Paolo Caleffi",
+      "avatar_url": "https://avatars0.githubusercontent.com/u/10036108?v=4",
+      "profile": "https://github.com/IlCallo",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "tonivj5",
+      "name": "Toni Villena",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/7110786?v=4",
+      "profile": "https://github.com/tonivj5",
+      "contributions": [
+        "code"
+      ]
     }
   ]
 }
