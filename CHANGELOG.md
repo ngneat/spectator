@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="4.10.0"></a>
+# [4.10.0](https://github.com/ngneat/spectator/compare/v4.9.0...v4.10.0) (2019-12-12)
+
+
+### Bug Fixes
+
+* let key parser handle single dot ([#246](https://github.com/ngneat/spectator/issues/246)) ([9538233](https://github.com/ngneat/spectator/commit/9538233))
+
+
+### Features
+
+* **schematics:** add --jest flag ([#228](https://github.com/ngneat/spectator/issues/228)) ([46a7e28](https://github.com/ngneat/spectator/commit/46a7e28))
+
+
+
 <a name="4.9.0"></a>
 # [4.9.0](https://github.com/ngneat/spectator/compare/v4.8.1...v4.9.0) (2019-12-05)
 
