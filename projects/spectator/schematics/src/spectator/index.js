@@ -12,7 +12,9 @@ function spectatorComponentSchematic(options) {
             const parsedPath = parse_name_1.parseName(options.path, options.name);
             options.name = parsedPath.name;
             options.path = parsedPath.path;
-            const movePath = core_1.normalize(options.path + '/' + core_1.strings.dasherize(options.name) || '');
+            const movePath = options.flat ?
+                options.path :
+                core_1.normalize(options.path + '/' + core_1.strings.dasherize(options.name) || '');
             const specTemplateRule = schematics_1.apply(schematics_1.url(`./files/${options.withHost ? 'component-host' : options.withCustomHost ? 'component-custom-host' : 'component'}`), [
                 schematics_1.template(Object.assign({}, core_1.strings, options)),
                 schematics_1.move(movePath)

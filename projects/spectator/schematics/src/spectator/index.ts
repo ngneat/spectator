@@ -29,7 +29,8 @@ export function spectatorComponentSchematic(options: ComponentOptions): Rule {
       options.name = parsedPath.name;
       options.path = parsedPath.path;
 
-      const movePath = normalize(options.path + '/' + strings.dasherize(options.name) || '');
+      const movePath = options.flat ? options.path : normalize(options.path + '/' + strings.dasherize(options.name) || '');
+
       const specTemplateRule = apply(
         url(`./files/${options.withHost ? 'component-host' : options.withCustomHost ? 'component-custom-host' : 'component'}`),
         [
