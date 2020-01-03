@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="4.10.1"></a>
+## [4.10.1](https://github.com/ngneat/spectator/compare/v4.10.0...v4.10.1) (2020-01-03)
+
+
+### Bug Fixes
+
+* 🐛 schematics support flat option ([#252](https://github.com/ngneat/spectator/issues/252)) ([535bc1c](https://github.com/ngneat/spectator/commit/535bc1c))
+
+
+
 <a name="4.10.0"></a>
 # [4.10.0](https://github.com/ngneat/spectator/compare/v4.9.0...v4.10.0) (2019-12-12)
 
