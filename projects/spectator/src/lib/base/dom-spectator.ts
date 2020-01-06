@@ -1,11 +1,11 @@
-import { ChangeDetectorRef, DebugElement, ElementRef, Type } from '@angular/core';
+import { ChangeDetectorRef, DebugElement, ElementRef, Type, EventEmitter } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ComponentFixture, tick } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
 import { Token } from '../token';
 import { DOMSelector } from '../dom-selectors';
-import { isString, QueryOptions, QueryType, SpectatorElement } from '../types';
+import { isString, QueryOptions, QueryType, SpectatorElement, EventEmitterType, KeysMatching } from '../types';
 import { SpyObject } from '../mock';
 import { getChildren, setProps } from '../internals/query';
 import { patchElementFocus } from '../internals/element-focus';
@@ -175,6 +175,21 @@ export abstract class DomSpectator<I> extends BaseSpectator {
     return event;
   }
 
+  public triggerEventHandler<C = any, K extends KeysMatching<C, EventEmitter<any>> = any>(
+    directiveOrSelector: Type<C> | string | DebugElement,
+    eventName: K,
+    eventObj: EventEmitterType<C[K]>
+  ) {
+    const debugElement = this.getDebugElement(directiveOrSelector);
+    if (!debugElement) {
+      // tslint:disable:no-console
+      console.error(`${directiveOrSelector} does not exists`);
+      return;
+    }
+    debugElement.triggerEventHandler(eventName as string, eventObj);
+    this.detectChanges();
+  }
+
   public get keyboard() {
     return {
       pressKey: (key: string, selector: SpectatorElement = this.element, event = KEY_UP) => {
@@ -253,5 +268,19 @@ export abstract class DomSpectator<I> extends BaseSpectator {
     }
 
     return element;
+  }
+
+  private getDebugElement(directiveOrSelector: string | DebugElement | Type<unknown>) {
+    let debugElement: DebugElement;
+    if (isString(directiveOrSelector)) {
+      debugElement = this.debugElement.query(By.css(directiveOrSelector));
+    }
+    else if (directiveOrSelector instanceof DebugElement) {
+      debugElement = directiveOrSelector;
+    }
+    else {
+      debugElement = this.debugElement.query(By.directive(directiveOrSelector));
+    }
+    return debugElement;
   }
 }

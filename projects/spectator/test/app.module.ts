@@ -30,6 +30,7 @@ import { FormInputComponent } from './form-input/form-input.component';
 import { IntegrationModule } from './integration/integration.module';
 import { TranslatePipe } from './translate.pipe';
 import { EventsComponent } from './events/events.component';
+import { ChildCustomEventModule } from './child-custom-event/child-custom-event.module';
 
 @NgModule({
   declarations: [
@@ -59,7 +60,7 @@ import { EventsComponent } from './events/events.component';
     EventsComponent
   ],
   entryComponents: [DynamicComponent],
-  imports: [BrowserModule, HttpClientModule, ReactiveFormsModule, IntegrationModule],
+  imports: [BrowserModule, HttpClientModule, ReactiveFormsModule, IntegrationModule, ChildCustomEventModule],
   providers: [ChildServiceService, WidgetService, WidgetDataService],
   bootstrap: [AppComponent]
 })

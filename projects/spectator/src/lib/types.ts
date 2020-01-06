@@ -1,4 +1,4 @@
-import { DebugElement, ElementRef, Type } from '@angular/core';
+import { DebugElement, ElementRef, Type, EventEmitter } from '@angular/core';
 
 import { DOMSelector } from './dom-selectors';
 import { Token } from './token';
@@ -17,6 +17,10 @@ export interface QueryOptions<R> {
   read?: Token<R>;
   root?: boolean;
 }
+
+export type EventEmitterType<P> = P extends EventEmitter<infer T> ? T : never;
+
+export type KeysMatching<T, V> = { [K in keyof T]: T[K] extends V ? K : never }[keyof T];
 
 export type SelectOptions = string | string[] | HTMLOptionElement | HTMLOptionElement[];
 

@@ -175,7 +175,7 @@ it('should work with tick', fakeAsync(() => {
 ```
 
 ### Events API
-Each one of the events can accept a `SpectatorElement` which can be one of the following: 
+Each one of the events (except custom events, see below) can accept a `SpectatorElement` which can be one of the following: 
 
 ```ts
 type SpectatorElement = string | Element | DebugElement | ElementRef | Window | Document;
@@ -211,6 +211,14 @@ spectator.dispatchKeyboardEvent(SpectatorElement, 'keyup', 'Escape');
 - `dispatchTouchEvent()` - Triggers a touch event:
 ```ts
 spectator.dispatchTouchEvent(SpectatorElement, type, x, y);
+```
+
+#### Custom Events
+
+You may want to trigger custom events (@Output() of child components) using the following method:
+```ts
+spectator.triggerEventHandler(MyChildComponent, 'myCustomEvent', 'eventValue');
+spectator.triggerEventHandler('app-child-component', 'myCustomEvent', 'eventValue');
 ```
 
 ### Keyboard helpers
