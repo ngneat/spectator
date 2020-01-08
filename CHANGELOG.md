@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="4.11.0"></a>
+# [4.11.0](https://github.com/ngneat/spectator/compare/v4.10.0...v4.11.0) (2020-01-08)
+
+
+### Bug Fixes
+
+* 🐛 schematics support flat option ([#252](https://github.com/ngneat/spectator/issues/252)) ([535bc1c](https://github.com/ngneat/spectator/commit/535bc1c))
+
+
+### Features
+
+* 🎸 Add triggerEventHandler method ([#249](https://github.com/ngneat/spectator/issues/249)) ([#253](https://github.com/ngneat/spectator/issues/253)) ([319fa9b](https://github.com/ngneat/spectator/commit/319fa9b))
+
+
+
 <a name="4.10.1"></a>
 ## [4.10.1](https://github.com/ngneat/spectator/compare/v4.10.0...v4.10.1) (2020-01-03)
 
