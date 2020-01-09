@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="4.11.2"></a>
+## [4.11.2](https://github.com/ngneat/spectator/compare/v4.11.0...v4.11.2) (2020-01-09)
+
+
+### Bug Fixes
+
+* **schematics:** test should pass ([6e97635](https://github.com/ngneat/spectator/commit/6e97635))
+
+
+
 <a name="4.11.1"></a>
 ## [4.11.1](https://github.com/ngneat/spectator/compare/v4.11.0...v4.11.1) (2020-01-08)
 
