@@ -8,6 +8,6 @@ describe('<%= classify(name)%>Service', () => {
   beforeEach(() => spectator = createService());
 
   it('should...', () => {
-    expect(spectator.service).toBeFalsy();
+    expect(spectator.service).toBeTruthy();
   });
 });
