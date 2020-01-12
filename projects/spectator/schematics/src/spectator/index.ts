@@ -25,11 +25,7 @@ export function spectatorComponentSchematic(options: ComponentOptions): Rule {
     }),
     (tree: Tree, _context: SchematicContext): Rule => {
       _ensurePath(tree, options);
-      const parsedPath = parseName(options.path as string, options.name);
-      options.name = parsedPath.name;
-      options.path = parsedPath.path;
-
-      const movePath = options.flat ? options.path : normalize(options.path + '/' + strings.dasherize(options.name) || '');
+      const movePath = options.flat ? (options.path as string) : normalize(options.path + '/' + strings.dasherize(options.name) || '');
 
       const specTemplateRule = apply(
         url(`./files/${options.withHost ? 'component-host' : options.withCustomHost ? 'component-custom-host' : 'component'}`),
@@ -101,4 +97,8 @@ function _ensurePath(tree: Tree, options: any) {
     const projectDirName = project.projectType === 'application' ? 'app' : 'lib';
     options.path = `${root}${projectDirName}`;
   }
+
+  const parsedPath = parseName(options.path as string, options.name);
+  options.name = parsedPath.name;
+  options.path = parsedPath.path;
 }
