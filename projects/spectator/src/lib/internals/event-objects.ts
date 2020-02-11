@@ -25,7 +25,7 @@ export function createTouchEvent(type: string, pageX: number = 0, pageY: number 
   // as a basic UI Event. The necessary details for the event will be set manually.
   const event = document.createEvent('UIEvent');
 
-  event.initUIEvent(type, true, true, window, 0);
+  event.initEvent(type, true, true);
 
   // Most of the browsers don't have a "initTouchEvent" method that can be used to define
   // the touch details.
