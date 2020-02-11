@@ -274,11 +274,9 @@ export abstract class DomSpectator<I> extends BaseSpectator {
     let debugElement: DebugElement;
     if (isString(directiveOrSelector)) {
       debugElement = this.debugElement.query(By.css(directiveOrSelector));
-    }
-    else if (directiveOrSelector instanceof DebugElement) {
+    } else if (directiveOrSelector instanceof DebugElement) {
       debugElement = directiveOrSelector;
-    }
-    else {
+    } else {
       debugElement = this.debugElement.query(By.directive(directiveOrSelector));
     }
     return debugElement;
