@@ -5,7 +5,7 @@ import { BrowserDynamicTestingModule } from '@angular/platform-browser-dynamic/t
 
 import { setProps } from '../internals/query';
 import * as customMatchers from '../matchers';
-import { SpectatorOverrides } from '../spectator/create-factory';
+import { SpectatorOverrides, overrideComponentIfProviderOverridesSpecified } from '../spectator/create-factory';
 import { isType } from '../types';
 import { nodeByDirective } from '../internals/node-by-directive';
 
@@ -52,19 +52,7 @@ export function createHostFactory<C, H = HostComponent>(typeOrOptions: Type<C> |
     jasmine.addMatchers(customMatchers as any);
     TestBed.configureTestingModule(moduleMetadata);
 
-    if (
-      options.componentProviders.length ||
-      options.componentMocks.length ||
-      options.componentViewProviders.length ||
-      options.componentViewMocks.length
-    ) {
-      TestBed.overrideComponent(options.component, {
-        set: {
-          providers: [...options.componentProviders, ...options.componentMocks.map(p => options.mockProvider(p))],
-          viewProviders: [...options.componentViewProviders, ...options.componentViewMocks.map(p => options.mockProvider(p))]
-        }
-      });
-    }
+    overrideComponentIfProviderOverridesSpecified(options);
   }));
 
   return <HP>(template: string, overrides?: SpectatorHostOverrides<C, H, HP>) => {
