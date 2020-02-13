@@ -2,6 +2,7 @@ import { TestBed } from '@angular/core/testing';
 
 import { SpyObject } from '../mock';
 import { Token } from '../token';
+import { Type, InjectionToken, AbstractType } from '@angular/core';
 
 /**
  * @internal
@@ -15,7 +16,7 @@ export abstract class BaseSpectator {
     return TestBed.get(type);
   }
 
-  public inject<T>(type: Token<T> | Token<any>): SpyObject<T> {
-    return TestBed.inject(type);
+  public inject<T>(token: Type<T> | InjectionToken<T> | AbstractType<T>): SpyObject<T> {
+    return TestBed.inject(token) as SpyObject<T>;
   }
 }

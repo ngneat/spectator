@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, DebugElement, ElementRef, Type, EventEmitter } from '@angular/core';
+import { ChangeDetectorRef, DebugElement, ElementRef, Type, EventEmitter, InjectionToken, AbstractType } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ComponentFixture, tick } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
@@ -34,8 +34,8 @@ export abstract class DomSpectator<I> extends BaseSpectator {
     return super.get(type);
   }
 
-  public inject<T>(type: Token<T> | Token<any>): SpyObject<T> {
-    return super.inject(type);
+  public inject<T>(token: Type<T> | InjectionToken<T> | AbstractType<T>): SpyObject<T> {
+    return super.inject(token);
   }
 
   public detectChanges(): void {

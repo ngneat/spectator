@@ -1,4 +1,4 @@
-import { Type } from '@angular/core';
+import { Type, InjectionToken, AbstractType } from '@angular/core';
 import {
   createDirectiveFactory as baseCreateDirectiveFactory,
   isType,
@@ -23,8 +23,8 @@ export class SpectatorDirective<D, H = HostComponent> extends BaseSpectatorDirec
     return super.get(type, fromComponentInjector) as SpyObject<T>;
   }
 
-  public inject<T>(type: Token<T> | Token<any>, fromComponentInjector: boolean = false): SpyObject<T> {
-    return super.inject(type, fromComponentInjector) as SpyObject<T>;
+  public inject<T>(token: Type<T> | InjectionToken<T> | AbstractType<T>, fromComponentInjector: boolean = false): SpyObject<T> {
+    return super.inject(token, fromComponentInjector) as SpyObject<T>;
   }
 }
 

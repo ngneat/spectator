@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, DebugElement } from '@angular/core';
+import { ChangeDetectorRef, DebugElement, InjectionToken, Type, AbstractType } from '@angular/core';
 import { ComponentFixture } from '@angular/core/testing';
 
 import { SpyObject } from '../mock';
@@ -29,12 +29,12 @@ export class Spectator<C> extends DomSpectator<C> {
     return super.get(type);
   }
 
-  public inject<T>(type: Token<T> | Token<any>, fromComponentInjector: boolean = false): SpyObject<T> {
+  public inject<T>(token: Type<T> | InjectionToken<T> | AbstractType<T>, fromComponentInjector: boolean = false): SpyObject<T> {
     if (fromComponentInjector) {
-      return this.debugElement.injector.get(type) as SpyObject<T>;
+      return this.debugElement.injector.get(token) as SpyObject<T>;
     }
 
-    return super.inject(type);
+    return super.inject(token);
   }
 
   public detectComponentChanges(): void {

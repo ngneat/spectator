@@ -1,4 +1,4 @@
-import { DebugElement } from '@angular/core';
+import { DebugElement, InjectionToken, Type, AbstractType } from '@angular/core';
 import { ComponentFixture } from '@angular/core/testing';
 
 import { setProps } from '../internals/query';
@@ -37,12 +37,12 @@ export class SpectatorDirective<D, H = HostComponent> extends DomSpectator<D> {
     return super.get(type);
   }
 
-  public inject<T>(type: Token<T> | Token<any>, fromDirectiveInjector: boolean = false): SpyObject<T> {
+  public inject<T>(token: Type<T> | InjectionToken<T> | AbstractType<T>, fromDirectiveInjector: boolean = false): SpyObject<T> {
     if (fromDirectiveInjector) {
-      return this.debugElement.injector.get(type) as SpyObject<T>;
+      return this.debugElement.injector.get(token) as SpyObject<T>;
     }
 
-    return super.inject(type);
+    return super.inject(token);
   }
 
   public setHostInput<K extends keyof H>(input: Partial<H>): void;

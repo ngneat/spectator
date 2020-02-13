@@ -1,4 +1,4 @@
-import { Type } from '@angular/core';
+import { Type, InjectionToken, AbstractType } from '@angular/core';
 import {
   createHttpFactory as baseCreateHttpFactory,
   isType,
@@ -20,7 +20,7 @@ export interface SpectatorHttp<S> extends BaseSpectatorHttp<S> {
    * @param type Token
    */
   get<T>(token: Token<T> | Token<any>): SpyObject<T>;
-  inject<T>(token: Token<T> | Token<any>): SpyObject<T>;
+  inject<T>(token: Type<T> | InjectionToken<T> | AbstractType<T>): SpyObject<T>;
 }
 
 /**
