@@ -155,7 +155,7 @@ describe('SomeComponent', () => {
   describe('with component view mocking', () => {
     const createComponent = createComponentFactory({
       component: SomeComponent,
-      componentViewMocks: [SomeViewService]
+      componentViewProvidersMocks: [SomeViewService]
     });
 
     it('should create', () => {
@@ -220,7 +220,7 @@ describe('SomeComponent', () => {
     const createComponent = createComponentFactory({
       component: SomeComponent,
       componentMocks: [SomeService],
-      componentViewMocks: [SomeViewService]
+      componentViewProvidersMocks: [SomeViewService]
     });
 
     it('should create', () => {

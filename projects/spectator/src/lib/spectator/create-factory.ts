@@ -29,7 +29,7 @@ export interface SpectatorOverrides<C> extends BaseSpectatorOverrides {
  */
 export function overrideComponentIfProviderOverridesSpecified<C>(options: Required<SpectatorOptions<C>>): void {
   const hasProviderOverrides = options.componentProviders.length || options.componentMocks.length;
-  const hasViewProviders = options.componentViewProviders.length || options.componentViewMocks.length;
+  const hasViewProviders = options.componentViewProviders.length || options.componentViewProvidersMocks.length;
   if (hasProviderOverrides || hasViewProviders) {
     let providerConfiguration = {};
     if (hasProviderOverrides) {
@@ -40,7 +40,7 @@ export function overrideComponentIfProviderOverridesSpecified<C>(options: Requir
     if (hasViewProviders) {
       providerConfiguration = {
         ...providerConfiguration,
-        viewProviders: [...options.componentViewProviders, ...options.componentViewMocks.map(p => options.mockProvider(p))]
+        viewProviders: [...options.componentViewProviders, ...options.componentViewProvidersMocks.map(p => options.mockProvider(p))]
       };
     }
     TestBed.overrideComponent(options.component, {

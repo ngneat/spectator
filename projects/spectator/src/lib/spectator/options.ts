@@ -15,7 +15,7 @@ export interface SpectatorOptions<C> extends BaseSpectatorOptions {
   detectChanges?: boolean;
   declareComponent?: boolean;
   componentMocks?: Type<any>[];
-  componentViewMocks?: Type<any>[];
+  componentViewProvidersMocks?: Type<any>[];
 }
 
 const defaultSpectatorOptions: OptionalsRequired<SpectatorOptions<any>> = {
@@ -26,7 +26,7 @@ const defaultSpectatorOptions: OptionalsRequired<SpectatorOptions<any>> = {
   componentProviders: [],
   componentViewProviders: [],
   componentMocks: [],
-  componentViewMocks: []
+  componentViewProvidersMocks: []
 };
 
 /**
