@@ -23,6 +23,9 @@ export function createService<S>(typeOrOptions: SpectatorServiceOptions<S> | Typ
     },
     get<T>(token: Token<T>): SpyObject<T> {
       return spectator.get(token);
+    },
+    inject<T>(token: Token<T>): SpyObject<T> {
+      return spectator.inject(token);
     }
   };
 }

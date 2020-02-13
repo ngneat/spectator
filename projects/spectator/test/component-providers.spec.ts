@@ -85,7 +85,7 @@ describe('SomeComponent', () => {
         detectChanges: false
       });
 
-      spectator.get(SomeService, true).getFoo.andReturn('mocked-foo');
+      spectator.inject(SomeService, true).getFoo.andReturn('mocked-foo');
       spectator.detectChanges();
 
       expect(spectator.component.foo).toBe('mocked-foo');
@@ -107,7 +107,7 @@ describe('SomeComponent', () => {
     it('should not use the global mock', () => {
       const spectator = createComponent();
 
-      expect(spectator.get(SomeService).getFoo).not.toHaveBeenCalled();
+      expect(spectator.inject(SomeService).getFoo).not.toHaveBeenCalled();
     });
   });
 });

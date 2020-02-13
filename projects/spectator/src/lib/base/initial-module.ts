@@ -1,4 +1,4 @@
-import { NgModule, SchemaMetadata, Type } from '@angular/core';
+import { SchemaMetadata, Type } from '@angular/core';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 import { getGlobalsInjections } from '../globals-injections';

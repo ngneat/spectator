@@ -14,8 +14,16 @@ import { mockProvider, SpyObject } from './mock';
  * @publicApi
  */
 export class SpectatorRouting<C> extends BaseSpectatorRouting<C> {
+  /**
+   * @deprecated Deprecated in favour of inject(). Will be removed once TestBed.get is discontinued.
+   * @param type Token
+   */
   public get<T>(type: Token<T> | Token<any>, fromComponentInjector: boolean = false): SpyObject<T> {
     return super.get(type, fromComponentInjector) as SpyObject<T>;
+  }
+
+  public inject<T>(type: Token<T> | Token<any>, fromComponentInjector: boolean = false): SpyObject<T> {
+    return super.inject(type, fromComponentInjector) as SpyObject<T>;
   }
 }
 

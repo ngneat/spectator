@@ -45,7 +45,7 @@ describe('HttpClient testing', () => {
 
   it('should work with external service', fakeAsync(() => {
     const spectatorHttp = http();
-    spectatorHttp.get(UserService).getUser.andCallFake(() => {
+    spectatorHttp.inject(UserService).getUser.andCallFake(() => {
       return defer(() => Promise.resolve({}));
     });
 

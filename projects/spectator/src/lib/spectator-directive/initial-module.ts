@@ -1,7 +1,6 @@
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 
 import { initialModule, ModuleMetadata } from '../base/initial-module';
-import { HostComponent } from '../spectator-host/host-component';
 
 import { SpectatorDirectiveOptions } from './options';
 
