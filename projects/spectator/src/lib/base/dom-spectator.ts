@@ -34,7 +34,7 @@ export abstract class DomSpectator<I> extends BaseSpectator {
     return super.get(type);
   }
 
-  public inject<T>(token: Type<T> | InjectionToken<T> | AbstractType<T>): SpyObject<T> {
+  public inject<T>(token: Token<T>): SpyObject<T> {
     return super.inject(token);
   }
 

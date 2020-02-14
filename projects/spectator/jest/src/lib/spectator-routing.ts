@@ -22,7 +22,7 @@ export class SpectatorRouting<C> extends BaseSpectatorRouting<C> {
     return super.get(type, fromComponentInjector) as SpyObject<T>;
   }
 
-  public inject<T>(token: Type<T> | InjectionToken<T> | AbstractType<T>, fromComponentInjector: boolean = false): SpyObject<T> {
+  public inject<T>(token: Token<T>, fromComponentInjector: boolean = false): SpyObject<T> {
     return super.inject(token, fromComponentInjector) as SpyObject<T>;
   }
 }

@@ -16,7 +16,7 @@ export abstract class BaseSpectator {
     return TestBed.get(type);
   }
 
-  public inject<T>(token: Type<T> | InjectionToken<T> | AbstractType<T>): SpyObject<T> {
+  public inject<T>(token: Token<T>): SpyObject<T> {
     return TestBed.inject(token) as SpyObject<T>;
   }
 }

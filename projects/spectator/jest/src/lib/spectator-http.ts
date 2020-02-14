@@ -20,7 +20,7 @@ export interface SpectatorHttp<S> extends BaseSpectatorHttp<S> {
    * @param type Token
    */
   get<T>(token: Token<T> | Token<any>): SpyObject<T>;
-  inject<T>(token: Type<T> | InjectionToken<T> | AbstractType<T>): SpyObject<T>;
+  inject<T>(token: Token<T>): SpyObject<T>;
 }
 
 /**

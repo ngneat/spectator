@@ -37,7 +37,7 @@ export class SpectatorDirective<D, H = HostComponent> extends DomSpectator<D> {
     return super.get(type);
   }
 
-  public inject<T>(token: Type<T> | InjectionToken<T> | AbstractType<T>, fromDirectiveInjector: boolean = false): SpyObject<T> {
+  public inject<T>(token: Token<T>, fromDirectiveInjector: boolean = false): SpyObject<T> {
     if (fromDirectiveInjector) {
       return this.debugElement.injector.get(token) as SpyObject<T>;
     }

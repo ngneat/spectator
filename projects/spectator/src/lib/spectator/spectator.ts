@@ -29,7 +29,7 @@ export class Spectator<C> extends DomSpectator<C> {
     return super.get(type);
   }
 
-  public inject<T>(token: Type<T> | InjectionToken<T> | AbstractType<T>, fromComponentInjector: boolean = false): SpyObject<T> {
+  public inject<T>(token: Token<T>, fromComponentInjector: boolean = false): SpyObject<T> {
     if (fromComponentInjector) {
       return this.debugElement.injector.get(token) as SpyObject<T>;
     }
