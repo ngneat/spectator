@@ -5,7 +5,7 @@
   "scripts": {
     "postinstall": "ngcc",
     "ng": "ng",
-    "build": "ng build && npm run build:schematics && npm run copy:schematics && npm run copy:docs && npm run copy:bin",
+    "build": "ng build --prod && npm run build:schematics && npm run copy:schematics && npm run copy:docs && npm run copy:bin",
     "build:schematics": "tsc -p projects/spectator/schematics/tsconfig.json",
     "test": "ng test",
     "test:jest": "ng run spectator:test-jest",
