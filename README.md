@@ -99,9 +99,11 @@ const createComponent = createComponentFactory({
   providers: [],
   declarations: [],
   entryComponents: [],
-  componentProviders: [], // Override the component's providers 
+  componentProviders: [], // Override the component's providers
+  componentViewProviders: [], // Override the component's view providers
   mocks: [], // Providers that will automatically be mocked
   componentMocks: [], // Component providers that will automatically be mocked
+  componentViewProvidersMocks: [], // Component view providers that will be automatically mocked
   detectChanges: false, // Defaults to true
   declareComponent: false, // Defaults to true
   disableAnimations: false, // Defaults to true
@@ -884,6 +886,8 @@ To access the provider, get it from the component injector using the `fromCompon
 ```ts
 spectator.get(FooService, true)
 ```
+
+In the same way you can also override the component view providers by using the `componentViewProviders` and `componentViewProvidersMocks`.
 
 The same rules also apply to directives using the `directiveProviders` and `directiveMocks` parameters.
 

@@ -25,6 +25,31 @@ export interface SpectatorOverrides<C> extends BaseSpectatorOverrides {
 }
 
 /**
+ * @internal
+ */
+export function overrideComponentIfProviderOverridesSpecified<C>(options: Required<SpectatorOptions<C>>): void {
+  const hasProviderOverrides = options.componentProviders.length || options.componentMocks.length;
+  const hasViewProviders = options.componentViewProviders.length || options.componentViewProvidersMocks.length;
+  if (hasProviderOverrides || hasViewProviders) {
+    let providerConfiguration = {};
+    if (hasProviderOverrides) {
+      providerConfiguration = {
+        providers: [...options.componentProviders, ...options.componentMocks.map(p => options.mockProvider(p))]
+      };
+    }
+    if (hasViewProviders) {
+      providerConfiguration = {
+        ...providerConfiguration,
+        viewProviders: [...options.componentViewProviders, ...options.componentViewProvidersMocks.map(p => options.mockProvider(p))]
+      };
+    }
+    TestBed.overrideComponent(options.component, {
+      set: providerConfiguration
+    });
+  }
+}
+
+/**
  * @deprecated Use createComponentFactory instead. To be removed in v5.
  */
 export function createTestComponentFactory<C>(typeOrOptions: SpectatorOptions<C> | Type<C>): SpectatorFactory<C> {
@@ -49,13 +74,7 @@ export function createComponentFactory<C>(typeOrOptions: Type<C> | SpectatorOpti
       }
     });
 
-    if (options.componentProviders.length || options.componentMocks.length) {
-      TestBed.overrideComponent(options.component, {
-        set: {
-          providers: [...options.componentProviders, ...options.componentMocks.map(p => options.mockProvider(p))]
-        }
-      });
-    }
+    overrideComponentIfProviderOverridesSpecified(options);
 
     TestBed.compileComponents();
   }));
