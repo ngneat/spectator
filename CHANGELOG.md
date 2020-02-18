@@ -2,6 +2,40 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="5.0.0"></a>
+# [5.0.0](https://github.com/ngneat/spectator/compare/v4.11.1...v5.0.0) (2020-02-18)
+
+
+### Bug Fixes
+
+* **schematics:** handle the path provided with the name ([#257](https://github.com/ngneat/spectator/issues/257)) ([c0d482a](https://github.com/ngneat/spectator/commit/c0d482a)), closes [#256](https://github.com/ngneat/spectator/issues/256)
+
+
+### Features
+
+* 🎸 upgrade to ng v9 ([5ec7a90](https://github.com/ngneat/spectator/commit/5ec7a90))
+* support for overriding mocking component view providers ([#266](https://github.com/ngneat/spectator/issues/266)) ([23b78da](https://github.com/ngneat/spectator/commit/23b78da))
+* upgrading to angular v9 ([#267](https://github.com/ngneat/spectator/issues/267)) ([e13c955](https://github.com/ngneat/spectator/commit/e13c955))
+
+
+### BREAKING CHANGES
+
+* Angular 9 is a peer deps now
+* This PR sets the angular peer dependencies to v9
+
+* feat: adding inject method to spectator
+
+- This method taps into the type safe TestBed.inject function.
+- Marked Spectator.get() as deprecated.
+
+* refactor: updating function signature of inject
+
+* refactor: updating Token<T> type and using with inject
+
+* refactor: updating injectionType with actual declaration
+
+
+
 <a name="4.11.2"></a>
 ## [4.11.2](https://github.com/ngneat/spectator/compare/v4.11.0...v4.11.2) (2020-01-09)
 
