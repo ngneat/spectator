@@ -289,6 +289,33 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "codeNoobie",
+      "name": "Anand Tiwary",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/5392144?v=4",
+      "profile": "https://github.com/codeNoobie",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "AlesDo",
+      "name": "Ales Doganoc",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/13190278?v=4",
+      "profile": "https://github.com/AlesDo",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "zoltan-nz",
+      "name": "Zoltan",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/1009783?v=4",
+      "profile": "https://zoltan.nz",
+      "contributions": [
+        "code"
+      ]
     }
   ]
 }
