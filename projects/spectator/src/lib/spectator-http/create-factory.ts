@@ -34,7 +34,7 @@ export function createHttpFactory<S>(typeOrOptions: Type<S> | SpectatorHttpOptio
   });
 
   afterEach(() => {
-    TestBed.get(HttpTestingController).verify();
+    TestBed.inject(HttpTestingController).verify();
   });
 
   return (overrides?: CreateHttpOverrides<S>) => {

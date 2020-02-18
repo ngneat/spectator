@@ -1,4 +1,4 @@
-import { Type } from '@angular/core';
+import { Type, InjectionToken, AbstractType } from '@angular/core';
 
 import { SpyObject } from '../mock';
 import { Token } from '../token';
@@ -23,6 +23,9 @@ export function createService<S>(typeOrOptions: SpectatorServiceOptions<S> | Typ
     },
     get<T>(token: Token<T>): SpyObject<T> {
       return spectator.get(token);
+    },
+    inject<T>(token: Token<T>): SpyObject<T> {
+      return spectator.inject(token);
     }
   };
 }

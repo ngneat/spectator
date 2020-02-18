@@ -107,7 +107,7 @@ describe('MyPageComponent', () => {
 
       spectator.click('.link-2');
 
-      expect(spectator.get(Router).navigate).toHaveBeenCalledWith(['bar']);
+      expect(spectator.inject(Router).navigate).toHaveBeenCalledWith(['bar']);
     });
 
     it('should trigger router events', async () => {
@@ -154,25 +154,25 @@ describe('MyPageComponent', () => {
       const spectator = createComponent();
 
       await spectator.fixture.whenStable();
-      expect(spectator.get(Location).path()).toBe('/');
+      expect(spectator.inject(Location).path()).toBe('/');
 
       await spectator.router.navigate(['/foo']);
-      expect(spectator.get(Location).path()).toBe('/foo');
+      expect(spectator.inject(Location).path()).toBe('/foo');
 
       await spectator.router.navigate(['/']);
-      expect(spectator.get(Location).path()).toBe('/');
+      expect(spectator.inject(Location).path()).toBe('/');
     });
 
     it('should navigate away using router link', async () => {
       const spectator = createComponent();
 
       await spectator.fixture.whenStable();
-      expect(spectator.get(Location).path()).toBe('/');
+      expect(spectator.inject(Location).path()).toBe('/');
 
       spectator.click('.link-1');
 
       await spectator.fixture.whenStable();
-      expect(spectator.get(Location).path()).toBe('/foo');
+      expect(spectator.inject(Location).path()).toBe('/foo');
     });
 
     it('should not trigger router events', async () => {

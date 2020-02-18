@@ -1,12 +1,12 @@
-import { FactoryProvider } from '@angular/core';
-import { installProtoMethods, CompatibleSpy, SpyObject as BaseSpyObject, InjectableType } from '@ngneat/spectator';
+import { FactoryProvider, AbstractType, Type } from '@angular/core';
+import { installProtoMethods, CompatibleSpy, SpyObject as BaseSpyObject } from '@ngneat/spectator';
 
 export type SpyObject<T> = BaseSpyObject<T> & { [P in keyof T]: T[P] & (T[P] extends (...args: any[]) => infer R ? jest.Mock<R> : T[P]) };
 
 /**
  * @internal
  */
-export function createSpyObject<T>(type: InjectableType<T>, template?: Partial<Record<keyof T, any>>): SpyObject<T> {
+export function createSpyObject<T>(type: Type<T> | AbstractType<T>, template?: Partial<Record<keyof T, any>>): SpyObject<T> {
   const mock: any = { ...template } || {};
 
   installProtoMethods(mock, type.prototype, () => {
@@ -36,7 +36,7 @@ export function createSpyObject<T>(type: InjectableType<T>, template?: Partial<R
 /**
  * @publicApi
  */
-export function mockProvider<T>(type: InjectableType<T>, properties?: Partial<Record<keyof T, any>>): FactoryProvider {
+export function mockProvider<T>(type: Type<T> | AbstractType<T>, properties?: Partial<Record<keyof T, any>>): FactoryProvider {
   return {
     provide: type,
     useFactory: () => createSpyObject(type, properties)

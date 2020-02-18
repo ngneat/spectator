@@ -25,7 +25,7 @@ describe('ZippyComponent', () => {
 
   it('should be truthy', () => {
     host = createHost(`<app-async></app-async>`, { detectChanges: false });
-    const queryService = host.get(QueryService);
+    const queryService = host.inject(QueryService);
     queryService.select.and.returnValue(of(true));
     host.detectChanges();
     expect(host.query('p')).toExist();

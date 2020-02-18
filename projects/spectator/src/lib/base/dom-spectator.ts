@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, DebugElement, ElementRef, Type, EventEmitter } from '@angular/core';
+import { ChangeDetectorRef, DebugElement, ElementRef, Type, EventEmitter, InjectionToken, AbstractType } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ComponentFixture, tick } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
@@ -26,8 +26,16 @@ export abstract class DomSpectator<I> extends BaseSpectator {
     super();
   }
 
+  /**
+   * @deprecated Deprecated in favour of inject(). Will be removed once TestBed.get is discontinued.
+   * @param type Token
+   */
   public get<T>(type: Token<T> | Token<any>): SpyObject<T> {
     return super.get(type);
+  }
+
+  public inject<T>(token: Token<T>): SpyObject<T> {
+    return super.inject(token);
   }
 
   public detectChanges(): void {
@@ -274,11 +282,9 @@ export abstract class DomSpectator<I> extends BaseSpectator {
     let debugElement: DebugElement;
     if (isString(directiveOrSelector)) {
       debugElement = this.debugElement.query(By.css(directiveOrSelector));
-    }
-    else if (directiveOrSelector instanceof DebugElement) {
+    } else if (directiveOrSelector instanceof DebugElement) {
       debugElement = directiveOrSelector;
-    }
-    else {
+    } else {
       debugElement = this.debugElement.query(By.directive(directiveOrSelector));
     }
     return debugElement;
