@@ -47,5 +47,7 @@ declare namespace jest {
     toHaveDescendant(selector: string | Element): boolean;
 
     toHaveDescendantWithText({ selector, text }: { selector: string; text: string }): boolean;
+
+    toHaveSelectedOptions(expected: string | string[] | HTMLOptionElement | HTMLOptionElement[]): boolean;
   }
 }
