@@ -17,6 +17,13 @@ describe('HelloComponent', () => {
 
     expect((host.query('div') as HTMLElement).style.width).toBe('20px');
 
+    expect(host.query('div') as HTMLElement).toHaveStyle({ width: '20px' });
+    expect(host.query('div') as HTMLElement).not.toHaveStyle({ width: '30px' });
+    expect(host.query('div') as HTMLElement).toHaveStyle({ display: 'flex' });
+    expect(host.query('div') as HTMLElement).not.toHaveStyle({ display: 'block' });
+    expect(host.query('div') as HTMLElement).toHaveStyle({ width: '20px', display: 'flex' });
+    expect(host.query('div') as HTMLElement).not.toHaveStyle({ width: '20px', display: 'block' });
+
     expect('div h1').toHaveText(''); // This should return true, according to the original code
     expect('div h1').toHaveText('some title');
     expect('div h1').toHaveText('ome title');

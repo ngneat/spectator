@@ -5,7 +5,7 @@ import { TranslateService } from '../translate.service';
 @Component({
   selector: 'hello',
   template: `
-    <div [style.width]="width">
+    <div [style.width]="width" style="display: flex;">
       <h1>{{ title | translate }}</h1>
     </div>
 
