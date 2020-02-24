@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { fakeAsync, tick } from '@angular/core/testing';
-import { createHostFactory, SpectatorWithHost } from '@ngneat/spectator';
+import { fakeAsync } from '@angular/core/testing';
+import { createHostFactory, SpectatorWithHost, byText } from '@ngneat/spectator';
 
 import { QueryService } from '../query.service';
 import { CalcComponent } from '../calc/calc.component';
@@ -191,9 +191,49 @@ describe('With Custom Host Component', () => {
     expect(host.component.updatedAsync).not.toBeFalsy();
   }));
 
-  it('should query from root', () => {
+  it('should query from root by string selector', () => {
     host = createHost(`<zippy [title]="title"></zippy>`);
     const head = host.query('head', { root: true });
     expect(head).toBeDefined();
+  });
+
+  describe('Queries with "root: true" param', () => {
+    const title = 'Some Zippy page title';
+
+    beforeEach(() => {
+      host = createHost(`<zippy [title]="title"></zippy>`);
+
+      host.component.setPageTitle(title);
+    });
+
+    it('should query from root by title string selector', () => {
+      const titleElement = host.query('title', { root: true });
+      expect((<Element>titleElement).textContent).toBe(title);
+    });
+
+    it('should query from root by DOMSelector selector', () => {
+      const titleElement = host.query(byText(title), { root: true });
+      expect((<Element>titleElement).textContent).toBe(title);
+    });
+
+    it('should query all from root by title string selector', () => {
+      const titleElements = host.queryAll('title', { root: true });
+      expect(titleElements[0].textContent).toBe(title);
+    });
+
+    it('should query all from root by DOMSelector selector', () => {
+      const titleElements = host.queryAll(byText(title), { root: true });
+      expect(titleElements[0].textContent).toBe(title);
+    });
+
+    it('should query last from root by title string selector', () => {
+      const lastTitleElement = host.queryLast('title', { root: true });
+      expect((<Element>lastTitleElement).textContent).toBe(title);
+    });
+
+    it('should query last from root by DOMSelector selector', () => {
+      const lastTitleElement = host.queryLast(byText(title), { root: true });
+      expect((<Element>lastTitleElement).textContent).toBe(title);
+    });
   });
 });
