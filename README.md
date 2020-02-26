@@ -771,8 +771,7 @@ When using the component schematic you can specify the `--jest` flag to have the
 ```
 
 ## Testing with HTTP 
-Spectator makes testing data services, which use the Angular HTTP module, a lot easier. For example, let's say that you have service with three methods, one performs a GET, one a POST and one performs
-concurrent requests:
+Spectator makes testing data services, which use the Angular HTTP module, a lot easier. For example, let's say that you have a service with three methods, one performs a GET, one a POST and one multiple concurrent requests:
 
 ```ts
 export class TodosDataService {
