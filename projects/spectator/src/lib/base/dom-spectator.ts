@@ -46,8 +46,14 @@ export abstract class DomSpectator<I> extends BaseSpectator {
   public query<R>(directive: Type<R>): R | null;
   public query<R>(directiveOrSelector: Type<any> | string, options: { read: Token<R> }): R | null;
   public query<R>(directiveOrSelector: QueryType, options?: QueryOptions<R>): R | Element | null {
-    if ((options || {}).root && isString(directiveOrSelector)) {
-      return document.querySelector(directiveOrSelector);
+    if ((options || {}).root) {
+      if (isString(directiveOrSelector)) {
+        return document.querySelector(directiveOrSelector);
+      }
+
+      if (directiveOrSelector instanceof DOMSelector) {
+        return directiveOrSelector.execute(document as any)[0] || null;
+      }
     }
 
     return getChildren<R>(this.debugElement)(directiveOrSelector, options)[0] || null;
@@ -57,8 +63,14 @@ export abstract class DomSpectator<I> extends BaseSpectator {
   public queryAll<R>(directive: Type<R>): R[];
   public queryAll<R>(directiveOrSelector: Type<any> | string, options: { read: Token<R> }): R[];
   public queryAll<R>(directiveOrSelector: QueryType, options?: QueryOptions<R>): R[] | Element[] {
-    if ((options || {}).root && isString(directiveOrSelector)) {
-      return Array.from(document.querySelectorAll(directiveOrSelector));
+    if ((options || {}).root) {
+      if (isString(directiveOrSelector)) {
+        return Array.from(document.querySelectorAll(directiveOrSelector));
+      }
+
+      if (directiveOrSelector instanceof DOMSelector) {
+        return directiveOrSelector.execute(document as any);
+      }
     }
 
     return getChildren<R>(this.debugElement)(directiveOrSelector, options);
@@ -68,10 +80,20 @@ export abstract class DomSpectator<I> extends BaseSpectator {
   public queryLast<R>(directive: Type<R>): R | null;
   public queryLast<R>(directiveOrSelector: Type<any> | string, options: { read: Token<R> }): R | null;
   public queryLast<R>(directiveOrSelector: QueryType, options?: QueryOptions<R>): R | Element | null {
-    if ((options || {}).root && isString(directiveOrSelector)) {
-      return document.querySelector(directiveOrSelector);
+    let result: (R | Element)[] = [];
+
+    if ((options || {}).root) {
+      if (isString(directiveOrSelector)) {
+        result = Array.from(document.querySelectorAll(directiveOrSelector));
+      }
+
+      if (directiveOrSelector instanceof DOMSelector) {
+        result = directiveOrSelector.execute(document as any);
+      }
+    } else {
+      result = getChildren<R>(this.debugElement)(directiveOrSelector, options);
     }
-    const result = getChildren<R>(this.debugElement)(directiveOrSelector, options);
+
     if (result && result.length) {
       return result[result.length - 1];
     }

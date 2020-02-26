@@ -1,4 +1,5 @@
 import { Component, HostListener, Input } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 
 import { QueryService } from '../query.service';
 
@@ -32,7 +33,7 @@ export class ZippyComponent {
   public visible = false;
   public updatedAsync = false;
 
-  constructor(private readonly queryService: QueryService) {}
+  constructor(private readonly queryService: QueryService, private titleService: Title) {}
 
   @HostListener('keyup.esc') public onEsc(): void {
     this.toggle();
@@ -46,5 +47,9 @@ export class ZippyComponent {
     setTimeout(() => {
       this.updatedAsync = true;
     }, 5000);
+  }
+
+  public setPageTitle(title: string): void {
+    this.titleService.setTitle(title);
   }
 }
