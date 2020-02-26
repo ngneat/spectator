@@ -2,6 +2,23 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="5.1.0"></a>
+# [5.1.0](https://github.com/ngneat/spectator/compare/v5.0.0...v5.1.0) (2020-02-26)
+
+
+### Bug Fixes
+
+* **matchers:** 🐛 add toHaveSelectedOptions matcher for jest ([#271](https://github.com/ngneat/spectator/issues/271)) ([a260377](https://github.com/ngneat/spectator/commit/a260377))
+* schematics service for jest ([#276](https://github.com/ngneat/spectator/issues/276)) ([0f970c3](https://github.com/ngneat/spectator/commit/0f970c3))
+* **mathers:** fix passing toHaveStyle if styles applied in attr… ([#274](https://github.com/ngneat/spectator/issues/274)) ([f1ec6e7](https://github.com/ngneat/spectator/commit/f1ec6e7))
+
+
+### Features
+
+* **dom-spectator:** add elem query with root opt for DOMSelecto… ([#277](https://github.com/ngneat/spectator/issues/277)) ([7409082](https://github.com/ngneat/spectator/commit/7409082))
+
+
+
 <a name="5.0.0"></a>
 # [5.0.0](https://github.com/ngneat/spectator/compare/v4.11.1...v5.0.0) (2020-02-18)
 
