@@ -82,6 +82,27 @@
     ],
     "description": "createServiceFactory"
   },
+  "createPipeFactory": {
+    "prefix": "spec-pipe",
+    "body": [
+      "import { createPipeFactory, SpectatorPipe } from '@ngneat/spectator';",
+      "import { ${1:name}Pipe } from './${2:path}.pipe';",
+      "",
+      "describe('${1:name}Pipe', () => {",
+      "  let spectator: SpectatorPipe<${1:name}Pipe>;",
+      "  const createPipe = createPipeFactory({",
+      "    pipe: ${1:name}Pipe,",
+      "    mocks: []",
+      "  });",
+      "",
+      "",
+      "  it('should ', () => {",
+      "    spectator = createPipe(`{{ 'value' | ${1:name} }}`);",
+      "  });",
+      "});"
+    ],
+    "description": "createPipeFactory"
+  },
   "createHttpFactory": {
     "prefix": "spec-http",
     "body": [
