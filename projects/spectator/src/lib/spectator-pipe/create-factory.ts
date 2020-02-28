@@ -16,14 +16,14 @@ import { SpectatorPipe } from './spectator-pipe';
  * @publicApi
  */
 export type SpectatorPipeFactory<P, H> = <HP>(
-  template: string,
-  overrides?: SpectatorPipeOverrides<P, H, HP>
+  templateOrOverrides?: string | SpectatorPipeOverrides<H, HP>,
+  overrides?: SpectatorPipeOverrides<H, HP>
 ) => SpectatorPipe<P, H & (HostComponent extends H ? HP : unknown)>;
 
 /**
  * @publicApi
  */
-export interface SpectatorPipeOverrides<P, H, HP> extends BaseSpectatorOverrides {
+export interface SpectatorPipeOverrides<H, HP> extends BaseSpectatorOverrides {
   detectChanges?: boolean;
   hostProps?: HostComponent extends H ? HP : Partial<H>;
 }
@@ -43,13 +43,15 @@ export function createPipeFactory<P, H = HostComponent>(typeOrOptions: Type<P> |
     TestBed.configureTestingModule(moduleMetadata);
   }));
 
-  return <HP>(template: string, overrides?: SpectatorPipeOverrides<P, H, HP>) => {
-    const defaults: SpectatorPipeOverrides<P, H, HP> = {
+  return <HP>(templateOrOverrides?: string | SpectatorPipeOverrides<H, HP>, overrides?: SpectatorPipeOverrides<H, HP>) => {
+    const defaults: SpectatorPipeOverrides<H, HP> = {
       hostProps: {} as any,
       detectChanges: true,
       providers: []
     };
-    const { detectChanges, hostProps, providers } = { ...defaults, ...overrides };
+    const resolvedOverrides = typeof templateOrOverrides === 'object' ? templateOrOverrides : overrides;
+    const { detectChanges, hostProps, providers } = { ...defaults, ...resolvedOverrides };
+    const template = typeof templateOrOverrides === 'string' ? templateOrOverrides : undefined;
 
     if (providers && providers.length) {
       providers.forEach((provider: Provider) => {
@@ -57,13 +59,15 @@ export function createPipeFactory<P, H = HostComponent>(typeOrOptions: Type<P> |
       });
     }
 
-    TestBed.overrideModule(BrowserDynamicTestingModule, {
-      set: {
-        entryComponents: moduleMetadata.entryComponents
-      }
-    }).overrideComponent(options.host, {
-      set: { template }
-    });
+    if (template) {
+      TestBed.overrideModule(BrowserDynamicTestingModule, {
+        set: {
+          entryComponents: moduleMetadata.entryComponents
+        }
+      }).overrideComponent(options.host, {
+        set: { template }
+      });
+    }
 
     const spectator = createSpectatorPipe(options, hostProps);
 
