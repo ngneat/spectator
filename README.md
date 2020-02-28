@@ -943,6 +943,11 @@ expect('div').toHaveDescendant('.child');
 expect('div').toHaveDescendantWithText({selector: '.child', text: 'text'});
 ```
 
+Please notice that due to restrictions within Jest (not applying actual layout logic), certain matchers may give false positives - eg.:
+
+Using the `toBeVisible`-matcher (within jest), will report an element as visible or hidden based on `display`- and `block`-properties,
+however... it won't report the element as "hidden", when `width` is set to `0`. 
+
 ## Schematics
 Generate component, service, and directive with Spectator spec templates with Angular Cli: (when using it as default)
 
