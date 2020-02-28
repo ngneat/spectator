@@ -86,7 +86,29 @@ export function spectatorDirectiveSchematic(options: DirectiveOptions): Rule {
   ]);
 }
 
-function _ensurePath(tree: Tree, options: any) {
+export function spectatorPipeSchematic(options: DirectiveOptions): Rule {
+  return chain([
+    externalSchematic('@schematics/angular', 'pipe', {
+      ...options,
+      skipTests: true,
+      spec: false
+    }),
+    (tree: Tree, _context: SchematicContext): Rule => {
+      _ensurePath(tree, options);
+      const movePath = normalize(options.path || '');
+      const specTemplateRule = apply(url(`./files/pipe`), [
+        template({
+          ...strings,
+          ...options
+        }),
+        move(movePath)
+      ]);
+      return mergeWith(specTemplateRule, MergeStrategy.Default);
+    }
+  ]);
+}
+
+function _ensurePath(tree: Tree, options: any): void {
   const workspace: experimental.workspace.WorkspaceSchema = getWorkspace(tree);
   if (!options.project) {
     options.project = Object.keys(workspace.projects)[0];

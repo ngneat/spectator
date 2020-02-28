@@ -9,4 +9,7 @@ exports.ServiceOptions = ServiceOptions;
 class DirectiveOptions {
 }
 exports.DirectiveOptions = DirectiveOptions;
+class PipeOptions {
+}
+exports.PipeOptions = PipeOptions;
 //# sourceMappingURL=schema.js.map
