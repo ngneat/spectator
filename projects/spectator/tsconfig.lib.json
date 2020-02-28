@@ -3,14 +3,8 @@
   "compilerOptions": {
     "outDir": "../../out-tsc/lib",
     "target": "es2015",
-    "module": "es2015",
-    "moduleResolution": "node",
     "declaration": true,
-    "sourceMap": true,
     "inlineSources": true,
-    "emitDecoratorMetadata": true,
-    "experimentalDecorators": true,
-    "importHelpers": true,
     "typeRoots" : ["./typings"],
     "types": ["jasmine", "jest"],
     "lib": [
@@ -19,7 +13,6 @@
     ]
   },
   "angularCompilerOptions": {
-    "annotateForClosureCompiler": true,
     "skipTemplateCodegen": true,
     "strictMetadataEmit": true,
     "fullTemplateTypeCheck": true,
@@ -27,7 +20,6 @@
     "enableResourceInlining": true
   },
   "exclude": [
-    "src/test.ts",
-    "**/*.spec.ts"
+    "test/**/*.ts"
   ]
 }

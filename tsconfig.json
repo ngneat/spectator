@@ -5,25 +5,26 @@
     "outDir": "./dist/out-tsc",
     "sourceMap": true,
     "declaration": false,
-    "module": "es2015",
+    "module": "esnext",
     "moduleResolution": "node",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
-    "target": "es5",
-    "paths": {
-      "@netbasal/spectator/jest": [
-        "./projects/spectator/jest/src/index.ts"
-      ],
-      "@netbasal/spectator": [
-        "./projects/spectator/src/public_api.ts"
-      ]
-    },
+    "importHelpers": true,
+    "strict": true,
+    "noImplicitAny": false,
+    "target": "es2015",
+    "esModuleInterop": true,
     "typeRoots": [
       "node_modules/@types"
     ],
     "lib": [
       "es2018",
       "dom"
-    ]
+    ],
+    "paths": {
+      "@ngneat/spectator": [
+        "dist/spectator"
+      ]
+    }
   }
 }

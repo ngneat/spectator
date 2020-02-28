@@ -1,26 +1,28 @@
+import { createHostFactory, SpectatorHost } from '@ngneat/spectator<% if (jest) { %>/jest<% } %>';
+
 import { <%= classify(name)%>Component } from './<%= dasherize(name)%>.component';
-import { createHostComponentFactory, SpectatorWithHost } from '@netbasal/spectator';
 
 describe('<%= classify(name)%>Component', () => {
-  let host: SpectatorWithHost<<%= classify(name)%>Component>;
-  const createHost = createHostComponentFactory(<%= classify(name)%>Component);
+  let spectator: SpectatorHost<<%= classify(name)%>Component>;
+
+  const createHost = createHostFactory(<%= classify(name)%>Component);
 
   it('should create', () => {
-    host = createHost(`<zippy title="Zippy title"></zippy>`);
-    expect(host.component).toBeTruthy();
+    spectator = createHost(`<zippy title="Zippy title"></zippy>`);
+    expect(spectator.component).toBeTruthy();
   });
 
   it('should...', () => {
-      host = createHost(`<zippy title="Zippy title">Zippy content</zippy>`);
-      host.click('.zippy__title');
-      expect(host.query('.arrow')).toHaveText('Close');
+    spectator = createHost(`<zippy title="Zippy title">Zippy content</zippy>`);
+    spectator.click('.zippy__title');
+    expect(spectator.query('.arrow')).toHaveText('Close');
   });
 
   it('should...', () => {
-    host = createHost(`<zippy title="Zippy title"></zippy>`);
-    host.click('.zippy__title');
+    spectator = createHost(`<zippy title="Zippy title"></zippy>`);
+    spectator.click('.zippy__title');
     expect(host.query('.zippy__content')).toExist();
-    host.click('.zippy__title');
+    spectator.click('.zippy__title');
     expect('.zippy__content').not.toExist();
   });
 

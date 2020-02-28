@@ -1,65 +1,45 @@
+import { FactoryProvider, Type } from '@angular/core';
+
+import { createHttpFactory, CreateHttpOverrides } from './spectator-http/create-factory';
+import { HttpMethod as HTTPMethod, SpectatorHttp } from './spectator-http/spectator-http';
+
 /**
- * @license
- * Copyright Netanel Basal. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://github.com/NetanelBasal/spectator/blob/master/LICENSE
+ * @deprecated Deprecated in favour of createHttpFactory. Te be removed in v5.
  */
-
-import { async, TestBed } from '@angular/core/testing';
-import { HttpClientTestingModule, HttpTestingController, TestRequest } from '@angular/common/http/testing';
-import { HttpClient } from '@angular/common/http';
-import { Provider, Type } from '@angular/core';
-import { SpyObject } from './mock';
-
-export enum HTTPMethod {
-  GET = 'GET',
-  POST = 'POST',
-  DELETE = 'DELETE',
-  PUT = 'PUT'
-}
-
-export class SpectatorHTTP<T> {
-  httpClient: HttpClient;
-  controller: HttpTestingController;
-  dataService: T;
-  get: <S>(service: Type<S>) => S & SpyObject<S>;
-  expectOne: (url: string, method: HTTPMethod) => TestRequest;
-}
-
-export function createHTTPFactory<T>(dataService: Type<T>, providers = []): () => SpectatorHTTP<T> {
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule],
-      providers: [dataService, ...providers]
-    });
-  }));
-
-  afterEach(() => {
-    TestBed.get(HttpTestingController).verify();
+export function createHTTPFactory<S>(
+  dataService: Type<S>,
+  providers: FactoryProvider[] = []
+): (overrides?: CreateHttpOverrides<S>) => SpectatorHTTP<S> {
+  const createHttp = createHttpFactory({
+    dataService,
+    providers
   });
 
   return () => {
-    const http = new SpectatorHTTP<T>();
-    http.controller = TestBed.get(HttpTestingController);
-    http.dataService = TestBed.get(dataService);
-    http.httpClient = TestBed.get(HttpClient);
-    http.get = function<S>(provider: Type<S>): S & SpyObject<S> {
-      return TestBed.get(provider);
+    const spectator = createHttp();
+
+    return {
+      dataService: spectator.dataService,
+      service: spectator.service,
+      controller: spectator.controller,
+      httpClient: spectator.httpClient,
+      expectOne: spectator.expectOne.bind(spectator),
+      expectConcurrent: spectator.expectConcurrent.bind(spectator),
+      flushAll: spectator.flushAll,
+      get: spectator.get.bind(spectator),
+      inject: spectator.inject.bind(spectator)
     };
-
-    http.expectOne = (url: string, method: HTTPMethod) => {
-      expect(true).toBe(true); // workaround to avoid `Spec has no expectations` https://github.com/NetanelBasal/spectator/issues/75
-      const req = http.controller.expectOne({
-        url,
-        method
-      });
-      // assert that there are no outstanding requests.
-      http.controller.verify();
-
-      return req;
-    };
-
-    return http;
   };
 }
+
+/**
+ * @deprecated Deprecated in favour of SpectatorHttp
+ */
+export type SpectatorHTTP<S> = SpectatorHttp<S>;
+
+export {
+  /**
+   * @deprecated Deprecated in favour of HttpMethod
+   */
+  HTTPMethod
+};

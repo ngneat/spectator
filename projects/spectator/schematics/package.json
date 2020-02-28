@@ -1,5 +1,5 @@
 {
-  "name": "schematics",
+  "name": "spectator-schematics",
   "version": "0.0.0",
   "schematics": "./src/collection.json",
   "peerDependencies": {

@@ -1,0 +1,10 @@
+language: node_js
+
+cache: npm
+
+node_js:
+  - '10'
+
+script:
+  - npm run build
+  - npm run test:ci
