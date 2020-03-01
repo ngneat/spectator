@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class StatsService {
   public sum(input: number[]): number {
     return input.reduce((sum, x) => sum + x, 0);

@@ -708,10 +708,7 @@ import { SumPipe } from './sum.pipe';
 
 describe('SumPipe', () => {
   let spectator: SpectatorPipe<SumPipe>;
-  const createPipe = createPipeFactory({
-    pipe: SumPipe,
-    providers: [StatsService]
-  });
+  const createPipe = createPipeFactory(SumPipe);
 
   it('should sum up the given list of numbers (template)', () => {
     spectator = createPipe(`{{ [1, 2, 3] | sum }}`);
@@ -746,7 +743,6 @@ The `createPipe()` function returns `SpectatorPipe` with the following propertie
 - `debugElement` - The debug element of the fixture around the host component
 - `element` - The native element of the host component
 - `detectChanges()` - A proxy for Angular `TestBed.fixture.detectChanges()`
-- `get()` - A proxy for Angular `TestBed.get()`
 - `inject()` - A proxy for Angular `TestBed.inject()`
 
 ### Using Custom Host Component
@@ -771,8 +767,7 @@ describe('AveragePipe', () => {
   let spectator: SpectatorPipe<AveragePipe>;
   const createPipe = createPipeFactory({
     pipe: AveragePipe,
-    host: CustomHostComponent,
-    providers: [StatsService]
+    host: CustomHostComponent
   });
 
   it('should compute the average of a given list of numbers', () => {

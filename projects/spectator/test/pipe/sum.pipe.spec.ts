@@ -5,10 +5,7 @@ import { SumPipe } from './sum.pipe';
 
 describe('SumPipe', () => {
   let spectator: SpectatorPipe<SumPipe>;
-  const createPipe = createPipeFactory({
-    pipe: SumPipe,
-    providers: [StatsService]
-  });
+  const createPipe = createPipeFactory(SumPipe);
 
   it('should sum up the given list of numbers (template)', () => {
     spectator = createPipe(`{{ [1, 2, 3] | sum }}`);
