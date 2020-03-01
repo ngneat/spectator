@@ -127,3 +127,35 @@ export class DirectiveOptions {
    */
   jest?: boolean;
 }
+export class PipeOptions {
+  name: string;
+  path?: string;
+  /**
+   * Specifies if declaring module exports the pipe.
+   */
+  export?: boolean;
+  /**
+   * Flag to indicate if a directory is created.
+   */
+  flat?: boolean;
+  /**
+   * Allows specification of the declaring module.
+   */
+  module?: string;
+  /**
+   * Flag to skip the module import.
+   */
+  skipImport?: boolean;
+  /**
+   * When true, does not create test files.
+   */
+  skipTests?: boolean;
+  /**
+   * Specifies if a spec file is generated.
+   */
+  spec?: boolean;
+  /**
+   * Specifies if Jest is to be used for mocking
+   */
+  jest?: boolean;
+}

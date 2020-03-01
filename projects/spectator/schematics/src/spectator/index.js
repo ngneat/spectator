@@ -49,6 +49,21 @@ function spectatorDirectiveSchematic(options) {
     ]);
 }
 exports.spectatorDirectiveSchematic = spectatorDirectiveSchematic;
+function spectatorPipeSchematic(options) {
+    return schematics_1.chain([
+        schematics_1.externalSchematic('@schematics/angular', 'pipe', Object.assign(Object.assign({}, options), { skipTests: true, spec: false })),
+        (tree, _context) => {
+            _ensurePath(tree, options);
+            const movePath = core_1.normalize(options.path || '');
+            const specTemplateRule = schematics_1.apply(schematics_1.url(`./files/pipe`), [
+                schematics_1.template(Object.assign(Object.assign({}, core_1.strings), options)),
+                schematics_1.move(movePath)
+            ]);
+            return schematics_1.mergeWith(specTemplateRule, schematics_1.MergeStrategy.Default);
+        }
+    ]);
+}
+exports.spectatorPipeSchematic = spectatorPipeSchematic;
 function _ensurePath(tree, options) {
     const workspace = config_1.getWorkspace(tree);
     if (!options.project) {

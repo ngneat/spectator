@@ -50,6 +50,7 @@ Spectator helps you get rid of all the boilerplate grunt work, leaving you with 
 - [Testing with Routing](#testing-with-routing)
 - [Testing Directives](#testing-directives)
 - [Testing Services](#testing-services)
+- [Testing Pipes](#testing-pipes)
 - [Mocking Providers](#mocking-providers)
 - [Jest Support](#jest-support)
 - [Testing with HTTP](#testing-with-http)
@@ -77,9 +78,9 @@ import { Spectator, createComponentFactory } from '@ngneat/spectator';
 import { ButtonComponent } from './button.component';
 
 describe('ButtonComponent', () => {
-  let spectator: Spectator<ButtonComponent>;   
+  let spectator: Spectator<ButtonComponent>;
   const createComponent = createComponentFactory(ButtonComponent);
-  
+
   beforeEach(() => spectator = createComponent());
 
   it('should have a success class by default', () => {
@@ -126,7 +127,7 @@ it('should...', () => {
     // Override the component's providers
     providers: [],
     // Whether to run change detection (defaults to true)
-    detectChanges: false 
+    detectChanges: false
   });
 
   expect(spectator.query('button')).toHaveText('Click');
@@ -188,7 +189,7 @@ it('should work with tick', fakeAsync(() => {
 ```
 
 ### Events API
-Each one of the events can accept a `SpectatorElement` which can be one of the following: 
+Each one of the events can accept a `SpectatorElement` which can be one of the following:
 
 ```ts
 type SpectatorElement = string | Element | DebugElement | ElementRef | Window | Document;
@@ -371,7 +372,7 @@ const createHost = createHostFactory({
 
 #### Testing Single Component Angular Modules
 
-Components that are declared in their own module can be tested by defining the component 
+Components that are declared in their own module can be tested by defining the component
 module in the imports list of the component factory together with the component. For example:
 
 ```ts
@@ -509,7 +510,7 @@ interface SpectatorRouting<C> extends Spectator<C> {
    * Updates the route data and triggers a route navigation.
    */
   setRouteData(name: string, value: string): void;
-  
+
   /**
    * Updates the route fragment and triggers a route navigation.
    */
@@ -547,7 +548,7 @@ describe('Routing integration test', () => {
 
     // wait for promises to resolve...
     await spectator.fixture.whenStable();
-    
+
     // test the current route by asserting the location
     expect(spectator.get(Location).path()).toBe('/');
 
@@ -556,7 +557,7 @@ describe('Routing integration test', () => {
 
     // don't forget to wait for promises to resolve...
     await spectator.fixture.whenStable();
-    
+
     // test the new route by asserting the location
     expect(spectator.get(Location).path()).toBe('/foo');
   });
@@ -652,7 +653,7 @@ The `createService()` function returns `SpectatorService` with the following pro
 
 ### Additional Options
 
-It's also possible to pass an object with options. For example, when testing a service 
+It's also possible to pass an object with options. For example, when testing a service
 you often want to mock its dependencies, as we focus on the service being tested.
 
 For example:
@@ -683,7 +684,7 @@ describe('AuthService', () => {
     entryComponents: [],
     mocks: [DateService]
   });
-  
+
   beforeEach(() => spectator = createService());
 
   it('should be logged in', () => {
@@ -691,6 +692,110 @@ describe('AuthService', () => {
     dateService.isExpired.and.returnValue(false);
 
     expect(spectator.service.isLoggedIn()).toBeTruthy();
+  });
+});
+```
+
+## Testing Pipes
+
+The following example shows how to test a pipe with Spectator:
+
+```ts
+import { SpectatorPipe, createPipeFactory } from '@ngneat/spectator';
+
+import { StatsService } from './stats.service';
+import { SumPipe } from './sum.pipe';
+
+describe('SumPipe', () => {
+  let spectator: SpectatorPipe<SumPipe>;
+  const createPipe = createPipeFactory({
+    pipe: SumPipe,
+    providers: [StatsService]
+  });
+
+  it('should sum up the given list of numbers (template)', () => {
+    spectator = createPipe(`{{ [1, 2, 3] | sum }}`);
+    expect(spectator.element).toHaveText('6');
+  });
+
+  it('should sum up the given list of numbers (prop)', () => {
+    spectator = createPipe(`{{ prop | sum }}`, {
+      hostProps: {
+        prop: [1, 2, 3]
+      }
+    });
+    expect(spectator.element).toHaveText('6');
+  });
+
+  it('should delegate the summation to the service', () => {
+    const sum = () => 42;
+    const provider = { provide: StatsService, useValue: { sum } };
+    spectator = createPipe(`{{ prop | sum }}`, {
+      hostProps: {
+        prop: [2, 40]
+      },
+      providers: [provider]
+    });
+    expect(spectator.element).toHaveText('42');
+  });
+});
+```
+
+The `createPipe()` function returns `SpectatorPipe` with the following properties:
+- `hostComponent` - Instance of the host component
+- `debugElement` - The debug element of the fixture around the host component
+- `element` - The native element of the host component
+- `detectChanges()` - A proxy for Angular `TestBed.fixture.detectChanges()`
+- `get()` - A proxy for Angular `TestBed.get()`
+- `inject()` - A proxy for Angular `TestBed.inject()`
+
+### Using Custom Host Component
+
+The following example illustrates how to test a pipe using a custom host component:
+
+```ts
+import { Component, Input } from '@angular/core';
+import { SpectatorPipe, createPipeFactory } from '@ngneat/spectator';
+
+import { AveragePipe } from './average.pipe';
+import { StatsService } from './stats.service';
+
+@Component({
+  template: `<div>{{ prop | avg }}</div>`
+})
+class CustomHostComponent {
+  @Input() public prop: number[] = [1, 2, 3];
+}
+
+describe('AveragePipe', () => {
+  let spectator: SpectatorPipe<AveragePipe>;
+  const createPipe = createPipeFactory({
+    pipe: AveragePipe,
+    host: CustomHostComponent,
+    providers: [StatsService]
+  });
+
+  it('should compute the average of a given list of numbers', () => {
+    spectator = createPipe();
+    expect(spectator.element).toHaveText('2');
+  });
+
+  it('should result to 0 when list of numbers is empty', () => {
+    spectator = createPipe({
+      hostProps: {
+        prop: []
+      }
+    });
+    expect(spectator.element).toHaveText('0');
+  });
+
+  it('should delegate the calculation to the service', () => {
+    const avg = () => 42;
+    const provider = { provide: StatsService, useValue: { avg } };
+    spectator = createPipe({
+      providers: [provider]
+    });
+    expect(spectator.element).toHaveText('42');
   });
 });
 ```
@@ -731,7 +836,7 @@ const createService = createServiceFactory({
 By default, Spectator uses Jasmine for creating spies. If you are using Jest as test framework instead, you can let Spectator create Jest-compatible spies.
 
 Just import one of the following functions from `@ngneat/spectator/jest`(instead of @ngneat/spectator), and it will use Jest instead of Jasmine.
-`createComponentFactory()`, `createHostFactory()`, `createServiceFactory()`, `createHttpFactory()`, `mockProvider()`. 
+`createComponentFactory()`, `createHostFactory()`, `createServiceFactory()`, `createHttpFactory()`, `mockProvider()`.
 
 ```ts
 import { createServiceFactory, SpectatorService } from '@ngneat/spectator/jest';
@@ -744,7 +849,7 @@ describe('AuthService', () => {
     service: AuthService,
     mocks: [DateService]
   });
-  
+
   beforeEach(() => spectator = createService());
 
   it('should not be logged in', () => {
@@ -770,7 +875,7 @@ When using the component schematic you can specify the `--jest` flag to have the
 }
 ```
 
-## Testing with HTTP 
+## Testing with HTTP
 Spectator makes testing data services, which use the Angular HTTP module, a lot easier. For example, let's say that you have service with three methods, one performs a GET, one a POST and one performs
 concurrent requests:
 
@@ -803,7 +908,7 @@ import { TodosDataService } from './todos-data.service';
 describe('HttpClient testing', () => {
   let spectator: SpectatorHttp<TodosDataService>;
   const createHttp = createHttpFactory(TodosDataService);
-  
+
   beforeEach(() => spectator = createHttp());
 
   it('can test HttpClient.get', () => {
@@ -824,7 +929,7 @@ describe('HttpClient testing', () => {
         { url: '/api1/todos', method: HttpMethod.GET },
         { URL: '/api2/todos', method: HttpMethod.GET }
     ]);
-    
+
     spectator.flushAll(reqs, [{}, {}, {}]);
   });
 });
@@ -853,7 +958,7 @@ defineGlobalsInjections({
 
 By default, the original component providers (e.g. the `providers` on the `@Component`) are not touched.
 
-However, in most cases, you want to access the component's providers in your test or replace them with mocks. 
+However, in most cases, you want to access the component's providers in your test or replace them with mocks.
 
 For example:
 
@@ -864,7 +969,7 @@ For example:
 })
 class FooComponent {
   constructor(private fooService: FooService} {}
-  
+
   // ...
 }
 ```
@@ -920,8 +1025,8 @@ expect('.zippy__content').toHaveText('Content');
 expect('.zippy__content').toContainText('Content');
 
 // Note this looks for multiple elements with the class and checks the text of each array element against the index of the element found
-expect('.zippy__content').toHaveText(['Content A', 'Content B']); 
-expect('.zippy__content').toContainText(['Content A', 'Content B']); 
+expect('.zippy__content').toHaveText(['Content A', 'Content B']);
+expect('.zippy__content').toContainText(['Content A', 'Content B']);
 expect('.zippy__content').toHaveText((text) => text.includes('..'));
 expect('.zippy__content').toHaveValue('value');
 expect('.zippy__content').toContainValue('value');
@@ -947,7 +1052,7 @@ expect('div').toHaveDescendantWithText({selector: '.child', text: 'text'});
 Generate component, service, and directive with Spectator spec templates with Angular Cli: (when using it as default)
 
 **Component**
-* Default spec: `ng g cs dashrized-name`  
+* Default spec: `ng g cs dashrized-name`
 * Spec with a host: `ng g cs dashrized-name --withHost=true`
 * Spec with a custom host: `ng g cs dashrized-name --withCustomHost=true`
 

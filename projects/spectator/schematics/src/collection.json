@@ -19,6 +19,12 @@
       "factory": "./spectator/index#spectatorDirectiveSchematic",
       "schema": "./spectator/directive-schema.json",
       "aliases": ["ds"]
+    },
+    "spectator-pipe": {
+      "description": "Spectator pipe",
+      "factory": "./spectator/index#spectatorPipeSchematic",
+      "schema": "./spectator/pipe-schema.json",
+      "aliases": ["ps"]
     }
   }
 }

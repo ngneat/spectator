@@ -34,6 +34,11 @@ export { SpectatorHttp, HttpMethod } from './lib/spectator-http/spectator-http';
 export { SpectatorHttpOptions } from './lib/spectator-http/options';
 export { SpectatorHttpFactory, createHttpFactory, CreateHttpOverrides } from './lib/spectator-http/create-factory';
 
+export { SpectatorPipe } from './lib/spectator-pipe/spectator-pipe';
+export { SpectatorPipeOptions } from './lib/spectator-pipe/options';
+export { createPipeFactory, SpectatorPipeFactory, SpectatorPipeOverrides } from './lib/spectator-pipe/create-factory';
+export { initialSpectatorPipeModule } from './lib/spectator-pipe/initial-module';
+
 export * from './lib/dom-selectors';
 export { createHTTPFactory, SpectatorHTTP, HTTPMethod } from './lib/http';
 export * from './lib/matchers';
