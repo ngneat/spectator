@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="5.2.0"></a>
+# [5.2.0](https://github.com/ngneat/spectator/compare/v5.1.0...v5.2.0) (2020-03-01)
+
+
+### Features
+
+* **pipe:** add support for testing pipes ([#275](https://github.com/ngneat/spectator/issues/275)) ([f4a42a7](https://github.com/ngneat/spectator/commit/f4a42a7)), closes [#203](https://github.com/ngneat/spectator/issues/203)
+
+
+
 <a name="5.1.0"></a>
 # [5.1.0](https://github.com/ngneat/spectator/compare/v5.0.0...v5.1.0) (2020-02-26)
 
