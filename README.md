@@ -1036,15 +1036,13 @@ expect('.button').toBeDisabled();
 expect('div').toBeEmpty();
 expect('div').toBeHidden();
 expect('element').toBeSelected();
+// Notice that due to restrictions within Jest (not applying actual layout logic in virtual DOM), certain matchers may result in false positives. For example width and height set to 0
 expect('element').toBeVisible();
 expect('input').toBeFocused();
 expect('div').toBeMatchedBy('.js-something');
 expect('div').toHaveDescendant('.child');
 expect('div').toHaveDescendantWithText({selector: '.child', text: 'text'});
 ```
-
-Please notice that due to restrictions within Jest (not applying actual layout logic in virtual DOM), certain matchers may result in false positives. 
-
 ## Schematics
 Generate component, service, and directive with Spectator spec templates with Angular Cli: (when using it as default)
 

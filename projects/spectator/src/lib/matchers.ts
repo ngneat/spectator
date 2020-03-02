@@ -5,6 +5,7 @@ import $ from 'jquery';
 
 import { hex2rgb, isHex, trim } from './internals/rgb-to-hex';
 import { isHTMLOptionElementArray, isObject } from './types';
+import { isRunningInJsDom } from './utils';
 
 const hasProperty = (actual: unknown, expected: unknown): boolean => {
   return expected === undefined ? actual !== undefined : actual === expected;
@@ -325,10 +326,6 @@ export const toBeEmpty = comparator(el => {
   return { pass, message };
 });
 
-export function runningInJsDom() {
-  return navigator.userAgent.includes('Node.js') || navigator.userAgent.includes('jsdom');
-}
-
 /**
  * Hidden elements are elements that have:
  * 1. Display property set to "none"
@@ -352,7 +349,7 @@ function isHidden(elOrSelector: HTMLElement | string): boolean {
     el => el.hasAttribute('hidden')
   ];
 
-  if (runningInJsDom()) {
+  if (isRunningInJsDom()) {
     // When running in JSDOM (Jest), offset-properties and client rects are always reported as 0
     // - hence, let's take a more "naive" approach here. (https://github.com/jsdom/jsdom/issues/135)
     hiddenWhen.shift();
