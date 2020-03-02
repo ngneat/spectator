@@ -325,6 +325,10 @@ export const toBeEmpty = comparator(el => {
   return { pass, message };
 });
 
+export function runningInJsDom() {
+  return navigator.userAgent.includes('Node.js') || navigator.userAgent.includes('jsdom');
+}
+
 /**
  * Hidden elements are elements that have:
  * 1. Display property set to "none"
@@ -348,8 +352,7 @@ function isHidden(elOrSelector: HTMLElement | string): boolean {
     el => el.hasAttribute('hidden')
   ];
 
-  const runningInJsDom = navigator.userAgent.includes('Node.js') || navigator.userAgent.includes('jsdom');
-  if (runningInJsDom) {
+  if (runningInJsDom()) {
     // When running in JSDOM (Jest), offset-properties and client rects are always reported as 0
     // - hence, let's take a more "naive" approach here. (https://github.com/jsdom/jsdom/issues/135)
     hiddenWhen.shift();
@@ -360,9 +363,7 @@ function isHidden(elOrSelector: HTMLElement | string): boolean {
       break;
     }
 
-    const or = (previous, current) => current || previous;
-    const elementIsHidden = hiddenWhen.map(rule => rule(el)).reduce(or, false);
-    if (elementIsHidden) {
+    if (hiddenWhen.some(rule => rule(el))) {
       return true;
     }
 
