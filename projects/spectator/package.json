@@ -29,9 +29,9 @@
     "replace-in-file": "^4.1.3"
   },
   "peerDependencies": {
-    "@angular/common": "^8.0.0",
-    "@angular/core": "^8.0.0",
-    "@angular/router": "^8.0.0",
+    "@angular/common": ">= 8.0.0",
+    "@angular/core": ">= 8.0.0",
+    "@angular/router": ">= 8.0.0",
     "typescript": ">= 3.7.0"
   },
   "bin": {
