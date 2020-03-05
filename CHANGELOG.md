@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="5.3.1"></a>
+## [5.3.1](https://github.com/ngneat/spectator/compare/v5.3.0...v5.3.1) (2020-03-05)
+
+
+### Bug Fixes
+
+* **rgb-to-hex:** fix trim function to handle falsy value([#270](https://github.com/ngneat/spectator/issues/270)) ([#287](https://github.com/ngneat/spectator/issues/287)) ([9269832](https://github.com/ngneat/spectator/commit/9269832))
+
+
+
 <a name="5.3.0"></a>
 # [5.3.0](https://github.com/ngneat/spectator/compare/v5.2.1...v5.3.0) (2020-03-05)
 
