@@ -19,5 +19,5 @@ export function isHex(value: string): boolean {
 }
 
 export function trim(value: string): string {
-  return value.replace(/\s/g, '');
+  return (value || '').replace(/\s/g, '');
 }
