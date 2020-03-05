@@ -14,10 +14,6 @@
 
 Spectator helps you get rid of all the boilerplate grunt work, leaving you with readable, sleek and streamlined unit tests.
 
-## Compatibility
-- Ivy - v5
-- ViewEngine - v4
-
 ## Features
 - ✅ Support for testing Angular components, directives and services
 - ✅ Easy DOM querying
