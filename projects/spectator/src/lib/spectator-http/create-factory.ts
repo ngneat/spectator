@@ -34,7 +34,11 @@ export function createHttpFactory<S>(typeOrOptions: Type<S> | SpectatorHttpOptio
   });
 
   afterEach(() => {
-    TestBed.inject(HttpTestingController).verify();
+    if ((<any>TestBed).inject) {
+      (<any>TestBed).inject(HttpTestingController).verify();
+    } else {
+      TestBed.get(HttpTestingController).verify();
+    }
   });
 
   return (overrides?: CreateHttpOverrides<S>) => {

@@ -1,5 +1,5 @@
 import { Provider, Type } from '@angular/core';
-import { TestBed } from '@angular/core/testing';
+import { TestBed, TestBedStatic } from '@angular/core/testing';
 
 import { BaseSpectatorOverrides } from '../base/options';
 import { isType, doesServiceImplementsOnDestroy } from '../types';
@@ -33,7 +33,9 @@ export function createServiceFactory<S>(typeOrOptions: Type<S> | SpectatorServic
   });
 
   afterEach(() => {
-    const testedService = TestBed.inject<S>(service);
+    const testedService = (<any>TestBed).inject
+      ? (<{ inject<T>(token: Type<T>, notFoundValue?: T): T } & TestBedStatic>TestBed).inject<S>(service)
+      : TestBed.get(service);
 
     if (doesServiceImplementsOnDestroy(testedService)) {
       // tslint:disable-next-line:no-life-cycle-call
