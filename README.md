@@ -1069,7 +1069,7 @@ The `spectator` schematics extend the default `@schematics/angular` collection. 
 ```json
 "schematics": {
   "@ngneat/spectator:spectator-component": {
-    "styleext": "scss"
+    "style": "scss"
   }
 }
 ```
