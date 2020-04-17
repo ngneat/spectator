@@ -15,6 +15,15 @@ describe('DomSelectorsComponent', () => {
     expect(element).toHaveId('by-text-p');
   });
 
+  it('should allow querying by text and selector', () => {
+    const element = spectator.query(byText('By text', { selector: '#by-text-p-2' }));
+    expect(element).toHaveId('by-text-p-2');
+
+    const elements = spectator.queryAll(byText('By text', { selector: '#by-text-p-2' }));
+    expect(elements[0]).toHaveId('by-text-p-2');
+    expect(elements).toHaveLength(1);
+  });
+
   it('should allow querying by label', () => {
     const element = spectator.query(byLabel('By label'));
     expect(element).toHaveId('by-label-input');

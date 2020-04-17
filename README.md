@@ -289,6 +289,7 @@ spectator.query(byTitle('By title'));
 spectator.query(byAltText('By alt text'));
 spectator.query(byLabel('By label'));
 spectator.query(byText('By text'));
+spectator.query(byText('By text', {selector: '#some .selector'}));
 ```
 #### Testing Select Elements
 Spectator allows you to test `<select></select>` elements easily, and supports multi select.
