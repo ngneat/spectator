@@ -16,6 +16,14 @@ import { Component } from '@angular/core';
     <a href="" title="By title" id="by-title-a"></a>
 
     <input type="text" value="By value" id="by-value-input" />
+
+    <div id="text-content-root">
+      <span> some </span>
+      <span>
+        <span id="text-content-span-1"><span>deeply</span><span>&ngsp;</span><span>&ngsp;</span>NESTED</span>
+        <span id="text-content-span-2"> TEXT </span>
+      </span>
+    </div>
   `
 })
 export class DomSelectorsComponent {}

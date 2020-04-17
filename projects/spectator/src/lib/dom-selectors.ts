@@ -1,4 +1,15 @@
-import { Matcher, MatcherOptions, SelectorMatcherOptions, queries as DOMQueries } from '@testing-library/dom';
+import {
+  Matcher,
+  MatcherOptions,
+  NormalizerFn,
+  SelectorMatcherOptions,
+  queries as DOMQueries,
+  getDefaultNormalizer
+} from '@testing-library/dom';
+
+interface MandatorySelectorMatchingOptions extends MatcherOptions {
+  selector: SelectorMatcherOptions['selector'];
+}
 
 export class DOMSelector {
   // Wrap selector functions in a class to make reflection easier in getChild
@@ -15,6 +26,32 @@ export const byPlaceholder: DOMSelectorFactory = (matcher, options) =>
 
 export const byText: DOMSelectorFactory<SelectorMatcherOptions> = (matcher, options) =>
   new DOMSelector(el => DOMQueries.queryAllByText(el, matcher, options));
+
+export const byTextContent = (matcher: Matcher, options: MandatorySelectorMatchingOptions): DOMSelector => {
+  let textContentMatcher: Matcher;
+  const normalizer: NormalizerFn = options?.normalizer || getDefaultNormalizer(options);
+  const getTextContent = (elem: HTMLElement): string => normalizer(elem.textContent ?? '');
+
+  if (typeof matcher === 'string') {
+    textContentMatcher = (_, elem) => {
+      if (options?.exact === false) {
+        return (
+          getTextContent(elem)
+            .toLowerCase()
+            .indexOf(matcher.toLowerCase()) >= 0
+        );
+      } else {
+        return getTextContent(elem) === matcher;
+      }
+    };
+  } else if (matcher instanceof RegExp) {
+    textContentMatcher = (_, elem) => matcher.test(getTextContent(elem));
+  } else {
+    textContentMatcher = (_, elem) => matcher(getTextContent(elem), elem);
+  }
+
+  return new DOMSelector(el => DOMQueries.queryAllByText(el, textContentMatcher, options));
+};
 
 export const byAltText: DOMSelectorFactory = (matcher, options) =>
   new DOMSelector(el => DOMQueries.queryAllByAltText(el, matcher, options));
