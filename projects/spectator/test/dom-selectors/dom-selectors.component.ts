@@ -4,6 +4,7 @@ import { Component } from '@angular/core';
   selector: 'app-dom-selectors',
   template: `
     <p id="by-text-p">By text</p>
+    <p id="by-text-p-2">By text</p>
 
     <label for="by-label-input">By label</label>
     <input type="text" id="by-label-input" />
