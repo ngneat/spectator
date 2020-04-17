@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="5.4.0"></a>
+# [5.4.0](https://github.com/ngneat/spectator/compare/v5.3.1...v5.4.0) (2020-04-17)
+
+
+### Features
+
+* **dom-selectors:** add `selector` option to `byText` query ([#294](https://github.com/ngneat/spectator/issues/294)) ([a00139a](https://github.com/ngneat/spectator/commit/a00139a))
+
+
+
 <a name="5.3.1"></a>
 ## [5.3.1](https://github.com/ngneat/spectator/compare/v5.3.0...v5.3.1) (2020-03-05)
 
