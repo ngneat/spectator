@@ -290,7 +290,19 @@ spectator.query(byAltText('By alt text'));
 spectator.query(byLabel('By label'));
 spectator.query(byText('By text'));
 spectator.query(byText('By text', {selector: '#some .selector'}));
+spectator.query(byTextContent('By text content', {selector: '#some .selector'}));
 ```
+
+The difference between `byText` and `byTextContent` is that the former doesn't match text inside a nested elements.
+
+For example, in this following HTML `byText('foobar', {selector: 'div'})` won't match the following `div`, but `byTextContent` will:
+```html
+<div>
+  <span>foo</span>
+  <span>bar</span>
+</div>
+```
+
 #### Testing Select Elements
 Spectator allows you to test `<select></select>` elements easily, and supports multi select.
 
