@@ -3,6 +3,7 @@
  */
 
 import { createFakeEvent, createKeyboardEvent, createMouseEvent, createTouchEvent } from './internals/event-objects';
+import { KeyboardEventOptions } from './types';
 
 /**
  * Utility to dispatch any event on a Node.
@@ -33,7 +34,12 @@ export function dispatchFakeEvent(node: Node | Window, type: string, canBubble?:
  *
  *  @publicApi
  */
-export function dispatchKeyboardEvent(node: Node, type: string, keyOrKeyCode: string | number, target?: Element): KeyboardEvent {
+export function dispatchKeyboardEvent(
+  node: Node,
+  type: string,
+  keyOrKeyCode: string | number | KeyboardEventOptions,
+  target?: Element
+): KeyboardEvent {
   return dispatchEvent(node, createKeyboardEvent(type, keyOrKeyCode, target));
 }
 

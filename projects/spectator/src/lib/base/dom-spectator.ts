@@ -1,20 +1,20 @@
-import { ChangeDetectorRef, DebugElement, ElementRef, Type, EventEmitter, InjectionToken, AbstractType } from '@angular/core';
+import { ChangeDetectorRef, DebugElement, ElementRef, Type, EventEmitter } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ComponentFixture, tick } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
 import { Token } from '../token';
 import { DOMSelector } from '../dom-selectors';
-import { isString, QueryOptions, QueryType, SpectatorElement, EventEmitterType, KeysMatching } from '../types';
+import { isString, QueryOptions, QueryType, SpectatorElement, EventEmitterType, KeysMatching, KeyboardEventOptions } from '../types';
 import { SpyObject } from '../mock';
 import { getChildren, setProps } from '../internals/query';
 import { patchElementFocus } from '../internals/element-focus';
 import { createMouseEvent } from '../internals/event-objects';
 import { dispatchFakeEvent, dispatchKeyboardEvent, dispatchMouseEvent, dispatchTouchEvent } from '../dispatch-events';
 import { typeInElement } from '../type-in-element';
+import { selectOption } from '../select-option';
 
 import { BaseSpectator } from './base-spectator';
-import { selectOption } from '../select-option';
 
 const KEY_UP = 'keyup';
 
@@ -179,10 +179,11 @@ export abstract class DomSpectator<I> extends BaseSpectator {
 
   public dispatchKeyboardEvent(selector: SpectatorElement, type: string, keyCode: number, target?: Element): KeyboardEvent;
   public dispatchKeyboardEvent(selector: SpectatorElement, type: string, key: string, target?: Element): KeyboardEvent;
+  public dispatchKeyboardEvent(selector: SpectatorElement, type: string, keyAndCode: KeyboardEventOptions, target?: Element): KeyboardEvent;
   public dispatchKeyboardEvent(
     selector: SpectatorElement = this.element,
     type: string,
-    keyOrKeyCode: string | number,
+    keyOrKeyCode: string | number | KeyboardEventOptions,
     target?: Element
   ): KeyboardEvent {
     const element = this.getNativeElement(selector);
@@ -226,13 +227,13 @@ export abstract class DomSpectator<I> extends BaseSpectator {
         this.dispatchKeyboardEvent(selector, event, key);
       },
       pressEscape: (selector: SpectatorElement = this.element, event = KEY_UP) => {
-        this.dispatchKeyboardEvent(selector, event, 'Escape');
+        this.dispatchKeyboardEvent(selector, event, { key: 'Escape', keyCode: 27 });
       },
       pressEnter: (selector: SpectatorElement = this.element, event = KEY_UP) => {
-        this.dispatchKeyboardEvent(selector, event, 'Enter');
+        this.dispatchKeyboardEvent(selector, event, { key: 'Enter', keyCode: 13 });
       },
       pressTab: (selector: SpectatorElement = this.element, event = KEY_UP) => {
-        this.dispatchKeyboardEvent(selector, event, 'Tab');
+        this.dispatchKeyboardEvent(selector, event, { key: 'Tab', keyCode: 9 });
       },
       pressBackspace: (selector: SpectatorElement = this.element, event = KEY_UP) => {
         this.dispatchKeyboardEvent(selector, event, 'Backspace');

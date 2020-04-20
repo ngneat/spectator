@@ -24,6 +24,11 @@ export type KeysMatching<T, V> = { [K in keyof T]: T[K] extends V ? K : never }[
 
 export type SelectOptions = string | string[] | HTMLOptionElement | HTMLOptionElement[];
 
+export interface KeyboardEventOptions {
+  key: string;
+  keyCode: number;
+}
+
 export function doesServiceImplementsOnDestroy<S>(testedService: S): testedService is S & OnDestroy {
   return 'ngOnDestroy' in testedService && typeof testedService['ngOnDestroy'] === 'function';
 }

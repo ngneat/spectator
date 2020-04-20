@@ -1,4 +1,4 @@
-import { isNumber, isString } from '../types';
+import { isNumber, isString, KeyboardEventOptions, isObject } from '../types';
 
 export interface ModifierKeys {
   alt?: boolean;
@@ -13,13 +13,22 @@ export interface KeyOptions {
   modifiers: ModifierKeys;
 }
 
-export const parseKeyOptions = (keyOrKeyCode: string | number): KeyOptions => {
+export const parseKeyOptions = (keyOrKeyCode: string | number | KeyboardEventOptions): KeyOptions => {
   if (isNumber(keyOrKeyCode) && keyOrKeyCode) {
     return { key: false, keyCode: keyOrKeyCode, modifiers: {} };
   }
 
   if (isString(keyOrKeyCode) && keyOrKeyCode) {
     return parseKey(keyOrKeyCode as string);
+  }
+
+  if (isObject(keyOrKeyCode) && keyOrKeyCode) {
+    const parsedKey = parseKey(keyOrKeyCode.key);
+
+    return {
+      ...parsedKey,
+      keyCode: keyOrKeyCode.keyCode
+    };
   }
 
   throw new Error('keyboard.pressKey() requires a valid key or keyCode');
