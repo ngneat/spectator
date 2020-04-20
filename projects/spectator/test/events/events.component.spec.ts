@@ -39,6 +39,16 @@ describe('EventsComponent', () => {
     expect(spectator.query('h1')).toHaveText('pressed dot');
   });
 
+  it('should include key and keyCode when KeyboardEventOptions are passed', () => {
+    spectator.dispatchKeyboardEvent('input', 'keyup', { key: 'ArrowLeft', keyCode: 40 });
+    expect(spectator.query('h1')).toHaveText('pressed ArrowLeft:40');
+  });
+
+  it('should parse modifiers from KeyboardEventOptions.key', () => {
+    spectator.dispatchKeyboardEvent('input', 'keyup', { key: 'ctrl.shift.ArrowRight', keyCode: 39 });
+    expect(spectator.query('h1')).toHaveText('pressed ArrowRight:39');
+  });
+
   it('should fail when the pressKey sequence contains only dots', () => {
     try {
       spectator.keyboard.pressKey('...', 'input');

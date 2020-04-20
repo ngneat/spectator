@@ -3,6 +3,7 @@
  */
 
 import { parseKeyOptions } from './key-parser';
+import { KeyboardEventOptions } from '../types';
 
 /** Creates a browser MouseEvent with the specified options. */
 export function createMouseEvent(type: string, x: number = 0, y: number = 0, button: number = 0): MouseEvent {
@@ -40,7 +41,7 @@ export function createTouchEvent(type: string, pageX: number = 0, pageY: number 
 }
 
 /** Dispatches a keydown event from an element. */
-export function createKeyboardEvent(type: string, keyOrKeyCode: string | number, target?: Element): KeyboardEvent {
+export function createKeyboardEvent(type: string, keyOrKeyCode: string | number | KeyboardEventOptions, target?: Element): KeyboardEvent {
   const { key, keyCode, modifiers } = parseKeyOptions(keyOrKeyCode);
 
   const event = document.createEvent('KeyboardEvent') as any;

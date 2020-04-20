@@ -217,6 +217,7 @@ spectator.dispatchMouseEvent(SpectatorElement, 'mouseout'), x, y, event);
 - `dispatchKeyboardEvent()` - Triggers a keyboard event:
 ```ts
 spectator.dispatchKeyboardEvent(SpectatorElement, 'keyup', 'Escape');
+spectator.dispatchKeyboardEvent(SpectatorElement, 'keyup', { key: 'Escape', keyCode: 27 })
 ```
 - `dispatchTouchEvent()` - Triggers a touch event:
 ```ts
