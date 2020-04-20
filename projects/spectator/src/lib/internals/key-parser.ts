@@ -22,7 +22,7 @@ export const parseKeyOptions = (keyOrKeyCode: string | number | KeyboardEventOpt
     return parseKey(keyOrKeyCode as string);
   }
 
-  if (isObject(keyOrKeyCode) && keyOrKeyCode) {
+  if (isObject(keyOrKeyCode)) {
     const parsedKey = parseKey(keyOrKeyCode.key);
 
     return {

@@ -236,7 +236,7 @@ export abstract class DomSpectator<I> extends BaseSpectator {
         this.dispatchKeyboardEvent(selector, event, { key: 'Tab', keyCode: 9 });
       },
       pressBackspace: (selector: SpectatorElement = this.element, event = KEY_UP) => {
-        this.dispatchKeyboardEvent(selector, event, 'Backspace');
+        this.dispatchKeyboardEvent(selector, event, { key: 'Backspace', keyCode: 8 });
       }
     };
   }
