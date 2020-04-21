@@ -71,7 +71,6 @@
     "ng-packagr": "^9.0.0",
     "prettier": "^1.11.1",
     "rxjs": "~6.5.4",
-    "schematics-utilities": "^1.1.1",
     "standard-version": "^4.4.0",
     "ts-node": "~7.0.0",
     "tslint": "~5.15.0",
