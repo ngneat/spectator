@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="5.6.0"></a>
+# [5.6.0](https://github.com/ngneat/spectator/compare/v5.5.0...v5.6.0) (2020-04-21)
+
+
+### Features
+
+* add key & keyCode parameter for keyboard events ([#296](https://github.com/ngneat/spectator/issues/296)) ([fcdb6a8](https://github.com/ngneat/spectator/commit/fcdb6a8))
+
+
+
 <a name="5.5.0"></a>
 # [5.5.0](https://github.com/ngneat/spectator/compare/v5.4.0...v5.5.0) (2020-04-18)
 
