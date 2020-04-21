@@ -25,7 +25,6 @@
   "dependencies": {
     "@testing-library/dom": "6.1.0",
     "jquery": "3.4.1",
-    "schematics-utilities": "^1.1.1",
     "replace-in-file": "^4.1.3"
   },
   "peerDependencies": {
