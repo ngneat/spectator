@@ -30,23 +30,34 @@ Spectator helps you get rid of all the boilerplate grunt work, leaving you with 
 
 ## Table of Contents
 
+- [Features](#features)
+- [Table of Contents](#table-of-contents)
 - [Installation](#installation)
+  - [NPM](#npm)
+  - [Yarn](#yarn)
 - [Testing Components](#testing-components)
   - [Events API](#events-api)
+    - [Custom Events](#custom-events)
   - [Keyboard helpers](#keyboard-helpers)
   - [Mouse helpers](#mouse-helpers)
   - [Queries](#queries)
     - [String Selector](#string-selector)
     - [Type Selector](#type-selector)
     - [DOM Selector](#dom-selector)
-  - [Mocking Components](#mocking-components)
-  - [Testing SCAM](#testing-single-component-angular-modules)
+    - [Testing Select Elements](#testing-select-elements)
+    - [Mocking Components](#mocking-components)
+    - [Testing Single Component/Directive Angular Modules](#testing-single-componentdirective-angular-modules)
 - [Testing with Host](#testing-with-host)
   - [Custom Host Component](#custom-host-component)
 - [Testing with Routing](#testing-with-routing)
+  - [Triggering a navigation](#triggering-a-navigation)
+  - [Integration testing with `RouterTestingModule`](#integration-testing-with-routertestingmodule)
+  - [Routing Options](#routing-options)
 - [Testing Directives](#testing-directives)
 - [Testing Services](#testing-services)
+  - [Additional Options](#additional-options)
 - [Testing Pipes](#testing-pipes)
+  - [Using Custom Host Component](#using-custom-host-component)
 - [Mocking Providers](#mocking-providers)
 - [Jest Support](#jest-support)
 - [Testing with HTTP](#testing-with-http)
@@ -54,6 +65,9 @@ Spectator helps you get rid of all the boilerplate grunt work, leaving you with 
 - [Component Providers](#component-providers)
 - [Custom Matchers](#custom-matchers)
 - [Schematics](#schematics)
+- [Default Schematics Collection](#default-schematics-collection)
+- [Core Team](#core-team)
+- [Contributors](#contributors)
 
 ## Installation
 
@@ -380,9 +394,9 @@ const createHost = createHostFactory({
 });
 ```
 
-#### Testing Single Component Angular Modules
+#### Testing Single Component/Directive Angular Modules
 
-Components that are declared in their own module can be tested by defining the component
+Components (or Directives) that are declared in their own module can be tested by defining the component
 module in the imports list of the component factory together with the component. For example:
 
 ```ts
@@ -407,6 +421,18 @@ const createComponent = createComponentFactory({
   declareComponent: false,
 });
 ```
+
+When using createDirectiveFactory set the `declareDirective` property of the factory options to `false`:
+
+```ts
+const createDirective = createDirectiveFactory({
+  component: HighlightComponent,
+  imports: [HighlightComponentModule],
+  declareDirective: false,
+});
+```
+
+
 
 ## Testing with Host
 Testing a component with a host component is a more elegant and powerful technique to test your component.

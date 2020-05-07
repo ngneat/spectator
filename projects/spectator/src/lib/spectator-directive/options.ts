@@ -1,9 +1,9 @@
-import { Type, Provider } from '@angular/core';
+import { Provider, Type } from '@angular/core';
 
-import { merge } from '../internals/merge';
-import { OptionalsRequired } from '../types';
 import { BaseSpectatorOptions, getDefaultBaseOptions } from '../base/options';
+import { merge } from '../internals/merge';
 import { HostComponent } from '../spectator-host/host-component';
+import { OptionalsRequired } from '../types';
 
 /**
  * @publicApi
@@ -16,6 +16,7 @@ export interface SpectatorDirectiveOptions<D, H> extends BaseSpectatorOptions {
   template?: string;
   directiveProviders?: Provider[];
   directiveMocks?: Type<any>[];
+  declareDirective?: boolean;
 }
 
 const defaultSpectatorRoutingOptions: OptionalsRequired<SpectatorDirectiveOptions<any, any>> = {
@@ -25,7 +26,8 @@ const defaultSpectatorRoutingOptions: OptionalsRequired<SpectatorDirectiveOption
   shallow: false,
   detectChanges: true,
   directiveProviders: [],
-  directiveMocks: []
+  directiveMocks: [],
+  declareDirective: true
 };
 
 /**
