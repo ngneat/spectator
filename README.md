@@ -30,8 +30,6 @@ Spectator helps you get rid of all the boilerplate grunt work, leaving you with 
 
 ## Table of Contents
 
-- [Features](#features)
-- [Table of Contents](#table-of-contents)
 - [Installation](#installation)
   - [NPM](#npm)
   - [Yarn](#yarn)
