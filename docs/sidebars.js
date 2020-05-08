@@ -1,92 +1,33 @@
 module.exports = {
   docs: [
     {
-      type: 'category',
-      label: 'Getting Started',
-      items: ['installation', 'config-options']
-    },
-    {
       type: 'doc',
-      id: 'translation-in-the-template'
-    },
-    {
-      type: 'doc',
-      id: 'translation-api'
-    },
-    {
-      type: 'doc',
-      id: 'language-api'
+      id: 'installation'
     },
     {
       type: 'category',
-      label: 'Lazy Load Translation Files',
-      items: ['scope-configuration', 'inline-loaders']
-    },
-    {
-      type: 'doc',
-      id: 'unit-testing'
-    },
-    {
-      type: 'doc',
-      id: 'ssr-support'
-    },
-    {
-      type: 'doc',
-      id: 'multi-lang'
-    },
-    {
-      type: 'doc',
-      id: 'additional-functionality'
-    },
-    {
-      type: 'doc',
-      id: 'loading-template'
-    },
-    {
-      type: 'doc',
-      id: 'hack'
-    },
-    {
-      type: 'doc',
-      id: 'faq'
-    },
-    {
-      type: 'category',
-      label: 'Tools',
+      label: 'Use Cases',
       items: [
-        {
-          type: 'link',
-          label: 'Keys Manager',
-          href: 'https://github.com/ngneat/transloco-keys-manager'
-        },
-        'tools/validator',
-        'tools/optimize',
-        'tools/comments',
-        'tools/scope-lib-extractor'
+        'testing-components',
+        'testing-directives',
+        'testing-pipes',
+        'testing-services',
+        'testing-with-host',
+        'testing-with-http',
+        'testing-with-routing',
+        'testing-modules',
+        'integration-testing'
       ]
     },
     {
       type: 'category',
-      label: 'Plugins',
-      items: ['plugins/message-format', 'plugins/persist', 'plugins/preload', 'plugins/locale']
-    },
-    {
-      type: 'doc',
-      id: 'schematics'
+      label: 'Tools',
+      items: ['schematics', 'custom-matchers', 'global-injections']
     },
     {
       type: 'category',
-      label: 'Migration',
-      items: ['migration/ngx', 'migration/angular']
-    },
-    {
-      type: 'category',
-      label: 'Recipes',
-      items: ['recipes/prefetch', 'recipes/xliff', 'recipes/generateLocaleFileUsingGoogleTranslate']
-    },
-    {
-      type: 'doc',
-      id: 'comparison'
+      label: 'API Reference',
+      items: ['events', 'helpers', 'queries']
     }
   ]
 };
