@@ -28,6 +28,7 @@ Spectator helps you get rid of all the boilerplate grunt work, leaving you with 
 - ✅ Strongly typed
 - ✅ Jest Support
 
+<<<<<<< HEAD
 ## Table of Contents
 
 - [Installation](#installation)
@@ -1112,6 +1113,8 @@ The `spectator` schematics extend the default `@schematics/angular` collection. 
 }
 ```
 
+=======
+>>>>>>> 1882f85... feat: add docusaurus support
 ## Core Team
 
 <table>
