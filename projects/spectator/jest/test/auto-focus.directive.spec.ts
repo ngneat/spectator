@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
-import { SpectatorHost, createHostFactory, createDirectiveFactory, SpectatorDirective } from '@ngneat/spectator/jest';
+import { createDirectiveFactory, createHostFactory, SpectatorDirective, SpectatorHost } from '@ngneat/spectator/jest';
 
-import { AutoFocusDirective } from '../../test/auto-focus.directive';
+import { AutoFocusDirective } from '../../test/auto-focus/auto-focus.directive';
 
 @Component({ selector: 'custom-host', template: '' })
 class CustomHostComponent {

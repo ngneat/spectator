@@ -33,7 +33,7 @@ If you want to test your changes in an app that consumes Spectator, you can do t
 `cd` to the library build output directory:
 
 ```bash
-cd projects/spectator/dist
+cd dist
 ```
 
 Tell `npm` to use this package when asked to `link`:
@@ -53,7 +53,7 @@ npm link @ngneat/spectator
 Run tests while preserving symlinks:
 
 ```
-ng test --preserveSymlinks
+ng test --preserve-symlinks
 ```
 
 # Committing changes
