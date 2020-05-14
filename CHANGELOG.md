@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="5.7.1"></a>
+## [5.7.1](https://github.com/ngneat/spectator/compare/v5.7.0...v5.7.1) (2020-05-14)
+
+
+### Bug Fixes
+
+* **spectator:** update jquery to 3.5.0 ([#307](https://github.com/ngneat/spectator/issues/307)) ([c356a88](https://github.com/ngneat/spectator/commit/c356a88))
+
+
+
 <a name="5.7.0"></a>
 # [5.7.0](https://github.com/ngneat/spectator/compare/v5.6.0...v5.7.0) (2020-05-14)
 
