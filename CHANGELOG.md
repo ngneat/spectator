@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="5.7.0"></a>
+# [5.7.0](https://github.com/ngneat/spectator/compare/v5.6.0...v5.7.0) (2020-05-14)
+
+
+### Bug Fixes
+
+* update jquery to 3.5.0 to mitigate xss attack ([#300](https://github.com/ngneat/spectator/issues/300)) ([26517a4](https://github.com/ngneat/spectator/commit/26517a4))
+* **schematics:** get rid of schematics-utilities ([#297](https://github.com/ngneat/spectator/issues/297)) ([f702629](https://github.com/ngneat/spectator/commit/f702629))
+
+
+### Features
+
+* declareDirective support ([#304](https://github.com/ngneat/spectator/issues/304)) ([2032619](https://github.com/ngneat/spectator/commit/2032619))
+
+
+
 <a name="5.6.1"></a>
 ## [5.6.1](https://github.com/ngneat/spectator/compare/v5.6.0...v5.6.1) (2020-04-21)
 
