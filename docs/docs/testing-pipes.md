@@ -1,4 +1,7 @@
-## Testing Pipes
+---
+id: testing-pipes
+title: Testing Pipes
+---
 
 The following example shows how to test a pipe with Spectator:
 

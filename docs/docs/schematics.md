@@ -1,4 +1,8 @@
-## Schematics
+---
+id: schematics 
+title: Schematics
+---
+
 Generate component, service, and directive with Spectator spec templates with Angular Cli: (when using it as default)
 
 **Component**

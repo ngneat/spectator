@@ -1,4 +1,7 @@
-## Mocking Providers
+---
+id: mocking-providers
+title: Mocking Providers
+---
 
 For every Spectator factory, we can easily mock any provider.
 

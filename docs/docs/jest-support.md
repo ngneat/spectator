@@ -1,4 +1,8 @@
-## Jest Support
+---
+id: jest-support  
+title: Jest Support 
+---
+
 By default, Spectator uses Jasmine for creating spies. If you are using Jest as test framework instead, you can let Spectator create Jest-compatible spies.
 
 Just import one of the following functions from `@ngneat/spectator/jest`(instead of @ngneat/spectator), and it will use Jest instead of Jasmine.

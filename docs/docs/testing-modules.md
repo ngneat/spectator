@@ -1,4 +1,7 @@
-#### Testing Angular Modules
+---
+id: testing-modules
+title: Testing Modules 
+---
 
 Components (or Directives) that are declared in their own module can be tested by defining the component
 module in the imports list of the component factory together with the component. For example:

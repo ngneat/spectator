@@ -1,4 +1,8 @@
-## Testing with HTTP
+---
+id: testing-with-http 
+title: Testing With Http 
+---
+
 Spectator makes testing data services, which use the Angular HTTP module, a lot easier. For example, let's say that you have service with three methods, one performs a GET, one a POST and one performs
 concurrent requests:
 

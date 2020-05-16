@@ -9,41 +9,19 @@ import styles from './styles.module.css';
 
 const features = [
   {
-    title: <>Clean and DRY templates</>,
+    title: <>Clean and Easy tests</>,
     imageUrl: 'img/1.svg',
-    description: <>Keep your templates clean and DRY using the Transloco structural directive</>
+    description: <>Keep your tests clean and easy to read with spectator</>
   },
   {
-    title: <>Support for Lazy Load</>,
+    title: <>Mock Providers</>,
     imageUrl: 'img/2.svg',
-    description: <>Load translation files on-demand using Transloco's built-in scope feature</>
+    description: <>Mock providers with easy with our auto mocking class</>
   },
   {
-    title: <>Rich Plugins</>,
+    title: <>Test Routing</>,
     imageUrl: 'img/3.svg',
-    description: (
-      <>Transloco has a rich plugins ecosystem that provides the tools you need for both development and production environments</>
-    )
-  },
-  {
-    title: <>Support for Multiple Fallbacks</>,
-    imageUrl: 'img/4.svg',
-    description: <>Extensive support for fallbacks. Multiple fallbacks for failed requests and missing keys replacement</>
-  },
-  {
-    title: <>Support for SSR</>,
-    imageUrl: 'img/5.svg',
-    description: <>Pre-render your translations with Angular SSR and Transloco!</>
-  },
-  {
-    title: <>L10N</>,
-    imageUrl: 'img/6.svg',
-    description: (
-      <>
-        Localize your app with Transloco. Transloco provides the <b>transloco-locale</b> package which provides pipes such as{' '}
-        <code>Date</code>,<code>Number</code>,<code>Currency</code> and more!
-      </>
-    )
+    description: <>Testing routes is easy with spectator!</>
   }
 ];
 
@@ -78,14 +56,14 @@ function Home() {
             >
               Get Started
             </Link>
-            <iframe src="https://ghbtns.com/github-btn.html?user=ngneat&repo=transloco&type=star&count=true&size=large"></iframe>
+            <iframe src="https://ghbtns.com/github-btn.html?user=ngneat&repo=spectator&type=star&count=true&size=large"></iframe>
           </div>
         </div>
       </header>
       <div className="container description">
-        Transloco is an internationalization (i18n) library for Angular. It allows you to define translations for your content in different
-        languages and switch between them easily in runtime. It exposes a rich API to manage translations efficiently and cleanly. It
-        provides multiple plugins that will improve your development experience. Here is a small taste of the features it offers:
+        Spectator helps you get rid of all the boilerplate grunt work, leaving you with readable, sleek and streamlined unit tests. It
+        allows you to write tests for components, directives, services, and more, without having to learn TestBed, ComponentFixture, and
+        DebugElement APIs..
       </div>
       <main>
         {features && features.length && (

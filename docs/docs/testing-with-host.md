@@ -1,4 +1,8 @@
-## Testing with Host
+---
+id: testing-with-host
+title: Testing With Host 
+---
+
 Testing a component with a host component is a more elegant and powerful technique to test your component.
 It basically gives you the ability to write your tests in the same way that you write your code. Let's see it in action:
 

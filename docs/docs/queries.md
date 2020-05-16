@@ -1,4 +1,8 @@
-### Queries
+---
+id: queries
+title: Queries
+---
+
 The Spectator API includes convenient methods for querying the DOM as part of a test: `query`, `queryAll`, `queryLast` , `queryHost` and `queryHostAll`. All query methods are polymorphic and allow you to query using any of the following techniques.
 
 #### String Selector

@@ -3,7 +3,6 @@ id: testing-components
 title: Testing Components
 ---
 
-
 Create a component factory by using the `createComponentFactory()` function, passing the component class that you want to test.
 The `createComponentFactory()` returns a function that will create a fresh component in each `it` block:
 

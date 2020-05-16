@@ -1,3 +1,8 @@
+---
+id: integration-testing
+title: Integration Testing
+---
+
 ### Integration testing with `RouterTestingModule`
 
 If you set the `stubsEnabled` option to `false`, you can pass a real routing configuration

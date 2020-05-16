@@ -1,4 +1,7 @@
-## Testing Directives
+---
+id: testing-directives
+title: Testing Directives 
+---
 
 There is a special test factory for testing directives. Let's say we have the following directive:
 

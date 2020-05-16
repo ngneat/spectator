@@ -1,3 +1,7 @@
+---
+id: helpers
+title: Helpers
+---
 
 ### Keyboard helpers
 ```ts

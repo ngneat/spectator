@@ -1,4 +1,8 @@
-## Testing with Routing
+---
+id: testing-with-routing
+title: Testing With Routing
+---
+
 For components which use routing, there is a special factory available that extends the default one, and provides a stubbed `ActivatedRoute` so that you can configure additional routing options.
 
 ```ts

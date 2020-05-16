@@ -1,4 +1,8 @@
-### Events API
+---
+id: events
+title: Events API
+---
+
 Each one of the events can accept a `SpectatorElement` which can be one of the following:
 
 ```ts

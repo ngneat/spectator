@@ -1,4 +1,7 @@
-## Testing Services
+---
+id: testing-services
+title: Testing Services 
+---
 
 The following example shows how to test a service with Spectator:
 

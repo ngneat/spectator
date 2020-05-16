@@ -2,7 +2,7 @@ module.exports = {
   title: 'Spectator',
   tagline: '🦊 🚀 A Powerful Tool to Simplify Your Angular Tests ',
   url: 'https://github.com/ngneat',
-  baseUrl: '/spectator',
+  baseUrl: '/spectator/',
   favicon: 'img/favicon.ico',
   organizationName: 'ngneat',
   projectName: 'spectator',
@@ -16,7 +16,7 @@ module.exports = {
       title: 'Home',
       logo: {
         alt: 'Spectator',
-        src: 'img/logo.svg'
+        src: 'img/banner.svg'
       },
       links: [
         {
@@ -46,10 +46,6 @@ module.exports = {
             {
               label: 'Getting Started',
               to: 'docs/installation'
-            },
-            {
-              label: 'Translation',
-              to: 'docs/translation-in-the-template'
             }
           ]
         },
@@ -85,7 +81,7 @@ module.exports = {
     prism: {
       theme: require('prism-react-renderer/themes/nightOwlLight')
     },
-    sidebarCollapsible: true
+    sidebarCollapsible: false
   },
   presets: [
     [
