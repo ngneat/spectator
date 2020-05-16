@@ -2,13 +2,6 @@
  <img width="100%" height="100%" src="https://raw.githubusercontent.com/ngneat/spectator/master/image.svg?sanitize=true">
 </p>
 
-[![All Contributors](https://img.shields.io/badge/all_contributors-37-orange.svg?style=flat-square)](#contributors)
-[![spectator](https://img.shields.io/badge/tested%20with-spectator-2196F3.svg?style=flat-square)]()
-[![MIT](https://img.shields.io/packagist/l/doctrine/orm.svg?style=flat-square)]()
-[![commitizen](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg?style=flat-square)]()
-[![PRs](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)]()
-[![styled with prettier](https://img.shields.io/badge/styled_with-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
-[![Build Status](https://travis-ci.org/ngneat/spectator.svg?branch=master)](https://travis-ci.org/ngneat/spectator)
 
 > A Powerful Tool to Simplify Your Angular Tests
 
@@ -27,6 +20,20 @@ Spectator helps you get rid of all the boilerplate grunt work, leaving you with 
 - ✅ Auto-mocking providers
 - ✅ Strongly typed
 - ✅ Jest Support
+
+[![All Contributors](https://img.shields.io/badge/all_contributors-37-orange.svg?style=flat-square)](#contributors)
+[![spectator](https://img.shields.io/badge/tested%20with-spectator-2196F3.svg?style=flat-square)]()
+[![MIT](https://img.shields.io/packagist/l/doctrine/orm.svg?style=flat-square)]()
+[![commitizen](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg?style=flat-square)]()
+[![PRs](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)]()
+[![styled with prettier](https://img.shields.io/badge/styled_with-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
+[![Build Status](https://travis-ci.org/ngneat/spectator.svg?branch=master)](https://travis-ci.org/ngneat/spectator)
+
+
+- 🤓 Learn about it on the [docs site](https://ngneat.github.io/spectator/)
+- 🚀 See it in action on [StackBlitz](https://stackblitz.com/edit/angular-testing-spectator)
+- 😎 Use [schematics](https://netbasal.gitbook.io/spectator/docs/schematics)
+- 📖 Read the blog [posts](https://netbasal.com/search?q=spectator)
 
 ## Core Team
 

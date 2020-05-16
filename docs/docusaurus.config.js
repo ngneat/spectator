@@ -26,7 +26,7 @@ module.exports = {
           position: 'left'
         },
         {
-          href: 'https://stackblitz.com/edit/angular-testing-spectatoro',
+          href: 'https://stackblitz.com/edit/angular-testing-spectator',
           label: 'Playground',
           position: 'right'
         },
