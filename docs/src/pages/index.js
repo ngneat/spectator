@@ -10,18 +10,48 @@ import styles from './styles.module.css';
 const features = [
   {
     title: <>Clean and Easy tests</>,
-    imageUrl: 'img/1.svg',
-    description: <>Keep your tests clean and easy to read with spectator</>
+    imageUrl: 'img/1.svg'
   },
   {
-    title: <>Mock Providers</>,
-    imageUrl: 'img/2.svg',
-    description: <>Mock providers with easy with our auto mocking class</>
+    title: <>Easy DOM querying</>,
+    imageUrl: 'img/1.svg'
   },
   {
-    title: <>Test Routing</>,
-    imageUrl: 'img/3.svg',
-    description: <>Testing routes is easy with spectator!</>
+    title: <>Keyboard/mouse/touch events</>,
+    imageUrl: 'img/1.svg'
+  },
+  {
+    title: <>Testing projection</>,
+    imageUrl: 'img/1.svg'
+  },
+  {
+    title: <>Custom Matchers (toHaveClass, toBeDisabled..</>,
+    imageUrl: 'img/2.svg'
+  },
+  {
+    title: <>Routing testing support</>,
+    imageUrl: 'img/3.svg'
+  },
+  {
+    title: <>HTTP testing support</>,
+    imageUrl: 'img/3.svg'
+  },
+  {
+    title: <>Built-in support for entry components</>,
+    imageUrl: 'img/3.svg'
+  },
+  {
+    title: <>Auto-mocking providers</>,
+    imageUrl: 'img/3.svg'
+  },
+
+  {
+    title: <>Strongly typed</>,
+    imageUrl: 'img/3.svg'
+  },
+  {
+    title: <>Jest Support</>,
+    imageUrl: 'img/3.svg'
   }
 ];
 
