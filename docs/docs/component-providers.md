@@ -1,4 +1,7 @@
-## Component Providers
+---
+id: component-providers
+title: Component Providers
+---
 
 By default, the original component providers (e.g. the `providers` on the `@Component`) are not touched.
 
