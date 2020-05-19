@@ -42,9 +42,9 @@ spectator.dispatchKeyboardEvent(SpectatorElement, 'keyup', { key: 'Escape', keyC
 spectator.dispatchTouchEvent(SpectatorElement, type, x, y);
 ```
 
-#### Custom Events
+## Custom Events
 
-You can trigger custom events (@Output() of child components) [using](https://github.com/ngneat/spectator/blob/master/projects/spectator/test/child-custom-event/child-custom-event-parent.component.spec.ts) the following method:
+You can trigger custom events (`@Output()` of child components) [using](https://github.com/ngneat/spectator/blob/master/projects/spectator/test/child-custom-event/child-custom-event-parent.component.spec.ts) the following method:
 ```ts
 spectator.triggerEventHandler(MyChildComponent, 'myCustomEvent', 'eventValue');
 spectator.triggerEventHandler('app-child-component', 'myCustomEvent', 'eventValue');

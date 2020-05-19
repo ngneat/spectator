@@ -3,7 +3,7 @@ id: helpers
 title: Helpers
 ---
 
-### Keyboard helpers
+## Keyboard helpers
 ```ts
 spectator.keyboard.pressEnter();
 spectator.keyboard.pressEscape();
@@ -14,7 +14,7 @@ spectator.keyboard.pressKey('ctrl.a');
 spectator.keyboard.pressKey('ctrl.shift.a');
 ```
 
-### Mouse helpers
+## Mouse helpers
 ```ts
 spectator.mouse.contextmenu('.selector');
 spectator.mouse.dblclick('.selector');

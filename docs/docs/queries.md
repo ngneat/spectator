@@ -5,7 +5,7 @@ title: Queries
 
 The Spectator API includes convenient methods for querying the DOM as part of a test: `query`, `queryAll`, `queryLast` , `queryHost` and `queryHostAll`. All query methods are polymorphic and allow you to query using any of the following techniques.
 
-#### String Selector
+## String Selector
  Pass a string selector (in the same style as you would when using jQuery or document.querySelector) to query for elements that match that path in the DOM. This method for querying is equivalent to Angular's By.css predicate. Note that native HTML elements will be returned. For example:
  ```ts
 // Returns a single HTMLElement
@@ -18,7 +18,7 @@ spectator.query('div', { root: true });
 
 spectator.query('app-child', { read: ChildServiceService });
 ```
-#### Type Selector
+## Type Selector
 Pass a type (such as a component, directive or provider class) to query for instances of that type in the DOM. This is equivalent to Angular's `By.directive` predicate. You can optionally pass in a second parameter to read a specific injection token from the matching elements' injectors. For example:
 ```ts
 // Returns a single instance of MyComponent (if present)
@@ -31,7 +31,7 @@ spectator.query(MyComponent, { read: ElementRef });
 host.queryLast(ChildComponent);
 host.queryAll(ChildComponent);
 ```
-#### DOM Selector
+## DOM Selector
 Spectator allows you to query for elements using selectors inspired by [dom-testing-library](https://testing-library.com/docs/dom-testing-library/api-queries). The available selectors are:
 
 ```ts
@@ -55,7 +55,7 @@ For example, in this following HTML `byText('foobar', {selector: 'div'})` won't 
 </div>
 ```
 
-#### Testing Select Elements
+## Testing Select Elements
 Spectator allows you to test `<select></select>` elements easily, and supports multi select.
 
 Example:

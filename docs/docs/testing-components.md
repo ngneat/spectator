@@ -66,31 +66,45 @@ it('should...', () => {
   expect(spectator.query('button')).toHaveText('Click');
 });
 ```
-The `createComponent()` method returns an instance of `Spectator` which exposes the following API:
+The `createComponent()` method returns an instance of `Spectator` which exposes the following properties:
 
 - `fixture` - The tested component's fixture
 - `component` - The tested component's instance
 - `element` - The tested component's native element
 - `debugElement` - The tested fixture's debug element
-- `get()` - Provides a wrapper for `TestBed.get()`:
+
+And the following methods:
+
+### `get()`
+Provides a wrapper for `TestBed.get()`:
+
 ```ts
 const service = spectator.get(QueryService);
 
 const fromComponentInjector = true;
 const service = spectator.get(QueryService, fromComponentInjector);
 ```
-- `inject()` - Provides a wrapper for `TestBed.inject()`:
+
+### `inject()`
+Provides a wrapper for Ivy's `TestBed.inject()`:
+
 ```ts
 const service = spectator.inject(QueryService);
 
 const fromComponentInjector = true;
 const service = spectator.inject(QueryService, fromComponentInjector);
 ```
-- `detectChanges()` - Runs detectChanges on the tested element/host:
+
+### `detectChanges()`
+Runs `detectChanges` on the tested element/host:
+
 ```ts
 spectator.detectChanges();
 ```
-- `setInput()` - Changes the value of an @Input() of the tested component:
+
+### `setInput()`
+Changes the value of an `@Input()` of the tested component:
+
 ```ts
 it('should...', () => {
   spectator.setInput('className', 'danger');
@@ -100,7 +114,9 @@ it('should...', () => {
   });
 });
 ```
-- `output` - Returns an Observable @Output() of the tested component:
+### `output()`
+Returns an observable `@Output()` of the tested component:
+
 ```ts
 it('should emit the $event on click', () => {
   let output;
@@ -110,7 +126,10 @@ it('should emit the $event on click', () => {
   expect(output).toEqual({ type: 'click' });
 });
 ```
-- `tick(millis?: number)` - Run the fakeAsync `tick()` function and call `detectChanges()`:
+
+### `tick(millis?: number)`
+Run the fakeAsync `tick()` function and call `detectChanges()`:
+
 ```ts
 it('should work with tick', fakeAsync(() => {
   spectator = createComponent(ZippyComponent);
@@ -120,3 +139,56 @@ it('should work with tick', fakeAsync(() => {
   expect(spectator.component.updatedAsync).not.toBeFalsy();
 }))
 ```
+
+## Component Providers
+
+By default, the original component providers (e.g. the `providers` on the `@Component`) are not touched.
+
+However, in most cases, you want to access the component's providers in your test or replace them with mocks.
+
+For example:
+
+```ts
+@Component({
+  template: '...',
+  providers: [FooService]
+})
+class FooComponent {
+  constructor(private fooService: FooService} {}
+
+  // ...
+}
+```
+
+Use the `componentProviders` to replace the `FooService` provider:
+
+```ts
+const createComponent = createComponentFactory({
+  component: FooComponent,
+  componentProviders: [
+    {
+      provide: FooService,
+      useValue: someThingElse
+    }
+  ]
+})
+```
+
+Or mock the service by using `componentMocks`:
+
+```ts
+const createComponent = createComponentFactory({
+  component: FooComponent,
+  componentMocks: [FooService]
+});
+```
+
+To access the provider, get it from the component injector using the `fromComponentInjector` parameter:
+
+```ts
+spectator.get(FooService, true)
+```
+
+In the same way you can also override the component view providers by using the `componentViewProviders` and `componentViewProvidersMocks`.
+
+The same rules also apply to directives using the `directiveProviders` and `directiveMocks` parameters.

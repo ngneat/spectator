@@ -10,48 +10,48 @@ import styles from './styles.module.css';
 const features = [
   {
     title: <>Clean and Easy tests</>,
-    imageUrl: 'img/1.svg'
+    imageUrl: 'img/checkmark.svg'
   },
   {
     title: <>Easy DOM querying</>,
-    imageUrl: 'img/1.svg'
+    imageUrl: 'img/checkmark.svg'
   },
   {
     title: <>Keyboard/mouse/touch events</>,
-    imageUrl: 'img/1.svg'
+    imageUrl: 'img/checkmark.svg'
   },
   {
     title: <>Testing projection</>,
-    imageUrl: 'img/1.svg'
+    imageUrl: 'img/checkmark.svg'
   },
   {
     title: <>Custom Matchers (toHaveClass, toBeDisabled..</>,
-    imageUrl: 'img/2.svg'
+    imageUrl: 'img/checkmark.svg'
   },
   {
     title: <>Routing testing support</>,
-    imageUrl: 'img/3.svg'
+    imageUrl: 'img/checkmark.svg'
   },
   {
     title: <>HTTP testing support</>,
-    imageUrl: 'img/3.svg'
+    imageUrl: 'img/checkmark.svg'
   },
   {
     title: <>Built-in support for entry components</>,
-    imageUrl: 'img/3.svg'
+    imageUrl: 'img/checkmark.svg'
   },
   {
     title: <>Auto-mocking providers</>,
-    imageUrl: 'img/3.svg'
+    imageUrl: 'img/checkmark.svg'
   },
 
   {
     title: <>Strongly typed</>,
-    imageUrl: 'img/3.svg'
+    imageUrl: 'img/checkmark.svg'
   },
   {
     title: <>Jest Support</>,
-    imageUrl: 'img/3.svg'
+    imageUrl: 'img/checkmark.svg'
   }
 ];
 

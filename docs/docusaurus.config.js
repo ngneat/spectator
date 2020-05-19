@@ -1,17 +1,12 @@
 module.exports = {
   title: 'Spectator',
-  tagline: '🦊 🚀 A Powerful Tool to Simplify Your Angular Tests ',
+  tagline: '🦊 🚀 A Powerful Tool to Simplify Your Angular Tests',
   url: 'https://github.com/ngneat',
   baseUrl: '/spectator/',
   favicon: 'img/favicon.ico',
   organizationName: 'ngneat',
   projectName: 'spectator',
   themeConfig: {
-    algolia: {
-      appId: 'BH4D9OD16A', //TODO
-      apiKey: '0fe261e8a7d089862d9a959da892561f', //TODO
-      indexName: 'spectator'
-    },
     navbar: {
       title: 'Home',
       logo: {
