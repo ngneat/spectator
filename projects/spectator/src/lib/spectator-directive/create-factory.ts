@@ -25,6 +25,14 @@ export type SpectatorDirectiveFactory<D, H> = <HP>(
 /**
  * @publicApi
  */
+export type PresetSpectatorDirectiveFactory<D, H> = <HP>(
+  template?: string,
+  overrides?: SpectatorDirectiveOverrides<D, H, HP>
+) => SpectatorDirective<D, H & (HostComponent extends H ? HP : unknown)>;
+
+/**
+ * @publicApi
+ */
 export interface SpectatorDirectiveOverrides<D, H, HP> extends BaseSpectatorOverrides {
   detectChanges?: boolean;
   props?: Partial<D>;
@@ -35,6 +43,15 @@ export interface SpectatorDirectiveOverrides<D, H, HP> extends BaseSpectatorOver
 /**
  * @publicApi
  */
+export function createDirectiveFactory<D, H = HostComponent>(
+  options: SpectatorDirectiveOptions<D, H> & { template: string }
+): PresetSpectatorDirectiveFactory<D, H>;
+/**
+ * @publicApi
+ */
+export function createDirectiveFactory<D, H = HostComponent>(
+  typeOrOptions: Type<D> | SpectatorDirectiveOptions<D, H>
+): SpectatorDirectiveFactory<D, H>;
 export function createDirectiveFactory<D, H = HostComponent>(
   typeOrOptions: Type<D> | SpectatorDirectiveOptions<D, H>
 ): SpectatorDirectiveFactory<D, H> {
@@ -49,7 +66,7 @@ export function createDirectiveFactory<D, H = HostComponent>(
     TestBed.configureTestingModule(moduleMetadata);
   }));
 
-  return <HP>(template: string, overrides?: SpectatorDirectiveOverrides<D, H, HP>) => {
+  return <HP>(template?: string, overrides?: SpectatorDirectiveOverrides<D, H, HP>) => {
     const defaults: SpectatorDirectiveOverrides<D, H, HP> = {
       props: {},
       hostProps: {} as any,
@@ -69,7 +86,7 @@ export function createDirectiveFactory<D, H = HostComponent>(
         entryComponents: moduleMetadata.entryComponents
       }
     }).overrideComponent(options.host, {
-      set: { template }
+      set: { template: template || options.template }
     });
 
     if (options.directiveProviders.length || options.directiveMocks.length) {

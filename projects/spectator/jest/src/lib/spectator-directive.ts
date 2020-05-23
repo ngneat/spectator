@@ -39,6 +39,23 @@ export type SpectatorDirectiveFactory<D, H = HostComponent> = <HP>(
 /**
  * @publicApi
  */
+export type PresetSpectatorDirectiveFactory<D, H> = <HP>(
+  template?: string,
+  overrides?: SpectatorDirectiveOverrides<D, H, HP>
+) => SpectatorDirective<D, H & HostComponent extends H ? HP : unknown>;
+
+/**
+ * @publicApi
+ */
+export function createDirectiveFactory<D, H = HostComponent>(
+  options: SpectatorDirectiveOptions<D, H> & { template: string }
+): PresetSpectatorDirectiveFactory<D, H>;
+/**
+ * @publicApi
+ */
+export function createDirectiveFactory<D, H = HostComponent>(
+  typeOrOptions: Type<D> | SpectatorDirectiveOptions<D, H>
+): SpectatorDirectiveFactory<D, H>;
 export function createDirectiveFactory<D, H = HostComponent>(
   typeOrOptions: Type<D> | SpectatorDirectiveOptions<D, H>
 ): SpectatorDirectiveFactory<D, H> {

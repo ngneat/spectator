@@ -50,6 +50,33 @@ The `createPipe()` function returns `SpectatorPipe` with the following propertie
 - `detectChanges()` - A proxy for Angular `TestBed.fixture.detectChanges()`
 - `inject()` - A proxy for Angular `TestBed.inject()`
 
+### Setting factory defaults
+
+It is possible to set a default template when creating the factory. Here is an example:
+
+```ts
+import { SpectatorPipe, createPipeFactory } from '@ngneat/spectator';
+
+import { AlternatingSumPipe } from './alternating-sum.pipe';
+
+describe('AlternatingSumPipe', () => {
+  let spectator: SpectatorPipe<AlternatingSumPipe>;
+  const createPipe = createPipeFactory({
+    pipe: AlternatingSumPipe,
+    template: `{{ prop | alternatingSum }}`
+  });
+
+  it('should compute the alternating sum of a given list of numbers (prop)', () => {
+    spectator = createPipe({
+      hostProps: {
+        prop: [1, 2, 3]
+      }
+    });
+    expect(spectator.element).toHaveText('2');
+  });
+});
+```
+
 ### Using Custom Host Component
 
 The following example illustrates how to test a pipe using a custom host component:
