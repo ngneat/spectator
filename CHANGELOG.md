@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="5.8.0"></a>
+# [5.8.0](https://github.com/ngneat/spectator/compare/v5.7.1...v5.8.0) (2020-05-24)
+
+
+### Features
+
+* support passing template in factory ([#299](https://github.com/ngneat/spectator/issues/299)) ([#311](https://github.com/ngneat/spectator/issues/311)) ([5135fab](https://github.com/ngneat/spectator/commit/5135fab))
+
+
+
 <a name="5.7.1"></a>
 ## [5.7.1](https://github.com/ngneat/spectator/compare/v5.7.0...v5.7.1) (2020-05-14)
 
