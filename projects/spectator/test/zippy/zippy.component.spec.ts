@@ -156,6 +156,25 @@ describe('ZippyComponent', () => {
   });
 });
 
+describe('ZippyComponent with default template', () => {
+  let host: SpectatorWithHost<ZippyComponent>;
+
+  const createHost = createHostFactory({
+    component: ZippyComponent,
+    componentProviders: [{ provide: QueryService, useValue: 'componentProviders' }],
+    template: `<zippy [title]="title"></zippy>`
+  });
+
+  it('should display the title from host property', () => {
+    host = createHost(undefined, {
+      hostProps: {
+        title: 'ZIPPY_DEFAULT'
+      }
+    });
+    expect(host.query('.zippy__title')).toHaveText('ZIPPY_DEFAULT');
+  });
+});
+
 @Component({ selector: 'app-custom-host', template: '' })
 class CustomHostComponent {
   public title = 'Custom HostComponent';

@@ -51,3 +51,22 @@ describe('HighlightDirective', () => {
   });
 });
 ```
+
+### Setting factory defaults
+
+It is also possible to set a default template when creating the factory. Here is an example:
+
+```ts
+describe('DirectiveProviderDirective', () => {
+  const createDirective = createDirectiveFactory({
+    directive: HighlightDirective,
+    template: `<div class="default" directiveProvider>Testing Directive Providers</div>`
+  });
+
+  it('should get the instance', () => {
+    const spectator = createDirective();
+    const instance = spectator.directive;
+    expect(instance).toBeDefined();
+  });
+});
+```

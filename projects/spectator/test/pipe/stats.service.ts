@@ -4,6 +4,10 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class StatsService {
+  public alternatingSum(input: number[]): number {
+    return input.reduce((sum, x, i) => sum + Math.pow(-1, i) * x, 0);
+  }
+
   public sum(input: number[]): number {
     return input.reduce((sum, x) => sum + x, 0);
   }

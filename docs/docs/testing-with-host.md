@@ -41,6 +41,30 @@ The host method returns an instance of `SpectatorHost` which extends `Spectator`
 - `queryHost` - Read more about [querying](./queries) in Spectator
 - `queryHostAll` - Read more about [querying](./queries) in Spectator
 
+### Setting factory defaults
+
+It is possible to set a default template when creating the factory. Here is an example:
+
+```ts
+describe('With default template', () => {
+  let spectator: SpectatorWithHost<ZippyComponent>;
+
+  const createHost = createHostFactory({
+    component: ZippyComponent,
+    template: `<zippy [title]="title"></zippy>`
+  });
+
+  it('should display the title from host property', () => {
+    spectator = createHost(undefined, {
+      hostProps: {
+        title: 'Spectator is Awesome'
+      }
+    });
+    expect(spectator.query('.zippy__title')).toHaveText('Spectator is Awesome');
+  });
+});
+```
+
 ### Custom Host Component
 Sometimes it's helpful to pass your own host implementation. We can pass a custom host component to the `createHostComponentFactory()` that will replace the default one:
 

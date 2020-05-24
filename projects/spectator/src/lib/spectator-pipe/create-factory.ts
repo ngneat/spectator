@@ -51,7 +51,7 @@ export function createPipeFactory<P, H = HostComponent>(typeOrOptions: Type<P> |
     };
     const resolvedOverrides = typeof templateOrOverrides === 'object' ? templateOrOverrides : overrides;
     const { detectChanges, hostProps, providers } = { ...defaults, ...resolvedOverrides };
-    const template = typeof templateOrOverrides === 'string' ? templateOrOverrides : undefined;
+    const template = typeof templateOrOverrides === 'string' ? templateOrOverrides : options.template;
 
     if (providers && providers.length) {
       providers.forEach((provider: Provider) => {

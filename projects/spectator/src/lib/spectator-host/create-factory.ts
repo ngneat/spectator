@@ -25,6 +25,14 @@ export type SpectatorHostFactory<C, H> = <HP>(
 /**
  * @publicApi
  */
+export type PresetSpectatorHostFactory<C, H> = <HP>(
+  template?: string,
+  overrides?: SpectatorHostOverrides<C, H, HP>
+) => SpectatorHost<C, H & (HostComponent extends H ? HP : unknown)>;
+
+/**
+ * @publicApi
+ */
 export interface SpectatorHostOverrides<C, H, HP> extends SpectatorOverrides<C> {
   hostProps?: HostComponent extends H ? HP : Partial<H>;
 }
@@ -41,6 +49,13 @@ export function createHostComponentFactory<C, H = HostComponent>(
 /**
  * @publicApi
  */
+export function createHostFactory<C, H = HostComponent>(
+  options: SpectatorHostOptions<C, H> & { template: string }
+): PresetSpectatorHostFactory<C, H>;
+/**
+ * @publicApi
+ */
+export function createHostFactory<C, H = HostComponent>(typeOrOptions: Type<C> | SpectatorHostOptions<C, H>): SpectatorHostFactory<C, H>;
 export function createHostFactory<C, H = HostComponent>(typeOrOptions: Type<C> | SpectatorHostOptions<C, H>): SpectatorHostFactory<C, H> {
   const options = isType(typeOrOptions)
     ? getSpectatorHostDefaultOptions<C, H>({ component: typeOrOptions })
@@ -55,7 +70,7 @@ export function createHostFactory<C, H = HostComponent>(typeOrOptions: Type<C> |
     overrideComponentIfProviderOverridesSpecified(options);
   }));
 
-  return <HP>(template: string, overrides?: SpectatorHostOverrides<C, H, HP>) => {
+  return <HP>(template?: string, overrides?: SpectatorHostOverrides<C, H, HP>) => {
     const defaults: SpectatorHostOverrides<C, H, HP> = { props: {}, hostProps: {} as any, detectChanges: true, providers: [] };
     const { detectChanges, props, hostProps, providers } = { ...defaults, ...overrides };
 
@@ -70,7 +85,7 @@ export function createHostFactory<C, H = HostComponent>(typeOrOptions: Type<C> |
         entryComponents: moduleMetadata.entryComponents
       }
     }).overrideComponent(options.host, {
-      set: { template }
+      set: { template: template || options.template }
     });
 
     const spectator = createSpectatorHost(options, props, hostProps);
