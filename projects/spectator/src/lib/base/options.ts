@@ -1,4 +1,5 @@
-import { Provider, SchemaMetadata, Type } from '@angular/core';
+import { NgModule, Provider, SchemaMetadata, Type } from '@angular/core';
+import { MetadataOverride } from '@angular/core/testing';
 
 import { merge } from '../internals/merge';
 import { mockProvider, MockProvider } from '../mock';
@@ -16,6 +17,7 @@ export interface BaseSpectatorOptions {
   declarations?: any[];
   imports?: any[];
   schemas?: (SchemaMetadata | any[])[];
+  overrideModules?: [Type<any>, MetadataOverride<NgModule>][];
 }
 
 /**
@@ -33,7 +35,8 @@ const defaultOptions: OptionalsRequired<BaseSpectatorOptions> = {
   providers: [],
   declarations: [],
   imports: [],
-  schemas: []
+  schemas: [],
+  overrideModules: []
 };
 
 /**

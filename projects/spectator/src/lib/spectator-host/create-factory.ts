@@ -5,7 +5,7 @@ import { BrowserDynamicTestingModule } from '@angular/platform-browser-dynamic/t
 
 import { setProps } from '../internals/query';
 import * as customMatchers from '../matchers';
-import { SpectatorOverrides, overrideComponentIfProviderOverridesSpecified } from '../spectator/create-factory';
+import { overrideComponentIfProviderOverridesSpecified, overrideModules, SpectatorOverrides } from '../spectator/create-factory';
 import { isType } from '../types';
 import { nodeByDirective } from '../internals/node-by-directive';
 
@@ -66,6 +66,8 @@ export function createHostFactory<C, H = HostComponent>(typeOrOptions: Type<C> |
   beforeEach(async(() => {
     jasmine.addMatchers(customMatchers as any);
     TestBed.configureTestingModule(moduleMetadata);
+
+    overrideModules(options);
 
     overrideComponentIfProviderOverridesSpecified(options);
   }));

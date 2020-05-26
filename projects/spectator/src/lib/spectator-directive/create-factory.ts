@@ -13,6 +13,7 @@ import { nodeByDirective } from '../internals/node-by-directive';
 import { initialSpectatorDirectiveModule } from './initial-module';
 import { getSpectatorDirectiveDefaultOptions, SpectatorDirectiveOptions } from './options';
 import { SpectatorDirective } from './spectator-directive';
+import { overrideModules } from '../spectator/create-factory';
 
 /**
  * @publicApi
@@ -64,6 +65,7 @@ export function createDirectiveFactory<D, H = HostComponent>(
   beforeEach(async(() => {
     jasmine.addMatchers(customMatchers as any);
     TestBed.configureTestingModule(moduleMetadata);
+    overrideModules(options);
   }));
 
   return <HP>(template?: string, overrides?: SpectatorDirectiveOverrides<D, H, HP>) => {
