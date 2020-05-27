@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="5.9.0"></a>
+# [5.9.0](https://github.com/ngneat/spectator/compare/v5.8.0...v5.9.0) (2020-05-27)
+
+
+### Features
+
+* 🎸 support for overriding modules ([#302](https://github.com/ngneat/spectator/issues/302)) ([#313](https://github.com/ngneat/spectator/issues/313)) ([81deb6e](https://github.com/ngneat/spectator/commit/81deb6e))
+
+
+
 <a name="5.8.0"></a>
 # [5.8.0](https://github.com/ngneat/spectator/compare/v5.7.1...v5.8.0) (2020-05-24)
 
