@@ -7,6 +7,7 @@ import { isType, doesServiceImplementsOnDestroy } from '../types';
 import { initialServiceModule } from './initial-module';
 import { getDefaultServiceOptions, SpectatorServiceOptions } from './options';
 import { SpectatorService } from './spectator-service';
+import { overrideModules } from '../spectator/create-factory';
 
 /**
  * @publicApi
@@ -30,6 +31,7 @@ export function createServiceFactory<S>(typeOrOptions: Type<S> | SpectatorServic
 
   beforeEach(() => {
     TestBed.configureTestingModule(moduleMetadata);
+    overrideModules(options);
   });
 
   afterEach(() => {

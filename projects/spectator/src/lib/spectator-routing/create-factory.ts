@@ -4,7 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 
 import { setProps } from '../internals/query';
 import * as customMatchers from '../matchers';
-import { SpectatorOverrides, overrideComponentIfProviderOverridesSpecified } from '../spectator/create-factory';
+import { SpectatorOverrides, overrideComponentIfProviderOverridesSpecified, overrideModules } from '../spectator/create-factory';
 import { isType } from '../types';
 
 import { ActivatedRouteStub } from './activated-route-stub';
@@ -36,6 +36,8 @@ export function createRoutingFactory<C>(typeOrOptions: Type<C> | SpectatorRoutin
   beforeEach(async(() => {
     jasmine.addMatchers(customMatchers as any);
     TestBed.configureTestingModule(moduleMetadata);
+
+    overrideModules(options);
 
     overrideComponentIfProviderOverridesSpecified(options);
 

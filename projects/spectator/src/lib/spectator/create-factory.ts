@@ -2,7 +2,7 @@ import { Provider, Type } from '@angular/core';
 import { async, TestBed } from '@angular/core/testing';
 import { BrowserDynamicTestingModule } from '@angular/platform-browser-dynamic/testing';
 
-import { BaseSpectatorOverrides } from '../base/options';
+import { BaseSpectatorOptions, BaseSpectatorOverrides } from '../base/options';
 import { setProps } from '../internals/query';
 import * as customMatchers from '../matchers';
 import { isType } from '../types';
@@ -50,6 +50,19 @@ export function overrideComponentIfProviderOverridesSpecified<C>(options: Requir
 }
 
 /**
+ * @internal
+ */
+export function overrideModules(options: Required<BaseSpectatorOptions>): void {
+  if (options.overrideModules.length) {
+    options.overrideModules.forEach(overrideModule => {
+      const [ngModule, override] = overrideModule;
+
+      TestBed.overrideModule(ngModule, override);
+    });
+  }
+}
+
+/**
  * @deprecated Use createComponentFactory instead. To be removed in v5.
  */
 export function createTestComponentFactory<C>(typeOrOptions: SpectatorOptions<C> | Type<C>): SpectatorFactory<C> {
@@ -73,6 +86,8 @@ export function createComponentFactory<C>(typeOrOptions: Type<C> | SpectatorOpti
         entryComponents: moduleMetadata.entryComponents
       }
     });
+
+    overrideModules(options);
 
     overrideComponentIfProviderOverridesSpecified(options);
 

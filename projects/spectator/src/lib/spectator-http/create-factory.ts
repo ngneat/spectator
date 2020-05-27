@@ -9,6 +9,7 @@ import { isType } from '../types';
 import { initialHttpModule } from './initial-module';
 import { getDefaultHttpOptions, isDeprecated, SpectatorHttpOptions } from './options';
 import { SpectatorHttp } from './spectator-http';
+import { overrideModules } from '../spectator/create-factory';
 
 /**
  * @publicApi
@@ -31,6 +32,7 @@ export function createHttpFactory<S>(typeOrOptions: Type<S> | SpectatorHttpOptio
 
   beforeEach(() => {
     TestBed.configureTestingModule(moduleMetadata);
+    overrideModules(options);
   });
 
   afterEach(() => {
