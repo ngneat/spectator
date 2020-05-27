@@ -113,8 +113,8 @@ const createComponent = createComponentFactory({
   declarations: [],
   entryComponents: [],
   componentProviders: [], // Override the component's providers
-  overrideModules: [], // Override modules [[SomeModule, {set: {...}}], [SomeOtherModule, {remove: {...}}]]
   componentViewProviders: [], // Override the component's view providers
+  overrideModules: [], // Override modules
   mocks: [], // Providers that will automatically be mocked
   componentMocks: [], // Component providers that will automatically be mocked
   componentViewProvidersMocks: [], // Component view providers that will be automatically mocked
