@@ -4,7 +4,7 @@ import { installProtoMethods, CompatibleSpy, SpyObject as BaseSpyObject } from '
 export type SpyObject<T> = BaseSpyObject<T> & { [P in keyof T]: T[P] & (T[P] extends (...args: any[]) => infer R ? jest.Mock<R> : T[P]) };
 
 /**
- * @internal
+ * @publicApi
  */
 export function createSpyObject<T>(type: Type<T> | AbstractType<T>, template?: Partial<Record<keyof T, any>>): SpyObject<T> {
   const mock: any = { ...template } || {};
