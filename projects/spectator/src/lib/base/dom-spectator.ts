@@ -290,6 +290,8 @@ export abstract class DomSpectator<I> extends BaseSpectator {
         // tslint:disable:no-console
         console.error(`${selector} does not exists`);
       }
+    } else if (selector instanceof DOMSelector) {
+      element = selector.execute(document as any)[0] || null;
     } else {
       if (selector instanceof DebugElement || selector instanceof ElementRef) {
         element = selector.nativeElement;

@@ -201,7 +201,7 @@ it('should work with tick', fakeAsync(() => {
 Each one of the events can accept a `SpectatorElement` which can be one of the following:
 
 ```ts
-type SpectatorElement = string | Element | DebugElement | ElementRef | Window | Document;
+type SpectatorElement = string | Element | DebugElement | ElementRef | Window | Document | DOMSelector;
 ```
 
 If not provided, the default element will be the host element of the component under test.
@@ -209,32 +209,41 @@ If not provided, the default element will be the host element of the component u
 - `click()` - Triggers a click event:
 ```ts
 spectator.click(SpectatorElement);
+spectator.click(byText('Element'));
 ```
 - `blur()` - Triggers a blur event:
 ```ts
 spectator.blur(SpectatorElement);
+spectator.blur(byText('Element'));
 ```
 - `focus()` - Triggers a focus event:
 ```ts
 spectator.focus(SpectatorElement);
+spectator.focus(byText('Element'));
 ```
 - `typeInElement()` - Simulating the user typing:
 ```ts
 spectator.typeInElement(value, SpectatorElement);
+spectator.typeInElement(value, byText('Element'));
 ```
 - `dispatchMouseEvent()` - Triggers a mouse event:
 ```ts
 spectator.dispatchMouseEvent(SpectatorElement, 'mouseout');
 spectator.dispatchMouseEvent(SpectatorElement, 'mouseout'), x, y, event);
+spectator.dispatchMouseEvent(byText('Element'), 'mouseout');
+spectator.dispatchMouseEvent(byText('Element'), 'mouseout'), x, y, event);
 ```
 - `dispatchKeyboardEvent()` - Triggers a keyboard event:
 ```ts
 spectator.dispatchKeyboardEvent(SpectatorElement, 'keyup', 'Escape');
 spectator.dispatchKeyboardEvent(SpectatorElement, 'keyup', { key: 'Escape', keyCode: 27 })
+spectator.dispatchKeyboardEvent(byText('Element'), 'keyup', 'Escape');
+spectator.dispatchKeyboardEvent(byText('Element'), 'keyup', { key: 'Escape', keyCode: 27 })
 ```
 - `dispatchTouchEvent()` - Triggers a touch event:
 ```ts
 spectator.dispatchTouchEvent(SpectatorElement, type, x, y);
+spectator.dispatchTouchEvent(byText('Element'), type, x, y);
 ```
 
 #### Custom Events
