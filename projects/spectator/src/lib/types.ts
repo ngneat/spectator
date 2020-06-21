@@ -10,7 +10,7 @@ type OptionalProperties<T> = Pick<T, OptionalPropertyNames<T>>;
 
 export type OptionalsRequired<T> = Required<OptionalProperties<T>> & Partial<T>;
 
-export type SpectatorElement = string | Element | DebugElement | ElementRef | Window | Document;
+export type SpectatorElement = string | Element | DebugElement | ElementRef | Window | Document | DOMSelector;
 
 export type QueryType = Type<any> | DOMSelector | string;
 export interface QueryOptions<R> {

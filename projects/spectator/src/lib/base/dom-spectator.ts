@@ -123,7 +123,7 @@ export abstract class DomSpectator<I> extends BaseSpectator {
     this.detectChanges();
   }
 
-  public click(selector: SpectatorElement | DOMSelector = this.element): void {
+  public click(selector: SpectatorElement = this.element): void {
     const element = this.getNativeElement(selector);
 
     if (!(element instanceof HTMLElement)) {
@@ -134,7 +134,7 @@ export abstract class DomSpectator<I> extends BaseSpectator {
     this.detectChanges();
   }
 
-  public blur(selector: SpectatorElement | DOMSelector = this.element): void {
+  public blur(selector: SpectatorElement = this.element): void {
     const element = this.getNativeElement(selector);
 
     if (!(element instanceof HTMLElement)) {
@@ -146,7 +146,7 @@ export abstract class DomSpectator<I> extends BaseSpectator {
     this.detectChanges();
   }
 
-  public focus(selector: SpectatorElement | DOMSelector = this.element): void {
+  public focus(selector: SpectatorElement = this.element): void {
     const element = this.getNativeElement(selector);
 
     if (!(element instanceof HTMLElement)) {
@@ -159,7 +159,7 @@ export abstract class DomSpectator<I> extends BaseSpectator {
   }
 
   public dispatchMouseEvent(
-    selector: SpectatorElement | DOMSelector = this.element,
+    selector: SpectatorElement = this.element,
     type: string,
     x: number = 0,
     y: number = 0,
@@ -177,16 +177,11 @@ export abstract class DomSpectator<I> extends BaseSpectator {
     return dispatchedEvent;
   }
 
-  public dispatchKeyboardEvent(selector: SpectatorElement | DOMSelector, type: string, keyCode: number, target?: Element): KeyboardEvent;
-  public dispatchKeyboardEvent(selector: SpectatorElement | DOMSelector, type: string, key: string, target?: Element): KeyboardEvent;
+  public dispatchKeyboardEvent(selector: SpectatorElement, type: string, keyCode: number, target?: Element): KeyboardEvent;
+  public dispatchKeyboardEvent(selector: SpectatorElement, type: string, key: string, target?: Element): KeyboardEvent;
+  public dispatchKeyboardEvent(selector: SpectatorElement, type: string, keyAndCode: KeyboardEventOptions, target?: Element): KeyboardEvent;
   public dispatchKeyboardEvent(
-    selector: SpectatorElement | DOMSelector,
-    type: string,
-    keyAndCode: KeyboardEventOptions,
-    target?: Element
-  ): KeyboardEvent;
-  public dispatchKeyboardEvent(
-    selector: SpectatorElement | DOMSelector = this.element,
+    selector: SpectatorElement = this.element,
     type: string,
     keyOrKeyCode: string | number | KeyboardEventOptions,
     target?: Element
@@ -204,7 +199,7 @@ export abstract class DomSpectator<I> extends BaseSpectator {
     return event;
   }
 
-  public dispatchFakeEvent(selector: SpectatorElement | DOMSelector = this.element, type: string, canBubble?: boolean): Event {
+  public dispatchFakeEvent(selector: SpectatorElement = this.element, type: string, canBubble?: boolean): Event {
     const event = dispatchFakeEvent(this.getNativeElement(selector), type, canBubble);
     this.detectChanges();
 
@@ -257,18 +252,18 @@ export abstract class DomSpectator<I> extends BaseSpectator {
     };
   }
 
-  public dispatchTouchEvent(selector: SpectatorElement | DOMSelector = this.element, type: string, x: number = 0, y: number = 0): void {
+  public dispatchTouchEvent(selector: SpectatorElement = this.element, type: string, x: number = 0, y: number = 0): void {
     dispatchTouchEvent(this.getNativeElement(selector), type, x, y);
     this.detectChanges();
   }
 
-  public typeInElement(value: string, selector: SpectatorElement | DOMSelector = this.element): void {
+  public typeInElement(value: string, selector: SpectatorElement = this.element): void {
     typeInElement(value, this.getNativeElement(selector));
     this.detectChanges();
   }
 
   public selectOption(
-    selector: SpectatorElement | DOMSelector = this.element,
+    selector: SpectatorElement = this.element,
     options: string | string[] | HTMLOptionElement | HTMLOptionElement[],
     config: { emitEvents: boolean } = { emitEvents: true }
   ): void {
@@ -279,7 +274,7 @@ export abstract class DomSpectator<I> extends BaseSpectator {
     this.detectChanges();
   }
 
-  private getNativeElement(selector: SpectatorElement | DOMSelector): HTMLElement | Window | Document {
+  private getNativeElement(selector: SpectatorElement): HTMLElement | Window | Document {
     let element;
 
     // Support global objects window and document
