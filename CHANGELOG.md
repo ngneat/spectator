@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="5.9.1"></a>
+## [5.9.1](https://github.com/ngneat/spectator/compare/v5.9.0...v5.9.1) (2020-06-21)
+
+
+### Bug Fixes
+
+* make createSpyObject public ([#316](https://github.com/ngneat/spectator/issues/316)) ([#317](https://github.com/ngneat/spectator/issues/317)) ([bb128df](https://github.com/ngneat/spectator/commit/bb128df))
+
+
+
 <a name="5.9.0"></a>
 # [5.9.0](https://github.com/ngneat/spectator/compare/v5.8.0...v5.9.0) (2020-05-27)
 
