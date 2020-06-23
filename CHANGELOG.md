@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="5.10.0"></a>
+# [5.10.0](https://github.com/ngneat/spectator/compare/v5.9.1...v5.10.0) (2020-06-23)
+
+
+### Features
+
+* downlevel .d.ts for older TS versions ([#320](https://github.com/ngneat/spectator/issues/320)) ([acb0eca](https://github.com/ngneat/spectator/commit/acb0eca))
+
+
+
 <a name="5.9.1"></a>
 ## [5.9.1](https://github.com/ngneat/spectator/compare/v5.9.0...v5.9.1) (2020-06-21)
 
