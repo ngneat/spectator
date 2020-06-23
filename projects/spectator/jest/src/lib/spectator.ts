@@ -1,4 +1,4 @@
-import { Type, InjectionToken, AbstractType } from '@angular/core';
+import { Type } from '@angular/core';
 import {
   createComponentFactory as baseCreateComponentFactory,
   isType,
@@ -33,6 +33,7 @@ export class Spectator<C> extends BaseSpectator<C> {
   /**
    * @deprecated Deprecated in favour of inject(). Will be removed once TestBed.get is discontinued.
    * @param type Token
+   * @param fromComponentInjector
    */
   public get<T>(type: Token<T> | Token<any>, fromComponentInjector: boolean = false): SpyObject<T> {
     return super.get(type, fromComponentInjector) as SpyObject<T>;

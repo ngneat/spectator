@@ -5,6 +5,7 @@ import { BrowserDynamicTestingModule } from '@angular/platform-browser-dynamic/t
 import { BaseSpectatorOptions, BaseSpectatorOverrides } from '../base/options';
 import { setProps } from '../internals/query';
 import * as customMatchers from '../matchers';
+import { addMatchers } from '../core';
 import { isType } from '../types';
 
 import { initialSpectatorModule } from './initial-module';
@@ -80,7 +81,7 @@ export function createComponentFactory<C>(typeOrOptions: Type<C> | SpectatorOpti
   const moduleMetadata = initialSpectatorModule<C>(options);
 
   beforeEach(async(() => {
-    jasmine.addMatchers(customMatchers as any);
+    addMatchers(customMatchers);
     TestBed.configureTestingModule(moduleMetadata).overrideModule(BrowserDynamicTestingModule, {
       set: {
         entryComponents: moduleMetadata.entryComponents
