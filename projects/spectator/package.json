@@ -36,5 +36,8 @@
   "bin": {
     "spectator-migrate": "./migrate.js"
   },
-  "schematics": "./schematics/collection.json"
+  "schematics": "./schematics/collection.json",
+  "typesVersions": {
+    "<3.7": { "*": ["ts3.4/*"] }
+  }
 }
