@@ -5,6 +5,7 @@ import { BrowserDynamicTestingModule } from '@angular/platform-browser-dynamic/t
 import { setProps } from '../internals/query';
 import * as customMatchers from '../matchers';
 import { BaseSpectatorOverrides } from '../base/options';
+import { addMatchers } from '../core';
 import { isType } from '../types';
 import { HostComponent } from '../spectator-host/host-component';
 
@@ -40,7 +41,7 @@ export function createPipeFactory<P, H = HostComponent>(typeOrOptions: Type<P> |
   const moduleMetadata = initialSpectatorPipeModule<P, H>(options);
 
   beforeEach(async(() => {
-    jasmine.addMatchers(customMatchers as any);
+    addMatchers(customMatchers);
     TestBed.configureTestingModule(moduleMetadata);
     overrideModules(options);
   }));

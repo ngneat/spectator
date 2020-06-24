@@ -1,4 +1,4 @@
-import { Type, InjectionToken, AbstractType } from '@angular/core';
+import { Type } from '@angular/core';
 import {
   createHttpFactory as baseCreateHttpFactory,
   isType,
@@ -17,7 +17,7 @@ import { mockProvider, SpyObject } from './mock';
 export interface SpectatorHttp<S> extends BaseSpectatorHttp<S> {
   /**
    * @deprecated Deprecated in favour of inject(). Will be removed once TestBed.get is discontinued.
-   * @param type Token
+   * @param token
    */
   get<T>(token: Token<T> | Token<any>): SpyObject<T>;
   inject<T>(token: Token<T>): SpyObject<T>;

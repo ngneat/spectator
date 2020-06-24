@@ -5,6 +5,7 @@ import { BrowserDynamicTestingModule } from '@angular/platform-browser-dynamic/t
 
 import { setProps } from '../internals/query';
 import * as customMatchers from '../matchers';
+import { addMatchers } from '../core';
 import { isType } from '../types';
 import { HostComponent } from '../spectator-host/host-component';
 import { BaseSpectatorOverrides } from '../base/options';
@@ -63,7 +64,7 @@ export function createDirectiveFactory<D, H = HostComponent>(
   const moduleMetadata = initialSpectatorDirectiveModule<D, H>(options);
 
   beforeEach(async(() => {
-    jasmine.addMatchers(customMatchers as any);
+    addMatchers(customMatchers);
     TestBed.configureTestingModule(moduleMetadata);
     overrideModules(options);
   }));

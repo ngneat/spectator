@@ -1,4 +1,4 @@
-import { Type, InjectionToken, AbstractType } from '@angular/core';
+import { Type } from '@angular/core';
 import {
   createHostFactory as baseCreateHostFactory,
   isType,
@@ -23,6 +23,7 @@ export class SpectatorHost<C, H = HostComponent> extends BaseSpectatorHost<C, H>
   /**
    * @deprecated Deprecated in favour of inject(). Will be removed once TestBed.get is discontinued.
    * @param type Token
+   * @param fromComponentInjector
    */
   public get<T>(type: Token<T> | Token<any>, fromComponentInjector: boolean = false): SpyObject<T> {
     return super.get(type, fromComponentInjector) as SpyObject<T>;

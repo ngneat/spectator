@@ -7,6 +7,19 @@ import { hex2rgb, isHex, trim } from './internals/rgb-to-hex';
 import { isHTMLOptionElementArray, isObject } from './types';
 import { isRunningInJsDom } from './utils';
 
+export interface CustomMatcherFactory {
+  (): CustomMatcher;
+}
+
+export interface CustomMatcher {
+  compare<T>(actual: T, expected: T, ...args: any[]): CustomMatcherResult;
+}
+
+export interface CustomMatcherResult {
+  pass: boolean;
+  message(): string;
+}
+
 const hasProperty = (actual: unknown, expected: unknown): boolean => {
   return expected === undefined ? actual !== undefined : actual === expected;
 };
@@ -98,7 +111,7 @@ const hasSameText = (el: HTMLElement, expected: string | string[] | ((s: string)
   return { pass, message };
 };
 
-const comparator = func => () => ({
+const comparator = (func): CustomMatcherFactory => () => ({
   compare: func
 });
 
