@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="5.11.0"></a>
+# [5.11.0](https://github.com/ngneat/spectator/compare/v5.10.0...v5.11.0) (2020-06-24)
+
+
+### Features
+
+* support jest-circus ([#321](https://github.com/ngneat/spectator/issues/321)) ([fc9e6ec](https://github.com/ngneat/spectator/commit/fc9e6ec))
+
+
+
 <a name="5.10.0"></a>
 # [5.10.0](https://github.com/ngneat/spectator/compare/v5.9.1...v5.10.0) (2020-06-23)
 
