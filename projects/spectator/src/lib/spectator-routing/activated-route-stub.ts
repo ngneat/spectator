@@ -1,4 +1,4 @@
-import { convertToParamMap, ActivatedRoute, ActivatedRouteSnapshot, Data, Params, ParamMap } from '@angular/router';
+import { convertToParamMap, ActivatedRoute, ActivatedRouteSnapshot, Data, Params, ParamMap, UrlSegment } from '@angular/router';
 import { Observable, ReplaySubject } from 'rxjs';
 import { map } from 'rxjs/operators';
 
@@ -14,11 +14,13 @@ export class ActivatedRouteStub extends ActivatedRoute {
   private testQueryParams: Params = {};
   private testData: Data = {};
   private testFragment: string | null = null;
+  private testUrl: UrlSegment[] = [];
 
   private readonly paramsSubject = new ReplaySubject<Params>(1);
   private readonly queryParamsSubject = new ReplaySubject<Params>(1);
   private readonly dataSubject = new ReplaySubject<Data>(1);
   private readonly fragmentSubject = new ReplaySubject<string | null>(1);
+  private readonly urlSubject = new ReplaySubject<UrlSegment[]>(1);
 
   constructor(options?: RouteOptions) {
     super();
@@ -28,12 +30,14 @@ export class ActivatedRouteStub extends ActivatedRoute {
       this.testQueryParams = options.queryParams || {};
       this.testData = options.data || {};
       this.testFragment = options.fragment || null;
+      this.testUrl = options.url || [];
     }
 
     this.params = this.paramsSubject.asObservable();
     this.queryParams = this.queryParamsSubject.asObservable();
     this.data = this.dataSubject.asObservable();
     this.fragment = this.fragmentSubject.asObservable() as Observable<string>;
+    this.url = this.urlSubject.asObservable() as Observable<UrlSegment[]>;
 
     this.triggerNavigation();
   }
@@ -49,6 +53,7 @@ export class ActivatedRouteStub extends ActivatedRoute {
     snapshot.queryParams = this.testQueryParams;
     snapshot.data = this.testData;
     snapshot.fragment = this.testFragment!;
+    snapshot.url = this.testUrl;
 
     return snapshot;
   }
@@ -81,6 +86,10 @@ export class ActivatedRouteStub extends ActivatedRoute {
     this.testFragment = fragment;
   }
 
+  public setUrl(url: UrlSegment[]): void {
+    this.testUrl = url;
+  }
+
   public get children(): ActivatedRouteStub[] {
     return [this];
   }
@@ -97,6 +106,7 @@ export class ActivatedRouteStub extends ActivatedRoute {
     this.queryParamsSubject.next(this.testQueryParams);
     this.dataSubject.next(this.testData);
     this.fragmentSubject.next(this.testFragment);
+    this.urlSubject.next(this.testUrl);
   }
 
   public toString(): string {

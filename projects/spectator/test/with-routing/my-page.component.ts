@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, UrlSegment } from '@angular/router';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
@@ -22,6 +22,7 @@ export class MyPageComponent implements OnInit {
   public bar?: string;
   public baz$!: Observable<string>;
   public fragment!: string | null;
+  public url?: UrlSegment[];
 
   constructor(private readonly route: ActivatedRoute, private readonly router: Router) {}
 
@@ -33,6 +34,7 @@ export class MyPageComponent implements OnInit {
     this.route.paramMap.subscribe(params => (this.bar = params.get('bar')!));
     this.baz$ = this.route.queryParams.pipe(map(params => params.baz));
     this.route.fragment.subscribe(fragment => (this.fragment = fragment));
+    this.route.url.subscribe(url => (this.url = url));
   }
 
   public navigate(): void {

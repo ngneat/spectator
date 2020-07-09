@@ -1,6 +1,6 @@
 import { DebugElement } from '@angular/core';
 import { ComponentFixture } from '@angular/core/testing';
-import { Event, Router } from '@angular/router';
+import { Event, Router, UrlSegment } from '@angular/router';
 
 import { Spectator } from '../spectator/spectator';
 
@@ -85,6 +85,16 @@ export class SpectatorRouting<C> extends Spectator<C> {
   public setRouteFragment(fragment: string | null): void {
     if (this.checkStubPresent()) {
       this.activatedRouteStub.setFragment(fragment);
+      this.triggerNavigationAndUpdate();
+    }
+  }
+
+  /**
+   * Updates the route url and triggers a route navigation.
+   */
+  public setRouteUrl(url: UrlSegment[]): void {
+    if (this.checkStubPresent()) {
+      this.activatedRouteStub.setUrl(url);
       this.triggerNavigationAndUpdate();
     }
   }
