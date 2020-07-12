@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="5.12.0"></a>
+# [5.12.0](https://github.com/ngneat/spectator/compare/v5.11.0...v5.12.0) (2020-07-12)
+
+
+### Features
+
+* **routing:** add support for ActivatedRoute url property ([#326](https://github.com/ngneat/spectator/issues/326)) ([d74e534](https://github.com/ngneat/spectator/commit/d74e534))
+
+
+
 <a name="5.11.0"></a>
 # [5.11.0](https://github.com/ngneat/spectator/compare/v5.10.0...v5.11.0) (2020-06-24)
 
