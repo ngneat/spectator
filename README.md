@@ -559,6 +559,11 @@ interface SpectatorRouting<C> extends Spectator<C> {
    * Updates the route fragment and triggers a route navigation.
    */
   setRouteFragment(fragment: string | null): void;
+
+  /**
+   * Updates the route url and triggers a route navigation.
+   */
+  setRouteUrl(url: UrlSegment[]): void;
 }
 ```
 
@@ -616,6 +621,7 @@ The `createRoutesFactory` function can take the following options, on top of the
 * `queryParams`: initial query params to use in `ActivatedRoute` stub
 * `data`: initial data to use in `ActivatedRoute` stub
 * `fragment`: initial fragment to use in `ActivatedRoute` stub
+* `url`: initial URL segments to use in `ActivatedRoute` stub
 * `stubsEnabled` (default: `true`): enables the `ActivatedRoute` stub, if set to `false` it uses `RouterTestingModule` instead
 * `routes`: if `stubsEnabled` is set to false, you can pass a `Routes` configuration for `RouterTestingModule`
 

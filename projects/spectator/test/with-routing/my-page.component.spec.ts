@@ -1,4 +1,4 @@
-import { NavigationStart, Router, RouterLink } from '@angular/router';
+import { NavigationStart, Router, RouterLink, UrlSegment } from '@angular/router';
 import { createRoutingFactory } from '@ngneat/spectator';
 import { Component } from '@angular/core';
 import { Location } from '@angular/common';
@@ -17,11 +17,13 @@ describe('MyPageComponent', () => {
   });
 
   describe('route options', () => {
+    const url = [new UrlSegment('/url-path', {})];
     const createComponent = createRoutingFactory({
       component: MyPageComponent,
       data: { title: 'lorem', dynamicTitle: 'ipsum' },
       params: { foo: '1', bar: '2' },
-      queryParams: { baz: '3' }
+      queryParams: { baz: '3' },
+      url: url
     });
 
     it('should create with default options', () => {
@@ -33,6 +35,8 @@ describe('MyPageComponent', () => {
       expect(spectator.query('.foo')).toHaveText('1');
       expect(spectator.query('.bar')).toHaveText('2');
       expect(spectator.query('.baz')).toHaveText('3');
+
+      expect(spectator.component.url).toEqual(url);
     });
 
     it('should create with overridden options', () => {
@@ -68,6 +72,11 @@ describe('MyPageComponent', () => {
       expect(spectator.query('.bar')).toHaveText('X');
       expect(spectator.query('.baz')).toHaveText('Y');
       expect(spectator.component.fragment).toBe('lorem');
+
+      const url = [new UrlSegment('/url-path', {})];
+      spectator.setRouteUrl(url);
+
+      expect(spectator.component.url).toEqual(url);
     });
 
     it('should support snapshot data', () => {

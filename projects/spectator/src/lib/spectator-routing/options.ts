@@ -21,7 +21,8 @@ const defaultRoutingOptions: OptionalsRequired<SpectatorRoutingOptions<any>> = {
   fragment: null,
   mockRouterLinks: true,
   stubsEnabled: true,
-  routes: []
+  routes: [],
+  url: []
 };
 
 /**
