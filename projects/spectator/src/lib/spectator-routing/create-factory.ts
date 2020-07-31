@@ -60,10 +60,10 @@ export function createRoutingFactory<C>(typeOrOptions: Type<C> | SpectatorRoutin
       });
     }
 
-    const { params, queryParams, data, fragment, url } = { ...options, ...overrides };
+    const { params, queryParams, data, fragment, url, root, parent, children, firstChild } = { ...options, ...overrides };
 
     TestBed.overrideProvider(ActivatedRoute, {
-      useValue: new ActivatedRouteStub({ params, queryParams, data, fragment, url })
+      useValue: new ActivatedRouteStub({ params, queryParams, data, fragment, url, root, parent, children, firstChild })
     });
 
     const spectator = createSpectatorRouting(options, props);

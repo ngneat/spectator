@@ -23,6 +23,10 @@ export class MyPageComponent implements OnInit {
   public baz$!: Observable<string>;
   public fragment!: string | null;
   public url?: UrlSegment[];
+  public root!: ActivatedRoute | null;
+  public parent!: ActivatedRoute | null;
+  public children?: ActivatedRoute[];
+  public firstChild!: ActivatedRoute | null;
 
   constructor(private readonly route: ActivatedRoute, private readonly router: Router) {}
 
@@ -35,6 +39,10 @@ export class MyPageComponent implements OnInit {
     this.baz$ = this.route.queryParams.pipe(map(params => params.baz));
     this.route.fragment.subscribe(fragment => (this.fragment = fragment));
     this.route.url.subscribe(url => (this.url = url));
+    this.root = this.route.root;
+    this.parent = this.route.parent;
+    this.children = this.route.children;
+    this.firstChild = this.route.firstChild;
   }
 
   public navigate(): void {

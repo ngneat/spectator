@@ -1,4 +1,13 @@
-import { convertToParamMap, ActivatedRoute, ActivatedRouteSnapshot, Data, Params, ParamMap, UrlSegment } from '@angular/router';
+import {
+  convertToParamMap,
+  ActivatedRoute,
+  ActivatedRouteSnapshot,
+  Data,
+  Params,
+  ParamMap,
+  UrlSegment,
+  RouterStateSnapshot
+} from '@angular/router';
 import { Observable, ReplaySubject } from 'rxjs';
 import { map } from 'rxjs/operators';
 
@@ -15,6 +24,10 @@ export class ActivatedRouteStub extends ActivatedRoute {
   private testData: Data = {};
   private testFragment: string | null = null;
   private testUrl: UrlSegment[] = [];
+  private testRoot: ActivatedRouteStub | null = null;
+  private testParent: ActivatedRouteStub | null = null;
+  private testFirstChild: ActivatedRouteStub | null = null;
+  private testChildren: ActivatedRouteStub[] | null = null;
 
   private readonly paramsSubject = new ReplaySubject<Params>(1);
   private readonly queryParamsSubject = new ReplaySubject<Params>(1);
@@ -31,6 +44,10 @@ export class ActivatedRouteStub extends ActivatedRoute {
       this.testData = options.data || {};
       this.testFragment = options.fragment || null;
       this.testUrl = options.url || [];
+      this.testRoot = options.root || null;
+      this.testParent = options.parent || null;
+      this.testFirstChild = options.firstChild || null;
+      this.testChildren = options.children || null;
     }
 
     this.params = this.paramsSubject.asObservable();
@@ -90,12 +107,20 @@ export class ActivatedRouteStub extends ActivatedRoute {
     this.testUrl = url;
   }
 
-  public get children(): ActivatedRouteStub[] {
-    return [this];
+  public get root(): ActivatedRouteStub {
+    return this.testRoot || this;
   }
 
-  public get parent(): ActivatedRouteStub {
-    return this;
+  public get parent(): ActivatedRouteStub | null {
+    return this.testParent || null;
+  }
+
+  public get children(): ActivatedRouteStub[] {
+    return this.testChildren || [this];
+  }
+
+  public get firstChild(): ActivatedRouteStub | null {
+    return this.testFirstChild || null;
   }
 
   /**
