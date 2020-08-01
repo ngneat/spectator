@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="5.13.0"></a>
+# [5.13.0](https://github.com/ngneat/spectator/compare/v5.11.0...v5.13.0) (2020-08-01)
+
+
+### Features
+
+* **routing:** add support for ActivatedRoute url property ([#326](https://github.com/ngneat/spectator/issues/326)) ([d74e534](https://github.com/ngneat/spectator/commit/d74e534))
+* **routing:** add support for router tree state mocking ([#331](https://github.com/ngneat/spectator/issues/331)) ([dfd8317](https://github.com/ngneat/spectator/commit/dfd8317)), closes [#328](https://github.com/ngneat/spectator/issues/328)
+
+
+
 <a name="5.12.0"></a>
 # [5.12.0](https://github.com/ngneat/spectator/compare/v5.11.0...v5.12.0) (2020-07-12)
 
