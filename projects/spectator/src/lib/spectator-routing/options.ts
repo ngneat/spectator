@@ -22,7 +22,11 @@ const defaultRoutingOptions: OptionalsRequired<SpectatorRoutingOptions<any>> = {
   mockRouterLinks: true,
   stubsEnabled: true,
   routes: [],
-  url: []
+  url: [],
+  root: null,
+  parent: null,
+  children: null,
+  firstChild: null
 };
 
 /**

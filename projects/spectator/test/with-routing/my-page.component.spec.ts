@@ -1,5 +1,5 @@
 import { NavigationStart, Router, RouterLink, UrlSegment } from '@angular/router';
-import { createRoutingFactory } from '@ngneat/spectator';
+import { createRoutingFactory, ActivatedRouteStub } from '@ngneat/spectator';
 import { Component } from '@angular/core';
 import { Location } from '@angular/common';
 
@@ -23,7 +23,7 @@ describe('MyPageComponent', () => {
       data: { title: 'lorem', dynamicTitle: 'ipsum' },
       params: { foo: '1', bar: '2' },
       queryParams: { baz: '3' },
-      url: url
+      url
     });
 
     it('should create with default options', () => {
@@ -194,6 +194,55 @@ describe('MyPageComponent', () => {
 
       // tslint:disable-next-line:no-console
       expect(console.warn).toHaveBeenCalled();
+    });
+  });
+
+  describe('should support router state mocking', () => {
+    const createComponent = createRoutingFactory({
+      component: MyPageComponent,
+      root: new ActivatedRouteStub({
+        params: { root: '1' }
+      }),
+      parent: new ActivatedRouteStub({
+        params: { parent: '2' }
+      }),
+      children: [
+        new ActivatedRouteStub({
+          params: { child1: '3' }
+        }),
+        new ActivatedRouteStub({
+          params: { child2: '4' }
+        })
+      ],
+      firstChild: new ActivatedRouteStub({
+        params: { firstChild: '5' }
+      })
+    });
+
+    it('should support root mock', () => {
+      const spectator = createComponent();
+      spectator.component.root!.paramMap.subscribe(params => {
+        expect(params.get('root')).toEqual('1');
+      });
+    });
+
+    it('should support parent mock', () => {
+      const spectator = createComponent();
+      spectator.component.parent!.paramMap.subscribe(params => {
+        expect(params.get('parent')).toEqual('2');
+      });
+    });
+
+    it('should support children mocks', () => {
+      const spectator = createComponent();
+      expect(spectator.component.children!.length).toEqual(2);
+    });
+
+    it('should support firstChild mocks', () => {
+      const spectator = createComponent();
+      spectator.component.firstChild!.paramMap.subscribe(params => {
+        expect(params.get('firstChild')).toEqual('5');
+      });
     });
   });
 });
