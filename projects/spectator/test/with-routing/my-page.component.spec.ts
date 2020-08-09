@@ -4,6 +4,7 @@ import { Component, NgZone } from '@angular/core';
 import { Location } from '@angular/common';
 
 import { MyPageComponent } from './my-page.component';
+import { TestBed } from '@angular/core/testing';
 
 describe('MyPageComponent', () => {
   describe('simple use', () => {
@@ -165,7 +166,7 @@ describe('MyPageComponent', () => {
       await spectator.fixture.whenStable();
       expect(spectator.inject(Location).path()).toBe('/');
 
-      const ngZone = new NgZone({ enableLongStackTrace: false });
+      const ngZone = TestBed.get(NgZone);
       await ngZone.run(async () => {
         await spectator.router.navigate(['/foo']);
       });

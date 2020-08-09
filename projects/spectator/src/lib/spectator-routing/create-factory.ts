@@ -65,7 +65,7 @@ export function createRoutingFactory<C>(typeOrOptions: Type<C> | SpectatorRoutin
     TestBed.overrideProvider(ActivatedRoute, {
       useValue: new ActivatedRouteStub({ params, queryParams, data, fragment, url, root, parent, children, firstChild })
     });
-    const ngZone = new NgZone({ enableLongStackTrace: false });
+    const ngZone = TestBed.get(NgZone);
     return ngZone.run(() => {
       const spectator = createSpectatorRouting(options, props);
 
