@@ -1,4 +1,4 @@
-import { Provider, Type } from '@angular/core';
+import { Provider, Type, NgZone } from '@angular/core';
 import { async, TestBed } from '@angular/core/testing';
 import { ActivatedRoute, Router } from '@angular/router';
 
@@ -65,16 +65,18 @@ export function createRoutingFactory<C>(typeOrOptions: Type<C> | SpectatorRoutin
     TestBed.overrideProvider(ActivatedRoute, {
       useValue: new ActivatedRouteStub({ params, queryParams, data, fragment, url, root, parent, children, firstChild })
     });
+    const ngZone = TestBed.get(NgZone);
+    return ngZone.run(() => {
+      const spectator = createSpectatorRouting(options, props);
 
-    const spectator = createSpectatorRouting(options, props);
+      spectator.router.initialNavigation();
 
-    spectator.router.initialNavigation();
+      if (options.detectChanges && detectChanges) {
+        spectator.detectChanges();
+      }
 
-    if (options.detectChanges && detectChanges) {
-      spectator.detectChanges();
-    }
-
-    return spectator;
+      return spectator;
+    });
   };
 }
 

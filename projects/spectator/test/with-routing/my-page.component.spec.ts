@@ -1,9 +1,10 @@
 import { NavigationStart, Router, RouterLink, UrlSegment } from '@angular/router';
 import { createRoutingFactory, ActivatedRouteStub } from '@ngneat/spectator';
-import { Component } from '@angular/core';
+import { Component, NgZone } from '@angular/core';
 import { Location } from '@angular/common';
 
 import { MyPageComponent } from './my-page.component';
+import { TestBed } from '@angular/core/testing';
 
 describe('MyPageComponent', () => {
   describe('simple use', () => {
@@ -165,10 +166,15 @@ describe('MyPageComponent', () => {
       await spectator.fixture.whenStable();
       expect(spectator.inject(Location).path()).toBe('/');
 
-      await spectator.router.navigate(['/foo']);
+      const ngZone = TestBed.get(NgZone);
+      await ngZone.run(async () => {
+        await spectator.router.navigate(['/foo']);
+      });
       expect(spectator.inject(Location).path()).toBe('/foo');
 
-      await spectator.router.navigate(['/']);
+      await ngZone.run(async () => {
+        await spectator.router.navigate(['/']);
+      });
       expect(spectator.inject(Location).path()).toBe('/');
     });
 
