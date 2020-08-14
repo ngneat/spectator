@@ -14,10 +14,12 @@ If not provided, the default element will be the host element of the component u
 - `click()` - Triggers a click event:
 ```ts
 spectator.click(SpectatorElement);
+spectator.click(byText('Element'));
 ```
 - `blur()` - Triggers a blur event:
 ```ts
 spectator.blur(SpectatorElement);
+spectator.blur(byText('Element'));
 ```
 - `focus()` - Triggers a focus event:
 ```ts

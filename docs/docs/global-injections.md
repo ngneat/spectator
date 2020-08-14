@@ -13,3 +13,9 @@ defineGlobalsInjections({
   imports: [TranslocoModule],
 });
 ```
+
+Please be aware, that `defineGlobalsInjections()` must be called before the modules are loaded. In the default Angular `test.ts` this means before this line:
+
+```ts
+context.keys().map(context);
+```
