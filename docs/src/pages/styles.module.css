@@ -20,17 +20,60 @@
 .buttons {
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
+  margin: 54px 0;
+  margin-left: 0;
+  max-width: 460px;
+}
+@media screen and (max-width: 700px) {
+  .buttons {
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: flex-end;
+    width: 100%;
+    max-width: 100%;
+    margin: 32px 0;
+    padding-left: var(--home-intro-items-padding);
+  }
+}
+@media screen and (max-width: 400px) {
+  .buttons {
+    margin: 28px 0;
+  }
+}
+@media screen and (max-width: 362px) {
+  .buttons {
+    margin: 24px 0;
+  }
 }
 
-.features {
-  display: flex;
-  align-items: center;
-  padding: 2rem 0;
-  width: 100%;
+.getStarted {
+  margin-right: 50px;
+  padding: 16px 64px;
+  color: #62CEFF;
+  font-family: 'Roboto', sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  text-align: center;
+  border: solid 4px #62CEFF;
+  border-radius: 16px;
 }
-
-.featureImage {
-  height: 200px;
-  width: 200px;
+.getStarted:hover {
+  color: #fff;
+  text-decoration: none;
+  background: #62CEFF;
+}
+@media screen and (max-width: 700px) {
+  .getStarted {
+    width: 100%;
+    margin-right: 0;
+    padding: 14px 54px;
+    font-size: 16px;
+  }
+}
+@media screen and (max-width: 400px) {
+  .getStarted {
+    padding: 12px;
+    font-size: 15px;
+  }
 }

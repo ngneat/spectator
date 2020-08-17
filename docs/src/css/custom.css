@@ -5,6 +5,14 @@
  * work well for content-centric websites.
  */
 
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800;900&family=Roboto:wght@400;500;700&display=swap');
+
+@import 'navbar.css';
+@import 'footer.css';
+@import 'home-layout.css';
+@import 'home-intro.css';
+@import 'home-features.css';
+
 /* You can override the default Infima variables here. */
 :root {
   --ifm-color-primary: #00BCD4;

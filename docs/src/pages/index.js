@@ -7,66 +7,117 @@ import React from 'react';
 
 import styles from './styles.module.css';
 
-const features = [
+const featuresMain = [
   {
     title: <>Clean and Easy tests</>,
-    imageUrl: 'img/checkmark.svg'
+    imageUrl: 'img/icon/main-clean-tests.png'
   },
   {
     title: <>Easy DOM querying</>,
-    imageUrl: 'img/checkmark.svg'
+    imageUrl: 'img/icon/main-dom-query.png'
   },
   {
     title: <>Keyboard/mouse/touch events</>,
-    imageUrl: 'img/checkmark.svg'
-  },
-  {
-    title: <>Testing projection</>,
-    imageUrl: 'img/checkmark.svg'
-  },
-  {
-    title: <>Custom Matchers (toHaveClass, toBeDisabled..</>,
-    imageUrl: 'img/checkmark.svg'
-  },
-  {
-    title: <>Routing testing support</>,
-    imageUrl: 'img/checkmark.svg'
-  },
-  {
-    title: <>HTTP testing support</>,
-    imageUrl: 'img/checkmark.svg'
-  },
-  {
-    title: <>Built-in support for entry components</>,
-    imageUrl: 'img/checkmark.svg'
-  },
-  {
-    title: <>Auto-mocking providers</>,
-    imageUrl: 'img/checkmark.svg'
-  },
-
-  {
-    title: <>Strongly typed</>,
-    imageUrl: 'img/checkmark.svg'
-  },
-  {
-    title: <>Jest Support</>,
-    imageUrl: 'img/checkmark.svg'
+    imageUrl: 'img/icon/main-events.png'
   }
 ];
 
-function Feature({ imageUrl, title, description }) {
+const features = [
+  {
+    title: <>Testing projection</>,
+    imageUrl: 'img/icon/projector-solid.svg'
+  },
+  {
+    title: <>Custom Matchers (toHaveClass, toBeDisabled..)</>,
+    imageUrl: 'img/icon/eye-dropper-regular.svg',
+  },
+  {
+    title: <>Routing testing support</>,
+    imageUrl: 'img/icon/road-regular.svg'
+  },
+  {
+    title: <>HTTP testing support</>,
+    imageUrl: 'img/icon/ethernet-regular.svg'
+  },
+  {
+    title: <>Built-in support for entry components</>,
+    imageUrl: 'img/icon/door-open-solid.svg',
+  },
+  {
+    title: <>Auto-mocking providers</>,
+    imageUrl: 'img/icon/robot-regular.svg'
+  },
+  {
+    title: <>Strongly typed</>,
+    imageUrl: 'img/icon/code-solid.svg'
+  },
+  {
+    title: <>Jest Support</>,
+    imageUrl: 'img/icon/jest-regular.svg'
+  }
+];
+
+function IntroHeading({...siteConfig}) {
+  return (
+    <div className="intro-content">
+      <div className="intro-heading">
+        <h1 className="hero__title">{siteConfig.title}</h1>
+        <p className="hero__subtitle" dangerouslySetInnerHTML={{__html: siteConfig.tagline}}></p>
+        <div className={styles.buttons}>
+          <Link
+            className={classnames(styles.getStarted)}
+            to={useBaseUrl('docs/installation')}
+          >
+            Get Started
+          </Link>
+          <iframe src="https://ghbtns.com/github-btn.html?user=ngneat&repo=spectator&type=star&count=true&size=large"></iframe>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function IntroDescription() {
+  return (
+    <div className="intro-description">
+      <ul>
+        <li>
+          <img src={useBaseUrl('/img/icon/rabbit-fast-solid.svg')} />
+          <p>Spectator helps you get rid of all the boilerplate grunt work, leaving you with readable, sleek and streamlined unit tests.</p>
+        </li>
+        <li>
+          <img src={useBaseUrl('/img/icon/head-side-brain-regular.svg')} className="small" />
+          <p>Write tests for components, directives, services, and more, without having to learn TestBed, ComponentFixture, and DebugElement APIs.</p>
+        </li>
+      </ul>
+    </div>
+  );
+}
+
+function FeatureItem({ imageUrl, title }) {
   const imgUrl = useBaseUrl(imageUrl);
   return (
-    <div className={classnames('col col--4', styles.feature)}>
-      {imgUrl && (
-        <div className="text--center">
-          <img className={styles.featureImage} src={imgUrl} alt={title} />
-        </div>
-      )}
+    <div className="feature-item">
+      {imgUrl && ( <img src={imgUrl} alt={title} /> )}
       <h3>{title}</h3>
-      <p>{description}</p>
     </div>
+  );
+}
+
+function FeatureList({ features, theme }) {
+  const themeMain = theme && theme === 'main' ? theme : '';
+  return (
+    <>
+    {features && features.length && (
+      <section className={classnames('home-container features', themeMain)}>
+        <div className="home-row">
+          {features.map((props, idx) => (
+            <FeatureItem key={idx} {...props} />
+          ))}
+        </div>
+      </section>
+    )}
+    </>
   );
 }
 
@@ -74,39 +125,14 @@ function Home() {
   const context = useDocusaurusContext();
   const { siteConfig = {} } = context;
   return (
-    <Layout title={siteConfig.title} description="Transloco official documentation site">
-      <header className={classnames('hero hero--primary', styles.heroBanner)}>
-        <div className="container">
-          <h1 className="hero__title">{siteConfig.title}</h1>
-          <p className="hero__subtitle">{siteConfig.tagline}</p>
-          <div className={styles.buttons}>
-            <Link
-              className={classnames('button button--outline button--secondary button--lg', styles.getStarted)}
-              to={useBaseUrl('docs/installation')}
-            >
-              Get Started
-            </Link>
-            <iframe src="https://ghbtns.com/github-btn.html?user=ngneat&repo=spectator&type=star&count=true&size=large"></iframe>
-          </div>
-        </div>
+    <Layout title={siteConfig.title} description="Spectator official documentation site">
+      <header className="home-intro home-container">
+        <IntroHeading {...siteConfig} />
+        <IntroDescription />
       </header>
-      <div className="container description">
-        Spectator helps you get rid of all the boilerplate grunt work, leaving you with readable, sleek and streamlined unit tests. It
-        allows you to write tests for components, directives, services, and more, without having to learn TestBed, ComponentFixture, and
-        DebugElement APIs..
-      </div>
       <main>
-        {features && features.length && (
-          <section className={styles.features}>
-            <div className="container">
-              <div className="row">
-                {features.map((props, idx) => (
-                  <Feature key={idx} {...props} />
-                ))}
-              </div>
-            </div>
-          </section>
-        )}
+        <FeatureList {...{features: featuresMain, theme: 'main'}} />
+        <FeatureList {...{features}} />
       </main>
     </Layout>
   );
