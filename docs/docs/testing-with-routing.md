@@ -114,6 +114,11 @@ The `createRoutesFactory` function can take the following options, on top of the
 * `params`: initial params to use in `ActivatedRoute` stub
 * `queryParams`: initial query params to use in `ActivatedRoute` stub
 * `data`: initial data to use in `ActivatedRoute` stub
+* `url`: initial URL segments to use in `ActivatedRoute` stub
+* `root`: the value for `root` for the `ActivatedRoute` stub
+* `parent`: the value for `parent` for the `ActivatedRoute` stub
+* `children`: the value for `children` for the `ActivatedRoute` stub
+* `firstChild`: the value for `firstChild` for the `ActivatedRoute` stub
 * `fragment`: initial fragment to use in `ActivatedRoute` stub
 * `stubsEnabled` (default: `true`): enables the `ActivatedRoute` stub, if set to `false` it uses `RouterTestingModule` instead
 * `routes`: if `stubsEnabled` is set to false, you can pass a `Routes` configuration for `RouterTestingModule`
