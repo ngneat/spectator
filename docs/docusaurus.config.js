@@ -1,6 +1,6 @@
 module.exports = {
   title: 'Spectator',
-  tagline: '🦊 🚀 A Powerful Tool to Simplify Your Angular Tests',
+  tagline: 'A Powerful Tool to <strong>Simplify</strong> Your <strong>Angular Tests</strong> 🦊 🚀',
   url: 'https://github.com/ngneat',
   baseUrl: '/spectator/',
   favicon: 'img/favicon.ico',

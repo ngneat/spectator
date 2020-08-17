@@ -1,0 +1,10 @@
+.home-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.home-row {
+  width: 1000px;
+  max-width: 1000px;
+}

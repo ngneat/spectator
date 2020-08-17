@@ -1,0 +1,17 @@
+.navbar .navbar__link,
+.navbar .navbar__brand {
+  color: #49BCED;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+.navbar .navbar__item:hover,
+.navbar .navbar__brand:hover {
+  color: #79d7ff;
+}
+
+.navbar__link.navbar__item.navbar__link--active {
+  color: #fff;
+  font-weight: 900;
+}

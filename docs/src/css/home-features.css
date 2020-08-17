@@ -1,0 +1,114 @@
+.features {
+  padding: 80px 0;
+  background: #F6F6F6;
+}
+[data-theme='dark'] .features {
+  background-color: #1b1b1d;
+}
+
+.features.main {
+  padding: 64px 0;
+  background:#fff;
+}
+[data-theme='dark'] .features.main {
+  background-color: #282c35;
+}
+
+.features .home-row {
+  --cell-width: 276px;
+  display: grid;
+  grid-template-columns: repeat(3, var(--cell-width));
+  gap: 46px;
+  align-items: start;
+  width: auto;
+}
+.features.main .home-row {
+  --cell-width: 1fr;
+  width: var(--ifm-container-width);
+  gap: 0;
+}
+
+@media screen and (max-width: 1024px) {
+  .features:not(.main) .home-row {
+    grid-template-columns: repeat(2, var(--cell-width));
+  }
+}
+@media screen and (max-width: 700px) {
+  .features:not(.main) .home-row,
+  .features .home-row {
+    grid-template-columns: repeat(1, var(--cell-width));
+  }
+}
+@media screen and (max-width: 362px) {
+  .features:not(.main) .home-row,
+  .features .home-row {
+    --cell-width: 240px;
+  }
+}
+
+.feature-item {
+  display: flex;
+  align-items: flex-start;
+  color: #002D3D;
+}
+[data-theme='dark'] .feature-item {
+  color: #fff;
+}
+
+.features.main .feature-item {
+  flex-direction: column;
+  align-items:center;
+}
+
+
+.feature-item h3 {
+  font-family: 'Roboto', sans-serif;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.features.main .feature-item h3 {
+  max-width: 275px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 18px;
+  font-weight: 800;
+  text-align: center;
+}
+@media screen and (max-width: 1024px) {
+  .features.main .feature-item h3 {
+    max-width: 224px;
+    font-size: 16px;
+  }
+}
+@media screen and (max-width:700px) {
+  .features.main .feature-item h3 {
+    margin-bottom: 30px;
+  }
+}
+@media screen and (max-width: 370px) {
+  .features:not(.main) .feature-item h3 {
+    font-size: 14px;
+  }
+}
+
+.features .feature-item img {
+  width: 28px;
+  height: auto;
+  margin-top: -2px;
+  margin-right: 30px;
+}
+.features.main .feature-item img {
+  width: 124px;
+  margin: 0;
+  margin-bottom: 30px;
+  transform: translateX(10px);
+}
+[data-theme='dark'] .features:not(.main) .feature-item img {
+  filter: brightness(100) saturate(0);
+  opacity: 0.4;
+}
+@media screen and (max-width: 370px) {
+  .features:not(.main) .feature-item img {
+    margin-right:22px;
+  }
+}
