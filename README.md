@@ -942,8 +942,8 @@ export class TodosDataService {
 
   collectTodos() {
     return merge(
-      this.http.get('/api1/todos'),
-      this.http.get('/api2/todos')
+      this.httpClient.get('/api1/todos'),
+      this.httpClient.get('/api2/todos')
     );
   }
 }
