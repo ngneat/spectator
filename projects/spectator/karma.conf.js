@@ -31,6 +31,6 @@ module.exports = function(config) {
     autoWatch: true,
     browsers: [build ? 'ChromeHeadless' : 'Chrome'],
     singleRun: build,
-    restartOnFileChange: true,
+    restartOnFileChange: true
   });
 };
