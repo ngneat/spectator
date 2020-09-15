@@ -26,7 +26,7 @@ module.exports = {
           position: 'right'
         },
         {
-          href: 'https://github.com/ngneat/specatator/',
+          href: 'https://github.com/ngneat/spectator/',
           label: 'GitHub',
           position: 'right'
         }
