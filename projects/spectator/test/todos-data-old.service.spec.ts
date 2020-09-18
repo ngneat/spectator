@@ -33,8 +33,8 @@ describe('HttpClient testing', () => {
   });
 
   it('should work with external service', fakeAsync(() => {
-    const { dataService, expectOne, get } = http();
-    get<SpyObject<UserService>>(UserService).getUser.andCallFake(() => {
+    const { dataService, expectOne, inject } = http();
+    inject<UserService>(UserService).getUser.andCallFake(() => {
       return defer(() => Promise.resolve({}));
     });
 

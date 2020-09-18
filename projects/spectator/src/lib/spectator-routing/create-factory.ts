@@ -87,5 +87,5 @@ function createSpectatorRouting<C>(options: Required<SpectatorRoutingOptions<C>>
 
   const component = setProps(fixture.componentInstance, props);
 
-  return new SpectatorRouting(fixture, debugElement, component, TestBed.inject(Router), TestBed.inject(ActivatedRouteStub));
+  return new SpectatorRouting(fixture, debugElement, component, TestBed.inject(Router), <ActivatedRouteStub>TestBed.inject(ActivatedRoute));
 }

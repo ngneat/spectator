@@ -63,7 +63,7 @@ describe('AuthService', () => {
   beforeEach(() => spectator = createService());
 
   it('should be logged in', () => {
-    const dateService = spectator.get(DateService);
+    const dateService = spectator.inject(DateService);
     dateService.isExpired.and.returnValue(false);
 
     expect(spectator.service.isLoggedIn()).toBeTruthy();

@@ -26,7 +26,6 @@ export function createHTTPFactory<S>(
       expectOne: spectator.expectOne.bind(spectator),
       expectConcurrent: spectator.expectConcurrent.bind(spectator),
       flushAll: spectator.flushAll,
-      get: spectator.get.bind(spectator),
       inject: spectator.inject.bind(spectator)
     };
   };

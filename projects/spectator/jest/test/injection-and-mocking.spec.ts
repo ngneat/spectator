@@ -31,33 +31,33 @@ describe('Injection tokens', () => {
     beforeEach(() => (spectator = createComponent()));
 
     it('should get by concrete class', () => {
-      const service = spectator.get(QueryService);
+      const service = spectator.inject(QueryService);
       service.selectName(); // should compile
 
       expect(service).toBeInstanceOf(QueryService);
-      spectator.get(WidgetService).get.mockClear(); // should compile and exist
+      spectator.inject(WidgetService).get.mockClear(); // should compile and exist
     });
 
     it('should get by abstract class as token', () => {
-      const service = spectator.get(AbstractQueryService);
+      const service = spectator.inject(AbstractQueryService);
       service.select(); // should compile
 
-      const service2 = spectator.get<QueryService>(AbstractQueryService);
+      const service2 = spectator.inject<QueryService>(AbstractQueryService);
       service2.selectName(); // should compile
 
       expect(service).toBeInstanceOf(QueryService);
-      spectator.get(WidgetService).get.mockClear(); // should compile and exist
+      spectator.inject(WidgetService).get.mockClear(); // should compile and exist
     });
 
     it('should get by injection token', () => {
-      const service = spectator.get(MY_TOKEN);
+      const service = spectator.inject(MY_TOKEN);
       service.select(); // should compile
 
-      const service2 = spectator.get<QueryService>(MY_TOKEN);
+      const service2 = spectator.inject<QueryService>(MY_TOKEN);
       service2.selectName(); // should compile
 
       expect(service).toBeInstanceOf(QueryService);
-      spectator.get(WidgetService).get.mockClear(); // should compile and exist
+      spectator.inject(WidgetService).get.mockClear(); // should compile and exist
     });
   });
 
@@ -131,33 +131,33 @@ describe('Injection tokens', () => {
     });
 
     it('should get by concrete class', () => {
-      const service = spectator.get(QueryService);
+      const service = spectator.inject(QueryService);
       service.selectName(); // should compile
 
       expect(service).toBeInstanceOf(QueryService);
-      spectator.get(WidgetService).get.mockClear(); // should compile and exist
+      spectator.inject(WidgetService).get.mockClear(); // should compile and exist
     });
 
     it('should get by abstract class as token', () => {
-      const service = spectator.get(AbstractQueryService);
+      const service = spectator.inject(AbstractQueryService);
       service.select(); // should compile
 
-      const service2 = spectator.get<QueryService>(AbstractQueryService);
+      const service2 = spectator.inject<QueryService>(AbstractQueryService);
       service2.selectName(); // should compile
 
       expect(service).toBeInstanceOf(QueryService);
-      spectator.get(WidgetService).get.mockClear(); // should compile and exist
+      spectator.inject(WidgetService).get.mockClear(); // should compile and exist
     });
 
     it('should get by injection token', () => {
-      const service = spectator.get(MY_TOKEN);
+      const service = spectator.inject(MY_TOKEN);
       service.select(); // should compile
 
-      const service2 = spectator.get<QueryService>(MY_TOKEN);
+      const service2 = spectator.inject<QueryService>(MY_TOKEN);
       service2.selectName(); // should compile
 
       expect(service).toBeInstanceOf(QueryService);
-      spectator.get(WidgetService).get.mockClear(); // should compile and exist
+      spectator.inject(WidgetService).get.mockClear(); // should compile and exist
     });
   });
 });

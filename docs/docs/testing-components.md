@@ -80,10 +80,10 @@ And the following methods:
 Provides a wrapper for `TestBed.get()`:
 
 ```ts
-const service = spectator.get(QueryService);
+const service = spectator.inject(QueryService);
 
 const fromComponentInjector = true;
-const service = spectator.get(QueryService, fromComponentInjector);
+const service = spectator.inject(QueryService, fromComponentInjector);
 ```
 
 ### `inject()`
@@ -187,7 +187,7 @@ const createComponent = createComponentFactory({
 To access the provider, get it from the component injector using the `fromComponentInjector` parameter:
 
 ```ts
-spectator.get(FooService, true)
+spectator.inject(FooService, true)
 ```
 
 In the same way you can also override the component view providers by using the `componentViewProviders` and `componentViewProvidersMocks`.

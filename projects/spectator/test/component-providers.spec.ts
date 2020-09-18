@@ -169,7 +169,7 @@ describe('SomeComponent', () => {
         detectChanges: false
       });
 
-      spectator.get(SomeViewService, true).getFoo.andReturn('mocked-view-foo');
+      spectator.inject(SomeViewService, true).getFoo.andReturn('mocked-view-foo');
       spectator.detectChanges();
 
       expect(spectator.component.viewFoo).toBe('mocked-view-foo');
@@ -234,7 +234,7 @@ describe('SomeComponent', () => {
         detectChanges: false
       });
 
-      spectator.get(SomeService, true).getFoo.andReturn('mocked-foo');
+      spectator.inject(SomeService, true).getFoo.andReturn('mocked-foo');
       spectator.detectChanges();
 
       expect(spectator.component.foo).toBe('mocked-foo');
@@ -245,7 +245,7 @@ describe('SomeComponent', () => {
         detectChanges: false
       });
 
-      spectator.get(SomeViewService, true).getFoo.andReturn('mocked-view-foo');
+      spectator.inject(SomeViewService, true).getFoo.andReturn('mocked-view-foo');
       spectator.detectChanges();
 
       expect(spectator.component.viewFoo).toBe('mocked-view-foo');
@@ -267,7 +267,7 @@ describe('SomeComponent', () => {
     it('should not use the global service mock', () => {
       const spectator = createComponent();
 
-      expect(spectator.get(SomeService).getFoo).not.toHaveBeenCalled();
+      expect(spectator.inject(SomeService).getFoo).not.toHaveBeenCalled();
     });
 
     it('should not use the global view service mock', () => {
