@@ -37,7 +37,7 @@ describe('HttpClient testing', () => {
 
   it('should work with external service', fakeAsync(() => {
     const spectatorHttp = http();
-    spectatorHttp.get(UserService).getUser.mockImplementation(() => {
+    spectatorHttp.inject(UserService).getUser.mockImplementation(() => {
       return defer(() => Promise.resolve({}));
     });
 

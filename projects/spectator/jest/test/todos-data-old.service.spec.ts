@@ -1,12 +1,15 @@
 import { fakeAsync, tick } from '@angular/core/testing';
 import { defer } from 'rxjs';
 import { HTTPMethod } from '@ngneat/spectator';
-import { createHTTPFactory, mockProvider, SpyObject } from '@ngneat/spectator/jest';
+import { createHttpFactory, createHTTPFactory, mockProvider, SpyObject } from '@ngneat/spectator/jest';
 
 import { TodosDataService, UserService } from '../../test/todos-data.service';
 
 describe('HttpClient testing', () => {
-  const http = createHTTPFactory(TodosDataService, [mockProvider(UserService)]);
+  const http = createHttpFactory({
+    dataService: TodosDataService,
+    mocks: [UserService]
+  });
 
   it('can test HttpClient.get', () => {
     const { dataService, expectOne } = http();
@@ -34,8 +37,8 @@ describe('HttpClient testing', () => {
   });
 
   it('should work with external service', fakeAsync(() => {
-    const { dataService, expectOne, get } = http();
-    get<SpyObject<UserService>>(UserService).getUser.mockImplementation(() => {
+    const { dataService, expectOne, inject } = http();
+    inject<UserService>(UserService).getUser.mockImplementation(() => {
       return defer(() => Promise.resolve({}));
     });
 

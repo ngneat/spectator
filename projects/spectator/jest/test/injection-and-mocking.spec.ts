@@ -83,33 +83,33 @@ describe('Injection tokens', () => {
     beforeEach(() => (host = createHost('<zippy></zippy>')));
 
     it('should get by concrete class', () => {
-      const service = host.get(QueryService);
+      const service = host.inject(QueryService);
       service.selectName(); // should compile
 
       expect(service).toBeInstanceOf(QueryService);
-      host.get(WidgetService).get.mockClear(); // should compile and exist
+      host.inject(WidgetService).get.mockClear(); // should compile and exist
     });
 
     it('should get by abstract class as token', () => {
-      const service = host.get(AbstractQueryService);
+      const service = host.inject(AbstractQueryService);
       service.select(); // should compile
 
-      const service2 = host.get<QueryService>(AbstractQueryService);
+      const service2 = host.inject<QueryService>(AbstractQueryService);
       service2.selectName(); // should compile
 
       expect(service).toBeInstanceOf(QueryService);
-      host.get(WidgetService).get.mockClear(); // should compile and exist
+      host.inject(WidgetService).get.mockClear(); // should compile and exist
     });
 
     it('should get by injection token', () => {
-      const service = host.get(MY_TOKEN);
+      const service = host.inject(MY_TOKEN);
       service.select(); // should compile
 
-      const service2 = host.get<QueryService>(MY_TOKEN);
+      const service2 = host.inject<QueryService>(MY_TOKEN);
       service2.selectName(); // should compile
 
       expect(service).toBeInstanceOf(QueryService);
-      host.get(WidgetService).get.mockClear(); // should compile and exist
+      host.inject(WidgetService).get.mockClear(); // should compile and exist
     });
   });
 
