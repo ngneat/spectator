@@ -56,8 +56,6 @@
     "no-unbound-method": false,
     "no-unnecessary-callback-wrapper": false,
     "no-unsafe-any": false,
-    "no-unused-variable": false,
-    "no-use-before-declare": false,
     "no-void-expression": false,
     "object-literal-key-quotes": [
       true,
