@@ -65,7 +65,8 @@ export function createRoutingFactory<C>(typeOrOptions: Type<C> | SpectatorRoutin
     TestBed.overrideProvider(ActivatedRoute, {
       useValue: new ActivatedRouteStub({ params, queryParams, data, fragment, url, root, parent, children, firstChild })
     });
-    const ngZone = TestBed.get(NgZone);
+    const ngZone = TestBed.inject(NgZone);
+
     return ngZone.run(() => {
       const spectator = createSpectatorRouting(options, props);
 
@@ -86,5 +87,5 @@ function createSpectatorRouting<C>(options: Required<SpectatorRoutingOptions<C>>
 
   const component = setProps(fixture.componentInstance, props);
 
-  return new SpectatorRouting(fixture, debugElement, component, TestBed.get(Router), TestBed.get(ActivatedRoute));
+  return new SpectatorRouting(fixture, debugElement, component, TestBed.inject(Router), TestBed.inject(ActivatedRouteStub));
 }

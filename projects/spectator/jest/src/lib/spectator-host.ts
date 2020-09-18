@@ -20,15 +20,6 @@ export type SpectatorWithHost<C, H = HostComponent> = SpectatorHost<C, H>;
  * @publicApi
  */
 export class SpectatorHost<C, H = HostComponent> extends BaseSpectatorHost<C, H> {
-  /**
-   * @deprecated Deprecated in favour of inject(). Will be removed once TestBed.get is discontinued.
-   * @param type Token
-   * @param fromComponentInjector
-   */
-  public get<T>(type: Token<T> | Token<any>, fromComponentInjector: boolean = false): SpyObject<T> {
-    return super.get(type, fromComponentInjector) as SpyObject<T>;
-  }
-
   public inject<T>(token: Token<T>, fromComponentInjector: boolean = false): SpyObject<T> {
     return super.inject(token, fromComponentInjector) as SpyObject<T>;
   }

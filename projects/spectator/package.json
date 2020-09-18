@@ -25,7 +25,8 @@
   "dependencies": {
     "@testing-library/dom": "6.1.0",
     "jquery": "3.5.0",
-    "replace-in-file": "^4.1.3"
+    "replace-in-file": "^4.1.3",
+    "tslib": "^2.0.0"
   },
   "peerDependencies": {
     "@angular/common": ">= 8.0.0",

@@ -26,14 +26,6 @@ export abstract class DomSpectator<I> extends BaseSpectator {
     super();
   }
 
-  /**
-   * @deprecated Deprecated in favour of inject(). Will be removed once TestBed.get is discontinued.
-   * @param type Token
-   */
-  public get<T>(type: Token<T> | Token<any>): SpyObject<T> {
-    return super.get(type);
-  }
-
   public inject<T>(token: Token<T>): SpyObject<T> {
     return super.inject(token);
   }

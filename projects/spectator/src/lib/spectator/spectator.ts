@@ -17,18 +17,6 @@ export class Spectator<C> extends DomSpectator<C> {
     return this.instance;
   }
 
-  /**
-   * @deprecated Deprecated in favour of inject(). Will be removed once TestBed.get is discontinued.
-   * @param type Token
-   */
-  public get<T>(type: Token<T> | Token<any>, fromComponentInjector: boolean = false): SpyObject<T> {
-    if (fromComponentInjector) {
-      return this.debugElement.injector.get(type) as SpyObject<T>;
-    }
-
-    return super.get(type);
-  }
-
   public inject<T>(token: Token<T>, fromComponentInjector: boolean = false): SpyObject<T> {
     if (fromComponentInjector) {
       return this.debugElement.injector.get(token) as SpyObject<T>;

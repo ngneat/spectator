@@ -35,9 +35,7 @@ export function createServiceFactory<S>(typeOrOptions: Type<S> | SpectatorServic
   });
 
   afterEach(() => {
-    const testedService = (<any>TestBed).inject
-      ? (<{ inject<T>(token: Type<T>, notFoundValue?: T): T } & TestBedStatic>TestBed).inject<S>(service)
-      : TestBed.get(service);
+    const testedService = (<{ inject<T>(token: Type<T>, notFoundValue?: T): T } & TestBedStatic>TestBed).inject<S>(service);
 
     if (doesServiceImplementsOnDestroy(testedService)) {
       // tslint:disable-next-line:no-life-cycle-call
@@ -55,6 +53,6 @@ export function createServiceFactory<S>(typeOrOptions: Type<S> | SpectatorServic
       });
     }
 
-    return new SpectatorService<S>(TestBed.get(service));
+    return new SpectatorService<S>(TestBed.inject(service));
   };
 }

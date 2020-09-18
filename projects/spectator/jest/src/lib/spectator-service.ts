@@ -15,11 +15,6 @@ import { mockProvider, SpyObject } from './mock';
  * @publicApi
  */
 export interface SpectatorService<S> extends BaseSpectatorService<S> {
-  /**
-   * @deprecated Deprecated in favour of inject(). Will be removed once TestBed.get is discontinued.
-   * @param type Token
-   */
-  get<T>(token: Token<T> | Token<any>): SpyObject<T>;
   inject<T>(token: Type<T> | InjectionToken<T> | AbstractType<T>): SpyObject<T>;
 }
 
