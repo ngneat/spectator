@@ -13,6 +13,7 @@ import { initialRoutingModule } from './initial-module';
 import { getRoutingDefaultOptions, SpectatorRoutingOptions } from './options';
 import { RouteOptions } from './route-options';
 import { SpectatorRouting } from './spectator-routing';
+import { SpyObject } from '../mock';
 
 /**
  * @publicApi
@@ -65,7 +66,7 @@ export function createRoutingFactory<C>(typeOrOptions: Type<C> | SpectatorRoutin
     TestBed.overrideProvider(ActivatedRoute, {
       useValue: new ActivatedRouteStub({ params, queryParams, data, fragment, url, root, parent, children, firstChild })
     });
-    const ngZone = TestBed.inject(NgZone);
+    const ngZone = (<any>TestBed).inject ? TestBed.inject(NgZone) : TestBed.get(NgZone);
 
     return ngZone.run(() => {
       const spectator = createSpectatorRouting(options, props);
@@ -87,5 +88,18 @@ function createSpectatorRouting<C>(options: Required<SpectatorRoutingOptions<C>>
 
   const component = setProps(fixture.componentInstance, props);
 
-  return new SpectatorRouting(fixture, debugElement, component, TestBed.inject(Router), <ActivatedRouteStub>TestBed.inject(ActivatedRoute));
+  /**
+   * Back compatibility, angular under 8 version doesnt have a inject function
+   */
+  if (!TestBed.inject) {
+    return new SpectatorRouting(fixture, debugElement, component, TestBed.get(Router), TestBed.get(ActivatedRoute));
+  }
+
+  return new SpectatorRouting(
+    fixture,
+    debugElement,
+    component,
+    TestBed.inject(Router),
+    TestBed.inject(ActivatedRoute) as SpyObject<ActivatedRouteStub>
+  );
 }
