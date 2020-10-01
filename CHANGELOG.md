@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="5.13.4"></a>
+## [5.13.4](https://github.com/ngneat/spectator/compare/v5.13.3...v5.13.4) (2020-10-01)
+
+
+### Bug Fixes
+
+* **component-host:** setting for wrong variable ([#352](https://github.com/ngneat/spectator/issues/352)) ([975c1d2](https://github.com/ngneat/spectator/commit/975c1d2))
+
+
+
 <a name="5.13.3"></a>
 ## [5.13.3](https://github.com/ngneat/spectator/compare/v5.13.2...v5.13.3) (2020-09-04)
 
