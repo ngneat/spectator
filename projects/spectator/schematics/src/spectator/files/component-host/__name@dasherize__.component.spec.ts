@@ -21,7 +21,7 @@ describe('<%= classify(name)%>Component', () => {
   it('should...', () => {
     spectator = createHost(`<zippy title="Zippy title"></zippy>`);
     spectator.click('.zippy__title');
-    expect(host.query('.zippy__content')).toExist();
+    expect(spectator.query('.zippy__content')).toExist();
     spectator.click('.zippy__title');
     expect('.zippy__content').not.toExist();
   });
