@@ -24,7 +24,7 @@ describe('AuthService', () => {
 
 The `createService()` function returns `SpectatorService` with the following properties:
 - `service` - Get an instance of the service
-- `get()` - A proxy for Angular `TestBed.get()`
+- `inject()` - A proxy for Angular `TestBed.inject()`
 
 ### Additional Options
 

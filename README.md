@@ -148,13 +148,7 @@ The `createComponent()` method returns an instance of `Spectator` which exposes 
 - `component` - The tested component's instance
 - `element` - The tested component's native element
 - `debugElement` - The tested fixture's debug element
-- `get()` - Provides a wrapper for `TestBed.get()`:
-```ts
-const service = spectator.get(QueryService);
 
-const fromComponentInjector = true;
-const service = spectator.get(QueryService, fromComponentInjector);
-```
 - `inject()` - Provides a wrapper for `TestBed.inject()`:
 ```ts
 const service = spectator.inject(QueryService);
@@ -599,7 +593,7 @@ describe('Routing integration test', () => {
     await spectator.fixture.whenStable();
 
     // test the current route by asserting the location
-    expect(spectator.get(Location).path()).toBe('/');
+    expect(spectator.inject(Location).path()).toBe('/');
 
     // click on a router link
     spectator.click('.link-1');
@@ -608,7 +602,7 @@ describe('Routing integration test', () => {
     await spectator.fixture.whenStable();
 
     // test the new route by asserting the location
-    expect(spectator.get(Location).path()).toBe('/foo');
+    expect(spectator.inject(Location).path()).toBe('/foo');
   });
 });
 ```
@@ -703,7 +697,7 @@ describe('AuthService', () => {
 
 The `createService()` function returns `SpectatorService` with the following properties:
 - `service` - Get an instance of the service
-- `get()` - A proxy for Angular `TestBed.get()`
+- `inject()` - A proxy for Angular `TestBed.inject()`
 
 ### Additional Options
 
@@ -742,7 +736,7 @@ describe('AuthService', () => {
   beforeEach(() => spectator = createService());
 
   it('should be logged in', () => {
-    const dateService = spectator.get(DateService);
+    const dateService = spectator.inject(DateService);
     dateService.isExpired.and.returnValue(false);
 
     expect(spectator.service.isLoggedIn()).toBeTruthy();
@@ -902,13 +896,13 @@ describe('AuthService', () => {
   beforeEach(() => spectator = createService());
 
   it('should not be logged in', () => {
-    const dateService = spectator.get<DateService>(DateService);
+    const dateService = spectator.inject<DateService>(DateService);
     dateService.isExpired.mockReturnValue(true);
     expect(spectator.service.isLoggedIn()).toBeFalsy();
   });
 
   it('should be logged in', () => {
-    const dateService = spectator.get<DateService>(DateService);
+    const dateService = spectator.inject<DateService>(DateService);
     dateService.isExpired.mockReturnValue(false);
     expect(spectator.service.isLoggedIn()).toBeTruthy();
   });
@@ -987,7 +981,7 @@ We need to create an HTTP factory by using the `createHttpFactory()` function, p
 - `controller` - A proxy for Angular `HttpTestingController`
 - `httpClient` - A proxy for Angular `HttpClient`
 - `service` - The service instance
-- `get()` - A proxy for Angular `TestBed.get()`
+- `inject()` - A proxy for Angular `TestBed.inject()`
 - `expectOne()` - Expect that a single request was made which matches the given URL and it's method, and return its mock request
 
 
@@ -1053,7 +1047,7 @@ const createComponent = createComponentFactory({
 To access the provider, get it from the component injector using the `fromComponentInjector` parameter:
 
 ```ts
-spectator.get(FooService, true)
+spectator.inject(FooService, true)
 ```
 
 In the same way you can also override the component view providers by using the `componentViewProviders` and `componentViewProvidersMocks`.
