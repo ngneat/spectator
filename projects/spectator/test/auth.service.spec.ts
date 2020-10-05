@@ -1,15 +1,18 @@
-import { createService } from '@ngneat/spectator';
+import { createServiceFactory, SpectatorService } from '@ngneat/spectator';
 
 import { AuthService } from './auth.service';
 import { DateService } from './date.service';
 import { DynamicComponent } from './dynamic/dynamic.component';
 
 describe('AuthService', () => {
-  const spectator = createService({
+  let spectator: SpectatorService<AuthService>;
+  const createService = createServiceFactory({
     service: AuthService,
     entryComponents: [DynamicComponent],
     mocks: [DateService]
   });
+
+  beforeEach(() => (spectator = createService()));
 
   it('should not be logged in', () => {
     const dateService = spectator.inject(DateService);

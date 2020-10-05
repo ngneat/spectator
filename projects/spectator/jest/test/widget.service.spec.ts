@@ -1,13 +1,16 @@
-import { createService } from '@ngneat/spectator/jest';
+import { createServiceFactory, SpectatorService } from '@ngneat/spectator/jest';
 
 import { WidgetDataService } from '../../test/widget-data.service';
 import { WidgetService } from '../../test/widget.service';
 
 describe('WidgetService', () => {
-  const spectator = createService({
+  let spectator: SpectatorService<WidgetService>;
+  const createService = createServiceFactory({
     service: WidgetService,
     mocks: [WidgetDataService]
   });
+
+  beforeEach(() => (spectator = createService()));
 
   it('should be defined', () => {
     expect(spectator.service).toBeDefined();

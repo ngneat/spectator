@@ -1,11 +1,4 @@
-import {
-  createHostFactory,
-  createService,
-  createServiceFactory,
-  createComponentFactory,
-  Spectator,
-  SpectatorService
-} from '@ngneat/spectator';
+import { createHostFactory, createServiceFactory, createComponentFactory, Spectator, SpectatorService } from '@ngneat/spectator';
 import { InjectionToken, AbstractType } from '@angular/core';
 
 import { ConsumerService } from './consumer.service';
@@ -121,7 +114,8 @@ describe('Injection tokens', () => {
   });
 
   describe('with Service using get', () => {
-    const spectator = createService({
+    let spectator: SpectatorService<ConsumerService>;
+    const createService = createServiceFactory({
       service: ConsumerService,
       mocks: [WidgetService],
       providers: [
@@ -136,6 +130,8 @@ describe('Injection tokens', () => {
         }
       ]
     });
+
+    beforeEach(() => (spectator = createService()));
 
     it('should get by concrete class', () => {
       const service = spectator.inject(QueryService);
@@ -273,7 +269,8 @@ describe('Injection tokens', () => {
   });
 
   describe('with Service using inject', () => {
-    const spectator = createService({
+    let spectator: SpectatorService<ConsumerService>;
+    const createService = createServiceFactory({
       service: ConsumerService,
       mocks: [WidgetService],
       providers: [
@@ -288,6 +285,8 @@ describe('Injection tokens', () => {
         }
       ]
     });
+
+    beforeEach(() => (spectator = createService()));
 
     it('should get by concrete class', () => {
       const service = spectator.inject(QueryService);

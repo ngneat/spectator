@@ -23,7 +23,6 @@ export { initialSpectatorDirectiveModule } from './lib/spectator-directive/initi
 export { SpectatorService } from './lib/spectator-service/spectator-service';
 export { SpectatorServiceOptions } from './lib/spectator-service/options';
 export { SpectatorServiceFactory, createServiceFactory, SpectatorServiceOverrides } from './lib/spectator-service/create-factory';
-export { createService } from './lib/spectator-service/create-service';
 
 export { SpectatorRouting } from './lib/spectator-routing/spectator-routing';
 export { SpectatorRoutingOptions } from './lib/spectator-routing/options';

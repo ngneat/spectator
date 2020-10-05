@@ -1,4 +1,4 @@
-import { createService, mockProvider } from '@ngneat/spectator/jest';
+import { createServiceFactory, mockProvider, SpectatorService } from '@ngneat/spectator/jest';
 import { Subject } from 'rxjs';
 
 import { ConsumerService } from '../../test/consumer.service';
@@ -6,7 +6,9 @@ import { ProviderService } from '../../test/provider.service';
 
 describe('ConsumerService', () => {
   const randomNumber = Math.random();
-  const spectator = createService({
+
+  let spectator: SpectatorService<ConsumerService>;
+  const createService = createServiceFactory({
     service: ConsumerService,
     providers: [
       mockProvider(ProviderService, {
@@ -15,6 +17,8 @@ describe('ConsumerService', () => {
       })
     ]
   });
+
+  beforeEach(() => (spectator = createService()));
 
   it('should consume mocked service with properties', () => {
     const provider = spectator.inject(ProviderService);
