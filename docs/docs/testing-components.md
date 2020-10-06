@@ -76,16 +76,6 @@ The `createComponent()` method returns an instance of `Spectator` which exposes 
 
 And the following methods:
 
-### `get()`
-Provides a wrapper for `TestBed.get()`:
-
-```ts
-const service = spectator.inject(QueryService);
-
-const fromComponentInjector = true;
-const service = spectator.inject(QueryService, fromComponentInjector);
-```
-
 ### `inject()`
 Provides a wrapper for Ivy's `TestBed.inject()`:
 

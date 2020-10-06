@@ -65,5 +65,5 @@ We need to create an HTTP factory by using the `createHttpFactory()` function, p
 - `controller` - A proxy for Angular `HttpTestingController`
 - `httpClient` - A proxy for Angular `HttpClient`
 - `service` - The service instance
-- `get()` - A proxy for Angular `TestBed.get()`
+- `inject()` - A proxy for Angular `TestBed.inject()`
 - `expectOne()` - Expect that a single request was made which matches the given URL and it's method, and return its mock request
