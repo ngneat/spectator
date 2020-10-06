@@ -1,10 +1,10 @@
-import { createHostFactory, SpectatorWithHost } from '@ngneat/spectator';
+import { createHostFactory, SpectatorHost } from '@ngneat/spectator';
 import { fakeAsync, tick } from '@angular/core/testing';
 
 import { AsyncInputComponent } from './async-input.component';
 
 describe('ZippyComponent', () => {
-  let host: SpectatorWithHost<AsyncInputComponent>;
+  let host: SpectatorHost<AsyncInputComponent>;
 
   const createHost = createHostFactory(AsyncInputComponent);
 

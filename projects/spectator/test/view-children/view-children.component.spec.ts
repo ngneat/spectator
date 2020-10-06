@@ -1,5 +1,5 @@
 import { ElementRef } from '@angular/core';
-import { createHostFactory, createComponentFactory, Spectator, SpectatorWithHost } from '@ngneat/spectator';
+import { createHostFactory, createComponentFactory, Spectator, SpectatorHost } from '@ngneat/spectator';
 
 import { ChildServiceService } from '../child-service.service';
 import { ChildComponent } from '../child/child.component';
@@ -48,7 +48,7 @@ describe('ViewChildrenComponent', () => {
 });
 
 describe('ContentChild', () => {
-  let host: SpectatorWithHost<ViewChildrenComponent>;
+  let host: SpectatorHost<ViewChildrenComponent>;
 
   const createHost = createHostFactory({
     component: ViewChildrenComponent,

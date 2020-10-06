@@ -20,7 +20,7 @@ describe('HttpClient testing', () => {
   it('can test HttpClient.post', () => {
     const spectatorHttp = http();
 
-    spectatorHttp.dataService.post(1).subscribe();
+    spectatorHttp.service.post(1).subscribe();
 
     const req = spectatorHttp.expectOne('url', HttpMethod.POST);
     expect(req.request.body.id).toEqual(1);
@@ -29,7 +29,7 @@ describe('HttpClient testing', () => {
   it('should test two requests', () => {
     const spectatorHttp = http();
 
-    spectatorHttp.dataService.twoRequests().subscribe();
+    spectatorHttp.service.twoRequests().subscribe();
     const req = spectatorHttp.expectOne('one', HttpMethod.POST);
     req.flush({});
     spectatorHttp.expectOne('two', HttpMethod.GET);
@@ -40,7 +40,10 @@ describe('HttpClient testing', () => {
 
     spectatorHttp.service.concurrentRequests().subscribe();
     const reqs = spectatorHttp.expectConcurrent(['one', 'two', 'three'].map(url => ({ url, method: HttpMethod.POST })));
-    spectatorHttp.flushAll(reqs, Array.from({ length: 3 }, _ => ({})));
+    spectatorHttp.flushAll(
+      reqs,
+      Array.from({ length: 3 }, _ => ({}))
+    );
   });
 
   it('should work with external service', fakeAsync(() => {
@@ -49,7 +52,7 @@ describe('HttpClient testing', () => {
       return defer(() => Promise.resolve({}));
     });
 
-    spectatorHttp.dataService.requestWithExternalService().subscribe();
+    spectatorHttp.service.requestWithExternalService().subscribe();
     tick();
 
     spectatorHttp.expectOne('two', HttpMethod.GET);

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { createHostFactory, createDirectiveFactory, SpectatorDirective, SpectatorWithHost } from '@ngneat/spectator';
+import { createHostFactory, createDirectiveFactory, SpectatorDirective, SpectatorHost } from '@ngneat/spectator';
 
 import { AutoFocusDirective } from './auto-focus.directive';
 
@@ -9,7 +9,7 @@ class CustomHostComponent {
 }
 
 describe('DatoAutoFocusDirective', () => {
-  let host: SpectatorWithHost<AutoFocusDirective, CustomHostComponent>;
+  let host: SpectatorHost<AutoFocusDirective, CustomHostComponent>;
 
   const createHost = createHostFactory({
     component: AutoFocusDirective,

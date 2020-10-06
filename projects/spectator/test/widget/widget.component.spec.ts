@@ -1,11 +1,11 @@
-import { createHostFactory, SpectatorWithHost, SpyObject } from '@ngneat/spectator';
+import { createHostFactory, SpectatorHost, SpyObject } from '@ngneat/spectator';
 
 import { WidgetService } from '../widget.service';
 
 import { WidgetComponent } from './widget.component';
 
 describe('WidgetComponent', () => {
-  let host: SpectatorWithHost<WidgetComponent>;
+  let host: SpectatorHost<WidgetComponent>;
 
   const createHost = createHostFactory({
     component: WidgetComponent,

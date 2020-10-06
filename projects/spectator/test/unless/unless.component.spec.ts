@@ -1,9 +1,9 @@
-import { createHostFactory, SpectatorWithHost } from '@ngneat/spectator';
+import { createHostFactory, SpectatorHost } from '@ngneat/spectator';
 
 import { AppUnlessDirective } from './unless.component';
 
 describe('HelloComponent', () => {
-  let host: SpectatorWithHost<AppUnlessDirective>;
+  let host: SpectatorHost<AppUnlessDirective>;
 
   const createHost = createHostFactory(AppUnlessDirective);
 

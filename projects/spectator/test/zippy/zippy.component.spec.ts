@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { fakeAsync } from '@angular/core/testing';
-import { createHostFactory, SpectatorWithHost, byText } from '@ngneat/spectator';
+import { createHostFactory, SpectatorHost, byText } from '@ngneat/spectator';
 
 import { QueryService } from '../query.service';
 import { CalcComponent } from '../calc/calc.component';
@@ -8,7 +8,7 @@ import { CalcComponent } from '../calc/calc.component';
 import { ZippyComponent } from './zippy.component';
 
 describe('ZippyComponent', () => {
-  let host: SpectatorWithHost<ZippyComponent>;
+  let host: SpectatorHost<ZippyComponent>;
 
   const createHost = createHostFactory({
     component: ZippyComponent,
@@ -157,7 +157,7 @@ describe('ZippyComponent', () => {
 });
 
 describe('ZippyComponent with default template', () => {
-  let host: SpectatorWithHost<ZippyComponent>;
+  let host: SpectatorHost<ZippyComponent>;
 
   const createHost = createHostFactory({
     component: ZippyComponent,
@@ -182,7 +182,7 @@ class CustomHostComponent {
 }
 
 describe('With Custom Host Component', () => {
-  let host: SpectatorWithHost<ZippyComponent, CustomHostComponent>;
+  let host: SpectatorHost<ZippyComponent, CustomHostComponent>;
 
   const createHost = createHostFactory({
     component: ZippyComponent,

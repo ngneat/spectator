@@ -61,7 +61,7 @@ describe('Injection tokens', () => {
     });
   });
 
-  describe('with SpectatorWithHost using get', () => {
+  describe('with SpectatorHost using get', () => {
     const createHost = createHostFactory({
       component: ZippyComponent,
       mocks: [WidgetService],
@@ -216,7 +216,7 @@ describe('Injection tokens', () => {
     });
   });
 
-  describe('with SpectatorWithHost using inject', () => {
+  describe('with SpectatorHost using inject', () => {
     const createHost = createHostFactory({
       component: ZippyComponent,
       mocks: [WidgetService],

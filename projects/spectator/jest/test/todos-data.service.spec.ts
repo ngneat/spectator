@@ -6,21 +6,21 @@ import { TodosDataService, UserService } from '../../test/todos-data.service';
 
 describe('HttpClient testing', () => {
   const http = createHttpFactory({
-    dataService: TodosDataService,
+    service: TodosDataService,
     mocks: [UserService]
   });
 
   it('can test HttpClient.get', () => {
     const spectatorHttp = http();
 
-    spectatorHttp.dataService.get().subscribe();
+    spectatorHttp.service.get().subscribe();
     spectatorHttp.expectOne('url', HttpMethod.GET);
   });
 
   it('can test HttpClient.post', () => {
     const spectatorHttp = http();
 
-    spectatorHttp.dataService.post(1).subscribe();
+    spectatorHttp.service.post(1).subscribe();
 
     const req = spectatorHttp.expectOne('url', HttpMethod.POST);
     expect(req.request.body.id).toEqual(1);
@@ -29,7 +29,7 @@ describe('HttpClient testing', () => {
   it('should test two requests', () => {
     const spectatorHttp = http();
 
-    spectatorHttp.dataService.twoRequests().subscribe();
+    spectatorHttp.service.twoRequests().subscribe();
     const req = spectatorHttp.expectOne('one', HttpMethod.POST);
     req.flush({});
     spectatorHttp.expectOne('two', HttpMethod.GET);
@@ -41,7 +41,7 @@ describe('HttpClient testing', () => {
       return defer(() => Promise.resolve({}));
     });
 
-    spectatorHttp.dataService.requestWithExternalService().subscribe();
+    spectatorHttp.service.requestWithExternalService().subscribe();
     tick();
 
     spectatorHttp.expectOne('two', HttpMethod.GET);

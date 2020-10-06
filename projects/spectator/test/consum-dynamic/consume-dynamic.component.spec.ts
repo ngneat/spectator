@@ -1,11 +1,11 @@
-import { createHostFactory, SpectatorWithHost } from '@ngneat/spectator';
+import { createHostFactory, SpectatorHost } from '@ngneat/spectator';
 
 import { DynamicComponent } from '../dynamic/dynamic.component';
 
 import { ConsumeDynamicComponent } from './consume-dynamic.component';
 
 describe('ConsumeDynamicComponent', () => {
-  let host: SpectatorWithHost<ConsumeDynamicComponent>;
+  let host: SpectatorHost<ConsumeDynamicComponent>;
 
   const createHost = createHostFactory({
     declarations: [DynamicComponent],
