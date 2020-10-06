@@ -31,7 +31,7 @@
     "tslib": "^2.0.0"
   },
   "devDependencies": {
-    "@angular-builders/jest": "^8.0.4",
+    "@angular-builders/jest": "^10.0.1",
     "@angular-devkit/build-angular": "~0.1001.2",
     "@angular-devkit/build-ng-packagr": "~0.1001.4",
     "@angular-devkit/schematics": "^10.1.2",
@@ -50,7 +50,7 @@
     "@commitlint/config-angular": "8.1.0",
     "@commitlint/config-conventional": "8.1.0",
     "@types/jasmine": "~3.5.3",
-    "@types/jest": "^24.0.15",
+    "@types/jest": "^26.0.14",
     "@types/node": "^12.11.1",
     "all-contributors-cli": "^4.11.1",
     "codelyzer": "^5.1.2",
@@ -63,7 +63,7 @@
     "husky": "^0.14.3",
     "jasmine-core": "~3.5.0",
     "jasmine-spec-reporter": "~5.0.0",
-    "jest": "^24.8.0",
+    "jest": "^26.5.2",
     "karma": "~5.0.0",
     "karma-chrome-launcher": "~3.1.0",
     "karma-coverage-istanbul-reporter": "~3.0.2",
