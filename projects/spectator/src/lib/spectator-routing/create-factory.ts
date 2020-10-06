@@ -89,7 +89,7 @@ function createSpectatorRouting<C>(options: Required<SpectatorRoutingOptions<C>>
   const component = setProps(fixture.componentInstance, props);
 
   /**
-   * Back compatibility, angular under 8 version doesnt have a inject function
+   * Back compatibility, angular under 9 version doesnt have a inject function
    */
   if (!TestBed.inject) {
     return new SpectatorRouting(fixture, debugElement, component, TestBed.get(Router), TestBed.get(ActivatedRoute));

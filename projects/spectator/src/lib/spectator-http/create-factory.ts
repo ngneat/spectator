@@ -54,7 +54,7 @@ export function createHttpFactory<S>(typeOrOptions: Type<S> | SpectatorHttpOptio
     }
 
     /**
-     * Back compatibility, angular under 8 version doesnt have a inject function
+     * Back compatibility, angular under 9 version doesnt have a inject function
      */
     if (!TestBed.inject) {
       return new SpectatorHttp<S>(TestBed.get(service), TestBed.get(HttpClient), TestBed.get(HttpTestingController));
