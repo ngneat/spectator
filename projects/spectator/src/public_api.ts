@@ -1,17 +1,12 @@
 /// <reference path="./lib/matchers-types.ts" />
 export { Spectator } from './lib/spectator/spectator';
 export { SpectatorOptions } from './lib/spectator/options';
-export { createTestComponentFactory, createComponentFactory, SpectatorFactory, SpectatorOverrides } from './lib/spectator/create-factory';
+export { createComponentFactory, SpectatorFactory, SpectatorOverrides } from './lib/spectator/create-factory';
 export { initialSpectatorModule } from './lib/spectator/initial-module';
 
-export { SpectatorWithHost, SpectatorHost } from './lib/spectator-host/spectator-host';
+export { SpectatorHost } from './lib/spectator-host/spectator-host';
 export { SpectatorHostOptions } from './lib/spectator-host/options';
-export {
-  createHostComponentFactory,
-  createHostFactory,
-  SpectatorHostFactory,
-  SpectatorHostOverrides
-} from './lib/spectator-host/create-factory';
+export { createHostFactory, SpectatorHostFactory, SpectatorHostOverrides } from './lib/spectator-host/create-factory';
 export { initialSpectatorWithHostModule } from './lib/spectator-host/initial-module';
 export { HostComponent, HostModule } from './lib/spectator-host/host-component';
 
@@ -39,7 +34,6 @@ export { createPipeFactory, SpectatorPipeFactory, SpectatorPipeOverrides } from 
 export { initialSpectatorPipeModule } from './lib/spectator-pipe/initial-module';
 
 export * from './lib/dom-selectors';
-export { createHTTPFactory, SpectatorHTTP, HTTPMethod } from './lib/http';
 export * from './lib/matchers';
 export * from './lib/mock';
 export * from './lib/token';
