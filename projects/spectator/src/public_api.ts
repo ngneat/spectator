@@ -1,4 +1,4 @@
-/// <reference path="./lib/matchers-types.d.ts" />
+/// <reference path="./lib/matchers-types.ts" />
 export { Spectator } from './lib/spectator/spectator';
 export { SpectatorOptions } from './lib/spectator/options';
 export { createTestComponentFactory, createComponentFactory, SpectatorFactory, SpectatorOverrides } from './lib/spectator/create-factory';

@@ -1,5 +1,5 @@
 /// <reference types="jest" />
-/// <reference path="./lib/matchers-types.d.ts" />
+/// <reference path="./lib/matchers-types.ts" />
 export * from './lib/dom-selectors';
 export * from './lib/http';
 export * from './lib/mock';

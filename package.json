@@ -33,7 +33,7 @@
   "devDependencies": {
     "@angular-builders/jest": "^8.0.4",
     "@angular-devkit/build-angular": "~0.1001.2",
-    "@angular-devkit/build-ng-packagr": "~0.901.12",
+    "@angular-devkit/build-ng-packagr": "~0.1001.4",
     "@angular-devkit/schematics": "^10.1.2",
     "@angular/animations": "~10.1.2",
     "@angular/cli": "~10.1.2",
@@ -70,7 +70,7 @@
     "karma-jasmine": "~4.0.0",
     "karma-jasmine-html-reporter": "^1.5.0",
     "lint-staged": "^7.0.2",
-    "ng-packagr": "^9.1.5",
+    "ng-packagr": "^10.1.2",
     "prettier": "^1.11.1",
     "rxjs": "~6.5.4",
     "standard-version": "^4.4.0",
