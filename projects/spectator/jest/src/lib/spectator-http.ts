@@ -34,6 +34,6 @@ export type SpectatorHttpFactory<S> = (overrides?: CreateHttpOverrides<S>) => Sp
 export function createHttpFactory<S>(typeOrOptions: SpectatorHttpOptions<S> | Type<S>): SpectatorHttpFactory<S> {
   return baseCreateHttpFactory({
     mockProvider,
-    ...(isType(typeOrOptions) ? { dataService: typeOrOptions } : typeOrOptions)
+    ...(isType(typeOrOptions) ? { service: typeOrOptions } : typeOrOptions)
   }) as SpectatorHttpFactory<S>;
 }

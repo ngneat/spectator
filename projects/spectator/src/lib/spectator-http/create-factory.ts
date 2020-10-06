@@ -7,7 +7,7 @@ import { BaseSpectatorOverrides } from '../base/options';
 import { isType } from '../types';
 
 import { initialHttpModule } from './initial-module';
-import { getDefaultHttpOptions, isDeprecated, SpectatorHttpOptions } from './options';
+import { getDefaultHttpOptions, SpectatorHttpOptions } from './options';
 import { SpectatorHttp } from './spectator-http';
 import { overrideModules } from '../spectator/create-factory';
 
@@ -26,7 +26,7 @@ export interface CreateHttpOverrides<S> extends BaseSpectatorOverrides {}
  * @publicApi
  */
 export function createHttpFactory<S>(typeOrOptions: Type<S> | SpectatorHttpOptions<S>): SpectatorHttpFactory<S> {
-  const service = isType(typeOrOptions) ? typeOrOptions : isDeprecated(typeOrOptions) ? typeOrOptions.dataService : typeOrOptions.service;
+  const service = isType(typeOrOptions) ? typeOrOptions : typeOrOptions.service;
   const options = isType(typeOrOptions) ? getDefaultHttpOptions<S>({ service }) : getDefaultHttpOptions(typeOrOptions);
   const moduleMetadata = initialHttpModule(options);
 
