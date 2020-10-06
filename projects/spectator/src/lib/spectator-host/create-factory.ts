@@ -39,15 +39,6 @@ export interface SpectatorHostOverrides<C, H, HP> extends SpectatorOverrides<C> 
 }
 
 /**
- * @deprecated Use createHostFactory instead. To be removed in v5.
- */
-export function createHostComponentFactory<C, H = HostComponent>(
-  typeOrOptions: Type<C> | SpectatorHostOptions<C, H>
-): SpectatorHostFactory<C, H> {
-  return createHostFactory<C, H>(typeOrOptions);
-}
-
-/**
  * @publicApi
  */
 export function createHostFactory<C, H = HostComponent>(
