@@ -9,7 +9,7 @@ import { isString, QueryOptions, QueryType, SpectatorElement, EventEmitterType, 
 import { SpyObject } from '../mock';
 import { getChildren, setProps } from '../internals/query';
 import { patchElementFocus } from '../internals/element-focus';
-import { createMouseEvent } from '../internals/event-objects';
+import { createMouseEvent } from '../event-creators';
 import { dispatchFakeEvent, dispatchKeyboardEvent, dispatchMouseEvent, dispatchTouchEvent } from '../dispatch-events';
 import { typeInElement } from '../type-in-element';
 import { selectOption } from '../select-option';

@@ -36,6 +36,7 @@ Spectator helps you get rid of all the boilerplate grunt work, leaving you with 
 - [Testing Components](#testing-components)
   - [Events API](#events-api)
     - [Custom Events](#custom-events)
+    - [Event Creators](#event-creators)
   - [Keyboard helpers](#keyboard-helpers)
   - [Mouse helpers](#mouse-helpers)
   - [Queries](#queries)
@@ -225,7 +226,7 @@ spectator.typeInElement(value, byText('Element'));
 spectator.dispatchMouseEvent(SpectatorElement, 'mouseout');
 spectator.dispatchMouseEvent(SpectatorElement, 'mouseout'), x, y, event);
 spectator.dispatchMouseEvent(byText('Element'), 'mouseout');
-spectator.dispatchMouseEvent(byText('Element'), 'mouseout'), x, y, event);
+spectator.dispatchMouseEvent(byText('Element'), 'mouseout', x, y, event);
 ```
 - `dispatchKeyboardEvent()` - Triggers a keyboard event:
 ```ts
@@ -246,6 +247,17 @@ You can trigger custom events (@Output() of child components) [using](https://gi
 ```ts
 spectator.triggerEventHandler(MyChildComponent, 'myCustomEvent', 'eventValue');
 spectator.triggerEventHandler('app-child-component', 'myCustomEvent', 'eventValue');
+```
+
+#### Event Creators
+
+In case you want to test events independently of any template (e.g. in presenter services) you can fallback on the underlying event creators.
+They are basically providing the same signature without the preceding element.
+```ts
+const keyboardEvent = createKeyboardEvent('keyup', 'ArrowDown'/*, targetElement */);
+const mouseEvent = createMouseEvent('mouseout');
+const touchEvent = createTouchEvent('touchmove');
+const fakeEvent = createFakeEvent('input');
 ```
 
 ### Keyboard helpers
