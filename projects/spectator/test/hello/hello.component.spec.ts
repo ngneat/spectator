@@ -1,9 +1,9 @@
-import { createHostFactory, SpectatorWithHost } from '@ngneat/spectator';
+import { createHostFactory, SpectatorHost } from '@ngneat/spectator';
 
 import { HelloComponent } from './hello.component';
 
 describe('HelloComponent', () => {
-  let host: SpectatorWithHost<HelloComponent>;
+  let host: SpectatorHost<HelloComponent>;
 
   const createHost = createHostFactory(HelloComponent);
 

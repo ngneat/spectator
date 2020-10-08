@@ -1,9 +1,9 @@
-import { createHostFactory, SpectatorWithHost } from '@ngneat/spectator';
+import { createHostFactory, SpectatorHost } from '@ngneat/spectator';
 
 import { HighlightDirective } from './highlight.directive';
 
 describe('HighlightDirective', () => {
-  let host: SpectatorWithHost<HighlightDirective>;
+  let host: SpectatorHost<HighlightDirective>;
 
   const createHost = createHostFactory(HighlightDirective);
 

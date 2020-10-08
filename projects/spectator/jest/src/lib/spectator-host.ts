@@ -12,23 +12,9 @@ import {
 import { mockProvider, SpyObject } from './mock';
 
 /**
- * @deprecated Use SpectatorHost instead. To be removed in v5.
- */
-export type SpectatorWithHost<C, H = HostComponent> = SpectatorHost<C, H>;
-
-/**
  * @publicApi
  */
 export class SpectatorHost<C, H = HostComponent> extends BaseSpectatorHost<C, H> {
-  /**
-   * @deprecated Deprecated in favour of inject(). Will be removed once TestBed.get is discontinued.
-   * @param type Token
-   * @param fromComponentInjector
-   */
-  public get<T>(type: Token<T> | Token<any>, fromComponentInjector: boolean = false): SpyObject<T> {
-    return super.get(type, fromComponentInjector) as SpyObject<T>;
-  }
-
   public inject<T>(token: Token<T>, fromComponentInjector: boolean = false): SpyObject<T> {
     return super.inject(token, fromComponentInjector) as SpyObject<T>;
   }
@@ -49,15 +35,6 @@ export type PresetSpectatorHostFactory<C, H> = <HP>(
   template?: string,
   overrides?: SpectatorHostOverrides<C, H, HP>
 ) => SpectatorHost<C, H & (HostComponent extends H ? HP : unknown)>;
-
-/**
- * @deprecated Use createHostFactory instead. To be removed in v5.
- */
-export function createHostComponentFactory<C, H = HostComponent>(
-  typeOrOptions: Type<C> | SpectatorHostOptions<C, H>
-): SpectatorHostFactory<C, H> {
-  return createHostFactory<C, H>(typeOrOptions);
-}
 
 /**
  * @publicApi

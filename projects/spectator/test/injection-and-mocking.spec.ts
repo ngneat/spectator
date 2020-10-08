@@ -1,4 +1,4 @@
-import { createHostFactory, createService, createComponentFactory, Spectator } from '@ngneat/spectator';
+import { createHostFactory, createServiceFactory, createComponentFactory, Spectator, SpectatorService } from '@ngneat/spectator';
 import { InjectionToken, AbstractType } from '@angular/core';
 
 import { ConsumerService } from './consumer.service';
@@ -31,37 +31,37 @@ describe('Injection tokens', () => {
     beforeEach(() => (spectator = createComponent()));
 
     it('should get by concrete class', () => {
-      const service = spectator.get(QueryService);
+      const service = spectator.inject(QueryService);
       service.selectName(); // should compile
 
       expect(service instanceof QueryService).toBe(true);
-      spectator.get(WidgetService).get.reset(); // should compile and exist
+      spectator.inject(WidgetService).get.reset(); // should compile and exist
     });
 
     it('should get by abstract class as token', () => {
-      const service = spectator.get(AbstractQueryService);
+      const service = spectator.inject(AbstractQueryService);
       service.select(); // should compile
 
-      const service2 = spectator.get<QueryService>(AbstractQueryService);
+      const service2 = spectator.inject<QueryService>(AbstractQueryService);
       service2.selectName(); // should compile
 
       expect(service instanceof QueryService).toBe(true);
-      spectator.get(WidgetService).get.reset(); // should compile and exist
+      spectator.inject(WidgetService).get.reset(); // should compile and exist
     });
 
     it('should get by injection token', () => {
-      const service = spectator.get(MY_TOKEN);
+      const service = spectator.inject(MY_TOKEN);
       service.select(); // should compile
 
-      const service2 = spectator.get<QueryService>(MY_TOKEN);
+      const service2 = spectator.inject<QueryService>(MY_TOKEN);
       service2.selectName(); // should compile
 
       expect(service instanceof QueryService).toBe(true);
-      spectator.get(WidgetService).get.reset(); // should compile and exist
+      spectator.inject(WidgetService).get.reset(); // should compile and exist
     });
   });
 
-  describe('with SpectatorWithHost using get', () => {
+  describe('with SpectatorHost using get', () => {
     const createHost = createHostFactory({
       component: ZippyComponent,
       mocks: [WidgetService],
@@ -83,38 +83,39 @@ describe('Injection tokens', () => {
     beforeEach(() => (host = createHost('<zippy></zippy>')));
 
     it('should get by concrete class', () => {
-      const service = host.get(QueryService);
+      const service = host.inject(QueryService);
       service.selectName(); // should compile
 
       expect(service instanceof QueryService).toBe(true);
-      host.get(WidgetService).get.reset(); // should compile and exist
+      host.inject(WidgetService).get.reset(); // should compile and exist
     });
 
     it('should get by abstract class as token', () => {
-      const service = host.get(AbstractQueryService);
+      const service = host.inject(AbstractQueryService);
       service.select(); // should compile
 
-      const service2 = host.get<QueryService>(AbstractQueryService);
+      const service2 = host.inject<QueryService>(AbstractQueryService);
       service2.selectName(); // should compile
 
       expect(service instanceof QueryService).toBe(true);
-      host.get(WidgetService).get.reset(); // should compile and exist
+      host.inject(WidgetService).get.reset(); // should compile and exist
     });
 
     it('should get by injection token', () => {
-      const service = host.get(MY_TOKEN);
+      const service = host.inject(MY_TOKEN);
       service.select(); // should compile
 
-      const service2 = host.get<QueryService>(MY_TOKEN);
+      const service2 = host.inject<QueryService>(MY_TOKEN);
       service2.selectName(); // should compile
 
       expect(service instanceof QueryService).toBe(true);
-      host.get(WidgetService).get.reset(); // should compile and exist
+      host.inject(WidgetService).get.reset(); // should compile and exist
     });
   });
 
   describe('with Service using get', () => {
-    const spectator = createService({
+    let spectator: SpectatorService<ConsumerService>;
+    const createService = createServiceFactory({
       service: ConsumerService,
       mocks: [WidgetService],
       providers: [
@@ -130,34 +131,36 @@ describe('Injection tokens', () => {
       ]
     });
 
+    beforeEach(() => (spectator = createService()));
+
     it('should get by concrete class', () => {
-      const service = spectator.get(QueryService);
+      const service = spectator.inject(QueryService);
       service.selectName(); // should compile
 
       expect(service instanceof QueryService).toBe(true);
-      spectator.get(WidgetService).get.reset(); // should compile and exist
+      spectator.inject(WidgetService).get.reset(); // should compile and exist
     });
 
     it('should get by abstract class as token', () => {
-      const service = spectator.get(AbstractQueryService);
+      const service = spectator.inject(AbstractQueryService);
       service.select(); // should compile
 
-      const service2 = spectator.get<QueryService>(AbstractQueryService);
+      const service2 = spectator.inject<QueryService>(AbstractQueryService);
       service2.selectName(); // should compile
 
       expect(service instanceof QueryService).toBe(true);
-      spectator.get(WidgetService).get.reset(); // should compile and exist
+      spectator.inject(WidgetService).get.reset(); // should compile and exist
     });
 
     it('should get by injection token', () => {
-      const service = spectator.get(MY_TOKEN);
+      const service = spectator.inject(MY_TOKEN);
       service.select(); // should compile
 
-      const service2 = spectator.get<QueryService>(MY_TOKEN);
+      const service2 = spectator.inject<QueryService>(MY_TOKEN);
       service2.selectName(); // should compile
 
       expect(service instanceof QueryService).toBe(true);
-      spectator.get(WidgetService).get.reset(); // should compile and exist
+      spectator.inject(WidgetService).get.reset(); // should compile and exist
     });
   });
 
@@ -213,7 +216,7 @@ describe('Injection tokens', () => {
     });
   });
 
-  describe('with SpectatorWithHost using inject', () => {
+  describe('with SpectatorHost using inject', () => {
     const createHost = createHostFactory({
       component: ZippyComponent,
       mocks: [WidgetService],
@@ -266,7 +269,8 @@ describe('Injection tokens', () => {
   });
 
   describe('with Service using inject', () => {
-    const spectator = createService({
+    let spectator: SpectatorService<ConsumerService>;
+    const createService = createServiceFactory({
       service: ConsumerService,
       mocks: [WidgetService],
       providers: [
@@ -281,6 +285,8 @@ describe('Injection tokens', () => {
         }
       ]
     });
+
+    beforeEach(() => (spectator = createService()));
 
     it('should get by concrete class', () => {
       const service = spectator.inject(QueryService);

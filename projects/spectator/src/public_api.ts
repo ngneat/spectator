@@ -1,17 +1,12 @@
-/// <reference path="./lib/matchers-types.d.ts" />
+/// <reference path="./lib/matchers-types.ts" />
 export { Spectator } from './lib/spectator/spectator';
 export { SpectatorOptions } from './lib/spectator/options';
-export { createTestComponentFactory, createComponentFactory, SpectatorFactory, SpectatorOverrides } from './lib/spectator/create-factory';
+export { createComponentFactory, SpectatorFactory, SpectatorOverrides } from './lib/spectator/create-factory';
 export { initialSpectatorModule } from './lib/spectator/initial-module';
 
-export { SpectatorWithHost, SpectatorHost } from './lib/spectator-host/spectator-host';
+export { SpectatorHost } from './lib/spectator-host/spectator-host';
 export { SpectatorHostOptions } from './lib/spectator-host/options';
-export {
-  createHostComponentFactory,
-  createHostFactory,
-  SpectatorHostFactory,
-  SpectatorHostOverrides
-} from './lib/spectator-host/create-factory';
+export { createHostFactory, SpectatorHostFactory, SpectatorHostOverrides } from './lib/spectator-host/create-factory';
 export { initialSpectatorWithHostModule } from './lib/spectator-host/initial-module';
 export { HostComponent, HostModule } from './lib/spectator-host/host-component';
 
@@ -23,7 +18,6 @@ export { initialSpectatorDirectiveModule } from './lib/spectator-directive/initi
 export { SpectatorService } from './lib/spectator-service/spectator-service';
 export { SpectatorServiceOptions } from './lib/spectator-service/options';
 export { SpectatorServiceFactory, createServiceFactory, SpectatorServiceOverrides } from './lib/spectator-service/create-factory';
-export { createService } from './lib/spectator-service/create-service';
 
 export { SpectatorRouting } from './lib/spectator-routing/spectator-routing';
 export { SpectatorRoutingOptions } from './lib/spectator-routing/options';
@@ -40,7 +34,6 @@ export { createPipeFactory, SpectatorPipeFactory, SpectatorPipeOverrides } from 
 export { initialSpectatorPipeModule } from './lib/spectator-pipe/initial-module';
 
 export * from './lib/dom-selectors';
-export { createHTTPFactory, SpectatorHTTP, HTTPMethod } from './lib/http';
 export * from './lib/matchers';
 export * from './lib/mock';
 export * from './lib/token';

@@ -9,6 +9,6 @@
   "files": [],
   "include": [
     "test/**/*.spec.ts",
-    "../src/lib/matchers-types.d.ts"
+    "../src/lib/matchers-types.ts"
   ]
 }

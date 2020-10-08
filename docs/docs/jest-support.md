@@ -23,13 +23,13 @@ describe('AuthService', () => {
   beforeEach(() => spectator = createService());
 
   it('should not be logged in', () => {
-    const dateService = spectator.get<DateService>(DateService);
+    const dateService = spectator.inject<DateService>(DateService);
     dateService.isExpired.mockReturnValue(true);
     expect(spectator.service.isLoggedIn()).toBeFalsy();
   });
 
   it('should be logged in', () => {
-    const dateService = spectator.get<DateService>(DateService);
+    const dateService = spectator.inject<DateService>(DateService);
     dateService.isExpired.mockReturnValue(false);
     expect(spectator.service.isLoggedIn()).toBeTruthy();
   });

@@ -44,7 +44,7 @@ describe('ButtonComponent', () => {
     spectator = createComponent({
       detectChanges: false
     });
-    spectator.get(QueryService, true).selectName.mockReturnValue(of('Netanel'));
+    spectator.inject(QueryService, true).selectName.mockReturnValue(of('Netanel'));
     spectator.detectChanges();
     expect(spectator.query('p')).toHaveText('Netanel');
   });

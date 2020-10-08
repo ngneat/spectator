@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.spectatorPipeSchematic = exports.spectatorDirectiveSchematic = exports.spectatorServiceSchematic = exports.spectatorComponentSchematic = void 0;
 const core_1 = require("@angular-devkit/core");
 const schematics_1 = require("@angular-devkit/schematics");
 const config_1 = require("@schematics/angular/utility/config");

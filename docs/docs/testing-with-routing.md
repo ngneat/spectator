@@ -92,7 +92,7 @@ describe('Routing integration test', () => {
     await spectator.fixture.whenStable();
 
     // test the current route by asserting the location
-    expect(spectator.get(Location).path()).toBe('/');
+    expect(spectator.inject(Location).path()).toBe('/');
 
     // click on a router link
     spectator.click('.link-1');
@@ -101,7 +101,7 @@ describe('Routing integration test', () => {
     await spectator.fixture.whenStable();
 
     // test the new route by asserting the location
-    expect(spectator.get(Location).path()).toBe('/foo');
+    expect(spectator.inject(Location).path()).toBe('/foo');
   });
 });
 ```

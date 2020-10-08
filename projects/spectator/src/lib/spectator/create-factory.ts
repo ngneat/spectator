@@ -64,13 +64,6 @@ export function overrideModules(options: Required<BaseSpectatorOptions>): void {
 }
 
 /**
- * @deprecated Use createComponentFactory instead. To be removed in v5.
- */
-export function createTestComponentFactory<C>(typeOrOptions: SpectatorOptions<C> | Type<C>): SpectatorFactory<C> {
-  return createComponentFactory<C>(typeOrOptions);
-}
-
-/**
  * @publicApi
  */
 export function createComponentFactory<C>(typeOrOptions: Type<C> | SpectatorOptions<C>): SpectatorFactory<C> {

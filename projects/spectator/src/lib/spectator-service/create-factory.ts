@@ -55,6 +55,6 @@ export function createServiceFactory<S>(typeOrOptions: Type<S> | SpectatorServic
       });
     }
 
-    return new SpectatorService<S>(TestBed.get(service));
+    return new SpectatorService<S>(TestBed.inject ? TestBed.inject(service) : TestBed.get(service));
   };
 }

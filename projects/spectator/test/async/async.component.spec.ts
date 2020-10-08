@@ -1,12 +1,12 @@
 import { of } from 'rxjs';
-import { createHostFactory, SpectatorWithHost } from '@ngneat/spectator';
+import { createHostFactory, SpectatorHost } from '@ngneat/spectator';
 
 import { QueryService } from '../query.service';
 
 import { AsyncComponent } from './async.component';
 
 describe('ZippyComponent', () => {
-  let host: SpectatorWithHost<AsyncComponent>;
+  let host: SpectatorHost<AsyncComponent>;
 
   const createHost = createHostFactory({
     component: AsyncComponent,

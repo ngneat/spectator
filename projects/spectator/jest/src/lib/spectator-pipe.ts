@@ -15,14 +15,6 @@ import { mockProvider, SpyObject } from './mock';
  * @publicApi
  */
 export class SpectatorPipe<P, H = HostComponent> extends BaseSpectatorPipe<P, H> {
-  /**
-   * @deprecated Deprecated in favour of inject(). Will be removed once TestBed.get is discontinued.
-   * @param type Token
-   */
-  public get<T>(type: Token<T> | Token<any>): SpyObject<T> {
-    return super.get(type) as SpyObject<T>;
-  }
-
   public inject<T>(token: Token<T>): SpyObject<T> {
     return super.inject(token) as SpyObject<T>;
   }

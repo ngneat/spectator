@@ -10,11 +10,6 @@ import { isString, QueryOptions, QueryType } from '../types';
 import { HostComponent } from './host-component';
 
 /**
- * @deprecated Use SpectatorHost instead. To be removed in v5.
- */
-export type SpectatorWithHost<C, H = HostComponent> = SpectatorHost<C, H>;
-
-/**
  * @publicApi
  */
 export class SpectatorHost<C, H = HostComponent> extends Spectator<C> {

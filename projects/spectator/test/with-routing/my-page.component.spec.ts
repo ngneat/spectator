@@ -166,7 +166,7 @@ describe('MyPageComponent', () => {
       await spectator.fixture.whenStable();
       expect(spectator.inject(Location).path()).toBe('/');
 
-      const ngZone = TestBed.get(NgZone);
+      const ngZone = TestBed.inject(NgZone);
       await ngZone.run(async () => {
         await spectator.router.navigate(['/foo']);
       });

@@ -7,7 +7,7 @@ import { BaseSpectatorOverrides } from '../base/options';
 import { isType } from '../types';
 
 import { initialHttpModule } from './initial-module';
-import { getDefaultHttpOptions, isDeprecated, SpectatorHttpOptions } from './options';
+import { getDefaultHttpOptions, SpectatorHttpOptions } from './options';
 import { SpectatorHttp } from './spectator-http';
 import { overrideModules } from '../spectator/create-factory';
 
@@ -26,7 +26,7 @@ export interface CreateHttpOverrides<S> extends BaseSpectatorOverrides {}
  * @publicApi
  */
 export function createHttpFactory<S>(typeOrOptions: Type<S> | SpectatorHttpOptions<S>): SpectatorHttpFactory<S> {
-  const service = isType(typeOrOptions) ? typeOrOptions : isDeprecated(typeOrOptions) ? typeOrOptions.dataService : typeOrOptions.service;
+  const service = isType(typeOrOptions) ? typeOrOptions : typeOrOptions.service;
   const options = isType(typeOrOptions) ? getDefaultHttpOptions<S>({ service }) : getDefaultHttpOptions(typeOrOptions);
   const moduleMetadata = initialHttpModule(options);
 
@@ -36,8 +36,8 @@ export function createHttpFactory<S>(typeOrOptions: Type<S> | SpectatorHttpOptio
   });
 
   afterEach(() => {
-    if ((<any>TestBed).inject) {
-      (<any>TestBed).inject(HttpTestingController).verify();
+    if (TestBed.inject) {
+      TestBed.inject(HttpTestingController).verify();
     } else {
       TestBed.get(HttpTestingController).verify();
     }
@@ -53,6 +53,13 @@ export function createHttpFactory<S>(typeOrOptions: Type<S> | SpectatorHttpOptio
       });
     }
 
-    return new SpectatorHttp<S>(TestBed.get(service), TestBed.get(HttpClient), TestBed.get(HttpTestingController));
+    /**
+     * Back compatibility, angular under 9 version doesnt have a inject function
+     */
+    if (!TestBed.inject) {
+      return new SpectatorHttp<S>(TestBed.get(service), TestBed.get(HttpClient), TestBed.get(HttpTestingController));
+    }
+
+    return new SpectatorHttp<S>(TestBed.inject(service), TestBed.inject(HttpClient), TestBed.inject(HttpTestingController));
   };
 }

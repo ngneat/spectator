@@ -106,7 +106,7 @@ describe('MyPageComponent', () => {
 
       spectator.click('.link-2');
 
-      expect(spectator.get(Router).navigate).toHaveBeenCalledWith(['bar']);
+      expect(spectator.inject(Router).navigate).toHaveBeenCalledWith(['bar']);
     });
   });
 });

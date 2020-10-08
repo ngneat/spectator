@@ -76,16 +76,6 @@ The `createComponent()` method returns an instance of `Spectator` which exposes 
 
 And the following methods:
 
-### `get()`
-Provides a wrapper for `TestBed.get()`:
-
-```ts
-const service = spectator.get(QueryService);
-
-const fromComponentInjector = true;
-const service = spectator.get(QueryService, fromComponentInjector);
-```
-
 ### `inject()`
 Provides a wrapper for Ivy's `TestBed.inject()`:
 
@@ -187,7 +177,7 @@ const createComponent = createComponentFactory({
 To access the provider, get it from the component injector using the `fromComponentInjector` parameter:
 
 ```ts
-spectator.get(FooService, true)
+spectator.inject(FooService, true)
 ```
 
 In the same way you can also override the component view providers by using the `componentViewProviders` and `componentViewProvidersMocks`.

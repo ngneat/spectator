@@ -26,11 +26,6 @@ export interface HttpExpect {
  * @publicApi
  */
 export class SpectatorHttp<S> extends BaseSpectator {
-  /**
-   * @deprecated Please use the service property instead. To be removed in v5.
-   */
-  public dataService: S;
-
   constructor(public service: S, public httpClient: HttpClient, public controller: HttpTestingController) {
     super();
 
@@ -38,7 +33,6 @@ export class SpectatorHttp<S> extends BaseSpectator {
     // remove in v5?
     this.expectOne = this.expectOne.bind(this);
     this.expectConcurrent = this.expectConcurrent.bind(this);
-    this.dataService = service;
   }
 
   public expectOne(url: string, method: HttpMethod): TestRequest {

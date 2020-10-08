@@ -1,6 +1,5 @@
 import { Type, InjectionToken, AbstractType } from '@angular/core';
 import {
-  createService as baseCreateService,
   createServiceFactory as baseCreateServiceFactory,
   isType,
   SpectatorServiceOverrides,
@@ -15,11 +14,6 @@ import { mockProvider, SpyObject } from './mock';
  * @publicApi
  */
 export interface SpectatorService<S> extends BaseSpectatorService<S> {
-  /**
-   * @deprecated Deprecated in favour of inject(). Will be removed once TestBed.get is discontinued.
-   * @param type Token
-   */
-  get<T>(token: Token<T> | Token<any>): SpyObject<T>;
   inject<T>(token: Type<T> | InjectionToken<T> | AbstractType<T>): SpyObject<T>;
 }
 
@@ -27,16 +21,6 @@ export interface SpectatorService<S> extends BaseSpectatorService<S> {
  * @publicApi
  */
 export type SpectatorServiceFactory<S> = (overrides?: SpectatorServiceOverrides<S>) => SpectatorService<S>;
-
-/**
- * @deprecated Deprecated in favour of createServiceFactory(). Will be removed in Spectator 5.
- */
-export function createService<S>(typeOrOptions: SpectatorServiceOptions<S> | Type<S>): SpectatorService<S> {
-  return baseCreateService({
-    mockProvider,
-    ...(isType(typeOrOptions) ? { service: typeOrOptions } : typeOrOptions)
-  }) as SpectatorService<S>;
-}
 
 /**
  * @publicApi
