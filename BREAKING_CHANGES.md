@@ -1,4 +1,14 @@
 # Breaking Changes
 
+## Version 6
+- Wrapper for `TestBed.get()` was removed, please use `inject()`
+- `createHTTPFactory` was removed in favor of `createHttpFactory`
+- `SpectatorWithHost` type was removed in favor of `SpectatorHost`
+- `createTestComponentFactory` was removed in favor of `createComponentFactory`
+- `createService` was removed in favor of `createServiceFactory`
+- `createHostComponentFactory` was removed in favor of `createHostFactory`
+- Removed deprecated `dataService` option from `SpectatorHttpOptions` type. Please use `service` instead of `dataService`
+- 
+
 ## Version 5
-- Angular v9 is a `peerDependency`
+- Angular v8 is a `peerDependency`
