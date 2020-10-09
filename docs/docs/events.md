@@ -32,7 +32,7 @@ spectator.typeInElement(value, SpectatorElement);
 - `dispatchMouseEvent()` - Triggers a mouse event:
 ```ts
 spectator.dispatchMouseEvent(SpectatorElement, 'mouseout');
-spectator.dispatchMouseEvent(SpectatorElement, 'mouseout'), x, y, event);
+spectator.dispatchMouseEvent(SpectatorElement, 'mouseout', x, y, event);
 ```
 - `dispatchKeyboardEvent()` - Triggers a keyboard event:
 ```ts
@@ -50,4 +50,15 @@ You can trigger custom events (`@Output()` of child components) [using](https://
 ```ts
 spectator.triggerEventHandler(MyChildComponent, 'myCustomEvent', 'eventValue');
 spectator.triggerEventHandler('app-child-component', 'myCustomEvent', 'eventValue');
+```
+
+## Event Creators
+
+In case you want to test events independently of any template (e.g. in presenter services) you can fallback on the underlying event creators.
+They are basically providing the same signature without the preceding element.
+```ts
+const keyboardEvent = createKeyboardEvent('keyup', 'ArrowDown'/*, targetElement */);
+const mouseEvent = createMouseEvent('mouseout');
+const touchEvent = createTouchEvent('touchmove');
+const fakeEvent = createFakeEvent('input');
 ```

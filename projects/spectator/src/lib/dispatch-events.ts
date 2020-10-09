@@ -2,7 +2,7 @@
  * Credit - Angular Material
  */
 
-import { createFakeEvent, createKeyboardEvent, createMouseEvent, createTouchEvent } from './internals/event-objects';
+import { createFakeEvent, createKeyboardEvent, createMouseEvent, createTouchEvent } from './event-creators';
 import { KeyboardEventOptions } from './types';
 
 /**

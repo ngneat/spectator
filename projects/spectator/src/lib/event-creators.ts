@@ -2,8 +2,8 @@
  * Credit - Angular Material
  */
 
-import { parseKeyOptions } from './key-parser';
-import { KeyboardEventOptions } from '../types';
+import { parseKeyOptions } from './internals/key-parser';
+import { KeyboardEventOptions } from './types';
 
 /** Creates a browser MouseEvent with the specified options. */
 export function createMouseEvent(type: string, x: number = 0, y: number = 0, button: number = 0): MouseEvent {
