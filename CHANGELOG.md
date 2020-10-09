@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="5.14.0"></a>
+# [5.14.0](https://github.com/ngneat/spectator/compare/v5.13.4...v5.14.0) (2020-10-09)
+
+
+### Features
+
+* 🎸 expose event creators ([#355](https://github.com/ngneat/spectator/issues/355)) ([1d46020](https://github.com/ngneat/spectator/commit/1d46020))
+
+
+
 <a name="5.13.4"></a>
 ## [5.13.4](https://github.com/ngneat/spectator/compare/v5.13.3...v5.13.4) (2020-10-01)
 
