@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="6.0.0"></a>
+# [6.0.0](https://github.com/ngneat/spectator/compare/v5.14.0...v6.0.0) (2020-10-09)
+
+
+### Features
+
+* 🎸 version 6 ([4fede6e](https://github.com/ngneat/spectator/commit/4fede6e))
+
+
+### BREAKING CHANGES
+
+* see the breaking changes file
+
+
+
 <a name="5.14.0"></a>
 # [5.14.0](https://github.com/ngneat/spectator/compare/v5.13.4...v5.14.0) (2020-10-09)
 
