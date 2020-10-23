@@ -96,7 +96,7 @@ export abstract class DomSpectator<I> extends BaseSpectator {
   public setInput<K extends keyof I>(input: Partial<I>): void;
   public setInput<K extends keyof I>(input: K, inputValue: I[K]): void;
   public setInput(input: any, value?: any): void {
-    setProps(this.instance, input, value);
+    setProps(this.instance, input, value, false);
     this.debugElement.injector.get(ChangeDetectorRef).detectChanges();
   }
 

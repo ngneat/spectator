@@ -20,7 +20,7 @@ export class SpectatorPipe<P, H = HostComponent> extends BaseSpectator {
   public setHostInput<K extends keyof H>(input: Partial<H>): void;
   public setHostInput<K extends keyof H>(input: K, inputValue: H[K]): void;
   public setHostInput(input: any, value?: any): void {
-    setProps(this.hostComponent, input, value);
+    setProps(this.hostComponent, input, value, false);
     this.detectChanges();
   }
 }

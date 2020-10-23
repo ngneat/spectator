@@ -161,7 +161,8 @@ const service = spectator.inject(QueryService, fromComponentInjector);
 ```ts
 spectator.detectChanges();
 ```
-- `setInput()` - Changes the value of an @Input() of the tested component:
+- `setInput()` - Changes the value of an @Input() of the tested component.
+  Method runs `ngOnChanges` with `SimpleChanges` manually if it exists.
 ```ts
 it('should...', () => {
   spectator.setInput('className', 'danger');
