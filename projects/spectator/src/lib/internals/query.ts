@@ -1,4 +1,4 @@
-import { DebugElement } from '@angular/core';
+import { DebugElement, SimpleChange, SimpleChanges } from '@angular/core';
 import { By } from '@angular/platform-browser';
 
 import { DOMSelector } from '../dom-selectors';
@@ -26,16 +26,37 @@ export function getChildren<R>(debugElementRoot: DebugElement): (directiveOrSele
   };
 }
 
-export function setProps<T, K extends string | number | symbol, V>(instance: T, key: K, value: V): T & { [KEY in K]: V };
+export function setProps<T, K extends string | number | symbol, V>(
+  instance: T,
+  key: K,
+  value: V,
+  firstChange?: boolean
+): T & { [KEY in K]: V };
 export function setProps<T, KV>(instance: T, keyValues?: KV): T & KV;
-export function setProps(instance: any, keyOrKeyValues: any, value?: any): any {
+export function setProps(instance: any, keyOrKeyValues: any, value?: any, firstChange: boolean = true): any {
+  const changes: SimpleChanges = {};
+
+  const update = (key: string, newValue: any): void => {
+    if (instance[key] === newValue) {
+      return;
+    }
+
+    changes[key] = new SimpleChange(instance[key], newValue, firstChange);
+    instance[key] = newValue;
+  };
+
   if (isString(keyOrKeyValues)) {
-    instance[keyOrKeyValues] = value;
+    update(keyOrKeyValues, value);
   } else {
     // tslint:disable-next-line:forin
     for (const p in keyOrKeyValues) {
-      instance[p] = keyOrKeyValues[p];
+      update(p, keyOrKeyValues[p]);
     }
+  }
+
+  if (Object.keys(changes).length) {
+    // tslint:disable-next-line:no-life-cycle-call
+    instance.ngOnChanges?.(changes);
   }
 
   return instance;
