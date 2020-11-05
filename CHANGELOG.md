@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="6.1.0"></a>
+# [6.1.0](https://github.com/ngneat/spectator/compare/v6.0.0...v6.1.0) (2020-11-05)
+
+
+### Features
+
+* support run ngOnChanges hook for change bingins ([#348](https://github.com/ngneat/spectator/issues/348)) ([#360](https://github.com/ngneat/spectator/issues/360)) ([2a6cd5e](https://github.com/ngneat/spectator/commit/2a6cd5e))
+
+
+
 <a name="6.0.0"></a>
 # [6.0.0](https://github.com/ngneat/spectator/compare/v5.14.0...v6.0.0) (2020-10-09)
 
