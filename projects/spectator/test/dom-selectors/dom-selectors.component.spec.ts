@@ -6,6 +6,7 @@ import {
   byTextContent,
   byTitle,
   byValue,
+  byRole,
   createComponentFactory,
   Spectator
 } from '@ngneat/spectator';
@@ -170,6 +171,23 @@ describe('DomSelectorsComponent', () => {
         spectator.query(byTextContent(matcher, { selector: '#text-content-span-1', normalizer: toLowerCase }));
         expect(matcher).toHaveBeenCalledWith('deeply  nested', spectator.query('#text-content-span-1'));
       });
+    });
+  });
+
+  describe('byRole', () => {
+    it('should allow querying by generic role (link)', () => {
+      const element = spectator.query(byRole('link'));
+      expect(element).toHaveId('by-title-a');
+    });
+
+    it('should allow querying by generic role (textbox)', () => {
+      const element = spectator.query(byRole('textbox'));
+      expect(element).toHaveId('by-label-input');
+    });
+
+    it('should allow querying by generic role with byRole matcher options ', () => {
+      const element = spectator.query(byRole('checkbox', { checked: true }));
+      expect(element).toHaveExactText('Sugar');
     });
   });
 });
