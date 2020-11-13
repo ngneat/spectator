@@ -37,11 +37,10 @@ export function setProps(instance: any, keyOrKeyValues: any, value?: any, firstC
   const changes: SimpleChanges = {};
 
   const update = (key: string, newValue: any): void => {
-    if (instance[key] === newValue) {
-      return;
+    if (instance[key] !== newValue) {
+      changes[key] = new SimpleChange(instance[key], newValue, firstChange);
     }
 
-    changes[key] = new SimpleChange(instance[key], newValue, firstChange);
     instance[key] = newValue;
   };
 
