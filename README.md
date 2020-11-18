@@ -321,6 +321,7 @@ spectator.query(byLabel('By label'));
 spectator.query(byText('By text'));
 spectator.query(byText('By text', {selector: '#some .selector'}));
 spectator.query(byTextContent('By text content', {selector: '#some .selector'}));
+spectator.query(byRole('checkbox', { checked: true }));
 ```
 
 The difference between `byText` and `byTextContent` is that the former doesn't match text inside a nested elements.

@@ -4,7 +4,8 @@ import {
   NormalizerFn,
   SelectorMatcherOptions,
   queries as DOMQueries,
-  getDefaultNormalizer
+  getDefaultNormalizer,
+  ByRoleOptions
 } from '@testing-library/dom';
 
 interface MandatorySelectorMatchingOptions extends MatcherOptions {
@@ -40,9 +41,9 @@ export const byTextContent = (matcher: Matcher, options: MandatorySelectorMatchi
             .toLowerCase()
             .indexOf(matcher.toLowerCase()) >= 0
         );
-      } else {
-        return getTextContent(elem) === matcher;
       }
+
+      return getTextContent(elem) === matcher;
     };
   } else if (matcher instanceof RegExp) {
     textContentMatcher = (_, elem) => matcher.test(getTextContent(elem));
@@ -62,3 +63,6 @@ export const byTestId: DOMSelectorFactory = (matcher, options) => new DOMSelecto
 
 export const byValue: DOMSelectorFactory = (matcher, options) =>
   new DOMSelector(el => DOMQueries.queryAllByDisplayValue(el, matcher, options));
+
+export const byRole: DOMSelectorFactory<ByRoleOptions> = (matcher, options) =>
+  new DOMSelector(el => DOMQueries.queryAllByRole(el, matcher, options));
