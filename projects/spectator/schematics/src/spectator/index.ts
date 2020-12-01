@@ -23,7 +23,11 @@ export function spectatorComponentSchematic(options: ComponentOptions): Rule {
       skipTests: true,
       spec: false
     }),
-    (tree: Tree, _context: SchematicContext): Rule => {
+    (tree: Tree, _context: SchematicContext): Tree | Rule => {
+      if (options.skipTests) {
+        return tree;
+      }
+
       _ensurePath(tree, options);
       const movePath = options.flat ? (options.path as string) : normalize(options.path + '/' + strings.dasherize(options.name) || '');
 
@@ -37,6 +41,7 @@ export function spectatorComponentSchematic(options: ComponentOptions): Rule {
           move(movePath)
         ]
       );
+
       return mergeWith(specTemplateRule, MergeStrategy.Default);
     }
   ]);
@@ -49,7 +54,11 @@ export function spectatorServiceSchematic(options: ServiceOptions): Rule {
       skipTests: true,
       spec: false
     }),
-    (tree: Tree, _context: SchematicContext): Rule => {
+    (tree: Tree, _context: SchematicContext): Tree | Rule => {
+      if (options.skipTests) {
+        return tree;
+      }
+
       _ensurePath(tree, options);
       const movePath = normalize(options.path || '');
       const specTemplateRule = apply(url(`./files/${options.isDataService ? 'data-service' : `service`}`), [
@@ -59,6 +68,7 @@ export function spectatorServiceSchematic(options: ServiceOptions): Rule {
         }),
         move(movePath)
       ]);
+
       return mergeWith(specTemplateRule, MergeStrategy.Default);
     }
   ]);
@@ -71,7 +81,11 @@ export function spectatorDirectiveSchematic(options: DirectiveOptions): Rule {
       skipTests: true,
       spec: false
     }),
-    (tree: Tree, _context: SchematicContext): Rule => {
+    (tree: Tree, _context: SchematicContext): Tree | Rule => {
+      if (options.skipTests) {
+        return tree;
+      }
+
       _ensurePath(tree, options);
       const movePath = normalize(options.path || '');
       const specTemplateRule = apply(url(`./files/directive`), [
@@ -81,6 +95,7 @@ export function spectatorDirectiveSchematic(options: DirectiveOptions): Rule {
         }),
         move(movePath)
       ]);
+
       return mergeWith(specTemplateRule, MergeStrategy.Default);
     }
   ]);
@@ -93,7 +108,11 @@ export function spectatorPipeSchematic(options: DirectiveOptions): Rule {
       skipTests: true,
       spec: false
     }),
-    (tree: Tree, _context: SchematicContext): Rule => {
+    (tree: Tree, _context: SchematicContext): Tree | Rule => {
+      if (options.skipTests) {
+        return tree;
+      }
+
       _ensurePath(tree, options);
       const movePath = normalize(options.path || '');
       const specTemplateRule = apply(url(`./files/pipe`), [
@@ -103,6 +122,7 @@ export function spectatorPipeSchematic(options: DirectiveOptions): Rule {
         }),
         move(movePath)
       ]);
+
       return mergeWith(specTemplateRule, MergeStrategy.Default);
     }
   ]);
@@ -113,6 +133,7 @@ function _ensurePath(tree: Tree, options: any): void {
   if (!options.project) {
     options.project = Object.keys(workspace.projects)[0];
   }
+
   const project = workspace.projects[options.project];
   if (options.path === undefined) {
     const root = project.sourceRoot ? `/${project.sourceRoot}/` : `/${project.root}/src/app`;

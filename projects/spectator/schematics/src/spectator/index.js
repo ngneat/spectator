@@ -9,6 +9,9 @@ function spectatorComponentSchematic(options) {
     return schematics_1.chain([
         schematics_1.externalSchematic('@schematics/angular', 'component', Object.assign(Object.assign({}, options), { skipTests: true, spec: false })),
         (tree, _context) => {
+            if (options.skipTests) {
+                return tree;
+            }
             _ensurePath(tree, options);
             const movePath = options.flat ? options.path : core_1.normalize(options.path + '/' + core_1.strings.dasherize(options.name) || '');
             const specTemplateRule = schematics_1.apply(schematics_1.url(`./files/${options.withHost ? 'component-host' : options.withCustomHost ? 'component-custom-host' : 'component'}`), [
@@ -24,6 +27,9 @@ function spectatorServiceSchematic(options) {
     return schematics_1.chain([
         schematics_1.externalSchematic('@schematics/angular', 'service', Object.assign(Object.assign({}, options), { skipTests: true, spec: false })),
         (tree, _context) => {
+            if (options.skipTests) {
+                return tree;
+            }
             _ensurePath(tree, options);
             const movePath = core_1.normalize(options.path || '');
             const specTemplateRule = schematics_1.apply(schematics_1.url(`./files/${options.isDataService ? 'data-service' : `service`}`), [
@@ -39,6 +45,9 @@ function spectatorDirectiveSchematic(options) {
     return schematics_1.chain([
         schematics_1.externalSchematic('@schematics/angular', 'directive', Object.assign(Object.assign({}, options), { skipTests: true, spec: false })),
         (tree, _context) => {
+            if (options.skipTests) {
+                return tree;
+            }
             _ensurePath(tree, options);
             const movePath = core_1.normalize(options.path || '');
             const specTemplateRule = schematics_1.apply(schematics_1.url(`./files/directive`), [
@@ -54,6 +63,9 @@ function spectatorPipeSchematic(options) {
     return schematics_1.chain([
         schematics_1.externalSchematic('@schematics/angular', 'pipe', Object.assign(Object.assign({}, options), { skipTests: true, spec: false })),
         (tree, _context) => {
+            if (options.skipTests) {
+                return tree;
+            }
             _ensurePath(tree, options);
             const movePath = core_1.normalize(options.path || '');
             const specTemplateRule = schematics_1.apply(schematics_1.url(`./files/pipe`), [

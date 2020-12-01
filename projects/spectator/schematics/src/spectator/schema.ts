@@ -46,6 +46,10 @@ export class ComponentOptions {
    */
   skipImport?: boolean;
   /**
+   * When true, does not create test files.
+   */
+  skipTests?: boolean;
+  /**
    * Specifies if a spec file is generated.
    */
   spec?: boolean;
