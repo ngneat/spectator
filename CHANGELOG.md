@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="6.1.2"></a>
+## [6.1.2](https://github.com/ngneat/spectator/compare/v6.1.1...v6.1.2) (2020-12-02)
+
+
+### Bug Fixes
+
+* **schematics:** respect the skipTests option ([#370](https://github.com/ngneat/spectator/issues/370)) ([c9ff534](https://github.com/ngneat/spectator/commit/c9ff534))
+
+
+
 <a name="6.1.1"></a>
 ## [6.1.1](https://github.com/ngneat/spectator/compare/v6.1.0...v6.1.1) (2020-11-13)
 
