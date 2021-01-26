@@ -1,5 +1,5 @@
 import { Provider, Type } from '@angular/core';
-import { async, TestBed } from '@angular/core/testing';
+import { TestBed, waitForAsync } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { BrowserDynamicTestingModule } from '@angular/platform-browser-dynamic/testing';
 
@@ -63,11 +63,13 @@ export function createDirectiveFactory<D, H = HostComponent>(
 
   const moduleMetadata = initialSpectatorDirectiveModule<D, H>(options);
 
-  beforeEach(async(() => {
-    addMatchers(customMatchers);
-    TestBed.configureTestingModule(moduleMetadata);
-    overrideModules(options);
-  }));
+  beforeEach(
+    waitForAsync(() => {
+      addMatchers(customMatchers);
+      TestBed.configureTestingModule(moduleMetadata);
+      overrideModules(options);
+    })
+  );
 
   return <HP>(template?: string, overrides?: SpectatorDirectiveOverrides<D, H, HP>) => {
     const defaults: SpectatorDirectiveOverrides<D, H, HP> = {

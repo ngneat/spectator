@@ -1,4 +1,3 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { Spectator, createComponentFactory } from '@ngneat/spectator';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 

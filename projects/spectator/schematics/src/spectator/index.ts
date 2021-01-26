@@ -12,7 +12,7 @@ import {
   SchematicContext,
   Tree
 } from '@angular-devkit/schematics';
-import { getWorkspace } from '@schematics/angular/utility/config';
+import { getWorkspace } from '@schematics/angular/utility/workspace';
 import { parseName } from '@schematics/angular/utility/parse-name';
 
 import { ComponentOptions, DirectiveOptions, ServiceOptions } from './schema';

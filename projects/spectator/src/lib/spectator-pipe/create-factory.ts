@@ -1,5 +1,5 @@
 import { Provider, Type } from '@angular/core';
-import { async, TestBed } from '@angular/core/testing';
+import { TestBed, waitForAsync } from '@angular/core/testing';
 import { BrowserDynamicTestingModule } from '@angular/platform-browser-dynamic/testing';
 
 import { setProps } from '../internals/query';
@@ -40,11 +40,13 @@ export function createPipeFactory<P, H = HostComponent>(typeOrOptions: Type<P> |
 
   const moduleMetadata = initialSpectatorPipeModule<P, H>(options);
 
-  beforeEach(async(() => {
-    addMatchers(customMatchers);
-    TestBed.configureTestingModule(moduleMetadata);
-    overrideModules(options);
-  }));
+  beforeEach(
+    waitForAsync(() => {
+      addMatchers(customMatchers);
+      TestBed.configureTestingModule(moduleMetadata);
+      overrideModules(options);
+    })
+  );
 
   return <HP>(templateOrOverrides?: string | SpectatorPipeOverrides<H, HP>, overrides?: SpectatorPipeOverrides<H, HP>) => {
     const defaults: SpectatorPipeOverrides<H, HP> = {

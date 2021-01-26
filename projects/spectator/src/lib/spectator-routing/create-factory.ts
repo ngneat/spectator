@@ -1,5 +1,5 @@
 import { Provider, Type, NgZone } from '@angular/core';
-import { async, TestBed } from '@angular/core/testing';
+import { TestBed, waitForAsync } from '@angular/core/testing';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { setProps } from '../internals/query';
@@ -35,16 +35,18 @@ export function createRoutingFactory<C>(typeOrOptions: Type<C> | SpectatorRoutin
 
   const moduleMetadata = initialRoutingModule<C>(options);
 
-  beforeEach(async(() => {
-    addMatchers(customMatchers);
-    TestBed.configureTestingModule(moduleMetadata);
+  beforeEach(
+    waitForAsync(() => {
+      addMatchers(customMatchers);
+      TestBed.configureTestingModule(moduleMetadata);
 
-    overrideModules(options);
+      overrideModules(options);
 
-    overrideComponentIfProviderOverridesSpecified(options);
+      overrideComponentIfProviderOverridesSpecified(options);
 
-    TestBed.compileComponents();
-  }));
+      TestBed.compileComponents();
+    })
+  );
 
   return (overrides?: SpectatorRoutingOverrides<C>) => {
     const defaults: SpectatorRoutingOverrides<C> = {
