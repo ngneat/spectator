@@ -1,4 +1,4 @@
-import { experimental, normalize, strings } from '@angular-devkit/core';
+import { normalize, strings } from '@angular-devkit/core';
 import {
   apply,
   chain,
@@ -10,12 +10,14 @@ import {
   MergeStrategy,
   Rule,
   SchematicContext,
-  Tree
+  Tree,
+  noop
 } from '@angular-devkit/schematics';
-import { getWorkspace } from '@schematics/angular/utility/workspace';
+import { buildDefaultPath, getWorkspace } from '@schematics/angular/utility/workspace';
 import { parseName } from '@schematics/angular/utility/parse-name';
 
 import { ComponentOptions, DirectiveOptions, ServiceOptions } from './schema';
+
 export function spectatorComponentSchematic(options: ComponentOptions): Rule {
   return chain([
     externalSchematic('@schematics/angular', 'component', {
@@ -23,12 +25,12 @@ export function spectatorComponentSchematic(options: ComponentOptions): Rule {
       skipTests: true,
       spec: false
     }),
-    (tree: Tree, _context: SchematicContext): Tree | Rule => {
+    async (tree: Tree, _context: SchematicContext): Promise<Rule> => {
       if (options.skipTests) {
-        return tree;
+        return noop;
       }
 
-      _ensurePath(tree, options);
+      await _ensurePath(tree, options);
       const movePath = options.flat ? (options.path as string) : normalize(options.path + '/' + strings.dasherize(options.name) || '');
 
       const specTemplateRule = apply(
@@ -54,12 +56,12 @@ export function spectatorServiceSchematic(options: ServiceOptions): Rule {
       skipTests: true,
       spec: false
     }),
-    (tree: Tree, _context: SchematicContext): Tree | Rule => {
+    async (tree: Tree, _context: SchematicContext): Promise<Rule> => {
       if (options.skipTests) {
-        return tree;
+        return noop;
       }
 
-      _ensurePath(tree, options);
+      await _ensurePath(tree, options);
       const movePath = normalize(options.path || '');
       const specTemplateRule = apply(url(`./files/${options.isDataService ? 'data-service' : `service`}`), [
         template({
@@ -81,12 +83,12 @@ export function spectatorDirectiveSchematic(options: DirectiveOptions): Rule {
       skipTests: true,
       spec: false
     }),
-    (tree: Tree, _context: SchematicContext): Tree | Rule => {
+    async (tree: Tree, _context: SchematicContext): Promise<Rule> => {
       if (options.skipTests) {
-        return tree;
+        return noop;
       }
 
-      _ensurePath(tree, options);
+      await _ensurePath(tree, options);
       const movePath = normalize(options.path || '');
       const specTemplateRule = apply(url(`./files/directive`), [
         template({
@@ -108,12 +110,12 @@ export function spectatorPipeSchematic(options: DirectiveOptions): Rule {
       skipTests: true,
       spec: false
     }),
-    (tree: Tree, _context: SchematicContext): Tree | Rule => {
+    async (tree: Tree, _context: SchematicContext): Promise<Rule> => {
       if (options.skipTests) {
-        return tree;
+        return noop;
       }
 
-      _ensurePath(tree, options);
+      await _ensurePath(tree, options);
       const movePath = normalize(options.path || '');
       const specTemplateRule = apply(url(`./files/pipe`), [
         template({
@@ -128,17 +130,17 @@ export function spectatorPipeSchematic(options: DirectiveOptions): Rule {
   ]);
 }
 
-function _ensurePath(tree: Tree, options: any): void {
-  const workspace: experimental.workspace.WorkspaceSchema = getWorkspace(tree);
+async function _ensurePath(tree: Tree, options: any): Promise<void> {
+  const workspace = await getWorkspace(tree);
+
   if (!options.project) {
-    options.project = Object.keys(workspace.projects)[0];
+    options.project = workspace.projects.keys().next().value;
   }
 
-  const project = workspace.projects[options.project];
-  if (options.path === undefined) {
-    const root = project.sourceRoot ? `/${project.sourceRoot}/` : `/${project.root}/src/app`;
-    const projectDirName = project.projectType === 'application' ? 'app' : 'lib';
-    options.path = `${root}${projectDirName}`;
+  const project = workspace.projects.get(options.project as string);
+
+  if (options.path === undefined && project) {
+    options.path = buildDefaultPath(project);
   }
 
   const parsedPath = parseName(options.path as string, options.name);
