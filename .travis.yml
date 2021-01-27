@@ -5,6 +5,9 @@ cache: npm
 node_js:
   - '10'
 
+addons:
+  chrome: stable
+
 script:
   - npm run build
   - npm run test:ci
