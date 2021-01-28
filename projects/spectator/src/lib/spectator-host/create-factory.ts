@@ -1,5 +1,5 @@
 import { Provider, Type } from '@angular/core';
-import { async, TestBed } from '@angular/core/testing';
+import { TestBed, waitForAsync } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { BrowserDynamicTestingModule } from '@angular/platform-browser-dynamic/testing';
 
@@ -55,14 +55,16 @@ export function createHostFactory<C, H = HostComponent>(typeOrOptions: Type<C> |
 
   const moduleMetadata = initialSpectatorWithHostModule<C, H>(options);
 
-  beforeEach(async(() => {
-    addMatchers(customMatchers);
-    TestBed.configureTestingModule(moduleMetadata);
+  beforeEach(
+    waitForAsync(() => {
+      addMatchers(customMatchers);
+      TestBed.configureTestingModule(moduleMetadata);
 
-    overrideModules(options);
+      overrideModules(options);
 
-    overrideComponentIfProviderOverridesSpecified(options);
-  }));
+      overrideComponentIfProviderOverridesSpecified(options);
+    })
+  );
 
   return <HP>(template?: string, overrides?: SpectatorHostOverrides<C, H, HP>) => {
     const defaults: SpectatorHostOverrides<C, H, HP> = { props: {}, hostProps: {} as any, detectChanges: true, providers: [] };

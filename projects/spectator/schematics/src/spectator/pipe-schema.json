@@ -58,11 +58,6 @@
       "default": false,
       "description": "When true, the declaring NgModule exports this pipe."
     },
-    "lintFix": {
-      "type": "boolean",
-      "default": false,
-      "description": "When true, applies lint fixes after generating the pipe."
-    },
     "jest": {
       "type": "boolean",
       "default": false,

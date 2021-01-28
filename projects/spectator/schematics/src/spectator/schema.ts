@@ -10,10 +10,6 @@ export class ComponentOptions {
    */
   changeDetection?: ChangeDetection;
   /**
-   * Specifies if the component is an entry component of declaring module.
-   */
-  entryComponent?: boolean;
-  /**
    * Specifies if declaring module exports the component.
    */
   export?: boolean;

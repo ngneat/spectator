@@ -1,5 +1,5 @@
 import { Provider, Type } from '@angular/core';
-import { async, TestBed } from '@angular/core/testing';
+import { TestBed, waitForAsync } from '@angular/core/testing';
 import { BrowserDynamicTestingModule } from '@angular/platform-browser-dynamic/testing';
 
 import { BaseSpectatorOptions, BaseSpectatorOverrides } from '../base/options';
@@ -73,20 +73,22 @@ export function createComponentFactory<C>(typeOrOptions: Type<C> | SpectatorOpti
 
   const moduleMetadata = initialSpectatorModule<C>(options);
 
-  beforeEach(async(() => {
-    addMatchers(customMatchers);
-    TestBed.configureTestingModule(moduleMetadata).overrideModule(BrowserDynamicTestingModule, {
-      set: {
-        entryComponents: moduleMetadata.entryComponents
-      }
-    });
+  beforeEach(
+    waitForAsync(() => {
+      addMatchers(customMatchers);
+      TestBed.configureTestingModule(moduleMetadata).overrideModule(BrowserDynamicTestingModule, {
+        set: {
+          entryComponents: moduleMetadata.entryComponents
+        }
+      });
 
-    overrideModules(options);
+      overrideModules(options);
 
-    overrideComponentIfProviderOverridesSpecified(options);
+      overrideComponentIfProviderOverridesSpecified(options);
 
-    TestBed.compileComponents();
-  }));
+      TestBed.compileComponents();
+    })
+  );
 
   return (overrides?: SpectatorOverrides<C>) => {
     const defaults: SpectatorOverrides<C> = { props: {}, detectChanges: true, providers: [] };
