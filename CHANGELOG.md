@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [7.0.0](https://github.com/ngneat/spectator/compare/v6.1.3...v7.0.0) (2021-01-28)
+
+
+### ⚠ BREAKING CHANGES
+
+* 🧨 Schematics support for ng11
+
+### Features
+
+* 🎸 support ng v11 ([7af8376](https://github.com/ngneat/spectator/commit/7af83761a7bd1f5355fc469966ae600f782e319f))
+
 ### [6.1.4](https://github.com/ngneat/spectator/compare/v6.1.3...v6.1.4) (2021-01-28)
 
 <a name="6.1.3"></a>
