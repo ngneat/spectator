@@ -1,5 +1,8 @@
 # Breaking Changes
 
+## Version 7
+- Add support for Angular v11 
+
 ## Version 6
 
 - Wrapper for `TestBed.get()` was removed, please use `inject()`
