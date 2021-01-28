@@ -1,6 +1,8 @@
-# Change Log
+# Changelog
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
+
+### [6.1.4](https://github.com/ngneat/spectator/compare/v6.1.3...v6.1.4) (2021-01-28)
 
 <a name="6.1.3"></a>
 ## [6.1.3](https://github.com/ngneat/spectator/compare/v6.1.2...v6.1.3) (2021-01-13)
