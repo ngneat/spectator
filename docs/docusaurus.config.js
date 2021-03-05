@@ -50,10 +50,6 @@ module.exports = {
             {
               label: 'Stack Overflow',
               href: 'https://stackoverflow.com/questions/tagged/spectator'
-            },
-            {
-              label: 'FAQ',
-              href: 'docs/faq'
             }
           ]
         },
