@@ -7,19 +7,20 @@ describe('<%= classify(name)%>Component', () => {
 
   const createHost = createHostFactory(<%= classify(name)%>Component);
 
+  beforeEach(() => {
+    spectator = createHost(`<app-<%= dasherize(name)%> title="Zippy title">Zippy content</app-<%= dasherize(name)%>>`);
+  });
+
   it('should create', () => {
-    spectator = createHost(`<zippy title="Zippy title"></zippy>`);
     expect(spectator.component).toBeTruthy();
   });
 
   it('should...', () => {
-    spectator = createHost(`<zippy title="Zippy title">Zippy content</zippy>`);
     spectator.click('.zippy__title');
     expect(spectator.query('.arrow')).toHaveText('Close');
   });
 
   it('should...', () => {
-    spectator = createHost(`<zippy title="Zippy title"></zippy>`);
     spectator.click('.zippy__title');
     expect(spectator.query('.zippy__content')).toExist();
     spectator.click('.zippy__title');
