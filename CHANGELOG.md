@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [7.0.1](https://github.com/ngneat/spectator/compare/v7.0.0...v7.0.1) (2021-03-05)
+
+
+### Bug Fixes
+
+* 🐛 update peer deps ([89c4bcd](https://github.com/ngneat/spectator/commit/89c4bcdda64f6c33d88de4da06f26bd812ebfd3c))
+
 ## [7.0.0](https://github.com/ngneat/spectator/compare/v6.1.3...v7.0.0) (2021-01-28)
 
 
