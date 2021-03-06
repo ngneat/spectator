@@ -9,11 +9,11 @@
   "scripts": {
     "postinstall": "ngcc",
     "ng": "ng",
-    "build": "ng build --prod && npm run build:schematics && npm run copy:schematics && npm run copy:docs && npm run copy:bin && npm run downlevel-dts",
+    "build": "ng build --prod && yarn build:schematics && yarn copy:schematics && yarn copy:docs && yarn copy:bin && yarn downlevel-dts",
     "build:schematics": "tsc -p projects/spectator/schematics/tsconfig.json",
     "test": "ng test",
     "test:jest": "ng run spectator:test-jest",
-    "test:ci": "cross-env NODE_ENV=build npm run test && npm run test:jest",
+    "test:ci": "cross-env NODE_ENV=build yarn test && yarn test:jest",
     "lint": "ng lint",
     "format": "prettier --write \"{projects,src}/**/*.ts\"",
     "commit": "git-cz",
@@ -25,7 +25,7 @@
     "copy:docs": "cp *.md dist/spectator",
     "copy:schematics": "cp -r projects/spectator/schematics/src/ dist/spectator/schematics",
     "downlevel-dts": "downlevel-dts ./dist/spectator ./dist/spectator/ts3.4",
-    "postbump": "npm run build",
+    "postbump": "yarn build",
     "release": "cd projects/spectator && standard-version --infile ../../CHANGELOG.md"
   },
   "devDependencies": {
