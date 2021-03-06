@@ -2,6 +2,10 @@
   "name": "spectator-src",
   "license": "MIT",
   "description": "Angular tests made easy",
+  "private": true,
+  "workspaces": [
+    "projects/*"
+  ],
   "scripts": {
     "postinstall": "ngcc",
     "ng": "ng",
@@ -23,12 +27,6 @@
     "downlevel-dts": "downlevel-dts ./dist/spectator ./dist/spectator/ts3.4",
     "postbump": "npm run build",
     "release": "cd projects/spectator && standard-version --infile ../../CHANGELOG.md"
-  },
-  "dependencies": {
-    "@testing-library/dom": "7.26.5",
-    "jquery": "3.6.0",
-    "replace-in-file": "^6.2.0",
-    "tslib": "^2.0.0"
   },
   "devDependencies": {
     "@angular-builders/jest": "^11.1.0",
@@ -74,6 +72,7 @@
     "rxjs": "6.6.3",
     "standard-version": "^9.1.0",
     "ts-node": "~9.1.1",
+    "tslib": "^2.0.0",
     "tslint": "~6.1.0",
     "typescript": "4.1.5",
     "zone.js": "~0.10.3"

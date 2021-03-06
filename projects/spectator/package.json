@@ -23,9 +23,9 @@
     "angular testing dumb components"
   ],
   "dependencies": {
-    "@testing-library/dom": "6.1.0",
-    "jquery": "3.5.0",
-    "replace-in-file": "^4.1.3",
+    "@testing-library/dom": "7.26.5",
+    "jquery": "3.6.0",
+    "replace-in-file": "^6.2.0",
     "tslib": "^2.0.0"
   },
   "peerDependencies": {
