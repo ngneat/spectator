@@ -6,6 +6,10 @@
   "workspaces": [
     "projects/*"
   ],
+  "engines": {
+    "npm": "please-use-yarn",
+    "yarn": ">= 1.22.0"
+  },
   "scripts": {
     "postinstall": "ngcc",
     "ng": "ng",
@@ -26,7 +30,8 @@
     "copy:schematics": "cp -r projects/spectator/schematics/src/ dist/spectator/schematics",
     "downlevel-dts": "downlevel-dts ./dist/spectator ./dist/spectator/ts3.4",
     "postbump": "yarn build",
-    "release": "cd projects/spectator && standard-version --infile ../../CHANGELOG.md"
+    "release": "cd projects/spectator && standard-version --infile ../../CHANGELOG.md",
+    "release:dry": "cd projects/spectator && standard-version --infile ../../CHANGELOG.md --dry-run"
   },
   "devDependencies": {
     "@angular-builders/jest": "^11.1.0",
