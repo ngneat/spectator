@@ -11,22 +11,22 @@ To develop Spectator locally, simply do the following:
 Install dependencies:
 
 ```bash
-npm install
+yarn install
 ```
 
 Run the tests:
 
 ```bash
-npm test
+yarn test
 ```
 
 Build the library:
 
 ```bash
-npm run build
+yarn build
 ```
 
-## Using `npm link`
+## Using `npm link` or `yarn link`
 
 If you want to test your changes in an app that consumes Spectator, you can do the following:
 
