@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [7.1.0](https://github.com/ngneat/spectator/compare/v7.0.1...v7.1.0) (2021-03-07)
+
+
+### Features
+
+* **schematics:** use actual component name in test file ([#409](https://github.com/ngneat/spectator/issues/409)) ([eb1698f](https://github.com/ngneat/spectator/commit/eb1698fe3b244731d0a576ba5260b7830d6739b6))
+* add VSCode snippets for jest ([#407](https://github.com/ngneat/spectator/issues/407)) ([eab68bb](https://github.com/ngneat/spectator/commit/eab68bb8f4f27e8704730824d504d2b720b9ff4f))
+
 ### [7.0.1](https://github.com/ngneat/spectator/compare/v7.0.0...v7.0.1) (2021-03-05)
 
 
