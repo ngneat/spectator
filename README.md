@@ -135,6 +135,7 @@ it('should...', () => {
       title: 'Click'
     },
     // Override the component's providers
+    // Note that you must declare it once in `createComponentFactory`
     providers: [],
     // Whether to run change detection (defaults to true)
     detectChanges: false
