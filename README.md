@@ -248,7 +248,11 @@ spectator.dispatchTouchEvent(byText('Element'), type, x, y);
 You can trigger custom events (@Output() of child components) [using](https://github.com/ngneat/spectator/blob/master/projects/spectator/test/child-custom-event/child-custom-event-parent.component.spec.ts) the following method:
 ```ts
 spectator.triggerEventHandler(MyChildComponent, 'myCustomEvent', 'eventValue');
+spectator.triggerEventHandler(MyChildComponent, 'myCustomEvent', 'eventValue', { root: true});
+
 spectator.triggerEventHandler('app-child-component', 'myCustomEvent', 'eventValue');
+spectator.triggerEventHandler('app-child-component', 'myCustomEvent', 'eventValue', { root: true});
+
 ```
 
 #### Event Creators
