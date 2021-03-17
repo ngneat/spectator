@@ -26,9 +26,11 @@ describe('Overlay container custom event', () => {
     overlayRef.attach(componentPortal);
 
     spectator.triggerEventHandler(OverlayContentComponent, 'customEvent', 'hello');
+    expect(spectator.query(byText('hello'))).not.toExist();
     expect(spectator.query(byText('hello'), { root: true })).not.toExist();
 
     spectator.triggerEventHandler(OverlayContentComponent, 'customEvent', 'hello', { root: true });
+    expect(spectator.query(byText('hello'))).not.toExist();
     expect(spectator.query(byText('hello'), { root: true })).toExist();
 
     overlayRef.dispose();

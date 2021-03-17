@@ -4,7 +4,7 @@ import { Component } from '@angular/core';
   selector: 'app-overlay-container',
   template: `
     <app-overlay-content (customEvent)="onCustomEvent($event)"></app-overlay-content>
-    <p>{{ eventValue }}</p>
+    <p class="value">{{ eventValue }}</p>
   `
 })
 export class OverlayContainerComponent {
