@@ -325,12 +325,12 @@ export abstract class DomSpectator<I> extends BaseSpectator {
         throw Error('Unable to find root element');
       }
 
-      if (element.parent === null || element.parent === undefined) {
+      if (!element.parent) {
         // Found the root element
         return element;
       }
 
-      element = element?.parent;
+      element = element.parent;
     }
   }
 }
