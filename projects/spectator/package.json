@@ -29,9 +29,9 @@
     "tslib": "^2.0.0"
   },
   "peerDependencies": {
-    "@angular/common": ">= 11.1.0",
-    "@angular/core": ">= 11.1.0",
-    "@angular/router": ">= 11.1.0",
+    "@angular/common": ">= 10.1.0",
+    "@angular/core": ">= 10.1.0",
+    "@angular/router": ">= 10.1.0",
     "typescript": ">= 2.8.0"
   },
   "bin": {
