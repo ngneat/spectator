@@ -32,7 +32,6 @@
     "@angular/common": ">= 11.1.0",
     "@angular/core": ">= 11.1.0",
     "@angular/router": ">= 11.1.0",
-    "@angular/cdk": ">= 11.1.0",
     "typescript": ">= 2.8.0"
   },
   "bin": {
