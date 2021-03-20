@@ -1,0 +1,59 @@
+name: build-and-test
+on:
+  pull_request:
+  push:
+    branches:
+      - master
+jobs:
+  yarn-install:
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v2
+
+      - id: cache
+        name: Cache node modules
+        uses: actions/cache@v2
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-node-${{ hashFiles('yarn.lock') }}
+
+      - name: Yarn Install
+        if: steps.cache.outputs.cache-hit != 'true'
+        run: yarn install
+  build:
+    runs-on: ubuntu-20.04
+    needs: [yarn-install]
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v2
+
+      - name: Cache node modules
+        uses: actions/cache@v2
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-node-${{ hashFiles('yarn.lock') }}
+
+      - name: Build
+        run: yarn build
+
+      - name: Archive build artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: dist
+          path: dist
+  test:
+    runs-on: ubuntu-20.04
+    needs: [yarn-install]
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v2
+
+      - name: Restore node modules
+        uses: actions/cache@v2
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-node-${{ hashFiles('yarn.lock') }}
+
+      - name: Test
+        run: yarn test:ci
