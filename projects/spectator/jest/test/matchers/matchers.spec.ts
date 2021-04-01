@@ -96,7 +96,7 @@ describe('Matchers', () => {
 
     it('should return true when expected is same as actual', () => {
       const actual: Dummy = { lorem: 'first', ipsum: 'second' };
-      expect(actual).toBePartial(actual);
+      expect(actual).toBePartial({...actual});
     });
 
     it('should return false when expected is not partial of actual', () => {
