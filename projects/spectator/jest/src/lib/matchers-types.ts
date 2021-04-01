@@ -34,6 +34,8 @@ declare namespace jest {
 
     toBeEmpty(): boolean;
 
+    toBePartial(partial: unknown): boolean;
+
     toBeHidden(): boolean;
 
     toBeSelected(): boolean;

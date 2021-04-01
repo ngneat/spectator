@@ -339,6 +339,14 @@ export const toBeEmpty = comparator(el => {
   return { pass, message };
 });
 
+export const toBePartial = comparator((actual, expected) => {
+  const expectedProps = Object.getOwnPropertyNames(expected);
+  const pass = expectedProps.every(expectedProp => actual[expectedProp] === expected[expectedProp]);
+  const message = () => `Expected element${pass ? ' not' : ''} to have props ${expectedProps}`;
+
+  return { pass, message };
+});
+
 /**
  * Hidden elements are elements that have:
  * 1. Display property set to "none"

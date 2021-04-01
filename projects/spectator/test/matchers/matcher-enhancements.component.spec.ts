@@ -2,7 +2,7 @@ import { Spectator, createComponentFactory } from '@ngneat/spectator';
 
 import { MatcherEnhancementsComponent } from './matcher-enhancements.component';
 
-describe('Matcher Enchancements Test', () => {
+describe('Matcher Enhancements Test', () => {
   let spectator: Spectator<MatcherEnhancementsComponent>;
   const createComponent = createComponentFactory({
     component: MatcherEnhancementsComponent
