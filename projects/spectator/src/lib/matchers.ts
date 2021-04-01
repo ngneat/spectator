@@ -339,6 +339,12 @@ export const toBeEmpty = comparator(el => {
   return { pass, message };
 });
 
+/**
+ * Verify if an object has some expected properties.
+ *
+ * const actual = { lorem: 'first', ipsum: 'second' };
+ * expect(actual).toBePartial({ lorem: 'first' });
+ */
 export const toBePartial = comparator((actual, expected) => {
   const expectedProps = Object.getOwnPropertyNames(expected);
   const pass = expectedProps.every(expectedProp => actual[expectedProp] === expected[expectedProp]);
