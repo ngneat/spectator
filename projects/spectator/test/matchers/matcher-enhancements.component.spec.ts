@@ -28,8 +28,24 @@ describe('Matcher enhancements', () => {
   });
 
   describe('Class', () => {
-    it('should match multiple classes on an element', () => {
-      expect('#multi-class').toHaveClass(['one-class', 'two-class']);
+    describe('#toHaveClass', () => {
+      it('should succeed if the element has classes in strict order', () => {
+        expect('#multi-class').toHaveClass(['one-class', 'two-class']);
+      });
+
+      it('should succeed if the element has no classes in strict order', () => {
+        expect('#multi-class').not.toHaveClass(['two-class', 'one-class']);
+      });
+    });
+
+    describe('#toHaveClassInAnyOrder', () => {
+      it('should succeed if the element has classes in original order', () => {
+        expect('#multi-class').toHaveClassInAnyOrder(['one-class', 'two-class']);
+      });
+
+      it('should succeed if the element has classes in shuffled order', () => {
+        expect('#multi-class').toHaveClassInAnyOrder(['two-class', 'one-class']);
+      });
     });
   });
 

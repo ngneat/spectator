@@ -151,17 +151,11 @@ export const toHaveId = comparator((el, expected) => {
   return { pass, message };
 });
 
-/**
- *
- * expect('.zippy__content').toHaveClass('class');
- * expect('.zippy__content').toHaveClass('class a, class b');
- * expect('.zippy__content').toHaveClass(['class a, class b']);
- */
-export const toHaveClass = comparator((el, expected: string | string[]) => {
+const hasClasses = (el, expected: string | string[], strict: boolean) => {
   if (expected && Array.isArray(expected)) {
     const actual: string = $(el).attr('class');
     const expectedClasses = expected.join(' ');
-    const pass = $(el).hasClass(expectedClasses);
+    const pass = strict ? $(el).hasClass(expectedClasses) : expected.every(e => $(el).hasClass(e));
     const message = () => `Expected element${pass ? ' not' : ''} to have value '${expectedClasses}', but had '${actual}'`;
 
     return { pass, message };
@@ -172,7 +166,29 @@ export const toHaveClass = comparator((el, expected: string | string[]) => {
   const message = () => `Expected element${pass ? ' not' : ''} to have class '${expected}', but had '${actual}'`;
 
   return { pass, message };
-});
+};
+
+/**
+ * This validates classes in strict order.
+ *
+ * expect('.zippy__content').toHaveClass('class');
+ * expect('.zippy__content').toHaveClass('class-a, class-b');
+ * expect('.zippy__content').toHaveClass(['class-a, class-b']);
+ * expect('.zippy__content').not.toHaveClass(['class-b, class-a']);
+ */
+export const toHaveClass = comparator((el, expected: string | string[]) =>
+  hasClasses(el, expected, true));
+
+/**
+ * This validates classes in any order.
+ *
+ * expect('.zippy__content').toHaveClassInAnyOrder('class');
+ * expect('.zippy__content').toHaveClassInAnyOrder('class-a, class-b');
+ * expect('.zippy__content').toHaveClassInAnyOrder(['class-a, class-b']);
+ * expect('.zippy__content').toHaveClassInAnyOrder(['class-b, class-a']);
+ */
+export const toHaveClassInAnyOrder = comparator((el, expected: string | string[]) =>
+  hasClasses(el, expected, false));
 
 /**
  * expect(host.query('.zippy')).toHaveAttribute('id', 'zippy');

@@ -16,6 +16,7 @@ interface Dummy {
     <div style="display:none"><div id="parent-display-none">Hidden by parent with display none</div></div>
     <div style="visibility:hidden"><div id="parent-visibility-hidden">Hidden by parent with display none</div></div>
     <div id="visible">Visible</div>
+    <div id="classes" class="class-a class-b">Classes</div>
   `
 })
 export class MatchersComponent {}
@@ -85,6 +86,16 @@ describe('Matchers', () => {
 
     it('should detect element hidden parent with by "visibility:hidden"-style, as being hidden', () => {
       expect('#parent-visibility-hidden').toBeHidden();
+    });
+
+    it('should be possible to validate an element that has classes in any order', () => {
+      expect('#classes').toHaveClassInAnyOrder(['class-a', 'class-b']);
+      expect('#classes').toHaveClassInAnyOrder(['class-b', 'class-a']);
+    });
+
+    it('should be possible to validate an element that has classes in strict order', () => {
+      expect('#classes').toHaveClass(['class-a', 'class-b']);
+      expect('#classes').not.toHaveClass(['class-b', 'class-a']);
     });
   });
 
