@@ -1,4 +1,4 @@
-import { toBeVisible } from '@ngneat/spectator';
+import { toBeVisible, toBePartial } from '@ngneat/spectator';
 import { createComponentFactory, Spectator } from '@ngneat/spectator/jest';
 import { Component } from '@angular/core';
 

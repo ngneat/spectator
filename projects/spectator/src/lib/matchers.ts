@@ -346,9 +346,25 @@ export const toBeEmpty = comparator(el => {
  * expect(actual).toBePartial({ lorem: 'first' });
  */
 export const toBePartial = comparator((actual, expected) => {
+  const mapToPropsAndValues = (values: any[], properties: any[]) => {
+    return properties.map(prop => {
+      return {
+        name: prop,
+        value: values[prop],
+        type: typeof values[prop]
+      };
+    });
+  };
+  const actualProps = Object.getOwnPropertyNames(actual);
+  const actualPropsAndValues = mapToPropsAndValues(actual, actualProps);
+
   const expectedProps = Object.getOwnPropertyNames(expected);
+  const expectedPropsAndValues = mapToPropsAndValues(expected, expectedProps);
+
   const pass = expectedProps.every(expectedProp => actual[expectedProp] === expected[expectedProp]);
-  const message = () => `Expected element${pass ? ' not' : ''} to have props ${expectedProps}`;
+  const message = () =>
+    `Expected element${pass ? ' not' : ''} to contain properties: ${JSON.stringify(expectedPropsAndValues)}.`
+      .concat(` Actual properties: ${JSON.stringify(actualPropsAndValues)}`);
 
   return { pass, message };
 });
