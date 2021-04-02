@@ -1,5 +1,10 @@
 import { Component } from '@angular/core';
 
+export interface Dummy {
+  label: string;
+  active: boolean;
+}
+
 @Component({
   selector: 'matcher-enhancements',
   template: `
@@ -13,4 +18,6 @@ import { Component } from '@angular/core';
     <img src="http://localhost:8080/assets/myimg.jpg" />
   `
 })
-export class MatcherEnhancementsComponent {}
+export class MatcherEnhancementsComponent {
+  public dummyValue: Dummy = { label: 'this is a dummy value', active: true };
+}

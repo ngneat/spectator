@@ -1,6 +1,11 @@
-import { toBeVisible } from '@ngneat/spectator';
+import { toBeVisible, toBePartial } from '@ngneat/spectator';
 import { createComponentFactory, Spectator } from '@ngneat/spectator/jest';
 import { Component } from '@angular/core';
+
+interface Dummy {
+  lorem: string;
+  ipsum: string;
+}
 
 @Component({
   template: `
@@ -80,6 +85,23 @@ describe('Matchers', () => {
 
     it('should detect element hidden parent with by "visibility:hidden"-style, as being hidden', () => {
       expect('#parent-visibility-hidden').toBeHidden();
+    });
+  });
+
+  describe('toBePartial', () => {
+    it('should return true when expected is partial of actual', () => {
+      const actual: Dummy = { lorem: 'first', ipsum: 'second' };
+      expect(actual).toBePartial({ lorem: 'first' });
+    });
+
+    it('should return true when expected is same as actual', () => {
+      const actual: Dummy = { lorem: 'first', ipsum: 'second' };
+      expect(actual).toBePartial({...actual});
+    });
+
+    it('should return false when expected is not partial of actual', () => {
+      const actual: Dummy = { lorem: 'first', ipsum: 'second' };
+      expect(actual).not.toBePartial({ lorem: 'second' });
     });
   });
 });

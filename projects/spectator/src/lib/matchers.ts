@@ -340,6 +340,36 @@ export const toBeEmpty = comparator(el => {
 });
 
 /**
+ * Verify if an object has some expected properties.
+ *
+ * const actual = { lorem: 'first', ipsum: 'second' };
+ * expect(actual).toBePartial({ lorem: 'first' });
+ */
+export const toBePartial = comparator((actual, expected) => {
+  const mapToPropsAndValues = (values: any[], properties: any[]) => {
+    return properties.map(prop => {
+      return {
+        name: prop,
+        value: values[prop],
+        type: typeof values[prop]
+      };
+    });
+  };
+  const actualProps = Object.getOwnPropertyNames(actual);
+  const actualPropsAndValues = mapToPropsAndValues(actual, actualProps);
+
+  const expectedProps = Object.getOwnPropertyNames(expected);
+  const expectedPropsAndValues = mapToPropsAndValues(expected, expectedProps);
+
+  const pass = expectedProps.every(expectedProp => actual[expectedProp] === expected[expectedProp]);
+  const message = () =>
+    `Expected element${pass ? ' not' : ''} to contain properties: ${JSON.stringify(expectedPropsAndValues)}.`
+      .concat(` Actual properties: ${JSON.stringify(actualPropsAndValues)}`);
+
+  return { pass, message };
+});
+
+/**
  * Hidden elements are elements that have:
  * 1. Display property set to "none"
  * 2. Width and height set to 0 (check not applied in jest)

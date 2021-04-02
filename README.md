@@ -1111,6 +1111,7 @@ expect('element').toBeSelected();
 expect('element').toBeVisible();
 expect('input').toBeFocused();
 expect('div').toBeMatchedBy('.js-something');
+expect(spectator.component.object).toBePartial({ aProperty: 'aValue' });
 expect('div').toHaveDescendant('.child');
 expect('div').toHaveDescendantWithText({selector: '.child', text: 'text'});
 ```

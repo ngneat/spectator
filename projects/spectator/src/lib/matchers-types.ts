@@ -34,6 +34,8 @@ declare namespace jasmine {
 
     toBeEmpty(): boolean;
 
+    toBePartial(partial: object): boolean;
+
     toBeHidden(): boolean;
 
     toBeSelected(): boolean;
