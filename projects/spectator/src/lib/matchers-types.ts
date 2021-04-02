@@ -8,7 +8,7 @@ declare namespace jasmine {
 
     toHaveClass(className: string | string[]): boolean;
 
-    toHaveClassInAnyOrder(className: string | string[]): boolean;
+    toHaveClassInStrictOrder(className: string | string[]): boolean;
 
     toHaveAttribute(attr: string | object, val?: string): boolean;
 

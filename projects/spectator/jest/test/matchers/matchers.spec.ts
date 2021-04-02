@@ -88,14 +88,14 @@ describe('Matchers', () => {
       expect('#parent-visibility-hidden').toBeHidden();
     });
 
-    it('should be possible to validate an element that has classes in any order', () => {
-      expect('#classes').toHaveClassInAnyOrder(['class-a', 'class-b']);
-      expect('#classes').toHaveClassInAnyOrder(['class-b', 'class-a']);
+    it('should be possible to validate an element that has classes in strict order', () => {
+      expect('#classes').toHaveClassInStrictOrder(['class-a', 'class-b']);
+      expect('#classes').not.toHaveClassInStrictOrder(['class-b', 'class-a']);
     });
 
-    it('should be possible to validate an element that has classes in strict order', () => {
+    it('should be possible to validate an element that has classes in any order', () => {
       expect('#classes').toHaveClass(['class-a', 'class-b']);
-      expect('#classes').not.toHaveClass(['class-b', 'class-a']);
+      expect('#classes').toHaveClass(['class-b', 'class-a']);
     });
   });
 

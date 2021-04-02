@@ -169,26 +169,26 @@ const hasClasses = (el, expected: string | string[], strict: boolean) => {
 };
 
 /**
- * This validates classes in strict order.
+ * This validates classes in any order.
  *
  * expect('.zippy__content').toHaveClass('class');
  * expect('.zippy__content').toHaveClass('class-a, class-b');
  * expect('.zippy__content').toHaveClass(['class-a, class-b']);
- * expect('.zippy__content').not.toHaveClass(['class-b, class-a']);
+ * expect('.zippy__content').toHaveClass(['class-b, class-a']);
  */
 export const toHaveClass = comparator((el, expected: string | string[]) =>
-  hasClasses(el, expected, true));
+  hasClasses(el, expected, false));
 
 /**
- * This validates classes in any order.
+ * This validates classes in strict order.
  *
- * expect('.zippy__content').toHaveClassInAnyOrder('class');
- * expect('.zippy__content').toHaveClassInAnyOrder('class-a, class-b');
- * expect('.zippy__content').toHaveClassInAnyOrder(['class-a, class-b']);
- * expect('.zippy__content').toHaveClassInAnyOrder(['class-b, class-a']);
+ * expect('.zippy__content').toHaveClassInStrictOrder('class');
+ * expect('.zippy__content').toHaveClassInStrictOrder('class-a, class-b');
+ * expect('.zippy__content').toHaveClassInStrictOrder(['class-a, class-b']);
+ * expect('.zippy__content').not.toHaveClassInStrictOrder(['class-b, class-a']);
  */
-export const toHaveClassInAnyOrder = comparator((el, expected: string | string[]) =>
-  hasClasses(el, expected, false));
+export const toHaveClassInStrictOrder = comparator((el, expected: string | string[]) =>
+  hasClasses(el, expected, true));
 
 /**
  * expect(host.query('.zippy')).toHaveAttribute('id', 'zippy');

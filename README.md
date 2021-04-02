@@ -1087,16 +1087,16 @@ expect(spectator.query('.img')).toContainProperty({src: 'myimg.jpg'});
 expect('.zippy__content').toHaveText('Content');
 expect('.zippy__content').toContainText('Content');
 
-// Note that toHaveClass expect classes in strict order. Use toHaveClassInAnyOrder if order is irrelevant.
+// Note that toHaveClass accepts classes in any order. Use toHaveClassInStrictOrder if order is important.
 expect('.zippy__content').toHaveClass('class');
 expect('.zippy__content').toHaveClass('class-a, class-b');
 expect('.zippy__content').toHaveClass(['class-a', 'class-b']);
-expect('.zippy__content').not.toHaveClass(['class-b', 'class-a']);
+expect('.zippy__content').toHaveClass(['class-b', 'class-a']);
 
-expect('.zippy__content').toHaveClassInAnyOrder('class');
-expect('.zippy__content').toHaveClassInAnyOrder('class-a, class-b');
-expect('.zippy__content').toHaveClassInAnyOrder(['class-a', 'class-b']);
-expect('.zippy__content').toHaveClassInAnyOrder(['class-b', 'class-a']);
+expect('.zippy__content').toHaveClassInStrictOrder('class');
+expect('.zippy__content').toHaveClassInStrictOrder('class-a, class-b');
+expect('.zippy__content').toHaveClassInStrictOrder(['class-a', 'class-b']);
+expect('.zippy__content').not.toHaveClassInStrictOrder(['class-b', 'class-a']);
 
 // Note this looks for multiple elements with the class and checks the text of each array element against the index of the element found
 expect('.zippy__content').toHaveText(['Content A', 'Content B']);
