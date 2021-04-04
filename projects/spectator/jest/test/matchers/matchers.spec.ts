@@ -89,13 +89,15 @@ describe('Matchers', () => {
     });
 
     it('should be possible to validate an element that has classes in strict order', () => {
+      expect('#classes').toHaveClass(['class-a', 'class-b']);
       expect('#classes').toHaveClass(['class-a', 'class-b'], { strict: true });
+      expect('#classes').not.toHaveClass(['class-b', 'class-a']);
       expect('#classes').not.toHaveClass(['class-b', 'class-a'], { strict: true });
     });
 
     it('should be possible to validate an element that has classes in any order', () => {
-      expect('#classes').toHaveClass(['class-a', 'class-b']);
-      expect('#classes').toHaveClass(['class-b', 'class-a']);
+      expect('#classes').toHaveClass(['class-a', 'class-b'], { strict: false });
+      expect('#classes').toHaveClass(['class-b', 'class-a'], { strict: false });
     });
   });
 

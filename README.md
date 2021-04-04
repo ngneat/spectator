@@ -1085,15 +1085,18 @@ expect(spectator.query('.checkbox')).toHaveProperty('checked', true);
 expect(spectator.query('.img')).toHaveProperty({src: 'assets/myimg.jpg'});
 expect(spectator.query('.img')).toContainProperty({src: 'myimg.jpg'});
 
-// Note that toHaveClass accepts classes in any order. If order is important, use the strict option.
+// Note that toHaveClass accepts classes only in strict order. If order is irrelevant, disable strict mode manually.
 expect('.zippy__content').toHaveClass('class');
 expect('.zippy__content').toHaveClass('class-a, class-b');
+expect('.zippy__content').not.toHaveClass('class-b, class-a');
 expect('.zippy__content').toHaveClass(['class-a', 'class-b']);
-expect('.zippy__content').toHaveClass(['class-b', 'class-a']);
-expect('.zippy__content').toHaveClass('class', { strict: true });
-expect('.zippy__content').toHaveClass('class-a, class-b', { strict: true });
-expect('.zippy__content').toHaveClass(['class-a', 'class-b'], { strict: true });
-expect('.zippy__content').not.toHaveClass(['class-b', 'class-a'], { strict: true });
+expect('.zippy__content').not.toHaveClass(['class-b', 'class-a']);
+
+expect('.zippy__content').toHaveClass('class', { strict: false });
+expect('.zippy__content').toHaveClass('class-a, class-b', { strict: false });
+expect('.zippy__content').toHaveClass('class-b, class-a', { strict: false });
+expect('.zippy__content').toHaveClass(['class-b', 'class-a'], { strict: false });
+expect('.zippy__content').toHaveClass(['class-b', 'class-a'], { strict: false });
 
 // Note that toHaveText only looks for the existence of a string, not if the string is exactly the same. If you want to verify that the string is completely the same, use toHaveExactText.
 // Note that if you pass multiple values, Spectator checks the text of each array element against the index of the element found. 

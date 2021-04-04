@@ -152,8 +152,8 @@ export const toHaveId = comparator((el, expected) => {
 });
 
 /**
- * This validates classes in any order. If you want to validate classes in strict order,
- * just pass the strict config option.
+ * This validates classes in strict order. If you want to validate classes in any order,
+ * just set the strict config option to false.
  *
  * expect('.zippy__content').toHaveClass('class');
  * expect('.zippy__content').toHaveClass('class-a, class-b');
@@ -161,7 +161,7 @@ export const toHaveId = comparator((el, expected) => {
  * expect('.zippy__content').toHaveClass(['class-b, class-a']);
  * expect('.zippy__content').not.toHaveClass(['class-b, class-a'], { strict: true });
  */
-export const toHaveClass = comparator((el, expected: string | string[], options: { strict: boolean } = { strict: false }) => {
+export const toHaveClass = comparator((el, expected: string | string[], options: { strict: boolean } = { strict: true }) => {
   if (expected && Array.isArray(expected)) {
     const actual: string = $(el).attr('class');
     const expectedClasses = expected.join(' ');
