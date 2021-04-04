@@ -89,8 +89,8 @@ describe('Matchers', () => {
     });
 
     it('should be possible to validate an element that has classes in strict order', () => {
-      expect('#classes').toHaveClassInStrictOrder(['class-a', 'class-b']);
-      expect('#classes').not.toHaveClassInStrictOrder(['class-b', 'class-a']);
+      expect('#classes').toHaveClass(['class-a', 'class-b'], { strict: true });
+      expect('#classes').not.toHaveClass(['class-b', 'class-a'], { strict: true });
     });
 
     it('should be possible to validate an element that has classes in any order', () => {
