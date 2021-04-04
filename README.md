@@ -1079,21 +1079,34 @@ The same rules also apply to directives using the `directiveProviders` and `dire
 expect('.zippy__content').not.toExist();
 expect('.zippy__content').toHaveLength(3);
 expect('.zippy__content').toHaveId('id');
-expect('.zippy__content').toHaveClass('class');
-expect('.zippy__content').toHaveClass('class a, class b');
-expect('.zippy__content').toHaveClass(['class a', 'class b']);
 expect(spectator.query('.zippy')).toHaveAttribute('id', 'zippy');
 expect(spectator.query('.zippy')).toHaveAttribute({id: 'zippy'});
 expect(spectator.query('.checkbox')).toHaveProperty('checked', true);
 expect(spectator.query('.img')).toHaveProperty({src: 'assets/myimg.jpg'});
 expect(spectator.query('.img')).toContainProperty({src: 'myimg.jpg'});
-expect('.zippy__content').toHaveText('Content');
-expect('.zippy__content').toContainText('Content');
 
-// Note this looks for multiple elements with the class and checks the text of each array element against the index of the element found
+// Note that toHaveClass accepts classes only in strict order. If order is irrelevant, disable strict mode manually.
+expect('.zippy__content').toHaveClass('class');
+expect('.zippy__content').toHaveClass('class-a, class-b');
+expect('.zippy__content').not.toHaveClass('class-b, class-a');
+expect('.zippy__content').toHaveClass(['class-a', 'class-b']);
+expect('.zippy__content').not.toHaveClass(['class-b', 'class-a']);
+
+expect('.zippy__content').toHaveClass('class', { strict: false });
+expect('.zippy__content').toHaveClass('class-a, class-b', { strict: false });
+expect('.zippy__content').toHaveClass('class-b, class-a', { strict: false });
+expect('.zippy__content').toHaveClass(['class-b', 'class-a'], { strict: false });
+expect('.zippy__content').toHaveClass(['class-b', 'class-a'], { strict: false });
+
+// Note that toHaveText only looks for the existence of a string, not if the string is exactly the same. If you want to verify that the string is completely the same, use toHaveExactText.
+// Note that if you pass multiple values, Spectator checks the text of each array element against the index of the element found. 
+expect('.zippy__content').toHaveText('Content');
 expect('.zippy__content').toHaveText(['Content A', 'Content B']);
-expect('.zippy__content').toContainText(['Content A', 'Content B']);
 expect('.zippy__content').toHaveText((text) => text.includes('..'));
+expect('.zippy__content').toContainText('Content');
+expect('.zippy__content').toContainText(['Content A', 'Content B']);
+expect('.zippy__content').toHaveExactText('Content');
+expect('.zippy__content').toHaveExactText(['Content A', 'Content B']);
 expect('.zippy__content').toHaveValue('value');
 expect('.zippy__content').toContainValue('value');
 

@@ -6,7 +6,7 @@ declare namespace jasmine {
 
     toHaveId(id: string | number): boolean;
 
-    toHaveClass(className: string | string[]): boolean;
+    toHaveClass(className: string | string[], options?: { strict: boolean }): boolean;
 
     toHaveAttribute(attr: string | object, val?: string): boolean;
 
