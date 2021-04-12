@@ -7,7 +7,7 @@ It's possible to define injections which will be available for each test without
 ```ts
 // test.ts
 import { defineGlobalsInjections } from '@ngneat/spectator';
-import { TranslocoModule } from '@ngneat/tranlsoco';
+import { TranslocoModule } from '@ngneat/transloco';
 
 defineGlobalsInjections({
   imports: [TranslocoModule],
