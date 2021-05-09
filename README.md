@@ -30,6 +30,8 @@ Spectator helps you get rid of all the boilerplate grunt work, leaving you with 
 
 ## Table of Contents
 
+- [Features](#features)
+- [Table of Contents](#table-of-contents)
 - [Installation](#installation)
   - [NPM](#npm)
   - [Yarn](#yarn)
@@ -65,6 +67,7 @@ Spectator helps you get rid of all the boilerplate grunt work, leaving you with 
 - [Custom Matchers](#custom-matchers)
 - [Schematics](#schematics)
 - [Default Schematics Collection](#default-schematics-collection)
+- [Working Spectator & Jest Sample Repo and Karma Comparison](#working-spectator--jest-sample-repo-and-karma-comparison)
 - [Core Team](#core-team)
 - [Contributors](#contributors)
 
@@ -1162,6 +1165,13 @@ The `spectator` schematics extend the default `@schematics/angular` collection. 
   }
 }
 ```
+
+## Working Spectator & Jest Sample Repo and Karma Comparison
+
+The [examples in Karma]((https://stackblitz.com/angular/pmqopjovvvb?file=src%2Fapp%2Fapp.component.html)) from Angular docs [testing developer guide](https://angular.io/guide/testing) has been reproduced in Spectator and Jest. 
+(For convenience, [this is the local version](https://github.com/muratkeremozcan/books/tree/master/Angular_with_Typescript/angular-unit-testing-with-Karma) of the Karma examples.)
+
+The Spectator & Jest version can be accessed [here](https://github.com/muratkeremozcan/angular-playground).
 
 ## Core Team
 
