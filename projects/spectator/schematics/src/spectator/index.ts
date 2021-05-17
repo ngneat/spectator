@@ -21,7 +21,7 @@ import { ComponentOptions, DirectiveOptions, ServiceOptions } from './schema';
 export function spectatorComponentSchematic(options: ComponentOptions): Rule {
   return chain([
     externalSchematic('@schematics/angular', 'component', {
-      ...options,
+      ..._omit(options, ['jest', 'withHost', 'withCustomHost']),
       skipTests: true,
       spec: false
     }),
@@ -52,7 +52,7 @@ export function spectatorComponentSchematic(options: ComponentOptions): Rule {
 export function spectatorServiceSchematic(options: ServiceOptions): Rule {
   return chain([
     externalSchematic('@schematics/angular', 'service', {
-      ...options,
+      ..._omit(options, ['jest']),
       skipTests: true,
       spec: false
     }),
@@ -79,7 +79,7 @@ export function spectatorServiceSchematic(options: ServiceOptions): Rule {
 export function spectatorDirectiveSchematic(options: DirectiveOptions): Rule {
   return chain([
     externalSchematic('@schematics/angular', 'directive', {
-      ...options,
+      ..._omit(options, ['jest']),
       skipTests: true,
       spec: false
     }),
@@ -106,7 +106,7 @@ export function spectatorDirectiveSchematic(options: DirectiveOptions): Rule {
 export function spectatorPipeSchematic(options: DirectiveOptions): Rule {
   return chain([
     externalSchematic('@schematics/angular', 'pipe', {
-      ...options,
+      ..._omit(options, ['jest']),
       skipTests: true,
       spec: false
     }),
@@ -146,4 +146,19 @@ async function _ensurePath(tree: Tree, options: any): Promise<void> {
   const parsedPath = parseName(options.path as string, options.name);
   options.name = parsedPath.name;
   options.path = parsedPath.path;
+}
+
+/**
+ * create a new object without given keys
+ * @param raw initial object
+ * @param keys list of keys to remove from object
+ */
+function _omit<T extends Record<string, any>>(raw: T, keys: (keyof T)[]): any {
+  return Object.keys(raw)
+    .filter(key => !keys.includes(key))
+    .reduce((obj: any, key) => {
+      obj[key] = raw[key];
+
+      return obj;
+    }, {});
 }

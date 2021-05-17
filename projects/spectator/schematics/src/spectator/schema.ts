@@ -6,6 +6,10 @@ export class ComponentOptions {
   withHost?: boolean;
   withCustomHost?: boolean;
   /**
+   * Adds a developer-defined type to the filename, in the format "name.type.ts"
+   */
+  type?: string;
+  /**
    * Specifies the change detection strategy.
    */
   changeDetection?: ChangeDetection;

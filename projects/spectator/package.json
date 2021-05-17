@@ -23,6 +23,7 @@
     "angular testing dumb components"
   ],
   "dependencies": {
+    "@angular-devkit/core": ">= 10.1.0",
     "@testing-library/dom": "7.26.5",
     "jquery": "3.6.0",
     "replace-in-file": "^6.2.0",
