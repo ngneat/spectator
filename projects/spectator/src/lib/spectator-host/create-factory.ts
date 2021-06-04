@@ -58,11 +58,20 @@ export function createHostFactory<C, H = HostComponent>(typeOrOptions: Type<C> |
   beforeEach(
     waitForAsync(() => {
       addMatchers(customMatchers);
-      TestBed.configureTestingModule(moduleMetadata);
+      TestBed.configureTestingModule(moduleMetadata).overrideModule(BrowserDynamicTestingModule, {
+      set: {
+        entryComponents: moduleMetadata.entryComponents
+      }
+    });
 
       overrideModules(options);
 
       overrideComponentIfProviderOverridesSpecified(options);
+      if (options.template) {
+        TestBed.overrideComponent(options.host, {
+           set: { template: options.template }
+        });
+      }
     })
   );
 
@@ -76,13 +85,11 @@ export function createHostFactory<C, H = HostComponent>(typeOrOptions: Type<C> |
       });
     }
 
-    TestBed.overrideModule(BrowserDynamicTestingModule, {
-      set: {
-        entryComponents: moduleMetadata.entryComponents
-      }
-    }).overrideComponent(options.host, {
-      set: { template: template || options.template }
-    });
+    if (template) {
+      TestBed.overrideComponent(options.host, {
+        set: { template: template }
+      });
+    }
 
     const spectator = createSpectatorHost(options, props, hostProps);
 
