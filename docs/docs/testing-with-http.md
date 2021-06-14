@@ -29,7 +29,7 @@ export class TodosDataService {
 
 The test for the above service should look like:
 ```ts
-import { createHttpFactory, HttpMethod } from '@ngneat/spectator';
+import { createHttpFactory, HttpMethod, SpectatorHttp } from '@ngneat/spectator';
 import { TodosDataService } from './todos-data.service';
 
 describe('HttpClient testing', () => {
