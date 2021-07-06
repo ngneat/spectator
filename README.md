@@ -498,7 +498,7 @@ The host method returns an instance of `SpectatorHost` which extends `Spectator`
 - `queryHostAll` - Read more about querying in Spectator
 
 ### Custom Host Component
-Sometimes it's helpful to pass your own host implementation. We can pass a custom host component to the `createHostComponentFactory()` that will replace the default one:
+Sometimes it's helpful to pass your own host implementation. We can pass a custom host component to the `createHostFactory()` that will replace the default one:
 
 ```ts
 @Component({ selector: 'custom-host', template: '' })
