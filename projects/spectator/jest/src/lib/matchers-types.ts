@@ -14,11 +14,11 @@ declare namespace jest {
 
     toContainProperty(prop: string | object, val?: string): boolean;
 
-    toHaveText(text: string | string[] | Function, exact?: boolean): boolean;
+    toHaveText(text: string | string[] | ((text: string) => boolean), exact?: boolean): boolean;
 
-    toContainText(text: string | string[] | Function, exact?: boolean): boolean;
+    toContainText(text: string | string[] | ((text: string) => boolean), exact?: boolean): boolean;
 
-    toHaveExactText(text: string | string[] | Function): boolean;
+    toHaveExactText(text: string | string[] | ((text: string) => boolean)): boolean;
 
     toHaveValue(value: string | string[]): boolean;
 
