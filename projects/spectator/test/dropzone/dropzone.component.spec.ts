@@ -1,4 +1,4 @@
-/* tslint:disable */
+/* eslint-disable */
 import { Component } from '@angular/core';
 import { DropzoneComponent } from './dropzone.component';
 import { DownloadComponent } from '../download/download.component';
@@ -6,7 +6,7 @@ import { createHostFactory, SpectatorHost } from '@ngneat/spectator';
 
 @Component({
   selector: 'host',
-  template: ''
+  template: '',
 })
 class HostComponent {
   allowCSV = false;
@@ -20,7 +20,7 @@ describe('DropzoneComponent', () => {
   const createHost = createHostFactory({
     component: DropzoneComponent,
     host: HostComponent,
-    declarations: [DownloadComponent]
+    declarations: [DownloadComponent],
   });
 
   beforeEach(() => {
@@ -38,7 +38,7 @@ describe('DropzoneComponent', () => {
     const dropzoneComponent = spectator.queryHost<DropzoneComponent>(DropzoneComponent);
     console.log({
       downloadComponent,
-      dropzoneComponent
+      dropzoneComponent,
     });
     spyOn(spectator.hostComponent, 'onTemplate').and.callThrough();
     downloadComponent!.onDownloadClick();

@@ -1,10 +1,5 @@
 {
   "name": "spectator-schematics",
   "version": "0.0.0",
-  "schematics": "./src/collection.json",
-  "peerDependencies": {
-    "@angular-devkit/core": ">= 8.0.0",
-    "@angular-devkit/schematics": ">= 8.0.0",
-    "typescript": ">= 2.8.0"
-  }
+  "schematics": "./src/collection.json"
 }

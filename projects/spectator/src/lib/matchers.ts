@@ -1,11 +1,11 @@
 /** Credit: https://github.com/unindented/custom-jquery-matchers/tree/master/packages/custom-jquery-matchers */
-// tslint:disable:no-shadowed-variable
+/* eslint-disable no-shadow, @typescript-eslint/no-shadow */
 
 import $ from 'jquery';
 
 import { hex2rgb, isHex, trim } from './internals/rgb-to-hex';
 import { isHTMLOptionElementArray, isObject } from './types';
-import { isRunningInJsDom } from './utils';
+import { isRunningInJsDom, coerceArray } from './utils';
 
 export interface CustomMatcherFactory {
   (): CustomMatcher;
@@ -111,9 +111,11 @@ const hasSameText = (el: HTMLElement, expected: string | string[] | ((s: string)
   return { pass, message };
 };
 
-const comparator = (func): CustomMatcherFactory => () => ({
-  compare: func
-});
+const comparator =
+  (func): CustomMatcherFactory =>
+  () => ({
+    compare: func,
+  });
 
 /**
  *
@@ -165,7 +167,7 @@ export const toHaveClass = comparator((el, expected: string | string[], options:
   if (expected && Array.isArray(expected)) {
     const actual: string = $(el).attr('class');
     const expectedClasses = expected.join(' ');
-    const pass = options.strict ? $(el).hasClass(expectedClasses) : expected.every(e => $(el).hasClass(e));
+    const pass = options.strict ? $(el).hasClass(expectedClasses) : expected.every((e) => $(el).hasClass(e));
     const message = () => `Expected element${pass ? ' not' : ''} to have value '${expectedClasses}', but had '${actual}'`;
 
     return { pass, message };
@@ -313,7 +315,7 @@ export const toHaveData = comparator((el, { data, val }) => {
  *
  * expect('.checkbox').toBeChecked();
  */
-export const toBeChecked = comparator(el => {
+export const toBeChecked = comparator((el) => {
   const pass = $(el).is(':checked');
   const message = () => `Expected element${pass ? ' not' : ''} to be checked`;
 
@@ -324,7 +326,7 @@ export const toBeChecked = comparator(el => {
  *
  * expect('.checkbox').toBeDisabled();
  */
-export const toBeDisabled = comparator(el => {
+export const toBeDisabled = comparator((el) => {
   const pass = $(el).is(':disabled');
   const message = () => `Expected element${pass ? ' not' : ''} to be disabled`;
 
@@ -336,7 +338,7 @@ export const toBeDisabled = comparator(el => {
  *
  * expect('div').toBeEmpty();
  */
-export const toBeEmpty = comparator(el => {
+export const toBeEmpty = comparator((el) => {
   const pass = $(el).is(':empty');
   const message = () => `Expected element${pass ? ' not' : ''} to be empty`;
 
@@ -351,11 +353,11 @@ export const toBeEmpty = comparator(el => {
  */
 export const toBePartial = comparator((actual, expected) => {
   const mapToPropsAndValues = (values: any[], properties: any[]) => {
-    return properties.map(prop => {
+    return properties.map((prop) => {
       return {
         name: prop,
         value: values[prop],
-        type: typeof values[prop]
+        type: typeof values[prop],
       };
     });
   };
@@ -365,10 +367,11 @@ export const toBePartial = comparator((actual, expected) => {
   const expectedProps = Object.getOwnPropertyNames(expected);
   const expectedPropsAndValues = mapToPropsAndValues(expected, expectedProps);
 
-  const pass = expectedProps.every(expectedProp => actual[expectedProp] === expected[expectedProp]);
+  const pass = expectedProps.every((expectedProp) => actual[expectedProp] === expected[expectedProp]);
   const message = () =>
-    `Expected element${pass ? ' not' : ''} to contain properties: ${JSON.stringify(expectedPropsAndValues)}.`
-      .concat(` Actual properties: ${JSON.stringify(actualPropsAndValues)}`);
+    `Expected element${pass ? ' not' : ''} to contain properties: ${JSON.stringify(expectedPropsAndValues)}.`.concat(
+      ` Actual properties: ${JSON.stringify(actualPropsAndValues)}`
+    );
 
   return { pass, message };
 });
@@ -389,11 +392,11 @@ function isHidden(elOrSelector: HTMLElement | string): boolean {
   }
 
   const hiddenWhen = [
-    el => !(el.offsetWidth || el.offsetHeight || el.getClientRects().length),
-    el => el.style.display === 'none',
-    el => el.style.visibility === 'hidden',
-    el => el.type === 'hidden',
-    el => el.hasAttribute('hidden')
+    (el) => !(el.offsetWidth || el.offsetHeight || el.getClientRects().length),
+    (el) => el.style.display === 'none',
+    (el) => el.style.visibility === 'hidden',
+    (el) => el.type === 'hidden',
+    (el) => el.hasAttribute('hidden'),
   ];
 
   if (isRunningInJsDom()) {
@@ -407,7 +410,7 @@ function isHidden(elOrSelector: HTMLElement | string): boolean {
       break;
     }
 
-    if (hiddenWhen.some(rule => rule(el))) {
+    if (hiddenWhen.some((rule) => rule(el))) {
       return true;
     }
 
@@ -428,7 +431,7 @@ function isHidden(elOrSelector: HTMLElement | string): boolean {
  * expect('div').toBeHidden();
  *
  */
-export const toBeHidden = comparator(el => {
+export const toBeHidden = comparator((el) => {
   const pass = isHidden(el);
   const message = () => `Expected element${pass ? ' not' : ''} to be hidden`;
 
@@ -441,7 +444,7 @@ export const toBeHidden = comparator(el => {
  * expect('div').toBeSelected();
  *
  */
-export const toBeSelected = comparator(el => {
+export const toBeSelected = comparator((el) => {
   const pass = $(el).is(':selected');
   const message = () => `Expected element${pass ? ' not' : ''} to be selected`;
 
@@ -459,7 +462,7 @@ export const toBeSelected = comparator(el => {
  * expect('div').toBeVisible();
  *
  */
-export const toBeVisible = comparator(el => {
+export const toBeVisible = comparator((el) => {
   const pass = !isHidden(el);
 
   const message = () => `Expected element${pass ? ' not' : ''} to be visible`;
@@ -472,7 +475,7 @@ export const toBeVisible = comparator(el => {
  *
  * expect('input').toBeFocused();
  */
-export const toBeFocused = comparator(el => {
+export const toBeFocused = comparator((el) => {
   const element = $(el).get(0);
   const pass = element === element.ownerDocument.activeElement;
   const message = () => `Expected element${pass ? ' not' : ''} to be focused`;
@@ -511,11 +514,7 @@ export const toHaveDescendant = comparator((el, selector) => {
  * expect('div').toHaveDescendantWithText({selector: '.child', text: 'text'})
  */
 export const toHaveDescendantWithText = comparator((el, { selector, text }) => {
-  const actual = $.trim(
-    $(el)
-      .find(selector)
-      .text()
-  );
+  const actual = $.trim($(el).find(selector).text());
   if (text && $.isFunction(text.test)) {
     const pass = text.test(actual);
     const message = () =>
@@ -548,12 +547,12 @@ export const toHaveSelectedOptions = comparator((el, expected) => {
 
     const expectedOptionsString = $(expected)
       .get()
-      .map(option => option.outerHTML)
+      .map((option) => option.outerHTML)
       .join(',');
 
     const actualOptionsString = actual
       .get()
-      .map(option => option.outerHTML)
+      .map((option) => option.outerHTML)
       .join(',');
 
     const message = () =>
@@ -562,8 +561,9 @@ export const toHaveSelectedOptions = comparator((el, expected) => {
     return { pass, message };
   }
 
-  const actual = $(el).val();
-  const pass = JSON.stringify([...actual]) === JSON.stringify([...expected]);
+  const actual: string[] = $(el).val();
+
+  const pass = coerceArray(expected)?.every((v) => actual.includes(v));
 
   const expectedOptionsString = Array.isArray(expected)
     ? expected.reduce((acc: string, val: string, i) => acc + `${i === expected.length ? '' : ','}${val}`)

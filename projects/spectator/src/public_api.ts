@@ -42,4 +42,3 @@ export { typeInElement } from './lib/type-in-element';
 export { defineGlobalsInjections } from './lib/globals-injections';
 export { dispatchEvent, dispatchFakeEvent, dispatchKeyboardEvent, dispatchMouseEvent, dispatchTouchEvent } from './lib/dispatch-events';
 export { createFakeEvent, createKeyboardEvent, createMouseEvent, createTouchEvent } from './lib/event-creators';
-export { MockComponentDeprecated, MockDirectiveDeprecated } from './lib/deprecated';

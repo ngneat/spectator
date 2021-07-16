@@ -1,4 +1,4 @@
-name: build-and-test
+name: CI
 on:
   pull_request:
   push:
@@ -57,3 +57,5 @@ jobs:
 
       - name: Test
         run: yarn test:ci
+      - name: Lint
+        run: yarn lint

@@ -1,7 +1,7 @@
 import { Directive, ElementRef, Input } from '@angular/core';
 
 @Directive({
-  selector: '[datoAutoFocus]'
+  selector: '[datoAutoFocus]',
 })
 export class AutoFocusDirective {
   @Input() public set datoAutoFocus(value: boolean) {
@@ -13,7 +13,7 @@ export class AutoFocusDirective {
   public constructor(private readonly host: ElementRef) {}
 
   public method(): void {
-    // tslint:disable-next-line:no-console
+    // eslint-disable-next-line no-console
     console.log();
   }
 }

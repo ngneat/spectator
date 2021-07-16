@@ -12,7 +12,7 @@
     "importHelpers": true,
     "strict": true,
     "noImplicitAny": false,
-    "target": "es2015",
+    "target": "ES2017",
     "esModuleInterop": true,
     "typeRoots": [
       "node_modules/@types"
@@ -23,7 +23,10 @@
     ],
     "paths": {
       "@ngneat/spectator": [
-        "dist/spectator"
+        "projects/spectator/src/public_api.ts"
+      ],
+      "@ngneat/spectator/jest": [
+        "projects/spectator/jest/src/public_api.ts"
       ]
     }
   }

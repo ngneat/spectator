@@ -1,6 +1,6 @@
 {
   "$schema": "http://json-schema.org/schema",
-  "id": "SpectatorSchematicsAngularComponent",
+  "$id": "SpectatorSchematicsAngularComponent",
   "title": "Angular Component with Spectator Spec Options Schema",
   "type": "object",
   "description": "Creates a new generic component definition in the given or default project.",
@@ -38,6 +38,11 @@
       "type": "boolean",
       "default": false,
       "alias": "t"
+    },
+    "type": {
+      "type": "string",
+      "description": "Adds a developer-defined type to the filename, in the format \"name.type.ts\".",
+      "default": "Component"
     },
     "viewEncapsulation": {
       "description": "The view encapsulation strategy to use in the new component.",

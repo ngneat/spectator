@@ -1,4 +1,4 @@
-/* tslint:disable */
+/* eslint-disable */
 import { Component, Output, EventEmitter } from '@angular/core';
 
 @Component({
@@ -6,7 +6,7 @@ import { Component, Output, EventEmitter } from '@angular/core';
   template: `
     <h1 (click)="onDownloadClick()">Download comp</h1>
     >
-  `
+  `,
 })
 export class DownloadComponent {
   @Output() selectedFile = new EventEmitter();

@@ -11,7 +11,7 @@ import {
   Rule,
   SchematicContext,
   Tree,
-  noop
+  noop,
 } from '@angular-devkit/schematics';
 import { buildDefaultPath, getWorkspace } from '@schematics/angular/utility/workspace';
 import { parseName } from '@schematics/angular/utility/parse-name';
@@ -21,9 +21,9 @@ import { ComponentOptions, DirectiveOptions, ServiceOptions } from './schema';
 export function spectatorComponentSchematic(options: ComponentOptions): Rule {
   return chain([
     externalSchematic('@schematics/angular', 'component', {
-      ...options,
+      ...omit(options, ['jest', 'withHost', 'withCustomHost']),
       skipTests: true,
-      spec: false
+      spec: false,
     }),
     async (tree: Tree, _context: SchematicContext): Promise<Rule> => {
       if (options.skipTests) {
@@ -38,23 +38,23 @@ export function spectatorComponentSchematic(options: ComponentOptions): Rule {
         [
           template({
             ...strings,
-            ...options
+            ...options,
           }),
-          move(movePath)
+          move(movePath),
         ]
       );
 
       return mergeWith(specTemplateRule, MergeStrategy.Default);
-    }
+    },
   ]);
 }
 
 export function spectatorServiceSchematic(options: ServiceOptions): Rule {
   return chain([
     externalSchematic('@schematics/angular', 'service', {
-      ...options,
+      ...omit(options, ['jest']),
       skipTests: true,
-      spec: false
+      spec: false,
     }),
     async (tree: Tree, _context: SchematicContext): Promise<Rule> => {
       if (options.skipTests) {
@@ -66,22 +66,22 @@ export function spectatorServiceSchematic(options: ServiceOptions): Rule {
       const specTemplateRule = apply(url(`./files/${options.isDataService ? 'data-service' : `service`}`), [
         template({
           ...strings,
-          ...options
+          ...options,
         }),
-        move(movePath)
+        move(movePath),
       ]);
 
       return mergeWith(specTemplateRule, MergeStrategy.Default);
-    }
+    },
   ]);
 }
 
 export function spectatorDirectiveSchematic(options: DirectiveOptions): Rule {
   return chain([
     externalSchematic('@schematics/angular', 'directive', {
-      ...options,
+      ...omit(options, ['jest']),
       skipTests: true,
-      spec: false
+      spec: false,
     }),
     async (tree: Tree, _context: SchematicContext): Promise<Rule> => {
       if (options.skipTests) {
@@ -93,22 +93,22 @@ export function spectatorDirectiveSchematic(options: DirectiveOptions): Rule {
       const specTemplateRule = apply(url(`./files/directive`), [
         template({
           ...strings,
-          ...options
+          ...options,
         }),
-        move(movePath)
+        move(movePath),
       ]);
 
       return mergeWith(specTemplateRule, MergeStrategy.Default);
-    }
+    },
   ]);
 }
 
 export function spectatorPipeSchematic(options: DirectiveOptions): Rule {
   return chain([
     externalSchematic('@schematics/angular', 'pipe', {
-      ...options,
+      ...omit(options, ['jest']),
       skipTests: true,
-      spec: false
+      spec: false,
     }),
     async (tree: Tree, _context: SchematicContext): Promise<Rule> => {
       if (options.skipTests) {
@@ -120,13 +120,13 @@ export function spectatorPipeSchematic(options: DirectiveOptions): Rule {
       const specTemplateRule = apply(url(`./files/pipe`), [
         template({
           ...strings,
-          ...options
+          ...options,
         }),
-        move(movePath)
+        move(movePath),
       ]);
 
       return mergeWith(specTemplateRule, MergeStrategy.Default);
-    }
+    },
   ]);
 }
 
@@ -146,4 +146,14 @@ async function _ensurePath(tree: Tree, options: any): Promise<void> {
   const parsedPath = parseName(options.path as string, options.name);
   options.name = parsedPath.name;
   options.path = parsedPath.path;
+}
+
+function omit<T extends Record<PropertyKey, any>>(original: T, keys: (keyof T)[]): any {
+  return Object.keys(original)
+    .filter((key) => !keys.includes(key))
+    .reduce((obj: Record<PropertyKey, any>, key) => {
+      obj[key] = original[key];
+
+      return obj;
+    }, {});
 }

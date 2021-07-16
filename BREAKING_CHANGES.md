@@ -1,5 +1,11 @@
 # Breaking Changes
 
+## Version 8
+- Upgrade to v12
+- Remove deprecated mocks helpers
+- Remove downlevel-dts
+- Updates schematics and support the `type` option
+
 ## Version 7
 - Add support for Angular v11 
 

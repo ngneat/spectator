@@ -104,7 +104,7 @@ export class SpectatorRouting<C> extends Spectator<C> {
    */
   public emitRouterEvent(event: Event): void {
     if (!isRouterStub(this.router)) {
-      // tslint:disable-next-line:no-console
+      // eslint-disable-next-line no-console
       console.warn(
         'No stub for Router present. Set Spectator option "stubsEnabled" to true if you want to use this ' +
           'helper, or use Router navigation to trigger events.'
@@ -123,7 +123,7 @@ export class SpectatorRouting<C> extends Spectator<C> {
 
   private checkStubPresent(): this is { readonly activatedRouteStub: ActivatedRouteStub } {
     if (!this.activatedRouteStub) {
-      // tslint:disable-next-line:no-console
+      // eslint-disable-next-line no-console
       console.warn(
         'No stub for ActivatedRoute present. Set Spectator option "stubsEnabled" to true if you want to use this ' +
           'helper, or use Router to trigger navigation.'

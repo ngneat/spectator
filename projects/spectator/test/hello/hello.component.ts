@@ -11,7 +11,7 @@ import { TranslateService } from '../translate.service';
 
     <div *ngIf="!widthRaw" style="color:red">widthRaw is not set</div>
     <div>Width is: {{ width }}</div>
-  `
+  `,
 })
 export class HelloComponent implements OnChanges {
   public get width(): string | number | undefined {
@@ -23,8 +23,5 @@ export class HelloComponent implements OnChanges {
 
   constructor(private readonly translate: TranslateService) {}
 
-  public ngOnChanges(s: SimpleChanges): void {
-    // tslint:disable-next-line:no-console
-    console.log('ngOnChanges', s);
-  }
+  public ngOnChanges(s: SimpleChanges): void {}
 }
