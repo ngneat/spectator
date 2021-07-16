@@ -23,7 +23,10 @@
     ],
     "paths": {
       "@ngneat/spectator": [
-        "dist/spectator"
+        "projects/spectator/src/public_api.ts"
+      ],
+      "@ngneat/spectator/jest": [
+        "projects/spectator/jest/src/public_api.ts"
       ]
     }
   }

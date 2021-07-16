@@ -12,7 +12,7 @@ describe('ZippyComponent', () => {
   const createHost = createHostFactory({
     component: ZippyComponent,
     mocks: [QueryService],
-    componentProviders: [{ provide: QueryService, useValue: 'componentProviders' }]
+    componentProviders: [{ provide: QueryService, useValue: 'componentProviders' }],
   });
 
   it('should should have a zippy component', () => {
@@ -35,8 +35,8 @@ describe('ZippyComponent', () => {
   it('should display the title from component property', () => {
     host = createHost(`<zippy></zippy>`, {
       props: {
-        title: 'ZIPPY'
-      }
+        title: 'ZIPPY',
+      },
     });
     expect(host.query('.zippy__title')).toHaveText('ZIPPY');
   });
@@ -45,8 +45,8 @@ describe('ZippyComponent', () => {
     host = createHost(`<zippy [title]="title"></zippy>`, {
       hostProps: {
         title: 'ZIPPY2',
-        control: new FormControl(false)
-      }
+        control: new FormControl(false),
+      },
     });
     expect(host.query('.zippy__title')).toHaveText('ZIPPY2');
   });
@@ -56,8 +56,8 @@ describe('ZippyComponent', () => {
     host = createHost(`<zippy></zippy>`, {
       detectChanges: true,
       props: {
-        options
-      }
+        options,
+      },
     });
 
     expect(host.query('.color')).toHaveText('blue');
@@ -153,7 +153,7 @@ describe('With Custom Host Component', () => {
   const createHost = createHostFactory<ZippyComponent, CustomHostComponent>({
     component: ZippyComponent,
     componentProviders: [{ provide: QueryService, useValue: 'componentProviders' }],
-    host: CustomHostComponent
+    host: CustomHostComponent,
   });
 
   it('should display the host component title', () => {
@@ -175,8 +175,4 @@ describe('With Custom Host Component', () => {
     host.tick(6000);
     expect(host.component.updatedAsync).not.toBeFalsy();
   }));
-
-  it.each([[1], [2]])('should work with .each (%s)', value => {
-    expect(value).toBeDefined();
-  });
 });

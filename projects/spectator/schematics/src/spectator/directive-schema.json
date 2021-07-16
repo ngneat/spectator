@@ -1,6 +1,6 @@
 {
   "$schema": "http://json-schema.org/schema",
-  "id": "SpectatorSchematicsAngularDirective",
+  "$id": "SpectatorSchematicsAngularDirective",
   "title": "Angular Directive with Spectator spec Options Schema",
   "type": "object",
   "description": "Creates a new generic directive definition in the given or default project.",

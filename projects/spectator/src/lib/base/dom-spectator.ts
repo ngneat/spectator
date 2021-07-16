@@ -232,7 +232,7 @@ export abstract class DomSpectator<I> extends BaseSpectator {
       },
       pressBackspace: (selector: SpectatorElement = this.element, event = KEY_UP) => {
         this.dispatchKeyboardEvent(selector, event, { key: 'Backspace', keyCode: 8 });
-      }
+      },
     };
   }
 
@@ -243,7 +243,7 @@ export abstract class DomSpectator<I> extends BaseSpectator {
       },
       dblclick: (selector: SpectatorElement = this.element) => {
         this.dispatchMouseEvent(selector, 'dblclick');
-      }
+      },
     };
   }
 
@@ -274,7 +274,7 @@ export abstract class DomSpectator<I> extends BaseSpectator {
 
     // Support global objects window and document
     if (selector === window || selector === document) {
-      return selector;
+      return selector as any;
     }
 
     if (isString(selector)) {

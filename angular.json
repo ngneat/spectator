@@ -31,7 +31,8 @@
         },
         "test-jest": {
           "builder": "@angular-builders/jest:run",
-          "options": {}
+          "options": {
+          }
         },
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",

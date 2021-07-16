@@ -7,7 +7,7 @@ import {
   byText,
   byTitle,
   byValue,
-  byTextContent
+  byTextContent,
 } from '@ngneat/spectator/jest';
 
 import { DomSelectorsComponent } from '../../../test/dom-selectors/dom-selectors.component';
@@ -63,7 +63,7 @@ describe('DomSelectorsComponent', () => {
     describe('with string matcher', () => {
       [
         { description: 'by default', opts: {} },
-        { description: 'with `exact: true`', opts: { exact: true } }
+        { description: 'with `exact: true`', opts: { exact: true } },
       ].forEach(({ description, opts }) => {
         it(`should exactly match text content ${description}`, () => {
           let element = spectator.query(byTextContent('deeply nested', { selector: '#text-content-root', ...opts }));
@@ -137,38 +137,10 @@ describe('DomSelectorsComponent', () => {
     });
 
     describe('with function matcher', () => {
-      it('should call matcher for all elements matching the selector', () => {
-        const matcher = jasmine.createSpy('matcher').and.returnValue(false);
-        const element = spectator.query(byTextContent(matcher, { selector: '#text-content-root [id^="text-content-span"]' }));
-        expect(element).toBeNull();
-        expect(matcher).toHaveBeenCalledTimes(2);
-        expect(matcher.calls.argsFor(0)).toEqual(['deeply NESTED', spectator.query('#text-content-span-1')]);
-        expect(matcher.calls.argsFor(1)).toEqual(['TEXT', spectator.query('#text-content-span-2')]);
-      });
-
       it('should match and element for which matcher returns `true`', () => {
         const matcher = (text: string) => text === 'TEXT';
         const element = spectator.query(byTextContent(matcher, { selector: '#text-content-root [id^="text-content-span"]' }));
         expect(element).toHaveId('text-content-span-2');
-      });
-
-      it('should support `trim` option', () => {
-        const matcher = jasmine.createSpy('matcher').and.returnValue(true);
-        spectator.query(byTextContent(matcher, { selector: '#text-content-span-2', trim: false }));
-        expect(matcher).toHaveBeenCalledWith(' TEXT ', spectator.query('#text-content-span-2'));
-      });
-
-      it('should support `collapseWhitespace` option', () => {
-        const matcher = jasmine.createSpy('matcher').and.returnValue(true);
-        spectator.query(byTextContent(matcher, { selector: '#text-content-span-1', collapseWhitespace: false }));
-        expect(matcher).toHaveBeenCalledWith('deeply  NESTED', spectator.query('#text-content-span-1'));
-      });
-
-      it('should support custom normalizer', () => {
-        const matcher = jasmine.createSpy('matcher').and.returnValue(true);
-        const toLowerCase = (text: string) => text.toLowerCase();
-        spectator.query(byTextContent(matcher, { selector: '#text-content-span-1', normalizer: toLowerCase }));
-        expect(matcher).toHaveBeenCalledWith('deeply  nested', spectator.query('#text-content-span-1'));
       });
     });
   });

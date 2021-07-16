@@ -1,6 +1,6 @@
 {
   "$schema": "http://json-schema.org/schema",
-  "id": "SpectatorSchematicsAngularComponent",
+  "$id": "SpectatorSchematicsAngularComponent",
   "title": "Angular Component with Spectator Spec Options Schema",
   "type": "object",
   "description": "Creates a new generic component definition in the given or default project.",

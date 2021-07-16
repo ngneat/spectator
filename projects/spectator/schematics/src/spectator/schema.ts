@@ -1,4 +1,4 @@
-import { ChangeDetection, ViewEncapsulation } from '@angular/cli/lib/config/schema';
+import { ChangeDetection, ViewEncapsulation } from '@angular/cli/lib/config/workspace-schema';
 
 export class ComponentOptions {
   name: string;
