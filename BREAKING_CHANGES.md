@@ -10,7 +10,6 @@
 - Add support for Angular v11 
 
 ## Version 6
-
 - Wrapper for `TestBed.get()` was removed, please use `inject()`
 - `createHTTPFactory` was removed in favor of `createHttpFactory`
 - `SpectatorWithHost` type was removed in favor of `SpectatorHost`
