@@ -184,20 +184,6 @@ it('should...', () => {
   });
 });
 ```
-
-
-
-- `setInput()` - Changes the value of an @Input() of the tested component.
-  Method runs `ngOnChanges` with `SimpleChanges` manually if it exists.
-```ts
-it('should...', () => {
-  spectator.setInput('className', 'danger');
-
-  spectator.setInput({
-    className: 'danger'
-  });
-});
-```
 - `output` - Returns an Observable @Output() of the tested component:
 ```ts
 it('should emit the $event on click', () => {
