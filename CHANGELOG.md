@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [8.0.0](https://github.com/ngneat/spectator/compare/v7.2.0...v8.0.0) (2021-07-16)
+
+
+### ⚠ BREAKING CHANGES
+
+* 🧨 upgrade to v12
+
+### Features
+
+* 🎸 migrate to angular v12 ([#457](https://github.com/ngneat/spectator/issues/457)) ([6443d09](https://github.com/ngneat/spectator/commit/6443d09c14314b566213c35d8ecc88d4350113a3))
+* 🎸 upgrade to angular v12 ([5b19bc6](https://github.com/ngneat/spectator/commit/5b19bc695aad9a9e7cfd1c41ec7c55681ebf383c))
+
 ## [7.2.0](https://github.com/ngneat/spectator/compare/v7.1.0...v7.2.0) (2021-06-10)
 
 ## [7.1.0](https://github.com/ngneat/spectator/compare/v7.0.1...v7.1.0) (2021-03-07)
