@@ -17,7 +17,7 @@ export type SpectatorServiceFactory<S> = (overrides?: SpectatorServiceOverrides<
 /**
  * @publicApi
  */
-// tslint:disable-next-line:no-empty-interface
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface SpectatorServiceOverrides<S> extends BaseSpectatorOverrides {}
 
 /**
@@ -40,7 +40,7 @@ export function createServiceFactory<S>(typeOrOptions: Type<S> | SpectatorServic
       : TestBed.get(service);
 
     if (doesServiceImplementsOnDestroy(testedService)) {
-      // tslint:disable-next-line:no-life-cycle-call
+      // eslint-disable-next-line
       testedService.ngOnDestroy();
     }
   });

@@ -1,10 +1,10 @@
 import { Component, Input, OnChanges, OnInit, SimpleChange, SimpleChanges } from '@angular/core';
 
-// tslint:disable:template-no-call-expression
+/* eslint-disable @angular-eslint/template/no-call-expression */
 
 @Component({
   selector: 'app-simple-changes',
-  template: ``
+  template: ``,
 })
 export class SimpleChangesComponent implements OnInit, OnChanges {
   @Input() public value;

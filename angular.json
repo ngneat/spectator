@@ -31,24 +31,22 @@
         },
         "test-jest": {
           "builder": "@angular-builders/jest:run",
-          "options": {
-          }
+          "options": {}
         },
         "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
+          "builder": "@angular-eslint/builder:lint",
           "options": {
-            "tsConfig": [
-              "projects/spectator/tsconfig.lib.json",
-              "projects/spectator/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**",
-              "projects/spectator/schematics/**"
+            "lintFilePatterns": [
+              "projects/spectator/**/*.ts",
+              "projects/spectator/**/*.html"
             ]
           }
         }
       }
     }
   },
-  "defaultProject": "spectator"
+  "defaultProject": "spectator",
+  "cli": {
+    "defaultCollection": "@angular-eslint/schematics"
+  }
 }

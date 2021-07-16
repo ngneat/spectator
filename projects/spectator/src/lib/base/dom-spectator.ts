@@ -206,7 +206,7 @@ export abstract class DomSpectator<I> extends BaseSpectator {
   ) {
     const triggerDebugElement = this.getTriggerDebugElement(directiveOrSelector, options);
     if (!triggerDebugElement) {
-      // tslint:disable:no-console
+      /* eslint-disable no-console */
       console.error(`${directiveOrSelector} does not exists`);
       return;
     }
@@ -282,7 +282,7 @@ export abstract class DomSpectator<I> extends BaseSpectator {
       if (exists) {
         element = exists.nativeElement;
       } else {
-        // tslint:disable:no-console
+        /* eslint-disable no-console */
         console.error(`${selector} does not exists`);
       }
     } else if (selector instanceof DOMSelector) {

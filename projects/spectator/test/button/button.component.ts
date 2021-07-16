@@ -2,7 +2,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 import { QueryService } from '../query.service';
 
-// tslint:disable:template-no-call-expression
+/* eslint-disable @angular-eslint/template/no-call-expression */
 
 @Component({
   selector: 'app-button',
@@ -13,13 +13,13 @@ import { QueryService } from '../query.service';
     <div class="dblclick" (dblclick)="dblclick()">dblclick</div>
   `,
   providers: [QueryService],
-  styles: []
+  styles: [],
 })
 export class ButtonComponent {
   @Input() public className = 'success';
   @Input() public title = '';
 
-  // tslint:disable-next-line:no-output-native
+  // eslint-disable-next-line @angular-eslint/no-output-native
   @Output() public readonly click = new EventEmitter<any>();
 
   constructor(public queryService: QueryService) {}

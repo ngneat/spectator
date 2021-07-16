@@ -15,14 +15,14 @@ export function getChildren<R>(debugElementRoot: DebugElement): (directiveOrSele
     );
 
     if (options.read) {
-      return debugElements.map(debug => debug.injector.get(options.read));
+      return debugElements.map((debug) => debug.injector.get(options.read));
     }
 
     if (isString(directiveOrSelector)) {
-      return debugElements.map(debug => debug.nativeElement);
+      return debugElements.map((debug) => debug.nativeElement);
     }
 
-    return debugElements.map(debug => debug.injector.get(directiveOrSelector));
+    return debugElements.map((debug) => debug.injector.get(directiveOrSelector));
   };
 }
 
@@ -47,14 +47,14 @@ export function setProps(instance: any, keyOrKeyValues: any, value?: any, firstC
   if (isString(keyOrKeyValues)) {
     update(keyOrKeyValues, value);
   } else {
-    // tslint:disable-next-line:forin
+    // eslint-disable-next-line guard-for-in
     for (const p in keyOrKeyValues) {
       update(p, keyOrKeyValues[p]);
     }
   }
 
   if (Object.keys(changes).length) {
-    // tslint:disable-next-line:no-life-cycle-call
+    // eslint-disable-next-line
     instance.ngOnChanges?.(changes);
   }
 

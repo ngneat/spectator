@@ -1,16 +1,16 @@
 import { Directive, HostListener, Input, NgModule } from '@angular/core';
 import { RouterLink } from '@angular/router';
 
-// tslint:disable
+/* eslint-disable */
 
 @Directive({
   selector: '[routerLink]',
   providers: [
     {
       provide: RouterLink,
-      useExisting: RouterLinkDirectiveStub
-    }
-  ]
+      useExisting: RouterLinkDirectiveStub,
+    },
+  ],
 })
 export class RouterLinkDirectiveStub {
   @Input() routerLink: any;
@@ -32,6 +32,6 @@ export class RouterLinkDirectiveStub {
   Reference: https://github.com/angular/issues/13590
 */
 @NgModule({
-  declarations: [RouterLinkDirectiveStub]
+  declarations: [RouterLinkDirectiveStub],
 })
 export class RouterLinkDirectiveStubModule {}

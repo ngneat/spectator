@@ -24,7 +24,7 @@ describe('MyPageComponent', () => {
       data: { title: 'lorem', dynamicTitle: 'ipsum' },
       params: { foo: '1', bar: '2' },
       queryParams: { baz: '3' },
-      url
+      url,
     });
 
     it('should create with default options', () => {
@@ -42,7 +42,7 @@ describe('MyPageComponent', () => {
 
     it('should create with overridden options', () => {
       const spectator = createComponent({
-        params: { foo: 'A', bar: 'B' }
+        params: { foo: 'A', bar: 'B' },
       });
 
       expect(spectator.query('.foo')).toHaveText('A');
@@ -52,7 +52,7 @@ describe('MyPageComponent', () => {
 
     it('should respond to updates', () => {
       const spectator = createComponent({
-        params: { foo: 'A', bar: 'B' }
+        params: { foo: 'A', bar: 'B' },
       });
 
       expect(spectator.query('.foo')).toHaveText('A');
@@ -87,7 +87,7 @@ describe('MyPageComponent', () => {
       expect(spectator.query('.dynamic-title')).toHaveText('ipsum');
 
       spectator.triggerNavigation({
-        data: { title: 'new-title', dynamicTitle: 'new-dynamic-title' }
+        data: { title: 'new-title', dynamicTitle: 'new-dynamic-title' },
       });
 
       expect(spectator.query('.title')).toHaveText('lorem');
@@ -109,7 +109,7 @@ describe('MyPageComponent', () => {
 
   describe('default router mocking', () => {
     const createComponent = createRoutingFactory({
-      component: MyPageComponent
+      component: MyPageComponent,
     });
 
     it('should support mocks', () => {
@@ -129,7 +129,7 @@ describe('MyPageComponent', () => {
 
       spectator.emitRouterEvent(new NavigationStart(1, 'some-url'));
 
-      // tslint:disable-next-line:no-console
+      // eslint-disable-next-line no-console
       expect(console.warn).not.toHaveBeenCalled();
       expect(subscriberSpy).toHaveBeenCalled();
 
@@ -140,7 +140,7 @@ describe('MyPageComponent', () => {
   describe('without stubs', () => {
     @Component({
       selector: 'dummy',
-      template: ''
+      template: '',
     })
     class DummyComponent {}
 
@@ -151,13 +151,13 @@ describe('MyPageComponent', () => {
       routes: [
         {
           path: '',
-          component: MyPageComponent
+          component: MyPageComponent,
         },
         {
           path: 'foo',
-          component: DummyComponent
-        }
-      ]
+          component: DummyComponent,
+        },
+      ],
     });
 
     it('should navigate away using router', async () => {
@@ -198,7 +198,7 @@ describe('MyPageComponent', () => {
 
       spectator.emitRouterEvent(new NavigationStart(1, 'some-url'));
 
-      // tslint:disable-next-line:no-console
+      // eslint-disable-next-line no-console
       expect(console.warn).toHaveBeenCalled();
     });
   });
@@ -207,34 +207,34 @@ describe('MyPageComponent', () => {
     const createComponent = createRoutingFactory({
       component: MyPageComponent,
       root: new ActivatedRouteStub({
-        params: { root: '1' }
+        params: { root: '1' },
       }),
       parent: new ActivatedRouteStub({
-        params: { parent: '2' }
+        params: { parent: '2' },
       }),
       children: [
         new ActivatedRouteStub({
-          params: { child1: '3' }
+          params: { child1: '3' },
         }),
         new ActivatedRouteStub({
-          params: { child2: '4' }
-        })
+          params: { child2: '4' },
+        }),
       ],
       firstChild: new ActivatedRouteStub({
-        params: { firstChild: '5' }
-      })
+        params: { firstChild: '5' },
+      }),
     });
 
     it('should support root mock', () => {
       const spectator = createComponent();
-      spectator.component.root!.paramMap.subscribe(params => {
+      spectator.component.root!.paramMap.subscribe((params) => {
         expect(params.get('root')).toEqual('1');
       });
     });
 
     it('should support parent mock', () => {
       const spectator = createComponent();
-      spectator.component.parent!.paramMap.subscribe(params => {
+      spectator.component.parent!.paramMap.subscribe((params) => {
         expect(params.get('parent')).toEqual('2');
       });
     });
@@ -246,7 +246,7 @@ describe('MyPageComponent', () => {
 
     it('should support firstChild mocks', () => {
       const spectator = createComponent();
-      spectator.component.firstChild!.paramMap.subscribe(params => {
+      spectator.component.firstChild!.paramMap.subscribe((params) => {
         expect(params.get('firstChild')).toEqual('5');
       });
     });

@@ -28,13 +28,13 @@ export function createTouchEvent(type: string, pageX: number = 0, pageY: number 
     bubbles: true,
     cancelable: true,
     view: window,
-    detail: 0
+    detail: 0,
   });
 
   // Most of the browsers don't have a "initTouchEvent" method that can be used to define
   // the touch details.
   Object.defineProperties(event, {
-    touches: { value: [{ pageX, pageY }] }
+    touches: { value: [{ pageX, pageY }] },
   });
 
   return event;
@@ -53,15 +53,8 @@ export function createKeyboardEvent(type: string, keyOrKeyCode: string | number 
   } else {
     // `initKeyboardEvent` expects to receive modifiers as a whitespace-delimited string
     // See https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/initKeyboardEvent
-    const modifiersStr = (modifiers.control
-      ? 'Control '
-      : '' + modifiers.alt
-      ? 'Alt '
-      : '' + modifiers.shift
-      ? 'Shift '
-      : '' + modifiers.meta
-      ? 'Meta'
-      : ''
+    const modifiersStr = (
+      modifiers.control ? 'Control ' : '' + modifiers.alt ? 'Alt ' : '' + modifiers.shift ? 'Shift ' : '' + modifiers.meta ? 'Meta' : ''
     ).trim();
     event.initKeyboardEvent(
       type,
@@ -85,12 +78,12 @@ export function createKeyboardEvent(type: string, keyOrKeyCode: string | number 
     altKey: { get: () => !!modifiers.alt },
     ctrlKey: { get: () => !!modifiers.control },
     shiftKey: { get: () => !!modifiers.shift },
-    metaKey: { get: () => !!modifiers.meta }
+    metaKey: { get: () => !!modifiers.meta },
   });
 
   // IE won't set `defaultPrevented` on synthetic events so we need to do it manually.
-  // tslint:disable-next-line
-  event.preventDefault = function() {
+  // eslint-disable-next-line
+  event.preventDefault = function () {
     Object.defineProperty(event, 'defaultPrevented', { configurable: true, get: () => true });
 
     return originalPreventDefault.apply(this, arguments);

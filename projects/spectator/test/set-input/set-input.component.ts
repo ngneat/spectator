@@ -1,10 +1,10 @@
 import { Component, Input } from '@angular/core';
 
-// tslint:disable:template-no-call-expression
+/* eslint-disable @angular-eslint/template/no-call-expression */
 
 @Component({
   selector: 'app-set-input',
-  template: ``
+  template: ``,
 })
 export class SetInputComponent {
   public another;

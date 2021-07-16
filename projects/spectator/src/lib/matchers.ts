@@ -1,5 +1,5 @@
 /** Credit: https://github.com/unindented/custom-jquery-matchers/tree/master/packages/custom-jquery-matchers */
-// tslint:disable:no-shadowed-variable
+/* eslint-disable no-shadow, @typescript-eslint/no-shadow */
 
 import $ from 'jquery';
 

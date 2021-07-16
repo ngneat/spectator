@@ -19,7 +19,7 @@ describe('MyPageComponent', () => {
       component: MyPageComponent,
       data: { title: 'lorem', dynamicTitle: 'ipsum' },
       params: { foo: '1', bar: '2' },
-      queryParams: { baz: '3' }
+      queryParams: { baz: '3' },
     });
 
     it('should create with default options', () => {
@@ -35,7 +35,7 @@ describe('MyPageComponent', () => {
 
     it('should create with overridden options', () => {
       const spectator = createComponent({
-        params: { foo: 'A', bar: 'B' }
+        params: { foo: 'A', bar: 'B' },
       });
 
       expect(spectator.query('.foo')).toHaveText('A');
@@ -45,7 +45,7 @@ describe('MyPageComponent', () => {
 
     it('should respond to updates', () => {
       const spectator = createComponent({
-        params: { foo: 'A', bar: 'B' }
+        params: { foo: 'A', bar: 'B' },
       });
 
       expect(spectator.query('.foo')).toHaveText('A');
@@ -75,7 +75,7 @@ describe('MyPageComponent', () => {
       expect(spectator.query('.dynamic-title')).toHaveText('ipsum');
 
       spectator.triggerNavigation({
-        data: { title: 'new-title', dynamicTitle: 'new-dynamic-title' }
+        data: { title: 'new-title', dynamicTitle: 'new-dynamic-title' },
       });
 
       expect(spectator.query('.title')).toHaveText('lorem');
@@ -89,7 +89,7 @@ describe('MyPageComponent', () => {
     it('should mock routerLinks', () => {
       const spectator = createComponent();
 
-      // tslint:disable-next-line:no-unnecessary-type-assertion
+      // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
       const link1 = spectator.query('.link-1', { read: RouterLink })!;
 
       expect(link1.routerLink).toEqual(['/foo']);
@@ -98,7 +98,7 @@ describe('MyPageComponent', () => {
 
   describe('default router mocking', () => {
     const createComponent = createRoutingFactory({
-      component: MyPageComponent
+      component: MyPageComponent,
     });
 
     it('should support mocks', () => {
