@@ -10,7 +10,7 @@ function spectatorComponentSchematic(options) {
         schematics_1.externalSchematic('@schematics/angular', 'component', {
             ...omit(options, ['jest', 'withHost', 'withCustomHost']),
             skipTests: true,
-            spec: false
+            spec: false,
         }),
         async (tree, _context) => {
             if (options.skipTests) {
@@ -21,12 +21,12 @@ function spectatorComponentSchematic(options) {
             const specTemplateRule = schematics_1.apply(schematics_1.url(`./files/${options.withHost ? 'component-host' : options.withCustomHost ? 'component-custom-host' : 'component'}`), [
                 schematics_1.template({
                     ...core_1.strings,
-                    ...options
+                    ...options,
                 }),
-                schematics_1.move(movePath)
+                schematics_1.move(movePath),
             ]);
             return schematics_1.mergeWith(specTemplateRule, schematics_1.MergeStrategy.Default);
-        }
+        },
     ]);
 }
 exports.spectatorComponentSchematic = spectatorComponentSchematic;
@@ -35,7 +35,7 @@ function spectatorServiceSchematic(options) {
         schematics_1.externalSchematic('@schematics/angular', 'service', {
             ...omit(options, ['jest']),
             skipTests: true,
-            spec: false
+            spec: false,
         }),
         async (tree, _context) => {
             if (options.skipTests) {
@@ -46,12 +46,12 @@ function spectatorServiceSchematic(options) {
             const specTemplateRule = schematics_1.apply(schematics_1.url(`./files/${options.isDataService ? 'data-service' : `service`}`), [
                 schematics_1.template({
                     ...core_1.strings,
-                    ...options
+                    ...options,
                 }),
-                schematics_1.move(movePath)
+                schematics_1.move(movePath),
             ]);
             return schematics_1.mergeWith(specTemplateRule, schematics_1.MergeStrategy.Default);
-        }
+        },
     ]);
 }
 exports.spectatorServiceSchematic = spectatorServiceSchematic;
@@ -60,7 +60,7 @@ function spectatorDirectiveSchematic(options) {
         schematics_1.externalSchematic('@schematics/angular', 'directive', {
             ...omit(options, ['jest']),
             skipTests: true,
-            spec: false
+            spec: false,
         }),
         async (tree, _context) => {
             if (options.skipTests) {
@@ -71,12 +71,12 @@ function spectatorDirectiveSchematic(options) {
             const specTemplateRule = schematics_1.apply(schematics_1.url(`./files/directive`), [
                 schematics_1.template({
                     ...core_1.strings,
-                    ...options
+                    ...options,
                 }),
-                schematics_1.move(movePath)
+                schematics_1.move(movePath),
             ]);
             return schematics_1.mergeWith(specTemplateRule, schematics_1.MergeStrategy.Default);
-        }
+        },
     ]);
 }
 exports.spectatorDirectiveSchematic = spectatorDirectiveSchematic;
@@ -85,7 +85,7 @@ function spectatorPipeSchematic(options) {
         schematics_1.externalSchematic('@schematics/angular', 'pipe', {
             ...omit(options, ['jest']),
             skipTests: true,
-            spec: false
+            spec: false,
         }),
         async (tree, _context) => {
             if (options.skipTests) {
@@ -96,12 +96,12 @@ function spectatorPipeSchematic(options) {
             const specTemplateRule = schematics_1.apply(schematics_1.url(`./files/pipe`), [
                 schematics_1.template({
                     ...core_1.strings,
-                    ...options
+                    ...options,
                 }),
-                schematics_1.move(movePath)
+                schematics_1.move(movePath),
             ]);
             return schematics_1.mergeWith(specTemplateRule, schematics_1.MergeStrategy.Default);
-        }
+        },
     ]);
 }
 exports.spectatorPipeSchematic = spectatorPipeSchematic;
@@ -120,7 +120,7 @@ async function _ensurePath(tree, options) {
 }
 function omit(original, keys) {
     return Object.keys(original)
-        .filter(key => !keys.includes(key))
+        .filter((key) => !keys.includes(key))
         .reduce((obj, key) => {
         obj[key] = original[key];
         return obj;
