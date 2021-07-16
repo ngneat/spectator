@@ -158,4 +158,9 @@ export class PipeOptions {
    * Specifies if Jest is to be used for mocking
    */
   jest?: boolean;
+
+  /**
+   * Adds a developer-defined type to the filename, in the format "name.type.ts"
+   */
+  type?: string;
 }

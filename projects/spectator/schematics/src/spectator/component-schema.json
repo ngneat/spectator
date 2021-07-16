@@ -39,6 +39,11 @@
       "default": false,
       "alias": "t"
     },
+    "type": {
+      "type": "string",
+      "description": "Adds a developer-defined type to the filename, in the format \"name.type.ts\".",
+      "default": "Component"
+    },
     "viewEncapsulation": {
       "description": "The view encapsulation strategy to use in the new component.",
       "enum": ["Emulated", "Native", "None", "ShadowDom"],
