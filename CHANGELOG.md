@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [8.0.1](https://github.com/ngneat/spectator/compare/v8.0.0...v8.0.1) (2021-07-16)
+
+
+### Bug Fixes
+
+* 🐛 use an accurate type in matchers ([83755e4](https://github.com/ngneat/spectator/commit/83755e47ac3f38f804998a29aa2474f2179c162c)), closes [#382](https://github.com/ngneat/spectator/issues/382)
+
 ## [8.0.0](https://github.com/ngneat/spectator/compare/v7.2.0...v8.0.0) (2021-07-16)
 
 
