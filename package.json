@@ -13,7 +13,7 @@
   "scripts": {
     "postinstall": "ngcc",
     "ng": "ng",
-    "build": "ng build && yarn build:schematics && yarn copy:schematics && yarn copy:docs && yarn copy:bin",
+    "build": "ng build --configuration production && yarn build:schematics && yarn copy:schematics && yarn copy:docs && yarn copy:bin",
     "build:schematics": "tsc -p projects/spectator/schematics/tsconfig.json",
     "test": "ng test",
     "test:jest": "ng run spectator:test-jest",
