@@ -60,6 +60,7 @@ Spectator helps you get rid of all the boilerplate grunt work, leaving you with 
 - [Testing Pipes](#testing-pipes)
   - [Using Custom Host Component](#using-custom-host-component)
 - [Mocking Providers](#mocking-providers)
+  - [Mocking OnInit Dependencies](#mocking-oninit-dependencies)
 - [Jest Support](#jest-support)
 - [Testing with HTTP](#testing-with-http)
 - [Global Injections](#global-injections)
@@ -903,6 +904,28 @@ const createService = createServiceFactory({
     })
   ],
 });
+```
+
+### Mocking OnInit dependencies
+
+If a component relies on a service being mocked in the [OnInit](https://angular.io/api/core/OnInit) lifecycle method, change-detection needs to be disabled until after the services have been injected.
+
+To configure this, change the `createComponent` method to have the `detectChanges` option set to false and then manually call `detectChanges` on the spectator after setting up the injected services.
+
+```ts
+const createComponent = createComponentFactory({
+  component: WeatherDashboardComponent
+});
+
+it('should call the weather api on init', () => {
+  const spectator = createComponent({
+    detectChanges: false
+  });
+  const weatherService = spectator.inject(WeatherDataApi);
+  weatherService.getWeatherData.andReturn(of(mockWeatherData));
+  spectator.detectChanges();
+  expect(weatherService.getWeatherData).toHaveBeenCalled();
+})
 ```
 
 ## Jest Support
