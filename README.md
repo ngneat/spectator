@@ -165,6 +165,28 @@ const service = spectator.inject(QueryService, fromComponentInjector);
 ```ts
 spectator.detectChanges();
 ```
+
+- `detectComponentChanges()` - Runs `detectChanges` on the **tested** component ( not on the `host` ).
+  You'll need this method in __rare__ cases when using a `host` and the tested component is `onPush`, and you want to force it to run a change detection cycle.
+
+```ts
+spectator.detectComponentChanges();
+```
+
+- `setInput()` - Changes the value of an @Input() of the tested component.
+  Method runs `ngOnChanges` with `SimpleChanges` manually if it exists.
+```ts
+it('should...', () => {
+  spectator.setInput('className', 'danger');
+
+  spectator.setInput({
+    className: 'danger'
+  });
+});
+```
+
+
+
 - `setInput()` - Changes the value of an @Input() of the tested component.
   Method runs `ngOnChanges` with `SimpleChanges` manually if it exists.
 ```ts
