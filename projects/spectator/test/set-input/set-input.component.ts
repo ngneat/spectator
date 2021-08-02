@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 /* eslint-disable @angular-eslint/template/no-call-expression */
 
@@ -6,11 +6,16 @@ import { Component, Input } from '@angular/core';
   selector: 'app-set-input',
   template: ``,
 })
-export class SetInputComponent {
+export class SetInputComponent implements OnInit {
   public another;
+  public fromInit;
 
   @Input() public one;
   @Input() public set two(value: any) {
     this.another = value;
+  }
+
+  ngOnInit(): void {
+    this.fromInit = 'initValue';
   }
 }
