@@ -10,7 +10,6 @@ function spectatorComponentSchematic(options) {
         schematics_1.externalSchematic('@schematics/angular', 'component', {
             ...omit(options, ['jest', 'withHost', 'withCustomHost']),
             skipTests: true,
-            spec: false,
         }),
         async (tree, _context) => {
             if (options.skipTests) {
@@ -33,9 +32,8 @@ exports.spectatorComponentSchematic = spectatorComponentSchematic;
 function spectatorServiceSchematic(options) {
     return schematics_1.chain([
         schematics_1.externalSchematic('@schematics/angular', 'service', {
-            ...omit(options, ['jest']),
+            ...omit(options, ['jest', 'isDataService']),
             skipTests: true,
-            spec: false,
         }),
         async (tree, _context) => {
             if (options.skipTests) {
@@ -60,7 +58,6 @@ function spectatorDirectiveSchematic(options) {
         schematics_1.externalSchematic('@schematics/angular', 'directive', {
             ...omit(options, ['jest']),
             skipTests: true,
-            spec: false,
         }),
         async (tree, _context) => {
             if (options.skipTests) {
@@ -85,7 +82,6 @@ function spectatorPipeSchematic(options) {
         schematics_1.externalSchematic('@schematics/angular', 'pipe', {
             ...omit(options, ['jest']),
             skipTests: true,
-            spec: false,
         }),
         async (tree, _context) => {
             if (options.skipTests) {

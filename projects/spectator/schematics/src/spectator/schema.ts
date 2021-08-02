@@ -46,17 +46,9 @@ export class ComponentOptions {
    */
   skipTests?: boolean;
   /**
-   * Specifies if a spec file is generated.
-   */
-  spec?: boolean;
-  /**
    * The file extension or preprocessor to use for style files.
    */
   style?: any;
-  /**
-   * The file extension to be used for style files.
-   */
-  styleext?: string;
   /**
    * Specifies the view encapsulation strategy.
    */
@@ -80,10 +72,6 @@ export class ServiceOptions {
   skipTests?: boolean;
   /**
    * Specifies if a spec file is generated.
-   */
-  spec?: boolean;
-  /**
-   * Specifies if Jest is to be used for mocking
    */
   jest?: boolean;
 }
@@ -119,10 +107,6 @@ export class DirectiveOptions {
    */
   skipTests?: boolean;
   /**
-   * Specifies if a spec file is generated.
-   */
-  spec?: boolean;
-  /**
    * Specifies if Jest is to be used for mocking
    */
   jest?: boolean;
@@ -150,10 +134,6 @@ export class PipeOptions {
    * When true, does not create test files.
    */
   skipTests?: boolean;
-  /**
-   * Specifies if a spec file is generated.
-   */
-  spec?: boolean;
   /**
    * Specifies if Jest is to be used for mocking
    */
