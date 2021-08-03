@@ -23,7 +23,6 @@ export function spectatorComponentSchematic(options: ComponentOptions): Rule {
     externalSchematic('@schematics/angular', 'component', {
       ...omit(options, ['jest', 'withHost', 'withCustomHost']),
       skipTests: true,
-      spec: false,
     }),
     async (tree: Tree, _context: SchematicContext): Promise<Rule> => {
       if (options.skipTests) {
@@ -52,9 +51,8 @@ export function spectatorComponentSchematic(options: ComponentOptions): Rule {
 export function spectatorServiceSchematic(options: ServiceOptions): Rule {
   return chain([
     externalSchematic('@schematics/angular', 'service', {
-      ...omit(options, ['jest']),
+      ...omit(options, ['jest', 'isDataService']),
       skipTests: true,
-      spec: false,
     }),
     async (tree: Tree, _context: SchematicContext): Promise<Rule> => {
       if (options.skipTests) {
@@ -81,7 +79,6 @@ export function spectatorDirectiveSchematic(options: DirectiveOptions): Rule {
     externalSchematic('@schematics/angular', 'directive', {
       ...omit(options, ['jest']),
       skipTests: true,
-      spec: false,
     }),
     async (tree: Tree, _context: SchematicContext): Promise<Rule> => {
       if (options.skipTests) {
@@ -108,7 +105,6 @@ export function spectatorPipeSchematic(options: DirectiveOptions): Rule {
     externalSchematic('@schematics/angular', 'pipe', {
       ...omit(options, ['jest']),
       skipTests: true,
-      spec: false,
     }),
     async (tree: Tree, _context: SchematicContext): Promise<Rule> => {
       if (options.skipTests) {
