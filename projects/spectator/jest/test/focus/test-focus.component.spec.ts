@@ -30,4 +30,15 @@ describe('SpectatorHost.focus() in jest', () => {
     expect(host.component.blurCount('button2')).toBe(0);
   });
 
+
+  it('calling focus() multiple times does not cause multiple patches', () => {
+    host.focus('#button1');
+    host.focus();
+    host.focus('#button1');
+
+    expect(host.component.focusCount('app-test-focus')).toBe(1);
+    expect(host.component.focusCount('button1')).toBe(2);
+    expect(host.component.blurCount('button1')).toBe(1);
+  });
+  
 });
