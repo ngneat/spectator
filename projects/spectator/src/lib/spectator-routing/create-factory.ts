@@ -45,6 +45,12 @@ export function createRoutingFactory<C>(typeOrOptions: Type<C> | SpectatorRoutin
       overrideComponentIfProviderOverridesSpecified(options);
 
       TestBed.compileComponents();
+
+      // Configure an ActivatedRouteStub.
+      const { params, queryParams, data, fragment, url, root, parent, children, firstChild } = { ...options };
+      TestBed.overrideProvider(ActivatedRoute, {
+        useValue: new ActivatedRouteStub({ params, queryParams, data, fragment, url, root, parent, children, firstChild })
+      });
     })
   );
 
@@ -63,11 +69,17 @@ export function createRoutingFactory<C>(typeOrOptions: Type<C> | SpectatorRoutin
       });
     }
 
-    const { params, queryParams, data, fragment, url, root, parent, children, firstChild } = { ...options, ...overrides };
+    // If overrides contains additional router related params, overwrite the ActivatedRoute that was configured above (in beforeEach).
+    let params, queryParams, data, fragment, url, root, parent, children, firstChild;
+    const routerParamOverrides = ({ params, queryParams, data, fragment, url, root, parent, children, firstChild } = {...overrides});
+    if (Object.keys(routerParamOverrides).length > 0) {
+      // Don't forget the initial set of options may also contain router related params.
+      ({ params, queryParams, data, fragment, url, root, parent, children, firstChild } = {...options, ...overrides})
+      TestBed.overrideProvider(ActivatedRoute, {
+        useValue: new ActivatedRouteStub({params, queryParams, data, fragment, url, root, parent, children, firstChild})
+      });
+    }
 
-    TestBed.overrideProvider(ActivatedRoute, {
-      useValue: new ActivatedRouteStub({ params, queryParams, data, fragment, url, root, parent, children, firstChild })
-    });
     const ngZone = (<any>TestBed).inject ? TestBed.inject(NgZone) : TestBed.get(NgZone);
 
     return ngZone.run(() => {
