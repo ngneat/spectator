@@ -21,6 +21,7 @@ spectator.click(byText('Element'));
 spectator.blur(SpectatorElement);
 spectator.blur(byText('Element'));
 ```
+Note that if the element does not have focus, blur() may be ignored.
 - `focus()` - Triggers a focus event:
 ```ts
 spectator.focus(SpectatorElement);
