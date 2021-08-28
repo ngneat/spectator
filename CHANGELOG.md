@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [8.0.4](https://github.com/ngneat/spectator/compare/v8.0.3...v8.0.4) (2021-08-28)
+
+
+### Bug Fixes
+
+* 🐛 add router and animations as peer deps ([a4dce33](https://github.com/ngneat/spectator/commit/a4dce332ea8203103c5d62b4a47cc7ea47cb5908)), closes [#478](https://github.com/ngneat/spectator/issues/478)
+
 ### [8.0.3](https://github.com/ngneat/spectator/compare/v8.0.2...v8.0.3) (2021-08-10)
 
 ### [8.0.2](https://github.com/ngneat/spectator/compare/v8.0.1...v8.0.2) (2021-08-04)
