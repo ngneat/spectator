@@ -30,6 +30,8 @@
   },
   "peerDependencies": {
     "@angular/common": ">= 12.0.0",
+    "@angular/router": ">= 12.0.0",
+    "@angular/animations": ">= 12.0.0",
     "typescript": ">= 4.0.0"
   },
   "bin": {
