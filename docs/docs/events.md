@@ -21,6 +21,7 @@ spectator.click(byText('Element'));
 spectator.blur(SpectatorElement);
 spectator.blur(byText('Element'));
 ```
+Note that if using the jest framework, blur() only works if the element is focused. [Details](https://github.com/ngneat/spectator/issues/373#issuecomment-896285805).
 - `focus()` - Triggers a focus event:
 ```ts
 spectator.focus(SpectatorElement);
