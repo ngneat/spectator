@@ -69,5 +69,8 @@ export function patchElementFocus(element: HTMLElement): void {
     }
     element.blur = () => dispatchFakeEvent(element, 'blur');
     element[IS_FOCUS_PATCHED_PROP] = true;
+  } else {
+    element.focus = () => dispatchFakeEvent(element, 'focus');
+    element.blur = () => dispatchFakeEvent(element, 'blur');
   }
 }
