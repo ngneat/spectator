@@ -1,4 +1,4 @@
-import { DebugElement, SimpleChange, SimpleChanges } from '@angular/core';
+import { DebugElement, SimpleChange, SimpleChanges, ChangeDetectorRef } from '@angular/core';
 import { By } from '@angular/platform-browser';
 
 import { DOMSelector } from '../dom-selectors';
@@ -59,4 +59,8 @@ export function setProps(instance: any, keyOrKeyValues: any, value?: any, firstC
   }
 
   return instance;
+}
+
+export function setMarkForCheck(debugElement: DebugElement): void {
+  debugElement.injector.get(ChangeDetectorRef).markForCheck();
 }

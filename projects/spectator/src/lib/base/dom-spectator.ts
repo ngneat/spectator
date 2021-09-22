@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, DebugElement, ElementRef, Type, EventEmitter } from '@angular/core';
+import { DebugElement, ElementRef, Type, EventEmitter } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ComponentFixture, tick } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
@@ -7,7 +7,7 @@ import { Token } from '../token';
 import { DOMSelector } from '../dom-selectors';
 import { isString, QueryOptions, QueryType, SpectatorElement, EventEmitterType, KeysMatching, KeyboardEventOptions } from '../types';
 import { SpyObject } from '../mock';
-import { getChildren, setProps } from '../internals/query';
+import { getChildren, setProps, setMarkForCheck } from '../internals/query';
 import { patchElementFocus } from '../internals/element-focus';
 import { createMouseEvent } from '../event-creators';
 import { dispatchFakeEvent, dispatchKeyboardEvent, dispatchMouseEvent, dispatchTouchEvent } from '../dispatch-events';
@@ -97,7 +97,8 @@ export abstract class DomSpectator<I> extends BaseSpectator {
   public setInput<K extends keyof I>(input: K, inputValue: I[K]): void;
   public setInput(input: any, value?: any): void {
     setProps(this.instance, input, value, false);
-    this.debugElement.injector.get(ChangeDetectorRef).detectChanges();
+    setMarkForCheck(this.debugElement);
+    this.detectChanges();
   }
 
   public output<T, K extends keyof I = keyof I>(output: K): Observable<T> {
