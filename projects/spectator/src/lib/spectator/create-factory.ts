@@ -1,4 +1,4 @@
-import { Provider, Type } from '@angular/core';
+import { Type } from '@angular/core';
 import { TestBed, waitForAsync } from '@angular/core/testing';
 import { BrowserDynamicTestingModule } from '@angular/platform-browser-dynamic/testing';
 
@@ -7,6 +7,7 @@ import { setProps } from '../internals/query';
 import * as customMatchers from '../matchers';
 import { addMatchers } from '../core';
 import { isType } from '../types';
+import { ModuleMetadata } from '../base/initial-module';
 
 import { initialSpectatorModule } from './initial-module';
 import { getSpectatorDefaultOptions, SpectatorOptions } from './options';
@@ -73,30 +74,19 @@ export function createComponentFactory<C>(typeOrOptions: Type<C> | SpectatorOpti
 
   const moduleMetadata = initialSpectatorModule<C>(options);
 
-  beforeEach(
-    waitForAsync(() => {
-      addMatchers(customMatchers);
-      TestBed.configureTestingModule(moduleMetadata).overrideModule(BrowserDynamicTestingModule, {
-        set: {
-          entryComponents: moduleMetadata.entryComponents
-        }
-      });
-
-      overrideModules(options);
-
-      overrideComponentIfProviderOverridesSpecified(options);
-
-      TestBed.compileComponents();
-    })
-  );
+  beforeEach(waitForAsync(() => {
+    configureAndCompileTestingModule(moduleMetadata, options);
+  }));
 
   return (overrides?: SpectatorOverrides<C>) => {
     const defaults: SpectatorOverrides<C> = { props: {}, detectChanges: true, providers: [] };
     const { detectChanges, props, providers } = { ...defaults, ...overrides };
 
     if (providers && providers.length) {
-      providers.forEach((provider: Provider) => {
-        TestBed.overrideProvider((provider as any).provide, provider as any);
+      TestBed.resetTestingModule();
+      initializeTestingModule({
+        ...options,
+        providers
       });
     }
 
@@ -117,4 +107,29 @@ function createSpectator<C>(options: Required<SpectatorOptions<C>>, props?: Part
   const component = setProps(fixture.componentInstance, props);
 
   return new Spectator(fixture, debugElement, component, debugElement.nativeElement);
+}
+
+function initializeTestingModule<C>(typeOrOptions: Type<C> | SpectatorOptions<C>): void {
+  const options = isType(typeOrOptions)
+    ? getSpectatorDefaultOptions<C>({ component: typeOrOptions })
+    : getSpectatorDefaultOptions(typeOrOptions);
+
+  const moduleMetadata = initialSpectatorModule<C>(options);
+
+  configureAndCompileTestingModule(moduleMetadata, options);
+}
+
+function configureAndCompileTestingModule<C>(moduleMetadata: ModuleMetadata, options: Required<SpectatorOptions<C>>): void {
+  addMatchers(customMatchers);
+  TestBed.configureTestingModule(moduleMetadata).overrideModule(BrowserDynamicTestingModule, {
+    set: {
+      entryComponents: moduleMetadata.entryComponents
+    }
+  });
+
+  overrideModules(options);
+
+  overrideComponentIfProviderOverridesSpecified(options);
+
+  TestBed.compileComponents();
 }
