@@ -94,6 +94,23 @@ describe('MyPageComponent', () => {
 
       expect(link1.routerLink).toEqual(['/foo']);
     });
+
+    it('should mock routerLinks with extras', () => {
+      const spectator = createComponent();
+
+      // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
+      const link3 = spectator.query('.link-3', { read: RouterLink })!;
+
+      expect(link3.routerLink).toEqual(['/foo']);
+      expect(link3.queryParams).toEqual({ foo: 'bar' });
+      expect(link3.queryParamsHandling).toEqual('merge');
+      expect(link3.fragment).toEqual('education');
+      expect(link3.state).toEqual({ tracingId: 123 });
+      expect(link3.skipLocationChange).toEqual(true);
+      expect(link3.preserveFragment).toEqual(true);
+      expect(link3.replaceUrl).toEqual(true);
+      expect(link3.relativeTo).toEqual(null);
+    });
   });
 
   describe('default router mocking', () => {

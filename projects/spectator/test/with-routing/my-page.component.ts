@@ -13,7 +13,21 @@ import { map } from 'rxjs/operators';
     <div class="baz">{{ baz$ | async }}</div>
     <a class="link-1" [routerLink]="['/foo']">Some link</a>
     <a class="link-2" (click)="navigate()">Other link</a>
-  `
+    <a
+      class="link-3"
+      [routerLink]="['/foo']"
+      [queryParams]="{ foo: 'bar' }"
+      queryParamsHandling="merge"
+      fragment="education"
+      [state]="{ tracingId: 123 }"
+      [skipLocationChange]="true"
+      [preserveFragment]="true"
+      [replaceUrl]="true"
+      [relativeTo]="null"
+    >
+      Some link With Extras
+    </a>
+  `,
 })
 export class MyPageComponent implements OnInit {
   public title?: string;
@@ -32,13 +46,13 @@ export class MyPageComponent implements OnInit {
 
   public ngOnInit(): void {
     this.title = this.route.snapshot.data.title;
-    this.route.data.subscribe(data => (this.dynamicTitle = data.dynamicTitle));
+    this.route.data.subscribe((data) => (this.dynamicTitle = data.dynamicTitle));
 
-    this.route.params.subscribe(params => (this.foo = params.foo));
-    this.route.paramMap.subscribe(params => (this.bar = params.get('bar')!));
-    this.baz$ = this.route.queryParams.pipe(map(params => params.baz));
-    this.route.fragment.subscribe(fragment => (this.fragment = fragment));
-    this.route.url.subscribe(url => (this.url = url));
+    this.route.params.subscribe((params) => (this.foo = params.foo));
+    this.route.paramMap.subscribe((params) => (this.bar = params.get('bar')!));
+    this.baz$ = this.route.queryParams.pipe(map((params) => params.baz));
+    this.route.fragment.subscribe((fragment) => (this.fragment = fragment));
+    this.route.url.subscribe((url) => (this.url = url));
     this.root = this.route.root;
     this.parent = this.route.parent;
     this.children = this.route.children;
