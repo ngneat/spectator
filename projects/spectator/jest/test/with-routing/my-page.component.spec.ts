@@ -83,19 +83,6 @@ describe('MyPageComponent', () => {
     });
   });
 
-  describe('routerLinks', () => {
-    const createComponent = createRoutingFactory(MyPageComponent);
-
-    it('should mock routerLinks', () => {
-      const spectator = createComponent();
-
-      // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
-      const link1 = spectator.query('.link-1', { read: RouterLink })!;
-
-      expect(link1.routerLink).toEqual(['/foo']);
-    });
-  });
-
   describe('default router mocking', () => {
     const createComponent = createRoutingFactory({
       component: MyPageComponent,

@@ -8,7 +8,6 @@ import { RouteOptions } from './route-options';
 
 export type SpectatorRoutingOptions<C> = SpectatorOptions<C> &
   RouteOptions & {
-    mockRouterLinks?: boolean;
     stubsEnabled?: boolean;
     routes?: Routes;
   };
@@ -19,14 +18,13 @@ const defaultRoutingOptions: OptionalsRequired<SpectatorRoutingOptions<any>> = {
   queryParams: {},
   data: {},
   fragment: null,
-  mockRouterLinks: true,
   stubsEnabled: true,
   routes: [],
   url: [],
   root: null,
   parent: null,
   children: null,
-  firstChild: null
+  firstChild: null,
 };
 
 /**
