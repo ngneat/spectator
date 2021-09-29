@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router, UrlSegment } from '@angular/router';
+import { CommonModule } from '@angular/common';
+import { Component, NgModule, OnInit } from '@angular/core';
+import { ActivatedRoute, Router, RouterModule, UrlSegment } from '@angular/router';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
@@ -63,3 +64,13 @@ export class MyPageComponent implements OnInit {
     this.router.navigate(['bar']);
   }
 }
+
+/*
+  This is an unused module to resolve the errors given by the angular language service:
+    "Can't bind to 'routerLink' since it isn't a known property of 'a'"
+*/
+@NgModule({
+  declarations: [MyPageComponent],
+  imports: [CommonModule, RouterModule],
+})
+export class RouterLinkDirectiveStubModule {}
