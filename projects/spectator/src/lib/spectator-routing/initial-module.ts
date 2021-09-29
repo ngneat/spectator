@@ -7,7 +7,6 @@ import { initialSpectatorModule } from '../spectator/initial-module';
 
 import { ActivatedRouteStub } from './activated-route-stub';
 import { SpectatorRoutingOptions } from './options';
-import { RouterLinkDirectiveStub } from './router-link-stub';
 import { RouterStub } from './router-stub';
 
 /**
@@ -16,11 +15,8 @@ import { RouterStub } from './router-stub';
 export function initialRoutingModule<S>(options: Required<SpectatorRoutingOptions<S>>): ModuleMetadata {
   const moduleMetadata = initialSpectatorModule(options);
 
-  if (options.mockRouterLinks && options.stubsEnabled) {
-    moduleMetadata.declarations.push(RouterLinkDirectiveStub);
-  }
-
   if (options.stubsEnabled) {
+    moduleMetadata.imports.push(RouterTestingModule);
     moduleMetadata.providers.push(
       options.mockProvider(RouterStub, {
         events: new Subject<Event>(),
@@ -30,7 +26,7 @@ export function initialRoutingModule<S>(options: Required<SpectatorRoutingOption
       }),
       {
         provide: Router,
-        useExisting: RouterStub
+        useExisting: RouterStub,
       }
     );
 
@@ -40,12 +36,12 @@ export function initialRoutingModule<S>(options: Required<SpectatorRoutingOption
         useValue: new ActivatedRouteStub({
           params: options.params,
           queryParams: options.queryParams,
-          data: options.data
-        })
+          data: options.data,
+        }),
       },
       {
         provide: ActivatedRoute,
-        useExisting: ActivatedRouteStub
+        useExisting: ActivatedRouteStub,
       }
     );
   } else {
