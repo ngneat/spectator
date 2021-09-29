@@ -120,5 +120,5 @@ The `createRoutesFactory` function can take the following options, on top of the
 * `children`: the value for `children` for the `ActivatedRoute` stub
 * `firstChild`: the value for `firstChild` for the `ActivatedRoute` stub
 * `fragment`: initial fragment to use in `ActivatedRoute` stub
-* `stubsEnabled` (default: `true`): enables the `ActivatedRoute` stub, if set to `false` it uses `RouterTestingModule` instead
+* `stubsEnabled` (default: `true`): enables the `ActivatedRoute` stub
 * `routes`: if `stubsEnabled` is set to false, you can pass a `Routes` configuration for `RouterTestingModule`
