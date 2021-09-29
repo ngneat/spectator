@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [8.1.0](https://github.com/ngneat/spectator/compare/v8.0.4...v8.1.0) (2021-09-29)
+
+
+### Features
+
+* **Router:** Import RouterTestingModule when stubs are enabled ([#488](https://github.com/ngneat/spectator/issues/488)) ([5308c26](https://github.com/ngneat/spectator/commit/5308c26654a46d36594f3c7127727cf7fbe60364))
+
 ### [8.0.4](https://github.com/ngneat/spectator/compare/v8.0.3...v8.0.4) (2021-08-28)
 
 
