@@ -22,7 +22,10 @@ export function initialRoutingModule<S>(options: Required<SpectatorRoutingOption
         events: new Subject<Event>(),
         emitRouterEvent(event: Event): void {
           this.events.next(event);
-        }
+        },
+        serializeUrl(): string {
+          return '/';
+        },
       }),
       {
         provide: Router,
