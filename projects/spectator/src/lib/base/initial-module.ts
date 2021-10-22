@@ -1,4 +1,5 @@
 import { SchemaMetadata, Type } from '@angular/core';
+import { ModuleTeardownOptions } from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 import { getGlobalsInjections } from '../globals-injections';
@@ -14,6 +15,7 @@ export interface ModuleMetadata {
   providers: any[];
   entryComponents: Type<any>[];
   schemas?: (SchemaMetadata | any[])[];
+  teardown?: ModuleTeardownOptions;
 }
 
 /**
@@ -26,6 +28,7 @@ export function initialModule(options: Required<BaseSpectatorOptions>): ModuleMe
     declarations: [...globals.declarations, ...options.declarations, ...options.entryComponents],
     imports: [...(options.disableAnimations ? [NoopAnimationsModule] : []), ...globals.imports, ...options.imports],
     providers: [...globals.providers, ...options.providers, ...options.mocks.map(type => options.mockProvider(type))],
-    entryComponents: [...options.entryComponents]
+    entryComponents: [...options.entryComponents],
+    teardown: {...options.teardown}
   };
 }
