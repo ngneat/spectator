@@ -1,5 +1,5 @@
 import { NgModule, Provider, SchemaMetadata, Type } from '@angular/core';
-import { MetadataOverride } from '@angular/core/testing';
+import { MetadataOverride, ModuleTeardownOptions } from '@angular/core/testing';
 
 import { merge } from '../internals/merge';
 import { mockProvider, MockProvider } from '../mock';
@@ -18,6 +18,7 @@ export interface BaseSpectatorOptions {
   imports?: any[];
   schemas?: (SchemaMetadata | any[])[];
   overrideModules?: [Type<any>, MetadataOverride<NgModule>][];
+  teardown?: ModuleTeardownOptions;
 }
 
 /**
@@ -36,7 +37,8 @@ const defaultOptions: OptionalsRequired<BaseSpectatorOptions> = {
   declarations: [],
   imports: [],
   schemas: [],
-  overrideModules: []
+  overrideModules: [],
+  teardown: { destroyAfterEach: false }
 };
 
 /**
