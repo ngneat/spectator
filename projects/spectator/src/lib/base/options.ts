@@ -38,7 +38,7 @@ const defaultOptions: OptionalsRequired<BaseSpectatorOptions> = {
   imports: [],
   schemas: [],
   overrideModules: [],
-  teardown: { destroyAfterEach: true }
+  teardown: { destroyAfterEach: false }
 };
 
 /**
