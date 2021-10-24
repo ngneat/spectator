@@ -17,7 +17,7 @@ export interface CustomMatcher {
 
 export interface CustomMatcherResult {
   pass: boolean;
-  message?: string;
+  message: () => string;
 }
 
 const hasProperty = (actual: unknown, expected: unknown): boolean => {
