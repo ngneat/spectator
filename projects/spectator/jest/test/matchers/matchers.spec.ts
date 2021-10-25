@@ -11,13 +11,14 @@ interface Dummy {
   template: `
     <div id="display-none" style="display:none">Hidden with display none</div>
     <div id="visibility-hidden" style="visibility:hidden">Hidden with visibility hidden</div>
-    <label>Hidden input element<input type="hidden"/></label>
+    <label>Hidden input element<input type="hidden" /></label>
     <div hidden>Hidden by "hidden"-attribute</div>
     <div style="display:none"><div id="parent-display-none">Hidden by parent with display none</div></div>
     <div style="visibility:hidden"><div id="parent-visibility-hidden">Hidden by parent with display none</div></div>
     <div id="visible">Visible</div>
     <div id="classes" class="class-a class-b">Classes</div>
-  `
+    <div id="styles" style="background-color: indianred; color: chocolate;"></div>
+  `,
 })
 export class MatchersComponent {}
 
@@ -109,12 +110,34 @@ describe('Matchers', () => {
 
     it('should return true when expected is same as actual', () => {
       const actual: Dummy = { lorem: 'first', ipsum: 'second' };
-      expect(actual).toBePartial({...actual});
+      expect(actual).toBePartial({ ...actual });
     });
 
     it('should return false when expected is not partial of actual', () => {
       const actual: Dummy = { lorem: 'first', ipsum: 'second' };
       expect(actual).not.toBePartial({ lorem: 'second' });
+    });
+  });
+
+  describe('toHaveStyle', () => {
+    it('should return true when expected style exists on element', () => {
+      const element = spectator.query('#styles');
+      expect(element).toHaveStyle({ 'background-color': 'indianred' });
+    });
+
+    it('should return true if all styles exist on element', () => {
+      const element = spectator.query('#styles');
+      expect(element).toHaveStyle({ 'background-color': 'indianred', color: 'chocolate' });
+    });
+
+    it('should return false if style exists on an element but has a different value than expected', () => {
+      const element = spectator.query('#styles');
+      expect(element).not.toHaveStyle({ color: 'blue' });
+    });
+
+    it('should return false when expected style does not exist on element', () => {
+      const element = spectator.query('#styles');
+      expect(element).not.toHaveStyle({ height: '100px' });
     });
   });
 });

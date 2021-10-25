@@ -9,7 +9,7 @@ describe('HighlightDirective', () => {
   const createHost = createHostFactory(HighlightDirective);
 
   // calculated styles not supported in JSDOM
-  xit('should change the background color', () => {
+  it('should change the background color', () => {
     host = createHost(`<div highlight>Testing HighlightDirective</div>`);
 
     host.dispatchMouseEvent(host.element, 'mouseover');
@@ -31,7 +31,7 @@ describe('HighlightDirective (createHostDirectiveFactory)', () => {
   const createHost = createDirectiveFactory(HighlightDirective);
 
   // calculated styles not supported in JSDOM
-  xit('should change the background color', () => {
+  it('should change the background color', () => {
     host = createHost(`<div highlight>Testing HighlightDirective</div>`);
 
     host.dispatchMouseEvent(host.element, 'mouseover');
