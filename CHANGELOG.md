@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [8.2.0](https://github.com/ngneat/spectator/compare/v8.1.0...v8.2.0) (2021-10-25)
+
+
+### Features
+
+* allow providing `ModuleTeardownOptions` ([#499](https://github.com/ngneat/spectator/issues/499)) ([81edca6](https://github.com/ngneat/spectator/commit/81edca66b62b25d056a64ee26da57422df55bfb5))
+
+
+### Bug Fixes
+
+* CustomMatcherResult message property should be function ([#500](https://github.com/ngneat/spectator/issues/500)) ([44ae8c2](https://github.com/ngneat/spectator/commit/44ae8c2804aae29ed5b133f369a03c845d2798d2))
+
 ## [8.1.0](https://github.com/ngneat/spectator/compare/v8.0.4...v8.1.0) (2021-09-29)
 
 
