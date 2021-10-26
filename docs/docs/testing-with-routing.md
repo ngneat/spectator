@@ -51,7 +51,7 @@ interface SpectatorRouting<C> extends Spectator<C> {
   /**
    * Updates the route data and triggers a route navigation.
    */
-  setRouteData(name: string, value: string): void;
+  setRouteData(name: string, value: any): void;
 
   /**
    * Updates the route fragment and triggers a route navigation.
