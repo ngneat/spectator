@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [8.3.0](https://github.com/ngneat/spectator/compare/v8.2.0...v8.3.0) (2021-10-26)
+
+
+### Features
+
+* allow overriding global `teardown` options ([#502](https://github.com/ngneat/spectator/issues/502)) ([e25b5eb](https://github.com/ngneat/spectator/commit/e25b5eb2e9b9fdba5fd6163661d3089aabf0363c))
+
+
+### Bug Fixes
+
+* **matchers:** toHaveStyle matcher throws TypeError error ([#503](https://github.com/ngneat/spectator/issues/503)) ([a80211a](https://github.com/ngneat/spectator/commit/a80211a9ee2eb2eaceed2cdab7e517e354d2a38d))
+
 ## [8.2.0](https://github.com/ngneat/spectator/compare/v8.1.0...v8.2.0) (2021-10-25)
 
 
