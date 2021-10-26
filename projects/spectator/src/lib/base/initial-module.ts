@@ -27,8 +27,12 @@ export function initialModule(options: Required<BaseSpectatorOptions>): ModuleMe
   return {
     declarations: [...globals.declarations, ...options.declarations, ...options.entryComponents],
     imports: [...(options.disableAnimations ? [NoopAnimationsModule] : []), ...globals.imports, ...options.imports],
-    providers: [...globals.providers, ...options.providers, ...options.mocks.map(type => options.mockProvider(type))],
+    providers: [...globals.providers, ...options.providers, ...options.mocks.map((type) => options.mockProvider(type))],
     entryComponents: [...options.entryComponents],
-    teardown: {...options.teardown}
+    teardown:
+      // Caretaker note: we don't want to merge the `globals.teardown` and `options.teardown`, since `options.teardown`
+      // is always defined. If the user calls `defineGlobalsInjections({ teardown: { ... } })` and we merge it with
+      // `options.teardown`, then `options.teardown` will always override global options.
+      { ...(globals.teardown || options.teardown) },
   };
 }
