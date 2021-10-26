@@ -65,7 +65,7 @@ const hasCss = (el: HTMLElement, css: { [key: string]: string }) => {
         continue;
       }
 
-      if (trim($el.css(prop)) !== trim(value) && trim(el.style[prop]) !== trim(value)) {
+      if (trim($el.get(0).style[prop]) !== trim(value) && trim(el.style[prop]) !== trim(value)) {
         return false;
       }
     }
