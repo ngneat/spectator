@@ -71,8 +71,10 @@ export class SpectatorRouting<C> extends Spectator<C> {
 
   /**
    * Updates the route data and triggers a route navigation.
+   * The `value` is typed as `any` since the `Route#data` is a record with `any` values.
+   * There's no sense to make it generic until `Route#data` starts supporting generic types.
    */
-  public setRouteData(name: string, value: string): void {
+  public setRouteData(name: string, value: any): void {
     if (this.checkStubPresent()) {
       this.activatedRouteStub.setData(name, value);
       this.triggerNavigationAndUpdate();

@@ -140,6 +140,27 @@ describe('ActivatedRouteStub', () => {
     });
   });
 
+  it('should update data in snapshot with any type of value', () => {
+    const activatedRouteStub = new ActivatedRouteStub();
+
+    activatedRouteStub.setData('movieName', 'Avengers')
+    activatedRouteStub.setData('countries', ['USA', 'Canada']);
+    activatedRouteStub.setData('animal', { type: 'dog' });
+
+    expect(activatedRouteStub.snapshot).not.toBeNull();
+
+    const { data } = activatedRouteStub.snapshot;
+
+    expect(data).toEqual({
+      movieName: 'Avengers',
+      countries: ['USA', 'Canada'],
+      animal: {
+        type: 'dog'
+      }
+    });
+    console.error(data);
+  })
+
   it('should update fragment in snapshot when set', () => {
     const activatedRouteStub = new ActivatedRouteStub();
 

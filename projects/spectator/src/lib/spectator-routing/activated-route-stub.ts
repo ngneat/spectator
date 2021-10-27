@@ -83,7 +83,7 @@ export class ActivatedRouteStub extends ActivatedRoute {
     this.snapshot = this.buildSnapshot();
   }
 
-  public setData(name: string, value: string): void {
+  public setData(name: string, value: any): void {
     this.testData = { ...this.testData, [name]: value };
     this.snapshot = this.buildSnapshot();
   }
