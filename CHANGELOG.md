@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [8.3.1](https://github.com/ngneat/spectator/compare/v8.3.0...v8.3.1) (2021-10-27)
+
+
+### Bug Fixes
+
+* allow passing any values to the `Route#data` ([#504](https://github.com/ngneat/spectator/issues/504)) ([0eb9bbc](https://github.com/ngneat/spectator/commit/0eb9bbcadf1f45616909a78e9ef052466900781a))
+
 ## [8.3.0](https://github.com/ngneat/spectator/compare/v8.2.0...v8.3.0) (2021-10-26)
 
 
