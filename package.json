@@ -17,7 +17,7 @@
     "build:schematics": "tsc -p projects/spectator/schematics/tsconfig.json",
     "test": "ng test",
     "test:jest": "ng run spectator:test-jest",
-    "test:ci": "cross-env NODE_ENV=build yarn test && yarn test:jest",
+    "test:ci": "cross-env NODE_ENV=build yarn test && yarn test:jest --silent",
     "lint": "ng lint",
     "format": "prettier --write \"{projects,src}/**/*.ts\"",
     "commit": "git-cz",
