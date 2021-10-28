@@ -158,7 +158,6 @@ describe('ActivatedRouteStub', () => {
         type: 'dog'
       }
     });
-    console.error(data);
   })
 
   it('should update fragment in snapshot when set', () => {
