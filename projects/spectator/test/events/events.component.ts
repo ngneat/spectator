@@ -39,4 +39,8 @@ export class EventsComponent {
   public onPressArrowRight(event: KeyboardEvent): void {
     this.event = `pressed ArrowRight:${event.keyCode}`;
   }
+
+  public onPressArrowUp(event: KeyboardEvent): void {
+    this.event = `pressed ${event.key}:${event.code}`;
+  }
 }
