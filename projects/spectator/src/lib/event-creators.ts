@@ -72,6 +72,7 @@ export function createKeyboardEvent(type: string, keyOrKeyCode: string | number 
   // Webkit Browsers don't set the keyCode when calling the init function.
   // See related bug https://bugs.webkit.org/show_bug.cgi?id=16735
   Object.defineProperties(event, {
+    code: { get: () => keyCode },
     keyCode: { get: () => keyCode },
     key: { get: () => key },
     target: { get: () => target },

@@ -44,6 +44,11 @@ describe('EventsComponent', () => {
     expect(spectator.query('h1')).toHaveText('pressed ArrowLeft:40');
   });
 
+  it('should include key and code when KeyboardEventOptions are passed', () => {
+    spectator.dispatchKeyboardEvent('input', 'keyup', { key: 'ArrowUp', keyCode: 38 });
+    expect(spectator.query('h1')).toHaveText('pressed ArrowUp:38');
+  });
+
   it('should parse modifiers from KeyboardEventOptions.key', () => {
     spectator.dispatchKeyboardEvent('input', 'keyup', { key: 'ctrl.shift.ArrowRight', keyCode: 39 });
     expect(spectator.query('h1')).toHaveText('pressed ArrowRight:39');
