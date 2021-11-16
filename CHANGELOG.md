@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [8.3.2](https://github.com/ngneat/spectator/compare/v8.3.1...v8.3.2) (2021-11-16)
+
+
+### Bug Fixes
+
+* add code to KeyboardEvent ([#512](https://github.com/ngneat/spectator/issues/512)) ([8b6f2b0](https://github.com/ngneat/spectator/commit/8b6f2b02a5d54b04d5f56c3eff264df09b0af6a4))
+
 ### [8.3.1](https://github.com/ngneat/spectator/compare/v8.3.0...v8.3.1) (2021-10-27)
 
 
