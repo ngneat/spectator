@@ -58,7 +58,7 @@ describe('EventsComponent', () => {
     try {
       spectator.keyboard.pressKey('...', 'input');
       fail('Expected that an error is thrown');
-    } catch (e) {
+    } catch (e: any) {
       expect(e.message).toEqual('invalid key modifier: undefined, keyStr: ...');
     }
   });
