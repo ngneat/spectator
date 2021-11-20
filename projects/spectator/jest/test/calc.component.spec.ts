@@ -1,6 +1,6 @@
 import { createComponentFactory, Spectator } from '@ngneat/spectator/jest';
 
-import { CalcComponent } from './calc.component';
+import { CalcComponent } from '../../test/calc/calc.component';
 
 describe('CalcComponent', () => {
   let spectator: Spectator<CalcComponent>;
