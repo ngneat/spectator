@@ -7,7 +7,7 @@ All notable changes to this project will be documented in this file. See [standa
 
 ### ⚠ BREAKING CHANGES
 
-* 🧨 The library now requires Angualr v13
+* 🧨 The library now requires Angular v13
 
 ### Features
 
