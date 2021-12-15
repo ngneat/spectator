@@ -740,7 +740,7 @@ For example:
 ```ts
 @Injectable()
 export class AuthService {
-  constructor( private dateService: DateService  {}
+  constructor( private dateService: DateService )  {}
 
   isLoggedIn() {
     if( this.dateService.isExpired('timestamp') ) {
