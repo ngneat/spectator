@@ -2,7 +2,7 @@ import { createDirectiveFactory, SpectatorDirective } from '@ngneat/spectator<% 
 
 import { <%= classify(name)%>Directive } from './<%= dasherize(name)%>.directive';
 
-describe('<%= classify(name)%>Directive ', () => {
+describe('<%= classify(name)%>Directive', () => {
   let spectator: SpectatorDirective<<%= classify(name)%>Directive>;
   const createDirective = createDirectiveFactory(<%= classify(name)%>Directive);
 
