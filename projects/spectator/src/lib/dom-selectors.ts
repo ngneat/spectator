@@ -31,7 +31,7 @@ export const byText: DOMSelectorFactory<SelectorMatcherOptions> = (matcher, opti
 export const byTextContent = (matcher: Matcher, options: MandatorySelectorMatchingOptions): DOMSelector => {
   let textContentMatcher: Matcher;
   const normalizer: NormalizerFn = options?.normalizer || getDefaultNormalizer(options);
-  const getTextContent = (elem: HTMLElement): string => normalizer(elem.textContent ?? '');
+  const getTextContent = (elem: Element | null): string => normalizer(elem?.textContent ?? '');
 
   if (typeof matcher === 'string') {
     textContentMatcher = (_, elem) => {
@@ -47,8 +47,11 @@ export const byTextContent = (matcher: Matcher, options: MandatorySelectorMatchi
     };
   } else if (matcher instanceof RegExp) {
     textContentMatcher = (_, elem) => matcher.test(getTextContent(elem));
-  } else {
+  } else if (typeof matcher === 'function') {
     textContentMatcher = (_, elem) => matcher(getTextContent(elem), elem);
+  } else {
+    // number Matcher not supported
+    throw new Error(`Matcher type not supported: ${typeof matcher}`);
   }
 
   return new DOMSelector(el => DOMQueries.queryAllByText(el, textContentMatcher, options));
