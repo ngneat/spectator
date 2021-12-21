@@ -33,24 +33,23 @@ export const byTextContent = (matcher: Matcher, options: MandatorySelectorMatchi
   const normalizer: NormalizerFn = options?.normalizer || getDefaultNormalizer(options);
   const getTextContent = (elem: Element | null): string => normalizer(elem?.textContent ?? '');
 
-  if (typeof matcher === 'string') {
+  if (typeof matcher === 'string' || typeof matcher === 'number') {
     textContentMatcher = (_, elem) => {
       if (options?.exact === false) {
         return (
           getTextContent(elem)
             .toLowerCase()
-            .indexOf(matcher.toLowerCase()) >= 0
+            .indexOf(matcher.toString().toLowerCase()) >= 0
         );
       }
 
-      return getTextContent(elem) === matcher;
+      return getTextContent(elem) === matcher.toString();
     };
   } else if (matcher instanceof RegExp) {
     textContentMatcher = (_, elem) => matcher.test(getTextContent(elem));
   } else if (typeof matcher === 'function') {
     textContentMatcher = (_, elem) => matcher(getTextContent(elem), elem);
   } else {
-    // number Matcher not supported
     throw new Error(`Matcher type not supported: ${typeof matcher}`);
   }
 

@@ -112,6 +112,20 @@ describe('DomSelectorsComponent', () => {
       });
     });
 
+    describe('with number matcher', () => {
+      it('should match number content', () => {
+        let element = spectator.query(byTextContent(8, { selector: '#number-content-root *' }));
+        expect(element).toHaveId('number-content-only-eight');
+      });
+
+      it('should partially match number with `exact: false`', () => {
+        let elements = spectator.queryAll(byTextContent(8, { selector: '#number-content-root *', exact: false }));
+        expect(elements).toHaveLength(2);
+        expect(elements[0]).toHaveId('number-content-with-eight');
+        expect(elements[1]).toHaveId('number-content-only-eight');
+      });
+    });
+
     describe('with RegExp matcher', () => {
       it('should match the text', () => {
         const element = spectator.query(byTextContent(/^some deeply NESTED TEXT$/, { selector: '#text-content-root' }));

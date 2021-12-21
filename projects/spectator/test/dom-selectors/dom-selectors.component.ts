@@ -25,6 +25,11 @@ import { Component } from '@angular/core';
       </span>
     </div>
 
+    <div id="number-content-root">
+      <span id="number-content-with-eight"> to prevent #number-content-root having textContent: 8 </span>
+      <span id="number-content-only-eight">8</span>
+    </div>
+
     <div id="aria-checkboxes">
       <section>
         <button role="checkbox" aria-checked="true">Sugar</button>
