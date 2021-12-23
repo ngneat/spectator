@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [10.0.0](https://github.com/ngneat/spectator/compare/v9.0.0...v10.0.0) (2021-12-23)
+
+
+### ⚠ BREAKING CHANGES
+
+* **startup error:** This change will result in a compile error for any `MatcherFunction` that uses `HTMLElement` properties or functions.
+
+`MatcherFunction` in `@testing-library/dom` now receives a parameter of type `Element`,
+where it previously was `HTMLElement` - so users will have to test/cast to `HTMLElement`
+if they need `HTMLElement` properties or methods in their matcher function.
+
+### Bug Fixes
+
+* **startup error:** update @testing-library/dom to update pretty-format ([#522](https://github.com/ngneat/spectator/issues/522)) ([647ef89](https://github.com/ngneat/spectator/commit/647ef89c1d30930d0c74f4c3a899183ee4dbe834))
+
 ## [9.0.0](https://github.com/ngneat/spectator/compare/v8.3.1...v9.0.0) (2021-11-20)
 
 
