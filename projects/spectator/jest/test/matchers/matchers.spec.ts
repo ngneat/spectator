@@ -17,7 +17,7 @@ interface Dummy {
     <div style="visibility:hidden"><div id="parent-visibility-hidden">Hidden by parent with display none</div></div>
     <div id="visible">Visible</div>
     <div id="classes" class="class-a class-b">Classes</div>
-    <div id="styles" style="background-color: indianred; color: chocolate;"></div>
+    <div id="styles" style="background-color: indianred; color: chocolate; --primary: var(--black)"></div>
   `,
 })
 export class MatchersComponent {}
@@ -128,6 +128,11 @@ describe('Matchers', () => {
     it('should return true if all styles exist on element', () => {
       const element = spectator.query('#styles');
       expect(element).toHaveStyle({ 'background-color': 'indianred', color: 'chocolate' });
+    });
+
+    it('should return true if the CSS variable exist on element', () => {
+      const element = spectator.query('#styles');
+      expect(element).toHaveStyle({ '--primary': 'var(--black)' });
     });
 
     it('should return false if style exists on an element but has a different value than expected', () => {
