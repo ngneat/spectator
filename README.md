@@ -61,6 +61,7 @@ Spectator helps you get rid of all the boilerplate grunt work, leaving you with 
   - [Using Custom Host Component](#using-custom-host-component)
 - [Mocking Providers](#mocking-providers)
   - [Mocking OnInit Dependencies](#mocking-oninit-dependencies)
+  - [Mocking Constructor Dependencies](#mocking-constructor-dependencies)
 - [Jest Support](#jest-support)
 - [Testing with HTTP](#testing-with-http)
 - [Global Injections](#global-injections)
@@ -926,7 +927,30 @@ it('should call the weather api on init', () => {
   weatherService.getWeatherData.andReturn(of(mockWeatherData));
   spectator.detectChanges();
   expect(weatherService.getWeatherData).toHaveBeenCalled();
-})
+});
+```
+
+### Mocking constructor dependencies
+
+If a component relies on a service being mocked in its constructor, you need to create and configure the mock, and to provide the mock when creating the component.
+
+```ts
+const createComponent = createComponentFactory({
+  component: WeatherDashboardComponent
+});
+
+it('should call the weather api in the constructor', () => {
+  const weatherService = createSpyObject(WeatherDataApi);
+  weatherService.getWeatherData.andReturn(of(mockWeatherData));
+
+  spectator = createComponent({
+    providers: [
+      { provide: WeatherDataApi, useValue: weatherService }
+    ]
+  });
+  
+  expect(weatherService.getWeatherData).toHaveBeenCalled();
+});
 ```
 
 ## Jest Support
