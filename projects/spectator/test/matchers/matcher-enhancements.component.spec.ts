@@ -11,7 +11,7 @@ describe('Matcher enhancements', () => {
   beforeEach(() => spectator = createComponent());
 
   describe('Text', () => {
-    it('should match mulitple elements with different text', () => {
+    it('should match multiple elements with different text', () => {
       const el = spectator.query('.text-check');
       expect(el).toHaveText(['It should', 'different text']);
       expect(el).toContainText(['It should', 'different text']);
