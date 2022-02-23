@@ -66,3 +66,13 @@ const mouseEvent = createMouseEvent('mouseout');
 const touchEvent = createTouchEvent('touchmove');
 const fakeEvent = createFakeEvent('input');
 ```
+
+After creating and for example attaching a spy to the event you can dispatch them by using the generic `dispatchEvent` or more specific handlers;
+
+```ts
+const touchEvent = createTouchEvent('touchEvent');
+spectator.dispatchEvent(SpectatorElement, touchEvent);
+
+const mouseEvent = createMouseEvent('mouseout');
+spectator.dispatchMouseEvent(SpectatorElement, mouseEvent);
+```
