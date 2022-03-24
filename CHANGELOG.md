@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [10.0.1](https://github.com/ngneat/spectator/compare/v10.0.0...v10.0.1) (2022-03-24)
+
+
+### Bug Fixes
+
+* 🐛 setInput should run host dc ([c40a2a6](https://github.com/ngneat/spectator/commit/c40a2a6ef7dbd780da09a017d01b0158354d141b)), closes [#539](https://github.com/ngneat/spectator/issues/539)
+* **matchers:** test css variables via getPropertyValue ([#530](https://github.com/ngneat/spectator/issues/530)) ([94ebfe3](https://github.com/ngneat/spectator/commit/94ebfe37699496b154b40bb9b507b0f925a8ef24))
+
 ## [10.0.0](https://github.com/ngneat/spectator/compare/v9.0.0...v10.0.0) (2021-12-23)
 
 
