@@ -1,33 +1,31 @@
-import { of } from 'rxjs';
-import { createHostFactory, SpectatorHost } from '@ngneat/spectator';
+import { Component, Input } from '@angular/core';
+import { createComponentFactory, Spectator } from '@ngneat/spectator';
 
-import { QueryService } from '../query.service';
+@Component({
+  selector: 'app-foo',
+  template: '',
+  host: {
+    '[class.bar]': 'bar',
+  },
+})
+class FooComponent {
+  @Input() bar!: boolean;
+}
 
-import { AsyncComponent } from './async.component';
-
-describe('ZippyComponent', () => {
-  let host: SpectatorHost<AsyncComponent>;
-
-  const createHost = createHostFactory({
-    component: AsyncComponent,
-    mocks: [QueryService]
+describe('FooComponenent', () => {
+  const createComponent = createComponentFactory({
+    component: FooComponent,
   });
 
-  it('should work', () => {
-    const { component } = createHost(`<app-async></app-async>`);
-    expect(component).toBeDefined();
+  let spectator: Spectator<FooComponent>;
+
+  beforeEach(() => {
+    spectator = createComponent();
   });
 
-  it('should be falsy', () => {
-    host = createHost(`<app-async></app-async>`);
-    expect(host.query('p')).not.toExist();
-  });
+  it('should set the class name "bar"', () => {
+    spectator.setInput({ bar: true });
 
-  it('should be truthy', () => {
-    host = createHost(`<app-async></app-async>`, { detectChanges: false });
-    const queryService = host.inject(QueryService);
-    queryService.select.and.returnValue(of(true));
-    host.detectChanges();
-    expect(host.query('p')).toExist();
+    expect(spectator.element).toHaveClass('bar');
   });
 });

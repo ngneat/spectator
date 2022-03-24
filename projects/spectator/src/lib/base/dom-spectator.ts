@@ -97,7 +97,11 @@ export abstract class DomSpectator<I> extends BaseSpectator {
   public setInput<K extends keyof I>(input: K, inputValue: I[K]): void;
   public setInput(input: any, value?: any): void {
     setProps(this.instance, input, value, false);
+    // Force cd on the tested component
     this.debugElement.injector.get(ChangeDetectorRef).detectChanges();
+
+    // Force cd on the host component for cases such as: https://github.com/ngneat/spectator/issues/539
+    this.detectChanges();
   }
 
   public output<T, K extends keyof I = keyof I>(output: K): Observable<T> {
