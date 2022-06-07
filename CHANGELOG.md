@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [11.0.0](https://github.com/ngneat/spectator/compare/v10.0.1...v11.0.0) (2022-06-07)
+
+
+### ⚠ BREAKING CHANGES
+
+* Angular 14
+
+Peer dependency is Angualr 14
+
+### Features
+
+* 🎸 upgrade to Angular 14 ([#553](https://github.com/ngneat/spectator/issues/553)) ([d6fcea4](https://github.com/ngneat/spectator/commit/d6fcea4a98981db7c5ba183cda46dbf13cb276a7))
+
 ### [10.0.1](https://github.com/ngneat/spectator/compare/v10.0.0...v10.0.1) (2022-03-24)
 
 
