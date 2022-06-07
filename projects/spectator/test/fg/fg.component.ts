@@ -8,7 +8,7 @@ import { FormGroup } from '@angular/forms';
       <input formControlName="name" />
     </form>
   `,
-  styles: []
+  styles: [],
 })
 export class FgComponent {
   @Input() public group?: FormGroup;

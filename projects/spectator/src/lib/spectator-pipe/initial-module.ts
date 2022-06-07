@@ -1,4 +1,5 @@
 import { initialModule, ModuleMetadata } from '../base/initial-module';
+import { declareInModule } from '../utils';
 
 import { SpectatorPipeOptions } from './options';
 
@@ -8,7 +9,7 @@ import { SpectatorPipeOptions } from './options';
 export function initialSpectatorPipeModule<D, H>(options: Required<SpectatorPipeOptions<D, H>>): ModuleMetadata {
   const moduleMetadata = initialModule(options);
 
-  moduleMetadata.declarations.push(options.pipe);
+  declareInModule(moduleMetadata, options.pipe);
   moduleMetadata.declarations.push(options.host);
 
   return moduleMetadata;

@@ -1,6 +1,7 @@
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 
 import { initialModule, ModuleMetadata } from '../base/initial-module';
+import { declareInModule } from '../utils';
 import { SpectatorDirectiveOptions } from './options';
 
 /**
@@ -10,7 +11,7 @@ export function initialSpectatorDirectiveModule<D, H>(options: Required<Spectato
   const moduleMetadata = initialModule(options);
 
   if (options.declareDirective) {
-    moduleMetadata.declarations.push(options.directive);
+    declareInModule(moduleMetadata, options.directive);
   }
   moduleMetadata.declarations.push(options.host);
 

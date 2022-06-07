@@ -45,8 +45,10 @@
       }
     }
   },
-  "defaultProject": "spectator",
   "cli": {
-    "defaultCollection": "@angular-eslint/schematics"
+    "schematicCollections": [
+      "@angular-eslint/schematics"
+    ],
+    "analytics": "7ba6b8e6-99c8-4300-b84d-21162a96a924"
   }
 }

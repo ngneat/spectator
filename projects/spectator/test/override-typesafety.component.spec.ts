@@ -8,15 +8,15 @@ class MyComponent {}
 describe('Override type-safety', () => {
   describe('Default host with type inference and custom properties', () => {
     const createHost = createHostFactory({
-      component: MyComponent
+      component: MyComponent,
     });
 
     it('should allow accessing the overridden property', () => {
       const spectator = createHost('<my-component></my-component>', {
         hostProps: {
           control: new FormControl(),
-          x: 'x'
-        }
+          x: 'x',
+        },
       });
 
       spectator.hostComponent.control.patchValue('x');
@@ -28,15 +28,15 @@ describe('Override type-safety', () => {
   describe('Default host without type inference and custom properties', () => {
     let spectator: SpectatorHost<MyComponent, { control: FormControl }>;
     const createHost = createHostFactory({
-      component: MyComponent
+      component: MyComponent,
     });
 
     beforeEach(() => {
       spectator = createHost('<my-component></my-component>', {
         hostProps: {
           control: new FormControl(),
-          x: 'x'
-        }
+          x: 'x',
+        },
       });
     });
 
@@ -57,15 +57,15 @@ describe('Override type-safety', () => {
     const createHost = createHostFactory({
       component: MyComponent,
       host: CustomHostComponent,
-      imports: [ReactiveFormsModule]
+      imports: [ReactiveFormsModule],
     });
 
     beforeEach(() => {
       spectator = createHost('<my-component></my-component>', {
         hostProps: {
           // control: new FormControl(), // should not compile
-          foo: 'x'
-        }
+          foo: 'x',
+        },
       });
 
       expect(spectator.hostComponent.foo).toBe('x');
@@ -86,15 +86,15 @@ describe('Override type-safety', () => {
     const createHost = createHostFactory({
       component: MyComponent,
       host: CustomHostComponent,
-      imports: [ReactiveFormsModule]
+      imports: [ReactiveFormsModule],
     });
 
     it('should allow setting the defined properties', () => {
       const spectator = createHost('<my-component></my-component>', {
         hostProps: {
           // control: new FormControl(), // should not compile
-          foo: 'x'
-        }
+          foo: 'x',
+        },
       });
 
       expect(spectator.hostComponent.foo).toBe('x');
