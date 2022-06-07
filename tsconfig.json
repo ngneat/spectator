@@ -12,7 +12,7 @@
     "importHelpers": true,
     "strict": true,
     "noImplicitAny": false,
-    "target": "ES2017",
+    "target": "es2020",
     "esModuleInterop": true,
     "typeRoots": [
       "node_modules/@types"

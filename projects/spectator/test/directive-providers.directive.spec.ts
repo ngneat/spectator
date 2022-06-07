@@ -10,7 +10,7 @@ describe('DirectiveProviderDirective', () => {
     directive: DirectiveProviderDirective,
     directiveProviders: [{ provide: directiveProviderToken, useValue: 'notTest' }],
     directiveMocks: [FormBuilder],
-    template: `<div class="default" directiveProvider>Testing Directive Providers</div>`
+    template: `<div class="default" directiveProvider>Testing Directive Providers</div>`,
   });
 
   it('should inject the provided value', () => {

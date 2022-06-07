@@ -7,7 +7,7 @@ describe('FormInputComponent', () => {
   let host: SpectatorHost<FormInputComponent>;
   const createHost = createHostFactory({
     component: FormInputComponent,
-    imports: [ReactiveFormsModule]
+    imports: [ReactiveFormsModule],
   });
   const group = new FormGroup({ name: new FormControl('') });
 
@@ -15,8 +15,8 @@ describe('FormInputComponent', () => {
     host = createHost(`<app-form-input [enableSubnet]="true"></app-form-input>`, {
       detectChanges: true,
       props: {
-        subnetControl: group
-      }
+        subnetControl: group,
+      },
     });
 
     expect(host.component).toBeDefined();
@@ -32,18 +32,18 @@ describe('FormInputComponent', () => {
 
   const inputs = {
     subnetControl: group,
-    enableSubnet: true
+    enableSubnet: true,
   };
 
   const createComponent = createComponentFactory({
     component: FormInputComponent,
-    imports: [ReactiveFormsModule]
+    imports: [ReactiveFormsModule],
   });
 
   beforeEach(
     () =>
       (spectator = createComponent({
-        props: inputs
+        props: inputs,
       }))
   );
 

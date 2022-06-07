@@ -7,7 +7,7 @@ import { FgComponent } from '../../../test/fg/fg.component';
 @Component({ selector: 'app-custom-host', template: '' })
 class CustomHostComponent {
   public group = new FormGroup({
-    name: new FormControl('name')
+    name: new FormControl('name'),
   });
 }
 
@@ -17,7 +17,7 @@ describe('With Custom Host Component', () => {
   const createHost = createHostFactory({
     component: FgComponent,
     imports: [ReactiveFormsModule],
-    host: CustomHostComponent
+    host: CustomHostComponent,
   });
 
   it('should display the host component title', () => {

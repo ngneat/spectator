@@ -108,7 +108,7 @@ export abstract class DomSpectator<I> extends BaseSpectator {
     const observable = this.instance[output];
 
     if (!(observable instanceof Observable)) {
-      throw new Error(`${output} is not an @Output`);
+      throw new Error(`${String(output)} is not an @Output`);
     }
 
     return observable as Observable<T>;

@@ -2,7 +2,7 @@ module.exports = {
   preset: 'jest-preset-angular',
   globals: {
     'ts-jest': {
-      tsConfig: 'projects/spectator/jest/tsconfig.spec.json'
+      tsconfig: 'projects/spectator/jest/tsconfig.spec.json'
     }
   },
   roots: ['projects/spectator'],

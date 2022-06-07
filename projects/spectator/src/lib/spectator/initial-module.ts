@@ -1,6 +1,7 @@
-import { NO_ERRORS_SCHEMA } from '@angular/core';
+import { NO_ERRORS_SCHEMA, ɵisStandalone } from '@angular/core';
 
 import { initialModule, ModuleMetadata } from '../base/initial-module';
+import { declareInModule } from '../utils';
 
 import { SpectatorOptions } from './options';
 
@@ -11,7 +12,7 @@ export function initialSpectatorModule<C>(options: Required<SpectatorOptions<C>>
   const moduleMetadata = initialModule(options);
 
   if (options.declareComponent) {
-    moduleMetadata.declarations.push(options.component);
+    declareInModule(moduleMetadata, options.component);
   }
 
   moduleMetadata.schemas = [options.shallow ? NO_ERRORS_SCHEMA : options.schemas || []];
