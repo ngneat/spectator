@@ -33,8 +33,5 @@
     "@angular/router": ">= 14.0.0",
     "@angular/animations": ">= 14.0.0"
   },
-  "bin": {
-    "spectator-migrate": "./migrate.js"
-  },
   "schematics": "./schematics/collection.json"
 }
