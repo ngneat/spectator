@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [11.0.2](https://github.com/ngneat/spectator/compare/v11.0.1...v11.0.2) (2022-06-21)
+
+### Bug Fixes
+
+* Now imports jest from @jest/globals in mocks.ts
+
 ### [11.0.1](https://github.com/ngneat/spectator/compare/v11.0.0...v11.0.1) (2022-06-17)
 
 
