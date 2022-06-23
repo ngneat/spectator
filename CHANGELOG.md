@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [11.0.2](https://github.com/ngneat/spectator/compare/v11.0.0...v11.0.2) (2022-06-23)
+
+
+### Bug Fixes
+
+* 🐛 release schematics ([8405fc1](https://github.com/ngneat/spectator/commit/8405fc110ba950d3f36f06e2e0334e0c01e7f1b3)), closes [#563](https://github.com/ngneat/spectator/issues/563)
+* remove migration bin ([9a9be75](https://github.com/ngneat/spectator/commit/9a9be753d952f14438936e5bdbb19112958bb953)), closes [#557](https://github.com/ngneat/spectator/issues/557)
+
 ### [11.0.1](https://github.com/ngneat/spectator/compare/v11.0.0...v11.0.1) (2022-06-17)
 
 
