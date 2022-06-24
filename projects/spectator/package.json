@@ -31,7 +31,8 @@
   "peerDependencies": {
     "@angular/common": ">= 14.0.0",
     "@angular/router": ">= 14.0.0",
-    "@angular/animations": ">= 14.0.0"
+    "@angular/animations": ">= 14.0.0",
+    "jest": ">= 25.5.0"
   },
   "schematics": "./schematics/collection.json"
 }
