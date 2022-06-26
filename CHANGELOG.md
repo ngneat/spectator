@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [11.1.0](https://github.com/ngneat/spectator/compare/v11.0.2...v11.1.0) (2022-06-26)
+
+
+### Features
+
+* 🎸 support jest esm ([#565](https://github.com/ngneat/spectator/issues/565)) ([46d5261](https://github.com/ngneat/spectator/commit/46d526144021f11dea485038a9b988411af0963c))
+
 ### [11.0.2](https://github.com/ngneat/spectator/compare/v11.0.0...v11.0.2) (2022-06-23)
 
 
