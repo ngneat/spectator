@@ -2,6 +2,7 @@
 
 import { FactoryProvider, AbstractType, Type } from '@angular/core';
 import { installProtoMethods, CompatibleSpy, SpyObject as BaseSpyObject } from '@ngneat/spectator';
+import { jest } from '@jest/globals';
 
 export type SpyObject<T> = BaseSpyObject<T> & { [P in keyof T]: T[P] & (T[P] extends (...args: any[]) => infer R ? jest.Mock<R> : T[P]) };
 
@@ -41,6 +42,6 @@ export function createSpyObject<T>(type: Type<T> | AbstractType<T>, template?: P
 export function mockProvider<T>(type: Type<T> | AbstractType<T>, properties?: Partial<Record<keyof T, any>>): FactoryProvider {
   return {
     provide: type,
-    useFactory: () => createSpyObject(type, properties)
+    useFactory: () => createSpyObject(type, properties),
   };
 }
