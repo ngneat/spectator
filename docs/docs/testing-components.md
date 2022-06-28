@@ -194,8 +194,8 @@ For Example:
 createComponentFactory({
   component: SomeComponent,
   overrideModules: [
-    [SomeModule, {set: {declarations: [SomeOtherComponent]}],
-    [SomeOtherModule, {set: {declarations: [SomeOtherComponent]}]
+    [SomeModule, {set: {declarations: [SomeOtherComponent]} }],
+    [SomeOtherModule, {set: {declarations: [SomeOtherComponent]} }]
   ]
 })
 ```
