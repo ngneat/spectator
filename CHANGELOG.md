@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [11.1.1](https://github.com/ngneat/spectator/compare/v11.1.0...v11.1.1) (2022-07-24)
+
+
+### Bug Fixes
+
+* unpatch `setTimeout` before importing jQuery so it is not captured by zone.js ([#571](https://github.com/ngneat/spectator/issues/571)) ([76572b1](https://github.com/ngneat/spectator/commit/76572b1320cc14890167308564e77ef2fcb9a68b))
+
 ## [11.1.0](https://github.com/ngneat/spectator/compare/v11.0.2...v11.1.0) (2022-06-26)
 
 
