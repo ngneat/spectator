@@ -7,7 +7,7 @@
     "declaration": true,
     "inlineSources": true,
     "typeRoots" : ["./typings"],
-    "types": ["jasmine", "jest"],
+    "types": ["jasmine", "jest", "node"],
     "lib": [
       "dom",
       "es2018"
