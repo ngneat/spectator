@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [11.1.2](https://github.com/ngneat/spectator/compare/v11.1.1...v11.1.2) (2022-07-25)
+
+
+### Bug Fixes
+
+* 🐛 revert jquery patch ([d66a8bc](https://github.com/ngneat/spectator/commit/d66a8bcafb850f9d62e054692964bac8b20a9807)), closes [#572](https://github.com/ngneat/spectator/issues/572)
+
 ### [11.1.1](https://github.com/ngneat/spectator/compare/v11.1.0...v11.1.1) (2022-07-24)
 
 
