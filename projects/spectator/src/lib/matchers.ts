@@ -1,6 +1,6 @@
 /** Credit: https://github.com/unindented/custom-jquery-matchers/tree/master/packages/custom-jquery-matchers */
 /* eslint-disable no-shadow, @typescript-eslint/no-shadow */
-
+import $ from 'jquery';
 // This is done to prevent tests, that are being run in a `fakeAsync` zone, from failing randomly.
 // jQuery setups a timer internally if the `document.readyState` is `complete` by doing
 // `window.setTimeout(jQuery.ready)` (see its source code). Unit tests might fail randomly that
@@ -132,9 +132,9 @@ const hasSameText = (el: HTMLElement, expected: string | string[] | ((s: string)
 
 const comparator =
   (func): CustomMatcherFactory =>
-  () => ({
-    compare: func,
-  });
+    () => ({
+      compare: func,
+    });
 
 /**
  *
