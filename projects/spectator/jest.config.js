@@ -9,7 +9,8 @@ module.exports = {
   testMatch: ['**/jest/**/*.spec.ts'],
   setupFilesAfterEnv: ['<rootDir>/projects/spectator/setup-jest.ts'],
   moduleNameMapper: {
+    '@ngneat/spectator/internals': '<rootDir>/projects/spectator/internals/src/public_api.ts',
     '@ngneat/spectator/jest': '<rootDir>/projects/spectator/jest/src/public_api.ts',
-    '@ngneat/spectator': '<rootDir>/projects/spectator/src/public_api.ts'
+    '@ngneat/spectator': '<rootDir>/projects/spectator/src/public_api.ts',
   }
 };
