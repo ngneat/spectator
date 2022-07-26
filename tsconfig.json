@@ -27,6 +27,9 @@
       ],
       "@ngneat/spectator/jest": [
         "projects/spectator/jest/src/public_api.ts"
+      ],
+      "@ngneat/spectator/internals": [
+        "projects/spectator/internals/src/public_api.ts"
       ]
     }
   }
