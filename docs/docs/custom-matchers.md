@@ -31,6 +31,7 @@ expect('.zippy__content').toContainValue(['value a', 'value b']);
 expect(spectator.element).toHaveStyle({backgroundColor: 'rgba(0, 0, 0, 0.1)'});
 expect('.zippy__content').toHaveData({data: 'role', val: 'admin'});
 expect('.checkbox').toBeChecked();
+expect('.checkbox').toBeIndeterminate();
 expect('.button').toBeDisabled();
 expect('div').toBeEmpty();
 expect('div').toBeHidden();

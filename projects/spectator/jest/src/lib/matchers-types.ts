@@ -30,6 +30,8 @@ declare namespace jest {
 
     toBeChecked(): boolean;
 
+    toBeIndeterminate(): boolean;
+
     toBeDisabled(): boolean;
 
     toBeEmpty(): boolean;

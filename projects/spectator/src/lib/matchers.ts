@@ -333,6 +333,17 @@ export const toBeChecked = comparator((el) => {
 
 /**
  *
+ * expect('.checkbox').toBeIndeterminate();
+ */
+export const toBeIndeterminate = comparator((el) => {
+  const pass = $(el).is(':indeterminate');
+  const message = () => `Expected element${pass ? ' not' : ''} to be indeterminate`;
+
+  return { pass, message };
+});
+
+/**
+ *
  * expect('.checkbox').toBeDisabled();
  */
 export const toBeDisabled = comparator((el) => {
