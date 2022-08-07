@@ -14,6 +14,7 @@ export interface Dummy {
     <input class="sample" value="test1" />
     <input class="sample" value="test2" />
     <input class="checkbox" type="checkbox" checked />
+    <input class="checkbox-indeterminate" type="checkbox" [indeterminate]="true" />
     <div id="attr-check" label="test label"></div>
     <img src="http://localhost:8080/assets/myimg.jpg" />
   `

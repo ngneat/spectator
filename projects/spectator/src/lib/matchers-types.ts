@@ -30,6 +30,8 @@ declare namespace jasmine {
 
     toBeChecked(): boolean;
 
+    toBeIndeterminate(): boolean;
+
     toBeDisabled(): boolean;
 
     toBeEmpty(): boolean;

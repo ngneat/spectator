@@ -83,4 +83,14 @@ describe('Matcher enhancements', () => {
       expect(spectator.component.dummyValue).not.toBePartial({ active: false });
     });
   });
+
+  describe('Checkbox', () => {
+    it('should match checkbox checked state', () => {
+      expect(spectator.query('.checkbox')).toBeChecked();
+    });
+
+    it('should match checkbox indeterminate state', () => {
+      expect(spectator.query('.checkbox-indeterminate')).toBeIndeterminate();
+    });
+  })
 });
