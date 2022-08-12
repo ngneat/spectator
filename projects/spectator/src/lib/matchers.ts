@@ -99,7 +99,7 @@ const hasSameText = (el: HTMLElement, expected: string | string[] | ((s: string)
       }
     });
 
-    const message = () => `Expected element${pass ? ' not' : ''} to have ${exact ? 'exact' : ''} text '${failing}', but had '${actual}'`;
+    const message = () => `Expected element${pass ? ' not' : ''} to have${exact ? ' exact' : ''} text '${failing}', but had '${actual}'`;
 
     return { pass, message };
   }
@@ -109,13 +109,13 @@ const hasSameText = (el: HTMLElement, expected: string | string[] | ((s: string)
   if (expected && typeof expected !== 'string') {
     const pass = expected(actual);
     const message = () =>
-      `Expected element${pass ? ' not' : ''} to have ${exact ? 'exact' : ''} text matching '${expected}',` + ` but had '${actual}'`;
+      `Expected element${pass ? ' not' : ''} to have${exact ? ' exact' : ''} text matching '${expected}',` + ` but had '${actual}'`;
 
     return { pass, message };
   }
 
   const pass = exact && !Array.isArray(expected) ? actual === expected : actual.indexOf(expected) !== -1;
-  const message = () => `Expected element${pass ? ' not' : ''} to have ${exact ? 'exact' : ''} text '${expected}', but had '${actual}'`;
+  const message = () => `Expected element${pass ? ' not' : ''} to have${exact ? ' exact' : ''} text '${expected}', but had '${actual}'`;
 
   return { pass, message };
 };
