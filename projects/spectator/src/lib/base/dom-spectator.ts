@@ -35,8 +35,8 @@ export abstract class DomSpectator<I> extends BaseSpectator {
   }
 
   public query<R extends Element>(selector: string | DOMSelector, options?: { root: boolean }): R | null;
-  public query<R>(directive: Type<R>): R | null;
-  public query<R>(directiveOrSelector: Type<any> | string, options: { read: Token<R> }): R | null;
+  public query<R>(directive: Type<R>, options?: { root: boolean }): R | null;
+  public query<R>(directiveOrSelector: Type<any> | string, options: { read: Token<R>, root?: boolean }): R | null;
   public query<R>(directiveOrSelector: QueryType, options?: QueryOptions<R>): R | Element | null {
     if ((options || {}).root) {
       if (isString(directiveOrSelector)) {
@@ -46,14 +46,16 @@ export abstract class DomSpectator<I> extends BaseSpectator {
       if (directiveOrSelector instanceof DOMSelector) {
         return directiveOrSelector.execute(document as any)[0] || null;
       }
+
+      return getChildren<R>(this.getRootDebugElement())(directiveOrSelector, options)[0] || null;
     }
 
     return getChildren<R>(this.debugElement)(directiveOrSelector, options)[0] || null;
   }
 
   public queryAll<R extends Element>(selector: string | DOMSelector, options?: { root: boolean }): R[];
-  public queryAll<R>(directive: Type<R>): R[];
-  public queryAll<R>(directiveOrSelector: Type<any> | string, options: { read: Token<R> }): R[];
+  public queryAll<R>(directive: Type<R>, options?: { root: boolean }): R[];
+  public queryAll<R>(directiveOrSelector: Type<any> | string, options: { read: Token<R>, root?: boolean }): R[];
   public queryAll<R>(directiveOrSelector: QueryType, options?: QueryOptions<R>): R[] | Element[] {
     if ((options || {}).root) {
       if (isString(directiveOrSelector)) {
@@ -63,24 +65,26 @@ export abstract class DomSpectator<I> extends BaseSpectator {
       if (directiveOrSelector instanceof DOMSelector) {
         return directiveOrSelector.execute(document as any);
       }
+
+      return getChildren<R>(this.getRootDebugElement())(directiveOrSelector, options);
     }
 
     return getChildren<R>(this.debugElement)(directiveOrSelector, options);
   }
 
   public queryLast<R extends Element>(selector: string | DOMSelector, options?: { root: boolean }): R | null;
-  public queryLast<R>(directive: Type<R>): R | null;
-  public queryLast<R>(directiveOrSelector: Type<any> | string, options: { read: Token<R> }): R | null;
+  public queryLast<R>(directive: Type<R>, options?: { root: boolean }): R | null;
+  public queryLast<R>(directiveOrSelector: Type<any> | string, options: { read: Token<R>, root?: boolean }): R | null;
   public queryLast<R>(directiveOrSelector: QueryType, options?: QueryOptions<R>): R | Element | null {
     let result: (R | Element)[] = [];
 
     if ((options || {}).root) {
       if (isString(directiveOrSelector)) {
         result = Array.from(document.querySelectorAll(directiveOrSelector));
-      }
-
-      if (directiveOrSelector instanceof DOMSelector) {
+      } else if (directiveOrSelector instanceof DOMSelector) {
         result = directiveOrSelector.execute(document as any);
+      } else {
+        result = getChildren<R>(this.getRootDebugElement())(directiveOrSelector, options);
       }
     } else {
       result = getChildren<R>(this.debugElement)(directiveOrSelector, options);
