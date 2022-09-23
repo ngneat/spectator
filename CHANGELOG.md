@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [11.2.0](https://github.com/ngneat/spectator/compare/v11.1.3...v11.2.0) (2022-09-23)
+
+
+### Features
+
+* **dom-spectator:** add query with root opt for Type selector ([#580](https://github.com/ngneat/spectator/issues/580)) ([b5a0f35](https://github.com/ngneat/spectator/commit/b5a0f359d8bc8ddaf757cdc8d2948d53ab3b978c))
+* **matchers:** add toBeIndeterminate matcher ([#577](https://github.com/ngneat/spectator/issues/577)) ([b158a27](https://github.com/ngneat/spectator/commit/b158a278e8d0bdfd4b4f8e9c743f35fbf0a3b44e))
+
 ### [11.1.3](https://github.com/ngneat/spectator/compare/v11.1.1...v11.1.3) (2022-07-26)
 
 
