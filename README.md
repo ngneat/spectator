@@ -753,7 +753,7 @@ export class AuthService {
 ```
 In this case we can mock the `DateService` dependency.
 ```ts
-import { createServiceFactory } from '@ngneat/spectator';
+import { createServiceFactory, SpectatorService } from '@ngneat/spectator';
 
 import { AuthService } from 'auth.service.ts';
 
