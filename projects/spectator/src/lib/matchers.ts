@@ -434,7 +434,7 @@ function isHidden(elOrSelector: HTMLElement | string): boolean {
       return true;
     }
 
-    el = el.parentNode;
+    el = el.parentNode || el.host;
   }
 
   return false;
