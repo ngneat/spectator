@@ -1,6 +1,6 @@
 import { toBeVisible, toBePartial } from '@ngneat/spectator';
 import { createComponentFactory, Spectator } from '@ngneat/spectator/jest';
-import { Component } from '@angular/core';
+import { Component, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
 interface Dummy {
   lorem: string;
@@ -18,15 +18,30 @@ interface Dummy {
     <div id="visible">Visible</div>
     <div id="classes" class="class-a class-b">Classes</div>
     <div id="styles" style="background-color: indianred; color: chocolate; --primary: var(--black)"></div>
+    <custom-element style="visibility: hidden"></custom-element>
   `,
 })
 export class MatchersComponent {}
 
 describe('Matchers', () => {
-  const createComponent = createComponentFactory({ component: MatchersComponent });
+  const createComponent = createComponentFactory({
+    component: MatchersComponent,
+    schemas: [CUSTOM_ELEMENTS_SCHEMA],
+  });
   let spectator: Spectator<MatchersComponent>;
 
   beforeEach(() => {
+    if(!window.customElements.get("custom-element")) {
+      window.customElements.define("custom-element", class extends HTMLElement {
+        connectedCallback() {
+          if (this.isConnected && !this.shadowRoot) {
+            const el = document.createElement("div")
+            el.id = "shadow-dom"
+            this.attachShadow({ mode: 'open' }).appendChild(el);
+          }
+        }
+      })
+    }
     spectator = createComponent();
   });
 
@@ -99,6 +114,12 @@ describe('Matchers', () => {
     it('should be possible to validate an element that has classes in any order', () => {
       expect('#classes').toHaveClass(['class-a', 'class-b'], { strict: false });
       expect('#classes').toHaveClass(['class-b', 'class-a'], { strict: false });
+    });
+
+    it('should detect elements with hidden parents through shadow DOMs', () => {
+      expect(
+        document.querySelector('custom-element')?.shadowRoot?.querySelector("#shadow-dom")
+      ).toBeHidden();
     });
   });
 

@@ -430,11 +430,11 @@ function isHidden(elOrSelector: HTMLElement | string): boolean {
       break;
     }
 
-    if (hiddenWhen.some((rule) => rule(el))) {
+    if (el.nodeType === Node.ELEMENT_NODE && hiddenWhen.some((rule) => rule(el))) {
       return true;
     }
 
-    el = el.parentNode;
+    el = el.parentNode || el.host;
   }
 
   return false;
