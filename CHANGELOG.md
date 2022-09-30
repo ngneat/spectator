@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [11.2.1](https://github.com/ngneat/spectator/compare/v11.2.0...v11.2.1) (2022-09-30)
+
+
+### Bug Fixes
+
+* **matchers:** prevent crash on elements in a Shadow DOM ([#585](https://github.com/ngneat/spectator/issues/585)) ([9d2996b](https://github.com/ngneat/spectator/commit/9d2996bea10bcf81eefd94abfcbc4609f57e2831))
+
 ## [11.2.0](https://github.com/ngneat/spectator/compare/v11.1.3...v11.2.0) (2022-09-23)
 
 
