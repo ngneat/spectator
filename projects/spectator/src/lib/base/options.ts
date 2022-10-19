@@ -19,6 +19,8 @@ export interface BaseSpectatorOptions {
   schemas?: (SchemaMetadata | any[])[];
   overrideModules?: [Type<any>, MetadataOverride<NgModule>][];
   teardown?: ModuleTeardownOptions;
+  errorOnUnknownElements?: boolean;
+  errorOnUnknownProperties?: boolean;
 }
 
 /**
@@ -38,7 +40,9 @@ const defaultOptions: OptionalsRequired<BaseSpectatorOptions> = {
   imports: [],
   schemas: [],
   overrideModules: [],
-  teardown: { destroyAfterEach: false }
+  teardown: { destroyAfterEach: false },
+  errorOnUnknownElements: false,
+  errorOnUnknownProperties: false,
 };
 
 /**

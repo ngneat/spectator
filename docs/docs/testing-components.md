@@ -47,6 +47,8 @@ const createComponent = createComponentFactory({
   declareComponent: false, // Defaults to true
   disableAnimations: false, // Defaults to true
   shallow: true, // Defaults to false
+  errorOnUnknownElements: true, // Defaults to false
+  errorOnUnknownProperties: true, // Defaults to false
 });
 ```
 

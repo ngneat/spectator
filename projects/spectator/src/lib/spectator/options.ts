@@ -26,7 +26,7 @@ const defaultSpectatorOptions: OptionalsRequired<SpectatorOptions<any>> = {
   componentProviders: [],
   componentViewProviders: [],
   componentMocks: [],
-  componentViewProvidersMocks: []
+  componentViewProvidersMocks: [],
 };
 
 /**
