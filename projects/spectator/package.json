@@ -2,7 +2,7 @@
   "name": "@ngneat/spectator",
   "description": "A powerful tool to simplify your Angular tests",
   "author": "Netanel Basal <netanel7799s@gmail.com>",
-  "version": "11.2.1",
+  "version": "11.3.0",
   "license": "MIT",
   "repository": {
     "type": "git",
