@@ -16,6 +16,8 @@ export interface ModuleMetadata {
   entryComponents: Type<any>[];
   schemas?: (SchemaMetadata | any[])[];
   teardown?: ModuleTeardownOptions;
+  errorOnUnknownElements: boolean;
+  errorOnUnknownProperties: boolean;
 }
 
 /**
@@ -34,5 +36,7 @@ export function initialModule(options: Required<BaseSpectatorOptions>): ModuleMe
       // is always defined. If the user calls `defineGlobalsInjections({ teardown: { ... } })` and we merge it with
       // `options.teardown`, then `options.teardown` will always override global options.
       { ...(globals.teardown || options.teardown) },
+    errorOnUnknownElements: globals.errorOnUnknownElements || options.errorOnUnknownElements,
+    errorOnUnknownProperties: globals.errorOnUnknownProperties || options.errorOnUnknownProperties,
   };
 }
