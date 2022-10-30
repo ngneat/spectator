@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [11.4.0](https://github.com/ngneat/spectator/compare/v11.3.0...v11.4.0) (2022-10-30)
+
+
+### Features
+
+* **components:** allow to override standalone components ([#584](https://github.com/ngneat/spectator/issues/584)) ([464c807](https://github.com/ngneat/spectator/commit/464c807ee12bff8cc61a75a90ec732c2b115d58f))
+
 ## [11.3.0](https://github.com/ngneat/spectator/compare/v11.2.1...v11.3.0) (2022-10-19)
 
 
