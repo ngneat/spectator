@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [12.0.0](https://github.com/ngneat/spectator/compare/v11.4.1...v12.0.0) (2022-10-30)
+
+
+### ⚠ BREAKING CHANGES
+
+* 🧨 The library now required a min version of Angular 14.2.0
+
+### Features
+
+* 🎸 change peer dep to 14.2.0 ([ffad43b](https://github.com/ngneat/spectator/commit/ffad43b2f6b01527d3c9e65caa776306edcfa377))
+
 ### [11.4.1](https://github.com/ngneat/spectator/compare/v11.4.0...v11.4.1) (2022-10-30)
 
 ## [11.4.0](https://github.com/ngneat/spectator/compare/v11.3.0...v11.4.0) (2022-10-30)
