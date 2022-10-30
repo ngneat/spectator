@@ -12,7 +12,7 @@ import { HostComponent } from '../spectator-host/host-component';
 import { initialSpectatorPipeModule } from './initial-module';
 import { getSpectatorPipeDefaultOptions, SpectatorPipeOptions } from './options';
 import { SpectatorPipe } from './spectator-pipe';
-import { overrideModules } from '../spectator/create-factory';
+import {overrideModules, overridePipes} from '../spectator/create-factory';
 
 /**
  * @publicApi
@@ -45,6 +45,7 @@ export function createPipeFactory<P, H = HostComponent>(typeOrOptions: Type<P> |
       addMatchers(customMatchers);
       TestBed.configureTestingModule(moduleMetadata);
       overrideModules(options);
+      overridePipes(options);
     })
   );
 

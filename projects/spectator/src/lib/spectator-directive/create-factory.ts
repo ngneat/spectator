@@ -14,7 +14,7 @@ import { nodeByDirective } from '../internals/node-by-directive';
 import { initialSpectatorDirectiveModule } from './initial-module';
 import { getSpectatorDirectiveDefaultOptions, SpectatorDirectiveOptions } from './options';
 import { SpectatorDirective } from './spectator-directive';
-import { overrideModules } from '../spectator/create-factory';
+import {overrideComponents, overrideDirectives, overrideModules, overridePipes} from '../spectator/create-factory';
 
 /**
  * @publicApi
@@ -68,6 +68,9 @@ export function createDirectiveFactory<D, H = HostComponent>(
       addMatchers(customMatchers);
       TestBed.configureTestingModule(moduleMetadata);
       overrideModules(options);
+      overrideComponents(options);
+      overrideDirectives(options);
+      overridePipes(options);
     })
   );
 

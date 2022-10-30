@@ -1,4 +1,4 @@
-import { NgModule, Provider, SchemaMetadata, Type } from '@angular/core';
+import {Component, Directive, NgModule, Pipe, Provider, SchemaMetadata, Type} from '@angular/core';
 import { MetadataOverride, ModuleTeardownOptions } from '@angular/core/testing';
 
 import { merge } from '../internals/merge';
@@ -18,6 +18,9 @@ export interface BaseSpectatorOptions {
   imports?: any[];
   schemas?: (SchemaMetadata | any[])[];
   overrideModules?: [Type<any>, MetadataOverride<NgModule>][];
+  overrideComponents?: [Type<any>, MetadataOverride<Component>][];
+  overrideDirectives?: [Type<any>, MetadataOverride<Directive>][];
+  overridePipes?: [Type<any>, MetadataOverride<Pipe>][];
   teardown?: ModuleTeardownOptions;
   errorOnUnknownElements?: boolean;
   errorOnUnknownProperties?: boolean;
@@ -40,6 +43,9 @@ const defaultOptions: OptionalsRequired<BaseSpectatorOptions> = {
   imports: [],
   schemas: [],
   overrideModules: [],
+  overrideComponents: [],
+  overrideDirectives: [],
+  overridePipes: [],
   teardown: { destroyAfterEach: false },
   errorOnUnknownElements: false,
   errorOnUnknownProperties: false,

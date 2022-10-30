@@ -121,6 +121,9 @@ const createComponent = createComponentFactory({
   componentProviders: [], // Override the component's providers
   componentViewProviders: [], // Override the component's view providers
   overrideModules: [], // Override modules
+  overrideComponents: [], // Override components in case of testing standalone component
+  overrideDirectives: [], // Override directives in case of testing standalone directive
+  overridePipes: [], // Override pipes in case of testing standalone pipe
   mocks: [], // Providers that will automatically be mocked
   componentMocks: [], // Component providers that will automatically be mocked
   componentViewProvidersMocks: [], // Component view providers that will be automatically mocked
@@ -149,6 +152,56 @@ it('should...', () => {
   expect(spectator.query('button')).toHaveText('Click');
 });
 ```
+
+By providing `overrideComponents` options in scope of our `createComponent()` function we can define the way of overriding standalone component and it's dependencies
+```ts
+@Component({
+  selector: `app-standalone-with-import`,
+  template: `<div id="standalone">Standalone component with import!</div>
+  <app-standalone-with-dependency></app-standalone-with-dependency>`,
+  imports: [StandaloneComponentWithDependency],
+  standalone: true,
+})
+export class StandaloneWithImportsComponent {}
+
+@Component({
+  selector: `app-standalone-with-dependency`,
+  template: `<div id="standaloneWithDependency">Standalone component with dependency!</div>`,
+  standalone: true,
+})
+export class StandaloneComponentWithDependency {
+  constructor(public query: QueryService) {}
+}
+
+@Component({
+  selector: `app-standalone-with-dependency`,
+  template: `<div id="standaloneWithDependency">Standalone component with override dependency!</div>`,
+  standalone: true,
+})
+export class MockStandaloneComponentWithDependency {
+  constructor() {}
+}
+
+it('should...', () => {
+  const spectator = createHostFactory({
+    component: StandaloneWithImportsComponent,
+    template: `<div><app-standalone-with-import></app-standalone-with-import></div>`,
+    overrideComponents: [
+      [
+        StandaloneWithImportsComponent,
+        {
+          remove: { imports: [StandaloneComponentWithDependency] },
+          add: { imports: [MockStandaloneComponentWithDependency] },
+        },
+      ],
+    ],
+  });
+
+  expect(host.query('#standalone')).toContainText('Standalone component with import!');
+  expect(host.query('#standaloneWithDependency')).toContainText('Standalone component with override dependency!');
+});
+```
+
 The `createComponent()` method returns an instance of `Spectator` which exposes the following API:
 
 - `fixture` - The tested component's fixture

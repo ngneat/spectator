@@ -1,4 +1,4 @@
-import { Provider, Type } from '@angular/core';
+import {Provider, Type, reflectComponentType, ɵisStandalone} from '@angular/core';
 import { TestBed, waitForAsync } from '@angular/core/testing';
 import { BrowserDynamicTestingModule } from '@angular/platform-browser-dynamic/testing';
 
@@ -35,17 +35,17 @@ export function overrideComponentIfProviderOverridesSpecified<C>(options: Requir
     let providerConfiguration = {};
     if (hasProviderOverrides) {
       providerConfiguration = {
-        providers: [...options.componentProviders, ...options.componentMocks.map(p => options.mockProvider(p))]
+        providers: [...options.componentProviders, ...options.componentMocks.map((p) => options.mockProvider(p))],
       };
     }
     if (hasViewProviders) {
       providerConfiguration = {
         ...providerConfiguration,
-        viewProviders: [...options.componentViewProviders, ...options.componentViewProvidersMocks.map(p => options.mockProvider(p))]
+        viewProviders: [...options.componentViewProviders, ...options.componentViewProvidersMocks.map((p) => options.mockProvider(p))],
       };
     }
     TestBed.overrideComponent(options.component, {
-      set: providerConfiguration
+      set: providerConfiguration,
     });
   }
 }
@@ -55,10 +55,61 @@ export function overrideComponentIfProviderOverridesSpecified<C>(options: Requir
  */
 export function overrideModules(options: Required<BaseSpectatorOptions>): void {
   if (options.overrideModules.length) {
-    options.overrideModules.forEach(overrideModule => {
+    options.overrideModules.forEach((overrideModule) => {
       const [ngModule, override] = overrideModule;
 
       TestBed.overrideModule(ngModule, override);
+    });
+  }
+}
+
+/**
+ * @internal
+ */
+export function overrideComponents(options: Required<BaseSpectatorOptions>): void {
+  if (options.overrideComponents.length) {
+    options.overrideComponents.forEach((overrideComponent) => {
+      const [component, override] = overrideComponent;
+
+      if (!reflectComponentType(component)?.isStandalone) {
+        throw new Error(`Can not override non standalone component`);
+      }
+
+      TestBed.overrideComponent(component, override);
+    });
+  }
+}
+
+/**
+ * @internal
+ */
+export function overrideDirectives(options: Required<BaseSpectatorOptions>): void {
+  if (options.overrideDirectives.length) {
+    options.overrideDirectives.forEach((overrideDirective) => {
+      const [directive, override] = overrideDirective;
+
+      if (!ɵisStandalone(directive)) {
+        throw new Error(`Can not override non standalone directive`);
+      }
+
+      TestBed.overrideDirective(directive, override);
+    });
+  }
+}
+
+/**
+ * @internal
+ */
+export function overridePipes(options: Required<BaseSpectatorOptions>): void {
+  if (options.overridePipes.length) {
+    options.overridePipes.forEach((overridePipe) => {
+      const [pipe, override] = overridePipe;
+
+      if (!ɵisStandalone(pipe)) {
+        throw new Error(`Can not override non standalone pipe`);
+      }
+
+      TestBed.overridePipe(pipe, override);
     });
   }
 }
@@ -78,11 +129,14 @@ export function createComponentFactory<C>(typeOrOptions: Type<C> | SpectatorOpti
       addMatchers(customMatchers);
       TestBed.configureTestingModule(moduleMetadata).overrideModule(BrowserDynamicTestingModule, {
         set: {
-          entryComponents: moduleMetadata.entryComponents
-        }
+          entryComponents: moduleMetadata.entryComponents,
+        },
       });
 
       overrideModules(options);
+      overrideComponents(options);
+      overrideDirectives(options);
+      overridePipes(options);
 
       overrideComponentIfProviderOverridesSpecified(options);
 

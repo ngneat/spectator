@@ -5,7 +5,12 @@ import { BrowserDynamicTestingModule } from '@angular/platform-browser-dynamic/t
 
 import { setProps } from '../internals/query';
 import * as customMatchers from '../matchers';
-import { overrideComponentIfProviderOverridesSpecified, overrideModules, SpectatorOverrides } from '../spectator/create-factory';
+import {
+  overrideComponentIfProviderOverridesSpecified,
+  overrideComponents, overrideDirectives,
+  overrideModules, overridePipes,
+  SpectatorOverrides
+} from '../spectator/create-factory';
 import { addMatchers } from '../core';
 import { isType } from '../types';
 import { nodeByDirective } from '../internals/node-by-directive';
@@ -65,6 +70,9 @@ export function createHostFactory<C, H = HostComponent>(typeOrOptions: Type<C> |
     });
 
       overrideModules(options);
+      overrideComponents(options);
+      overrideDirectives(options);
+      overridePipes(options);
 
       overrideComponentIfProviderOverridesSpecified(options);
       if (options.template) {
