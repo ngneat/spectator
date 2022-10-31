@@ -7,6 +7,9 @@ import { TranslateService } from '../translate.service';
   template: `
     <div [style.width]="width" style="display: flex;">
       <h1>{{ title | translate }}</h1>
+      <h2>
+        {{ title | translate }}
+      </h2>
     </div>
 
     <div *ngIf="!widthRaw" style="color:red">widthRaw is not set</div>

@@ -18,7 +18,9 @@ declare namespace jest {
 
     toContainText(text: string | string[] | ((text: string) => boolean), exact?: boolean): boolean;
 
-    toHaveExactText(text: string | string[] | ((text: string) => boolean)): boolean;
+    toHaveExactText(text: string | string[] | ((text: string) => boolean), options?: {trim: boolean}): boolean;
+
+    toHaveExactTrimmedText(text: string | string[] | ((text: string) => boolean)): boolean;
 
     toHaveValue(value: string | string[]): boolean;
 
