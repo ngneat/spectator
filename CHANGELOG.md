@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [12.1.0](https://github.com/ngneat/spectator/compare/v12.0.1...v12.1.0) (2022-11-13)
+
+
+### Features
+
+* **query:** allow to specify parent selector option ([#590](https://github.com/ngneat/spectator/issues/590)) ([d2fcdf8](https://github.com/ngneat/spectator/commit/d2fcdf821d7a1f4f0c1dd0bb61f935aeb22b8bf2))
+
+
+### Bug Fixes
+
+* **dom-selectors:** `byRole` typings ([#591](https://github.com/ngneat/spectator/issues/591)) ([e537f64](https://github.com/ngneat/spectator/commit/e537f649f69e6c89526d32c5d028370a82093ef5))
+
 ### [12.0.1](https://github.com/ngneat/spectator/compare/v12.0.0...v12.0.1) (2022-10-30)
 
 ## [12.0.0](https://github.com/ngneat/spectator/compare/v11.4.1...v12.0.0) (2022-10-30)
