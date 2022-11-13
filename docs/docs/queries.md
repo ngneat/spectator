@@ -55,6 +55,13 @@ For example, in this following HTML `byText('foobar', {selector: 'div'})` won't 
 </div>
 ```
 
+### Parent Selector
+Spectator allows you to query for nested elements within a parent element. This is useful when you have multiple instances of the same component on the page and you want to query for children within a specific one. The parent selector is a string selector that is used to find the parent element. The parent selector is passed as the second parameter to the query methods. For example:
+```ts
+spectator.query(ChildComponent, { parentSelector: '#parent-component-1' });
+spectator.queryAll(ChildComponent, { parentSelector: '#parent-component-1' });
+```
+
 ## Testing Select Elements
 Spectator allows you to test `<select></select>` elements easily, and supports multi select.
 

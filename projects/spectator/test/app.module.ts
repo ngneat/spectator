@@ -15,7 +15,6 @@ import { ChildServiceService } from './child-service.service';
 import { ChildComponent } from './child/child.component';
 import { ClickComponent } from './click/click.component';
 import { ConsumeDynamicComponent } from './consum-dynamic/consume-dynamic.component';
-import { DomSelectorsComponent } from './dom-selectors/dom-selectors.component';
 import { DynamicComponent } from './dynamic/dynamic.component';
 import { EventsComponent } from './events/events.component';
 import { FgComponent } from './fg/fg.component';
@@ -51,7 +50,6 @@ import { ZippyComponent } from './zippy/zippy.component';
     AutoFocusDirective,
     FgComponent,
     AsyncComponent,
-    DomSelectorsComponent,
     HelloComponent,
     AsyncInputComponent,
     ComponentWithoutOverwrittenProvidersComponent,

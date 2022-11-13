@@ -36,7 +36,12 @@ export abstract class DomSpectator<I> extends BaseSpectator {
 
   public query<R extends Element>(selector: string | DOMSelector, options?: { root: boolean }): R | null;
   public query<R>(directive: Type<R>, options?: { root: boolean }): R | null;
-  public query<R>(directiveOrSelector: Type<any> | string, options: { read: Token<R>, root?: boolean }): R | null;
+  public query<R extends Element>(selector: string | DOMSelector, options?: { parentSelector: Type<any> | string }): R | null;
+  public query<R>(directive: Type<R>, options?: { parentSelector?: Type<any> | string }): R | null;
+  public query<R>(
+    directiveOrSelector: Type<any> | string,
+    options: { read: Token<R>; root?: boolean; parentSelector?: Type<any> | string }
+  ): R | null;
   public query<R>(directiveOrSelector: QueryType, options?: QueryOptions<R>): R | Element | null {
     if ((options || {}).root) {
       if (isString(directiveOrSelector)) {
@@ -50,12 +55,33 @@ export abstract class DomSpectator<I> extends BaseSpectator {
       return getChildren<R>(this.getRootDebugElement())(directiveOrSelector, options)[0] || null;
     }
 
+    if (options?.parentSelector) {
+      const debugElement = this.getDebugElement(options.parentSelector);
+      if (!debugElement) {
+        /* eslint-disable no-console */
+        console.error(`${directiveOrSelector} does not exists`);
+        return null;
+      }
+
+      return (
+        getChildren<R>(debugElement as DebugElement)(directiveOrSelector, {
+          root: options.root,
+          read: options.read,
+        })[0] || null
+      );
+    }
+
     return getChildren<R>(this.debugElement)(directiveOrSelector, options)[0] || null;
   }
 
   public queryAll<R extends Element>(selector: string | DOMSelector, options?: { root: boolean }): R[];
   public queryAll<R>(directive: Type<R>, options?: { root: boolean }): R[];
-  public queryAll<R>(directiveOrSelector: Type<any> | string, options: { read: Token<R>, root?: boolean }): R[];
+  public queryAll<R extends Element>(selector: string | DOMSelector, options?: { parentSelector: Type<any> | string }): R[];
+  public queryAll<R>(directive: Type<R>, options?: { parentSelector: Type<any> | string }): R[];
+  public queryAll<R>(
+    directiveOrSelector: Type<any> | string,
+    options: { read: Token<R>; root?: boolean; parentSelector?: Type<any> | string }
+  ): R[];
   public queryAll<R>(directiveOrSelector: QueryType, options?: QueryOptions<R>): R[] | Element[] {
     if ((options || {}).root) {
       if (isString(directiveOrSelector)) {
@@ -69,12 +95,31 @@ export abstract class DomSpectator<I> extends BaseSpectator {
       return getChildren<R>(this.getRootDebugElement())(directiveOrSelector, options);
     }
 
+    if (options?.parentSelector) {
+      const debugElement = this.getDebugElement(options.parentSelector);
+      if (!debugElement) {
+        /* eslint-disable no-console */
+        console.error(`${directiveOrSelector} does not exists`);
+        return [];
+      }
+
+      return getChildren<R>(debugElement as DebugElement)(directiveOrSelector, {
+        root: options.root,
+        read: options.read,
+      });
+    }
+
     return getChildren<R>(this.debugElement)(directiveOrSelector, options);
   }
 
   public queryLast<R extends Element>(selector: string | DOMSelector, options?: { root: boolean }): R | null;
   public queryLast<R>(directive: Type<R>, options?: { root: boolean }): R | null;
-  public queryLast<R>(directiveOrSelector: Type<any> | string, options: { read: Token<R>, root?: boolean }): R | null;
+  public queryLast<R extends Element>(selector: string | DOMSelector, options?: { parentSelector: Type<any> | string }): R | null;
+  public queryLast<R>(directive: Type<R>, options?: { parentSelector: Type<any> | string }): R | null;
+  public queryLast<R>(
+    directiveOrSelector: Type<any> | string,
+    options: { read: Token<R>; root?: boolean; parentSelector?: Type<any> | string }
+  ): R | null;
   public queryLast<R>(directiveOrSelector: QueryType, options?: QueryOptions<R>): R | Element | null {
     let result: (R | Element)[] = [];
 
@@ -85,6 +130,18 @@ export abstract class DomSpectator<I> extends BaseSpectator {
         result = directiveOrSelector.execute(document as any);
       } else {
         result = getChildren<R>(this.getRootDebugElement())(directiveOrSelector, options);
+      }
+    } else if (options?.parentSelector) {
+      const debugElement = this.getDebugElement(options.parentSelector);
+      if (!debugElement) {
+        /* eslint-disable no-console */
+        console.error(`${directiveOrSelector} does not exists`);
+        result = [];
+      } else {
+        result = getChildren<R>(debugElement as DebugElement)(directiveOrSelector, {
+          root: options.root,
+          read: options.read,
+        });
       }
     } else {
       result = getChildren<R>(this.debugElement)(directiveOrSelector, options);
@@ -212,7 +269,7 @@ export abstract class DomSpectator<I> extends BaseSpectator {
     eventObj: EventEmitterType<C[K]>,
     options?: { root: boolean }
   ) {
-    const triggerDebugElement = this.getTriggerDebugElement(directiveOrSelector, options);
+    const triggerDebugElement = this.getDebugElement(directiveOrSelector, options);
     if (!triggerDebugElement) {
       /* eslint-disable no-console */
       console.error(`${directiveOrSelector} does not exists`);
@@ -306,7 +363,7 @@ export abstract class DomSpectator<I> extends BaseSpectator {
     return element;
   }
 
-  private getTriggerDebugElement(
+  private getDebugElement(
     directiveOrSelector: string | DebugElement | Type<unknown>,
     options?: { root: boolean }
   ): DebugElement | undefined {

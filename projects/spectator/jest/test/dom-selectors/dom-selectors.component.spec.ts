@@ -10,11 +10,14 @@ import {
   byTextContent,
 } from '@ngneat/spectator/jest';
 
-import { DomSelectorsComponent } from '../../../test/dom-selectors/dom-selectors.component';
+import { DomSelectorsComponent, DomSelectorsNestedComponent } from '../../../test/dom-selectors/dom-selectors.component';
 
 describe('DomSelectorsComponent', () => {
   let spectator: Spectator<DomSelectorsComponent>;
-  const createComponent = createComponentFactory(DomSelectorsComponent);
+  const createComponent = createComponentFactory({
+    component: DomSelectorsComponent,
+    imports: [DomSelectorsNestedComponent]
+  });
 
   beforeEach(() => {
     spectator = createComponent();
@@ -57,6 +60,15 @@ describe('DomSelectorsComponent', () => {
   it('should allow querying by value', () => {
     const element = spectator.query(byValue('By value'));
     expect(element).toHaveId('by-value-input');
+  });
+
+  describe('parentSelector', () => {
+    it('should allow querying multiple element by parent selector', () => {
+      let element = spectator.queryAll(DomSelectorsNestedComponent, { parentSelector: '#nested-components-2' });
+      expect(element.length).toBe(2);
+      element = spectator.queryAll(DomSelectorsNestedComponent, { parentSelector: '#nested-components-1' });
+      expect(element.length).toBe(1);
+    });
   });
 
   describe('byTextContent', () => {
@@ -157,6 +169,5 @@ describe('DomSelectorsComponent', () => {
         expect(element).toHaveId('text-content-span-2');
       });
     });
-
   });
 });

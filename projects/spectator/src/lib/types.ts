@@ -16,6 +16,7 @@ export type QueryType = Type<any> | DOMSelector | string;
 export interface QueryOptions<R> {
   read?: Token<R>;
   root?: boolean;
+  parentSelector?: Type<any> | string;
 }
 
 export type EventEmitterType<P> = P extends EventEmitter<infer T> ? T : never;
@@ -46,7 +47,7 @@ export function isType(v: any): v is Type<any> {
 }
 
 export function isHTMLOptionElementArray(value: any): value is HTMLOptionElement[] {
-  return Array.isArray(value) && !!value.length && value.every(item => item instanceof HTMLOptionElement);
+  return Array.isArray(value) && !!value.length && value.every((item) => item instanceof HTMLOptionElement);
 }
 
 export function isObject(v: any): v is object {
