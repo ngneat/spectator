@@ -1218,6 +1218,7 @@ expect('.zippy__content').toHaveClass(['class-b', 'class-a'], { strict: false })
 expect('.zippy__content').toHaveClass(['class-b', 'class-a'], { strict: false });
 
 // Note that toHaveText only looks for the existence of a string, not if the string is exactly the same. If you want to verify that the string is completely the same, use toHaveExactText.
+// Note that if you want to verify that the string is completely the same, but trimmed first, use toHaveExactTrimmedText.
 // Note that if you pass multiple values, Spectator checks the text of each array element against the index of the element found. 
 expect('.zippy__content').toHaveText('Content');
 expect('.zippy__content').toHaveText(['Content A', 'Content B']);
@@ -1226,6 +1227,8 @@ expect('.zippy__content').toContainText('Content');
 expect('.zippy__content').toContainText(['Content A', 'Content B']);
 expect('.zippy__content').toHaveExactText('Content');
 expect('.zippy__content').toHaveExactText(['Content A', 'Content B']);
+expect('.zippy__content').toHaveExactTrimmedText('Content');
+expect('.zippy__content').toHaveExactTrimmedText(['Content A', 'Content B']);
 expect('.zippy__content').toHaveValue('value');
 expect('.zippy__content').toContainValue('value');
 

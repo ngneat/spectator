@@ -12,10 +12,12 @@ describe('Matcher enhancements', () => {
 
   describe('Text', () => {
     it('should match multiple elements with different text', () => {
-      const el = spectator.query('.text-check');
-      expect(el).toHaveText(['It should', 'different text']);
-      expect(el).toContainText(['It should', 'different text']);
-      expect(el).toHaveExactText(['It should have', 'Some different text']);
+      const el = spectator.queryAll('.text-check');
+      expect(el).toHaveText(['It should', 'different text', 'another']);
+      expect(el).toContainText(['It should', 'different text', 'another']);
+      expect(el).toHaveExactText(['It should have', 'Some different text', ' And another one ']);
+      expect(el).toHaveExactText(['It should have', 'Some different text', 'And another one'], {trim: true});
+      expect(el).toHaveExactTrimmedText(['It should have', 'Some different text', 'And another one']);
     });
   });
 

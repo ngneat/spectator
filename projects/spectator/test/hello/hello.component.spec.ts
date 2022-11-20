@@ -34,5 +34,14 @@ describe('HelloComponent', () => {
     expect('div h1').toHaveExactText('some title');
     expect('div h1').not.toHaveExactText('ome title');
     expect('div h1').not.toHaveExactText('');
+
+    expect('div h2').toHaveText(' some title ', true);
+
+    expect('div h2').toHaveExactText(' some title ');
+    expect('div h2').toHaveExactText('some title', {trim: true});
+    expect('div h2').not.toHaveExactText('ome title', {trim: true});
+
+    expect('div h2').toHaveExactTrimmedText('some title');
+    expect('div h2').not.toHaveExactTrimmedText('ome title');
   });
 });

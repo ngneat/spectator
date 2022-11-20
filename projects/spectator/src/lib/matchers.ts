@@ -83,15 +83,18 @@ const hasCss = (el: HTMLElement, css: { [key: string]: string }) => {
   return true;
 };
 
-const hasSameText = (el: HTMLElement, expected: string | string[] | ((s: string) => boolean), exact = false) => {
+const hasSameText = (el: HTMLElement, expected: string | string[] | ((s: string) => boolean), options: {
+  exact: boolean;
+  trim: boolean;
+}) => {
   if (expected && Array.isArray(expected)) {
     let actual: string;
     let pass = false;
     let failing: string;
 
     $(el).each((i, e) => {
-      actual = exact ? $(e).text() : $.trim($(e).text());
-      pass = exact ? actual === expected[i] : actual.includes(expected[i]);
+      actual = options.exact && !options.trim ? $(e).text() : $.trim($(e).text());
+      pass = options.exact ? actual === expected[i] : actual.includes(expected[i]);
       if (!pass) {
         failing = expected[i];
 
@@ -99,23 +102,23 @@ const hasSameText = (el: HTMLElement, expected: string | string[] | ((s: string)
       }
     });
 
-    const message = () => `Expected element${pass ? ' not' : ''} to have${exact ? ' exact' : ''} text '${failing}', but had '${actual}'`;
+    const message = () => `Expected element${pass ? ' not' : ''} to have${options.exact ? ' exact' : ''} text '${failing}', but had '${actual}'`;
 
     return { pass, message };
   }
 
-  const actual = exact ? $(el).text() : $.trim($(el).text());
+  const actual = options.exact && !options.trim ? $(el).text() : $.trim($(el).text());
 
   if (expected && typeof expected !== 'string') {
     const pass = expected(actual);
     const message = () =>
-      `Expected element${pass ? ' not' : ''} to have${exact ? ' exact' : ''} text matching '${expected}',` + ` but had '${actual}'`;
+      `Expected element${pass ? ' not' : ''} to have${options.exact ? ' exact' : ''} text matching '${expected}',` + ` but had '${actual}'`;
 
     return { pass, message };
   }
 
-  const pass = exact && !Array.isArray(expected) ? actual === expected : actual.indexOf(expected) !== -1;
-  const message = () => `Expected element${pass ? ' not' : ''} to have${exact ? ' exact' : ''} text '${expected}', but had '${actual}'`;
+  const pass = options.exact && !Array.isArray(expected) ? actual === expected : actual.indexOf(expected) !== -1;
+  const message = () => `Expected element${pass ? ' not' : ''} to have${options.exact ? ' exact' : ''} text '${expected}', but had '${actual}'`;
 
   return { pass, message };
 };
@@ -253,9 +256,11 @@ export const toContainProperty = comparator((el, prop, val) => {
  *
  * expect('.zippy__content').toHaveText((text) => text.includes('..');
  */
-export const toHaveText = comparator((el, expected, exact = false) => hasSameText(el, expected, exact));
+export const toHaveText = comparator((el, expected, exact = false) => hasSameText(el, expected, {exact, trim: false}));
 
-export const toHaveExactText = comparator((el, expected) => hasSameText(el, expected, true));
+export const toHaveExactText = comparator((el, expected, options: {trim: boolean} = {trim: false}) => hasSameText(el, expected, {exact: true, trim: options.trim}));
+
+export const toHaveExactTrimmedText = comparator((el, expected) => hasSameText(el, expected, {exact: true, trim: true}));
 
 export const toContainText = toHaveText;
 

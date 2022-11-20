@@ -10,6 +10,9 @@ export interface Dummy {
   template: `
     <div class="text-check">It should have</div>
     <div class="text-check">Some different text</div>
+    <div class="text-check">
+      And another one
+    </div>
     <div class="one-class two-class" id="multi-class"></div>
     <input class="sample" value="test1" />
     <input class="sample" value="test2" />
