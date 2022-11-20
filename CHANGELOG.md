@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [12.2.0](https://github.com/ngneat/spectator/compare/v12.1.1...v12.2.0) (2022-11-20)
+
+
+### Features
+
+* **matchers:** add toHaveExactTrimmedText matcher ([#588](https://github.com/ngneat/spectator/issues/588)) ([bb5b843](https://github.com/ngneat/spectator/commit/bb5b8439ba9e8619630f2bb0f28adc27c03ed302))
+
 ### [12.1.1](https://github.com/ngneat/spectator/compare/v12.1.0...v12.1.1) (2022-11-13)
 
 ## [12.1.0](https://github.com/ngneat/spectator/compare/v12.0.1...v12.1.0) (2022-11-13)
