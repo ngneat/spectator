@@ -4,7 +4,11 @@ import { ActivatedRoute, Router } from '@angular/router';
 
 import { setProps } from '../internals/query';
 import * as customMatchers from '../matchers';
-import { SpectatorOverrides, overrideComponentIfProviderOverridesSpecified, overrideModules } from '../spectator/create-factory';
+import {
+  SpectatorOverrides, overrideComponentIfProviderOverridesSpecified,
+  overrideModules, overrideComponents,
+  overrideDirectives, overridePipes
+} from '../spectator/create-factory';
 import { addMatchers } from '../core';
 import { isType } from '../types';
 
@@ -41,6 +45,9 @@ export function createRoutingFactory<C>(typeOrOptions: Type<C> | SpectatorRoutin
       TestBed.configureTestingModule(moduleMetadata);
 
       overrideModules(options);
+      overrideComponents(options);
+      overrideDirectives(options);
+      overridePipes(options);
 
       overrideComponentIfProviderOverridesSpecified(options);
 
