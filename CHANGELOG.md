@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [12.2.1](https://github.com/ngneat/spectator/compare/v12.2.0...v12.2.1) (2022-12-06)
+
+
+### Bug Fixes
+
+* **#592:** create routing factory issue overriding standalone components, directives or pipes ([#593](https://github.com/ngneat/spectator/issues/593)) ([80f9624](https://github.com/ngneat/spectator/commit/80f9624ef738032af3d5f63fdabc6f2d8e99d7d0)), closes [#592](https://github.com/ngneat/spectator/issues/592)
+
 ## [12.2.0](https://github.com/ngneat/spectator/compare/v12.1.1...v12.2.0) (2022-11-20)
 
 
