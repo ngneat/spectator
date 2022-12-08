@@ -12,7 +12,7 @@
     "importHelpers": true,
     "strict": true,
     "noImplicitAny": false,
-    "target": "es2020",
+    "target": "ES2022",
     "esModuleInterop": true,
     "typeRoots": [
       "node_modules/@types"
@@ -31,6 +31,7 @@
       "@ngneat/spectator/internals": [
         "projects/spectator/internals/src/public_api.ts"
       ]
-    }
+    },
+    "useDefineForClassFields": false
   }
 }
