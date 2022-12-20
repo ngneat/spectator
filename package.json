@@ -32,7 +32,7 @@
     "release:dry": "cd projects/spectator && standard-version --infile ../../CHANGELOG.md --dry-run"
   },
   "devDependencies": {
-    "@angular-builders/jest": "14.1.0",
+    "@angular-builders/jest": "^15.0.0",
     "@angular-devkit/build-angular": "^15.0.3",
     "@angular-devkit/schematics": "^15.0.3",
     "@angular-eslint/builder": "15.1.0",

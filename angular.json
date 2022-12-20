@@ -24,9 +24,17 @@
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
-            "main": "projects/spectator/test/test.ts",
             "tsConfig": "projects/spectator/tsconfig.spec.json",
-            "karmaConfig": "projects/spectator/karma.conf.js"
+            "karmaConfig": "projects/spectator/karma.conf.js",
+            "polyfills": [
+              "core-js/es/reflect",
+              "zone.js",
+              "zone.js/testing"
+            ],
+            "include": [
+              "../test/test.ts",
+              "../test/**/*.spec.ts"
+            ]
           }
         },
         "test-jest": {
