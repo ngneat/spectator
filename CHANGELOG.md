@@ -2,6 +2,32 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [13.0.0](https://github.com/ngneat/spectator/compare/v12.2.1...v13.0.0) (2022-12-21)
+
+
+### ⚠ BREAKING CHANGES
+
+* 🧨 Angular 15
+* 🧨 The library now required a min version of Angular 15.0.3
+
+* feat: update karma test runner config for ng 15
+
+- update @angular-builders/jest to 15
+
+- update devkit karma settings to follow ng15 standards
+
+- run 14 to 15 migration for cli
+
+- add test file inclusion to angular.json
+
+- remove webpack code from test.ts
+
+Co-authored-by: Mark Bruning <mark.bruning@ensono.com>
+
+### Features
+
+* 🎸 upgrade to Angular 15 ([#594](https://github.com/ngneat/spectator/issues/594)) ([458a76e](https://github.com/ngneat/spectator/commit/458a76e6ebade4391acfd20330f13c99f4d3ab40))
+
 ### [12.2.1](https://github.com/ngneat/spectator/compare/v12.2.0...v12.2.1) (2022-12-06)
 
 
