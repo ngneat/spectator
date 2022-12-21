@@ -24,9 +24,17 @@
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
-            "main": "projects/spectator/test/test.ts",
             "tsConfig": "projects/spectator/tsconfig.spec.json",
-            "karmaConfig": "projects/spectator/karma.conf.js"
+            "karmaConfig": "projects/spectator/karma.conf.js",
+            "polyfills": [
+              "core-js/es/reflect",
+              "zone.js",
+              "zone.js/testing"
+            ],
+            "include": [
+              "../test/test.ts",
+              "../test/**/*.spec.ts"
+            ]
           }
         },
         "test-jest": {
@@ -50,5 +58,13 @@
       "@angular-eslint/schematics"
     ],
     "analytics": "7ba6b8e6-99c8-4300-b84d-21162a96a924"
+  },
+  "schematics": {
+    "@angular-eslint/schematics:application": {
+      "setParserOptionsProject": true
+    },
+    "@angular-eslint/schematics:library": {
+      "setParserOptionsProject": true
+    }
   }
 }
