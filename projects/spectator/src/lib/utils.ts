@@ -1,4 +1,4 @@
-import { Type, ɵisStandalone } from '@angular/core';
+import { Type, isStandalone } from '@angular/core';
 import { ModuleMetadata } from './base/initial-module';
 
 export function isRunningInJsDom() {
@@ -12,7 +12,7 @@ export function coerceArray<T>(value: T | T[]): T[] {
 }
 
 export function declareInModule<T>(moduleMetadata: ModuleMetadata, type: Type<T>) {
-  if (ɵisStandalone(type)) {
+  if (isStandalone(type)) {
     moduleMetadata.imports.push(type);
   } else {
     moduleMetadata.declarations.push(type);

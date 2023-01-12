@@ -1,4 +1,4 @@
-import { NO_ERRORS_SCHEMA, ɵisStandalone } from '@angular/core';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
 
 import { initialModule, ModuleMetadata } from '../base/initial-module';
 import { declareInModule } from '../utils';

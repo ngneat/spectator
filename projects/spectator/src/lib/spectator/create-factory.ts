@@ -1,4 +1,4 @@
-import {Provider, Type, reflectComponentType, ɵisStandalone} from '@angular/core';
+import { Provider, Type, reflectComponentType, isStandalone } from '@angular/core';
 import { TestBed, waitForAsync } from '@angular/core/testing';
 import { BrowserDynamicTestingModule } from '@angular/platform-browser-dynamic/testing';
 
@@ -88,7 +88,7 @@ export function overrideDirectives(options: Required<BaseSpectatorOptions>): voi
     options.overrideDirectives.forEach((overrideDirective) => {
       const [directive, override] = overrideDirective;
 
-      if (!ɵisStandalone(directive)) {
+      if (!isStandalone(directive)) {
         throw new Error(`Can not override non standalone directive`);
       }
 
@@ -105,7 +105,7 @@ export function overridePipes(options: Required<BaseSpectatorOptions>): void {
     options.overridePipes.forEach((overridePipe) => {
       const [pipe, override] = overridePipe;
 
-      if (!ɵisStandalone(pipe)) {
+      if (!isStandalone(pipe)) {
         throw new Error(`Can not override non standalone pipe`);
       }
 
