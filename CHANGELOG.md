@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [14.0.0](https://github.com/ngneat/spectator/compare/v13.0.0...v14.0.0) (2023-01-16)
+
+
+### ⚠ BREAKING CHANGES
+
+* 🧨 Angular 15.1
+* 🧨 The library now required a min version of Angular 15.1.0
+
+(cherry picked from commit 9bf4f928181b65ab2134e6604f3e8d5bf868499b)
+
+Co-authored-by: Christo Zietsman <christo.zietsman@redstor.com>
+
+### Features
+
+* upgrade to Angular 15.1 ([#599](https://github.com/ngneat/spectator/issues/599)) ([7743dc6](https://github.com/ngneat/spectator/commit/7743dc64cc9a866c220048a6d12bd7f1ecd8cf23))
+
 ## [13.0.0](https://github.com/ngneat/spectator/compare/v12.2.1...v13.0.0) (2022-12-21)
 
 
