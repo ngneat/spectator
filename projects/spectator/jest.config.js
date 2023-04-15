@@ -1,9 +1,15 @@
+const { defaultTransformerOptions } = require('jest-preset-angular/presets');
+
 module.exports = {
-  preset: 'jest-preset-angular',
-  globals: {
-    'ts-jest': {
-      tsconfig: 'projects/spectator/jest/tsconfig.spec.json'
-    }
+  transform: {
+    '^.+\\.(ts|js|mjs|html|svg)$': [
+      'jest-preset-angular',
+      {
+        ...defaultTransformerOptions,
+        tsconfig: 'projects/spectator/jest/tsconfig.spec.json',
+        isolatedModules: true,
+      },
+    ],
   },
   roots: ['projects/spectator'],
   testMatch: ['**/jest/**/*.spec.ts'],
