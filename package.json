@@ -55,7 +55,7 @@
     "@commitlint/config-conventional": "17.3.0",
     "@types/jasmine": "3.8.1",
     "@types/jest": "29.5.0",
-    "@types/node": "16.3.1",
+    "@types/node": "18.16.5",
     "@typescript-eslint/eslint-plugin": "^5.59.2",
     "@typescript-eslint/parser": "^5.59.2",
     "all-contributors-cli": "^6.19.0",

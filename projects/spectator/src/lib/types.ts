@@ -30,7 +30,7 @@ export interface KeyboardEventOptions {
   keyCode: number;
 }
 
-export function doesServiceImplementsOnDestroy<S>(testedService: S): testedService is S & OnDestroy {
+export function doesServiceImplementsOnDestroy<S extends object>(testedService: S): testedService is S & OnDestroy {
   return 'ngOnDestroy' in testedService && typeof testedService['ngOnDestroy'] === 'function';
 }
 
