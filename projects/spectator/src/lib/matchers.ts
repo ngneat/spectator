@@ -1,5 +1,4 @@
 /** Credit: https://github.com/unindented/custom-jquery-matchers/tree/master/packages/custom-jquery-matchers */
-/* eslint-disable no-shadow, @typescript-eslint/no-shadow */
 
 // This should be imported before `jquery` since this library unpatches the `setTimeout`,
 // so jQuery won't setup a timer, that might be captured by zone.js.
@@ -83,10 +82,14 @@ const hasCss = (el: HTMLElement, css: { [key: string]: string }) => {
   return true;
 };
 
-const hasSameText = (el: HTMLElement, expected: string | string[] | ((s: string) => boolean), options: {
-  exact: boolean;
-  trim: boolean;
-}) => {
+const hasSameText = (
+  el: HTMLElement,
+  expected: string | string[] | ((s: string) => boolean),
+  options: {
+    exact: boolean;
+    trim: boolean;
+  }
+) => {
   if (expected && Array.isArray(expected)) {
     let actual: string;
     let pass = false;
@@ -102,7 +105,8 @@ const hasSameText = (el: HTMLElement, expected: string | string[] | ((s: string)
       }
     });
 
-    const message = () => `Expected element${pass ? ' not' : ''} to have${options.exact ? ' exact' : ''} text '${failing}', but had '${actual}'`;
+    const message = () =>
+      `Expected element${pass ? ' not' : ''} to have${options.exact ? ' exact' : ''} text '${failing}', but had '${actual}'`;
 
     return { pass, message };
   }
@@ -118,7 +122,8 @@ const hasSameText = (el: HTMLElement, expected: string | string[] | ((s: string)
   }
 
   const pass = options.exact && !Array.isArray(expected) ? actual === expected : actual.indexOf(expected) !== -1;
-  const message = () => `Expected element${pass ? ' not' : ''} to have${options.exact ? ' exact' : ''} text '${expected}', but had '${actual}'`;
+  const message = () =>
+    `Expected element${pass ? ' not' : ''} to have${options.exact ? ' exact' : ''} text '${expected}', but had '${actual}'`;
 
   return { pass, message };
 };
@@ -256,11 +261,13 @@ export const toContainProperty = comparator((el, prop, val) => {
  *
  * expect('.zippy__content').toHaveText((text) => text.includes('..');
  */
-export const toHaveText = comparator((el, expected, exact = false) => hasSameText(el, expected, {exact, trim: false}));
+export const toHaveText = comparator((el, expected, exact = false) => hasSameText(el, expected, { exact, trim: false }));
 
-export const toHaveExactText = comparator((el, expected, options: {trim: boolean} = {trim: false}) => hasSameText(el, expected, {exact: true, trim: options.trim}));
+export const toHaveExactText = comparator((el, expected, options: { trim: boolean } = { trim: false }) =>
+  hasSameText(el, expected, { exact: true, trim: options.trim })
+);
 
-export const toHaveExactTrimmedText = comparator((el, expected) => hasSameText(el, expected, {exact: true, trim: true}));
+export const toHaveExactTrimmedText = comparator((el, expected) => hasSameText(el, expected, { exact: true, trim: true }));
 
 export const toContainText = toHaveText;
 
