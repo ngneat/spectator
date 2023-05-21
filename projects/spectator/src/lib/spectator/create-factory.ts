@@ -127,11 +127,7 @@ export function createComponentFactory<C>(typeOrOptions: Type<C> | SpectatorOpti
   beforeEach(
     waitForAsync(() => {
       addMatchers(customMatchers);
-      TestBed.configureTestingModule(moduleMetadata).overrideModule(BrowserDynamicTestingModule, {
-        set: {
-          entryComponents: moduleMetadata.entryComponents,
-        },
-      });
+      TestBed.configureTestingModule(moduleMetadata).overrideModule(BrowserDynamicTestingModule, {});
 
       overrideModules(options);
       overrideComponents(options);

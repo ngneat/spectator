@@ -7,9 +7,11 @@ import { setProps } from '../internals/query';
 import * as customMatchers from '../matchers';
 import {
   overrideComponentIfProviderOverridesSpecified,
-  overrideComponents, overrideDirectives,
-  overrideModules, overridePipes,
-  SpectatorOverrides
+  overrideComponents,
+  overrideDirectives,
+  overrideModules,
+  overridePipes,
+  SpectatorOverrides,
 } from '../spectator/create-factory';
 import { addMatchers } from '../core';
 import { isType } from '../types';
@@ -63,11 +65,7 @@ export function createHostFactory<C, H = HostComponent>(typeOrOptions: Type<C> |
   beforeEach(
     waitForAsync(() => {
       addMatchers(customMatchers);
-      TestBed.configureTestingModule(moduleMetadata).overrideModule(BrowserDynamicTestingModule, {
-      set: {
-        entryComponents: moduleMetadata.entryComponents
-      }
-    });
+      TestBed.configureTestingModule(moduleMetadata).overrideModule(BrowserDynamicTestingModule, {});
 
       overrideModules(options);
       overrideComponents(options);
@@ -77,7 +75,7 @@ export function createHostFactory<C, H = HostComponent>(typeOrOptions: Type<C> |
       overrideComponentIfProviderOverridesSpecified(options);
       if (options.template) {
         TestBed.overrideComponent(options.host, {
-           set: { template: options.template }
+          set: { template: options.template },
         });
       }
     })
@@ -95,7 +93,7 @@ export function createHostFactory<C, H = HostComponent>(typeOrOptions: Type<C> |
 
     if (template) {
       TestBed.overrideComponent(options.host, {
-        set: { template: template }
+        set: { template: template },
       });
     }
 

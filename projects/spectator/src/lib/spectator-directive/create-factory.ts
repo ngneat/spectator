@@ -14,7 +14,7 @@ import { nodeByDirective } from '../internals/node-by-directive';
 import { initialSpectatorDirectiveModule } from './initial-module';
 import { getSpectatorDirectiveDefaultOptions, SpectatorDirectiveOptions } from './options';
 import { SpectatorDirective } from './spectator-directive';
-import {overrideComponents, overrideDirectives, overrideModules, overridePipes} from '../spectator/create-factory';
+import { overrideComponents, overrideDirectives, overrideModules, overridePipes } from '../spectator/create-factory';
 
 /**
  * @publicApi
@@ -79,7 +79,7 @@ export function createDirectiveFactory<D, H = HostComponent>(
       props: {},
       hostProps: {} as any,
       detectChanges: true,
-      providers: []
+      providers: [],
     };
     const { detectChanges, props, hostProps, providers } = { ...defaults, ...overrides };
 
@@ -89,17 +89,13 @@ export function createDirectiveFactory<D, H = HostComponent>(
       });
     }
 
-    TestBed.overrideModule(BrowserDynamicTestingModule, {
-      set: {
-        entryComponents: moduleMetadata.entryComponents
-      }
-    }).overrideComponent(options.host, {
-      set: { template: template || options.template }
+    TestBed.overrideModule(BrowserDynamicTestingModule, {}).overrideComponent(options.host, {
+      set: { template: template || options.template },
     });
 
     if (options.directiveProviders.length || options.directiveMocks.length) {
       TestBed.overrideDirective(options.directive, {
-        set: { providers: [...options.directiveProviders, ...options.directiveMocks.map(p => options.mockProvider(p))] }
+        set: { providers: [...options.directiveProviders, ...options.directiveMocks.map((p) => options.mockProvider(p))] },
       });
     }
 

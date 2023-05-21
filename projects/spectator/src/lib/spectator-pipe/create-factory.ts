@@ -12,7 +12,7 @@ import { HostComponent } from '../spectator-host/host-component';
 import { initialSpectatorPipeModule } from './initial-module';
 import { getSpectatorPipeDefaultOptions, SpectatorPipeOptions } from './options';
 import { SpectatorPipe } from './spectator-pipe';
-import {overrideModules, overridePipes} from '../spectator/create-factory';
+import { overrideModules, overridePipes } from '../spectator/create-factory';
 
 /**
  * @publicApi
@@ -53,7 +53,7 @@ export function createPipeFactory<P, H = HostComponent>(typeOrOptions: Type<P> |
     const defaults: SpectatorPipeOverrides<H, HP> = {
       hostProps: {} as any,
       detectChanges: true,
-      providers: []
+      providers: [],
     };
     const resolvedOverrides = typeof templateOrOverrides === 'object' ? templateOrOverrides : overrides;
     const { detectChanges, hostProps, providers } = { ...defaults, ...resolvedOverrides };
@@ -66,12 +66,8 @@ export function createPipeFactory<P, H = HostComponent>(typeOrOptions: Type<P> |
     }
 
     if (template) {
-      TestBed.overrideModule(BrowserDynamicTestingModule, {
-        set: {
-          entryComponents: moduleMetadata.entryComponents
-        }
-      }).overrideComponent(options.host, {
-        set: { template }
+      TestBed.overrideModule(BrowserDynamicTestingModule, {}).overrideComponent(options.host, {
+        set: { template },
       });
     }
 

@@ -19,7 +19,6 @@ export type SpectatorHttpFactory<S> = (overrides?: CreateHttpOverrides<S>) => Sp
 /**
  * @publicApi
  */
-// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface CreateHttpOverrides<S> extends BaseSpectatorOverrides {}
 
 /**
