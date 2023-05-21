@@ -2,6 +2,44 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [15.0.0](https://github.com/ngneat/spectator/compare/v14.0.0...v15.0.0) (2023-05-21)
+
+
+### ⚠ BREAKING CHANGES
+
+* 🧨 The library now required a min version of Angular 16.0.0
+
+- npx ng update @angular/core@16 @angular/cli@16 @angular/cdk@16
+  @angular-eslint/schematics@16 --force
+- update jest-preset-angular@13.1.0
+- remove postinstall ngcc
+
+* fix: 🐛 removed Angular entryComponents type
+
+fix: 🐛 doesServiceImplementsOnDestroy type
+     Type 'S' is not assignable to type 'object'.ts(2322)
+     types.ts(33, 48): This type parameter might need an `extends object` constraint.
+
+fix: 🐛 yarn.lock conflicts in @types/node and caniuse-lite
+* 🧨 entryComponents is removed
+* 🧨 The library now required a min version of Angular
+16.0.0
+
+* refactor: 💡 remove outdated eslint rule exceptions
+
+Definition for rule '@typescript-eslint/no-empty-interface' was
+not found  @typescript-eslint/no-empty-interface
+
+Definition for rule '@typescript-eslint/no-shadow' was
+not found  @typescript-eslint/no-shadow
+
+Definition for rule '@typescript-eslint/consistent-type-assertions' was
+not found  @typescript-eslint/consistent-type-assertions
+
+### Features
+
+* 🎸 upgrade to Angular 16 ([#605](https://github.com/ngneat/spectator/issues/605)) ([6620d24](https://github.com/ngneat/spectator/commit/6620d2426625c7ac2c019f402a93b567cae35322)), closes [/github.com/angular/angular/blob/main/CHANGELOG.md#1600-2023-05-03](https://github.com/ngneat//github.com/angular/angular/blob/main/CHANGELOG.md/issues/1600-2023-05-03)
+
 ## [14.0.0](https://github.com/ngneat/spectator/compare/v13.0.0...v14.0.0) (2023-01-16)
 
 
