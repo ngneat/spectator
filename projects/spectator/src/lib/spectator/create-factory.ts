@@ -1,11 +1,11 @@
-import { Provider, Type, reflectComponentType, isStandalone } from '@angular/core';
+import { EnvironmentProviders, isStandalone, Provider, reflectComponentType, Type, ɵInternalEnvironmentProviders } from '@angular/core';
 import { TestBed, waitForAsync } from '@angular/core/testing';
 import { BrowserDynamicTestingModule } from '@angular/platform-browser-dynamic/testing';
 
 import { BaseSpectatorOptions, BaseSpectatorOverrides } from '../base/options';
+import { addMatchers } from '../core';
 import { setProps } from '../internals/query';
 import * as customMatchers from '../matchers';
-import { addMatchers } from '../core';
 import { isType } from '../types';
 
 import { initialSpectatorModule } from './initial-module';
@@ -144,9 +144,37 @@ export function createComponentFactory<C>(typeOrOptions: Type<C> | SpectatorOpti
     const defaults: SpectatorOverrides<C> = { props: {}, detectChanges: true, providers: [] };
     const { detectChanges, props, providers } = { ...defaults, ...overrides };
 
+    const overrideProvider = (provider: Provider | EnvironmentProviders) => {
+      // Provider[]
+      if (Array.isArray(provider)) {
+        provider.flat().forEach((subProvider) => {
+          overrideProvider(subProvider);
+        });
+      }
+      // EnvironmentProviders
+      else if ('ɵproviders' in provider) {
+        const providers = (provider as ɵInternalEnvironmentProviders).ɵproviders;
+        providers.flat().forEach((subProvider) => {
+          overrideProvider(subProvider);
+        });
+      }
+      // Single providers
+      else {
+        if ('provide' in provider) {
+          if ('useClass' in provider) {
+            TestBed.overrideProvider(provider.provide, { useFactory: () => new provider.useClass() });
+          } else if ('useExisting' in provider) {
+            TestBed.overrideProvider(provider.provide, { useFactory: () => TestBed.inject(provider.useExisting) });
+          } else {
+            TestBed.overrideProvider(provider.provide, provider);
+          }
+        }
+      }
+    };
+
     if (providers && providers.length) {
-      providers.forEach((provider: Provider) => {
-        TestBed.overrideProvider((provider as any).provide, provider as any);
+      providers.forEach((provider) => {
+        overrideProvider(provider);
       });
     }
 
