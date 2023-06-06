@@ -5,7 +5,10 @@ import { installProtoMethods, CompatibleSpy, SpyObject as BaseSpyObject } from '
 import { jest } from '@jest/globals';
 
 export type SpyObject<T> = BaseSpyObject<T> &
-  { [P in keyof T]: T[P] & (T[P] extends (...args: any[]) => infer R ? (R extends (...args: any[]) => any ? jest.Mock<R> : T[P]) : T[P]) };
+  {
+    [P in keyof T]: T[P] &
+      (T[P] extends (...args: any[]) => infer R ? (R extends (...args: any[]) => any ? jest.Mock<R> : jest.Mock<T[P]>) : T[P]);
+  };
 
 /**
  * @publicApi
