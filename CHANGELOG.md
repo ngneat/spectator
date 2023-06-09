@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [15.0.1](https://github.com/ngneat/spectator/compare/v15.0.0...v15.0.1) (2023-06-09)
+
+
+### Bug Fixes
+
+* 🐛 jest SpyObject mock ([#615](https://github.com/ngneat/spectator/issues/615)) ([27fce63](https://github.com/ngneat/spectator/commit/27fce6341d029211c1a43ec80642d2cc46499f66)), closes [#614](https://github.com/ngneat/spectator/issues/614)
+
 ## [15.0.0](https://github.com/ngneat/spectator/compare/v14.0.0...v15.0.0) (2023-05-21)
 
 
