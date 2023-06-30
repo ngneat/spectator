@@ -425,8 +425,8 @@ function isHidden(elOrSelector: HTMLElement | string): boolean {
 
   const hiddenWhen = [
     (el) => !(el.offsetWidth || el.offsetHeight || el.getClientRects().length),
-    (el) => el.style.display === 'none',
-    (el) => el.style.visibility === 'hidden',
+    (el) => window.getComputedStyle(el).display == 'none',
+    (el) => window.getComputedStyle(el).visibility == 'hidden',
     (el) => el.type === 'hidden',
     (el) => el.hasAttribute('hidden'),
   ];

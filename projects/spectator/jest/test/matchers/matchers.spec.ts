@@ -19,6 +19,16 @@ interface Dummy {
     <div id="classes" class="class-a class-b">Classes</div>
     <div id="styles" style="background-color: indianred; color: chocolate; --primary: var(--black)"></div>
     <custom-element style="visibility: hidden"></custom-element>
+    <style>
+      #css-visibiility {
+        visibility: hidden;
+      }
+      #css-display {
+        display: none;
+      }
+    </style>
+    <div id="css-visibility"></div>
+    <div id="css-display"></div>
   `,
 })
 export class MatchersComponent {}
@@ -120,6 +130,14 @@ describe('Matchers', () => {
       expect(
         document.querySelector('custom-element')?.shadowRoot?.querySelector("#shadow-dom")
       ).toBeHidden();
+    });
+
+    it('should detect elements with visibility: hidden set through CSS', () => {
+      expect(document.querySelector('#css-display')).toBeHidden();
+    });
+
+    it('should detect elements with display: none set through CSS', () => {
+      expect(document.querySelector('#css-visibility')).toBeHidden();
     });
   });
 
