@@ -19,6 +19,7 @@ interface Dummy {
     <div id="classes" class="class-a class-b">Classes</div>
     <div id="styles" style="background-color: indianred; color: chocolate; --primary: var(--black)"></div>
     <custom-element style="visibility: hidden"></custom-element>
+    <div id="computed-style"></div>
   `,
 })
 export class MatchersComponent {}
@@ -120,6 +121,16 @@ describe('Matchers', () => {
       expect(
         document.querySelector('custom-element')?.shadowRoot?.querySelector("#shadow-dom")
       ).toBeHidden();
+    });
+
+    it('should detect elements whose computed styles are display: none', () => {
+      window.getComputedStyle = () => ({ getPropertyValue: (style) => style == 'display' && 'none' });
+      expect(document.querySelector('#computed-style')).toBeHidden();
+    });
+
+    it('should detect elements whose computed styles are visibility: hidden', () => {
+      window.getComputedStyle = () => ({ getPropertyValue: (style) => style == 'visibility' && 'hidden' });
+      expect(document.querySelector('#computed-style')).toBeHidden();
     });
   });
 
