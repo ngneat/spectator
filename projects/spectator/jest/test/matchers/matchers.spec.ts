@@ -126,11 +126,15 @@ describe('Matchers', () => {
     it('should detect elements whose computed styles are display: none', () => {
       window.getComputedStyle = () => ({ getPropertyValue: (style) => style == 'display' && 'none' });
       expect(document.querySelector('#computed-style')).toBeHidden();
+      window.getComputedStyle = () => ({ getPropertyValue: (style) => style == 'display' && 'block' });
+      expect(document.querySelector('#computed-style')).toBeVisible();
     });
 
     it('should detect elements whose computed styles are visibility: hidden', () => {
       window.getComputedStyle = () => ({ getPropertyValue: (style) => style == 'visibility' && 'hidden' });
       expect(document.querySelector('#computed-style')).toBeHidden();
+      window.getComputedStyle = () => ({ getPropertyValue: (style) => style == 'visibility' && 'visible' });
+      expect(document.querySelector('#computed-style')).toBeVisible();
     });
   });
 
