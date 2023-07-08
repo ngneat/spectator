@@ -410,11 +410,12 @@ export const toBePartial = comparator((actual, expected) => {
 
 /**
  * Hidden elements are elements that have:
- * 1. Display property set to "none"
- * 2. Width and height set to 0 (check not applied in jest)
- * 3. A hidden parent element (this also hides child elements)
- * 4. Type equal to "hidden" (only for form elements)
- * 5. A "hidden" attribute
+ * 1. Display or visibility style properties set to "none" or "hidden"
+ * 2. Display or visibility computed styles set to "none" or "hidden"
+ * 3. Width and height set to 0 (check not applied in jest)
+ * 4. A hidden parent element (this also hides child elements)
+ * 5. Type equal to "hidden" (only for form elements)
+ * 6. A "hidden" attribute
  */
 function isHidden(elOrSelector: HTMLElement | string): boolean {
   let el = $(elOrSelector)[0];
@@ -425,8 +426,8 @@ function isHidden(elOrSelector: HTMLElement | string): boolean {
 
   const hiddenWhen = [
     (el) => !(el.offsetWidth || el.offsetHeight || el.getClientRects().length),
-    (el) => el.style.display === 'none',
-    (el) => el.style.visibility === 'hidden',
+    (el) => el.style.display === 'none' || window.getComputedStyle(el).getPropertyValue?.('display') === 'none',
+    (el) => el.style.visibility === 'hidden' || window.getComputedStyle(el).getPropertyValue?.('visibility') === 'hidden',
     (el) => el.type === 'hidden',
     (el) => el.hasAttribute('hidden'),
   ];
@@ -454,11 +455,12 @@ function isHidden(elOrSelector: HTMLElement | string): boolean {
 
 /**
  * Hidden elements are elements that have:
- * 1. Display property set to "none"
- * 2. Width and height set to 0
- * 3. A hidden parent element (this also hides child elements)
- * 4. Type equal to "hidden" (only for form elements)
- * 5. A "hidden" attribute
+ * 1. Display or visibility style properties set to "none" or "hidden"
+ * 2. Display or visibility computed styles set to "none" or "hidden"
+ * 3. Width and height set to 0 (check not applied in jest)
+ * 4. A hidden parent element (this also hides child elements)
+ * 5. Type equal to "hidden" (only for form elements)
+ * 6. A "hidden" attribute
  *
  * expect('div').toBeHidden();
  *
