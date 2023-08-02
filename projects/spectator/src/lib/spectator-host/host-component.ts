@@ -1,7 +1,8 @@
 import { Component, NgModule } from '@angular/core';
 
 @Component({
-  template: ''
+  selector: 'lib-ngneat-host-component',
+  template: '',
 })
 export class HostComponent {}
 
@@ -12,6 +13,6 @@ export class HostComponent {}
   Reference: https://github.com/angular/issues/13590
 */
 @NgModule({
-  declarations: [HostComponent]
+  declarations: [HostComponent],
 })
 export class HostModule {}
