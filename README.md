@@ -208,6 +208,7 @@ The `createComponent()` method returns an instance of `Spectator` which exposes 
 - `component` - The tested component's instance
 - `element` - The tested component's native element
 - `debugElement` - The tested fixture's debug element
+- `flushEffects()` - Provides a wrapper for `TestBed.flushEffects()`
 
 - `inject()` - Provides a wrapper for `TestBed.inject()`:
 ```ts

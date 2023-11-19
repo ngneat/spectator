@@ -6,10 +6,10 @@
     "declaration": true,
     "inlineSources": true,
     "typeRoots": [
+      "../../node_modules/@types",
       "./typings"
     ],
     "types": [
-      "jasmine",
       "jest",
       "node"
     ],
