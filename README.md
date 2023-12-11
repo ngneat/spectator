@@ -209,6 +209,7 @@ The `createComponent()` method returns an instance of `Spectator` which exposes 
 - `element` - The tested component's native element
 - `debugElement` - The tested fixture's debug element
 
+- `flushEffects()` - Provides a wrapper for `TestBed.flushEffects()`
 - `inject()` - Provides a wrapper for `TestBed.inject()`:
 ```ts
 const service = spectator.inject(QueryService);
@@ -1008,7 +1009,7 @@ it('should call the weather api in the constructor', () => {
       { provide: WeatherDataApi, useValue: weatherService }
     ]
   });
-  
+
   expect(weatherService.getWeatherData).toHaveBeenCalled();
 });
 ```
@@ -1219,7 +1220,7 @@ expect('.zippy__content').toHaveClass(['class-b', 'class-a'], { strict: false })
 
 // Note that toHaveText only looks for the existence of a string, not if the string is exactly the same. If you want to verify that the string is completely the same, use toHaveExactText.
 // Note that if you want to verify that the string is completely the same, but trimmed first, use toHaveExactTrimmedText.
-// Note that if you pass multiple values, Spectator checks the text of each array element against the index of the element found. 
+// Note that if you pass multiple values, Spectator checks the text of each array element against the index of the element found.
 expect('.zippy__content').toHaveText('Content');
 expect('.zippy__content').toHaveText(['Content A', 'Content B']);
 expect('.zippy__content').toHaveText((text) => text.includes('..'));
@@ -1288,7 +1289,7 @@ The `spectator` schematics extend the default `@schematics/angular` collection. 
 
 ## Working Spectator & Jest Sample Repo and Karma Comparison
 
-The [examples in Karma]((https://stackblitz.com/angular/pmqopjovvvb?file=src%2Fapp%2Fapp.component.html)) from Angular docs [testing developer guide](https://angular.io/guide/testing) has been reproduced in Spectator and Jest. 
+The [examples in Karma]((https://stackblitz.com/angular/pmqopjovvvb?file=src%2Fapp%2Fapp.component.html)) from Angular docs [testing developer guide](https://angular.io/guide/testing) has been reproduced in Spectator and Jest.
 (For convenience, [this is the local version](https://github.com/muratkeremozcan/books/tree/master/Angular_with_Typescript/angular-unit-testing-with-Karma) of the Karma examples.)
 
 The Spectator & Jest version can be accessed [here](https://github.com/muratkeremozcan/angular-playground).
