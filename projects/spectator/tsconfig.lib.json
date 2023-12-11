@@ -6,7 +6,8 @@
     "declaration": true,
     "inlineSources": true,
     "typeRoots": [
-      "./typings"
+      "./typings",
+      "../../node_modules/@types"
     ],
     "types": [
       "jasmine",
