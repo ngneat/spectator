@@ -2,6 +2,25 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [16.0.0](https://github.com/ngneat/spectator/compare/v15.0.1...v16.0.0) (2023-12-16)
+
+
+### ⚠ BREAKING CHANGES
+
+* 🧨 The library now requires a minimum version of Angular 17.0.0
+
+### Features
+
+* Updated jQuery package ([#629](https://github.com/ngneat/spectator/issues/629)) ([9478289](https://github.com/ngneat/spectator/commit/9478289fd35894f9e9fda2785c459d2bfdb276e0))
+
+
+### Bug Fixes
+
+* **matchers:** use computed styles to determine hidden-ness ([#622](https://github.com/ngneat/spectator/issues/622)) ([6c5e7b6](https://github.com/ngneat/spectator/commit/6c5e7b6f939d10e07036a67c86805a32d435a7c5))
+
+
+* Angular 17 (#633) ([b064ea7](https://github.com/ngneat/spectator/commit/b064ea7990e30887a3fb71082ba8bc2dd78b89a1)), closes [#633](https://github.com/ngneat/spectator/issues/633) [#631](https://github.com/ngneat/spectator/issues/631) [#631](https://github.com/ngneat/spectator/issues/631)
+
 ### [15.0.1](https://github.com/ngneat/spectator/compare/v15.0.0...v15.0.1) (2023-06-09)
 
 
