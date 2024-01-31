@@ -1,4 +1,4 @@
-import { DebugElement, SimpleChange, SimpleChanges } from '@angular/core';
+import { ComponentRef, DebugElement } from '@angular/core';
 import { By } from '@angular/platform-browser';
 
 import { DOMSelector } from '../dom-selectors';
@@ -26,37 +26,17 @@ export function getChildren<R>(debugElementRoot: DebugElement): (directiveOrSele
   };
 }
 
-export function setProps<T, K extends string | number | symbol, V>(
-  instance: T,
-  key: K,
-  value: V,
-  firstChange?: boolean
-): T & { [KEY in K]: V };
-export function setProps<T, KV>(instance: T, keyValues?: KV): T & KV;
-export function setProps(instance: any, keyOrKeyValues: any, value?: any, firstChange: boolean = true): any {
-  const changes: SimpleChanges = {};
-
-  const update = (key: string, newValue: any): void => {
-    if (instance[key] !== newValue) {
-      changes[key] = new SimpleChange(instance[key], newValue, firstChange);
-    }
-
-    instance[key] = newValue;
-  };
-
+export function setProps<T, K extends string | number | symbol, V>(componentRef: ComponentRef<T>, key: K, value: V): T & { [KEY in K]: V };
+export function setProps<T, KV>(componentRef: ComponentRef<T>, keyValues?: KV): T & KV;
+export function setProps(componentRef: ComponentRef<any>, keyOrKeyValues: any, value?: any): any {
   if (isString(keyOrKeyValues)) {
-    update(keyOrKeyValues, value);
+    componentRef.setInput(keyOrKeyValues, value);
   } else {
     // eslint-disable-next-line guard-for-in
     for (const p in keyOrKeyValues) {
-      update(p, keyOrKeyValues[p]);
+      componentRef.setInput(p, keyOrKeyValues[p]);
     }
   }
 
-  if (Object.keys(changes).length) {
-    // eslint-disable-next-line
-    instance.ngOnChanges?.(changes);
-  }
-
-  return instance;
+  return componentRef.instance;
 }

@@ -3,7 +3,8 @@ import { TestBed, waitForAsync } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { BrowserDynamicTestingModule } from '@angular/platform-browser-dynamic/testing';
 
-import { setProps } from '../internals/query';
+import { addMatchers } from '../core';
+import { nodeByDirective } from '../internals/node-by-directive';
 import * as customMatchers from '../matchers';
 import {
   overrideComponentIfProviderOverridesSpecified,
@@ -13,10 +14,9 @@ import {
   overridePipes,
   SpectatorOverrides,
 } from '../spectator/create-factory';
-import { addMatchers } from '../core';
-import { isType } from '../types';
-import { nodeByDirective } from '../internals/node-by-directive';
+import { InferSignalInputs, isType } from '../types';
 
+import { setProps } from '../internals/query';
 import { HostComponent } from './host-component';
 import { initialSpectatorWithHostModule } from './initial-module';
 import { getSpectatorHostDefaultOptions, SpectatorHostOptions } from './options';
@@ -109,7 +109,7 @@ export function createHostFactory<C, H = HostComponent>(typeOrOptions: Type<C> |
 
 function createSpectatorHost<C, H, HP>(
   options: Required<SpectatorHostOptions<C, H>>,
-  props?: Partial<C>,
+  props?: InferSignalInputs<C>,
   hostProps?: HP
 ): SpectatorHost<C, H & HP> {
   const hostFixture = TestBed.createComponent(options.host);
@@ -120,7 +120,8 @@ function createSpectatorHost<C, H, HP>(
     throw new Error(`Cannot find component/directive ${options.component} in host template 😔`);
   }
 
-  const hostComponent = setProps(hostFixture.componentInstance, hostProps);
+  const hostComponent = setProps(hostFixture.componentRef, hostProps);
+  // TODO: This does not work, as we don't have access to a ComponentRef for the component
   const component = setProps(debugNode.injector.get(options.component), props);
 
   return new SpectatorHost(

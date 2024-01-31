@@ -3,18 +3,18 @@ import { TestBed, waitForAsync } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { BrowserDynamicTestingModule } from '@angular/platform-browser-dynamic/testing';
 
+import { BaseSpectatorOverrides } from '../base/options';
+import { addMatchers } from '../core';
+import { nodeByDirective } from '../internals/node-by-directive';
 import { setProps } from '../internals/query';
 import * as customMatchers from '../matchers';
-import { addMatchers } from '../core';
-import { isType } from '../types';
 import { HostComponent } from '../spectator-host/host-component';
-import { BaseSpectatorOverrides } from '../base/options';
-import { nodeByDirective } from '../internals/node-by-directive';
+import { InferSignalInputs, isType } from '../types';
 
-import { initialSpectatorDirectiveModule } from './initial-module';
-import { getSpectatorDirectiveDefaultOptions, SpectatorDirectiveOptions } from './options';
-import { SpectatorDirective } from './spectator-directive';
 import { overrideComponents, overrideDirectives, overrideModules, overridePipes } from '../spectator/create-factory';
+import { initialSpectatorDirectiveModule } from './initial-module';
+import { SpectatorDirectiveOptions, getSpectatorDirectiveDefaultOptions } from './options';
+import { SpectatorDirective } from './spectator-directive';
 
 /**
  * @publicApi
@@ -37,7 +37,7 @@ export type PresetSpectatorDirectiveFactory<D, H> = <HP>(
  */
 export interface SpectatorDirectiveOverrides<D, H, HP> extends BaseSpectatorOverrides {
   detectChanges?: boolean;
-  props?: Partial<D>;
+  props?: InferSignalInputs<D>;
   hostProps?: HostComponent extends H ? HP : Partial<H>;
   directiveProviders?: Provider[];
 }
@@ -111,7 +111,7 @@ export function createDirectiveFactory<D, H = HostComponent>(
 
 function createSpectatorDirective<D, H, HP>(
   options: Required<SpectatorDirectiveOptions<D, H>>,
-  props?: Partial<D>,
+  props?: InferSignalInputs<D>,
   hostProps?: HP
 ): SpectatorDirective<D, H & HP> {
   const hostFixture = TestBed.createComponent(options.host);
@@ -122,7 +122,8 @@ function createSpectatorDirective<D, H, HP>(
     throw new Error(`Cannot find directive ${options.directive} in host template 😔`);
   }
 
-  const hostComponent = setProps(hostFixture.componentInstance, hostProps);
+  const hostComponent = setProps(hostFixture.componentRef, hostProps);
+  // TODO: This does not work, as we don't have access to a ComponentRef for the directive
   const directive = setProps(debugNode.injector.get(options.directive), props);
 
   return new SpectatorDirective(hostComponent, hostFixture, hostFixture.debugElement, directive, debugElement.nativeElement);

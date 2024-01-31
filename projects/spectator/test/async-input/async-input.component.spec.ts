@@ -1,5 +1,5 @@
+import { fakeAsync } from '@angular/core/testing';
 import { createHostFactory, SpectatorHost } from '@ngneat/spectator';
-import { fakeAsync, tick } from '@angular/core/testing';
 
 import { AsyncInputComponent } from './async-input.component';
 
@@ -23,8 +23,8 @@ describe('ZippyComponent', () => {
     host = createHost(`<app-async-input></app-async-input>`, {
       detectChanges: true,
       props: {
-        widgets: ''
-      }
+        widgets: '',
+      },
     });
     host.tick();
     host.detectChanges();

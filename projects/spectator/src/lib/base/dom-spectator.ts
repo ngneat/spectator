@@ -1,18 +1,18 @@
-import { ChangeDetectorRef, DebugElement, ElementRef, Type, EventEmitter } from '@angular/core';
-import { Observable } from 'rxjs';
+import { ChangeDetectorRef, DebugElement, ElementRef, EventEmitter, Type } from '@angular/core';
 import { ComponentFixture, tick } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import { Observable } from 'rxjs';
 
-import { Token } from '../token';
-import { DOMSelector } from '../dom-selectors';
-import { isString, QueryOptions, QueryType, SpectatorElement, EventEmitterType, KeysMatching, KeyboardEventOptions } from '../types';
-import { SpyObject } from '../mock';
-import { getChildren, setProps } from '../internals/query';
-import { patchElementFocus } from '../internals/element-focus';
-import { createMouseEvent } from '../event-creators';
 import { dispatchFakeEvent, dispatchKeyboardEvent, dispatchMouseEvent, dispatchTouchEvent } from '../dispatch-events';
-import { typeInElement } from '../type-in-element';
+import { DOMSelector } from '../dom-selectors';
+import { createMouseEvent } from '../event-creators';
+import { patchElementFocus } from '../internals/element-focus';
+import { getChildren, setProps } from '../internals/query';
+import { SpyObject } from '../mock';
 import { selectOption } from '../select-option';
+import { Token } from '../token';
+import { typeInElement } from '../type-in-element';
+import { EventEmitterType, KeyboardEventOptions, KeysMatching, QueryOptions, QueryType, SpectatorElement, isString } from '../types';
 
 import { BaseSpectator } from './base-spectator';
 
@@ -157,7 +157,7 @@ export abstract class DomSpectator<I> extends BaseSpectator {
   public setInput<K extends keyof I>(input: Partial<I>): void;
   public setInput<K extends keyof I>(input: K, inputValue: I[K]): void;
   public setInput(input: any, value?: any): void {
-    setProps(this.instance, input, value, false);
+    setProps(this.fixture.componentRef, input, value);
     // Force cd on the tested component
     this.debugElement.injector.get(ChangeDetectorRef).detectChanges();
 

@@ -1,11 +1,11 @@
-import { DebugElement, InjectionToken, Type, AbstractType } from '@angular/core';
+import { DebugElement } from '@angular/core';
 import { ComponentFixture } from '@angular/core/testing';
 
-import { setProps } from '../internals/query';
-import { Token } from '../token';
 import { DomSpectator } from '../base/dom-spectator';
+import { setProps } from '../internals/query';
 import { SpyObject } from '../mock';
 import { HostComponent } from '../spectator-host/host-component';
+import { Token } from '../token';
 
 /**
  * @publicApi
@@ -36,7 +36,7 @@ export class SpectatorDirective<D, H = HostComponent> extends DomSpectator<D> {
   public setHostInput<K extends keyof H>(input: Partial<H>): void;
   public setHostInput<K extends keyof H>(input: K, inputValue: H[K]): void;
   public setHostInput(input: any, value?: any): void {
-    setProps(this.hostComponent, input, value, false);
+    setProps(this.fixture.componentRef, input, value);
     this.detectChanges();
   }
 }

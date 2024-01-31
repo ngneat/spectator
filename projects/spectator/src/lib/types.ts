@@ -1,4 +1,4 @@
-import { DebugElement, ElementRef, Type, EventEmitter, OnDestroy } from '@angular/core';
+import { DebugElement, ElementRef, EventEmitter, InputSignal, OnDestroy, Type } from '@angular/core';
 
 import { DOMSelector } from './dom-selectors';
 import { Token } from './token';
@@ -7,6 +7,10 @@ type OptionalPropertyNames<T> = {
   [K in keyof T]-?: undefined extends T[K] ? K : never;
 }[keyof T];
 type OptionalProperties<T> = Pick<T, OptionalPropertyNames<T>>;
+
+export type InferSignalInputs<C> = {
+  [P in keyof C]+?: C[P] extends InputSignal<infer T> ? T : C[P];
+};
 
 export type OptionalsRequired<T> = Required<OptionalProperties<T>> & Partial<T>;
 

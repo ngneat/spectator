@@ -5,7 +5,7 @@ import { DOMSelector } from '../dom-selectors';
 import { getChildren, setProps } from '../internals/query';
 import { Spectator } from '../spectator/spectator';
 import { Token } from '../token';
-import { isString, QueryOptions, QueryType } from '../types';
+import { QueryOptions, QueryType, isString } from '../types';
 
 import { HostComponent } from './host-component';
 
@@ -50,7 +50,7 @@ export class SpectatorHost<C, H = HostComponent> extends Spectator<C> {
   public setHostInput<K extends keyof H>(input: Partial<H>): void;
   public setHostInput<K extends keyof H>(input: K, inputValue: H[K]): void;
   public setHostInput(input: any, value?: any): void {
-    setProps(this.hostComponent, input, value, false);
+    setProps(this.fixture.componentRef, input, value);
     this.detectChanges();
   }
 }
