@@ -28,6 +28,29 @@ Spectator helps you get rid of all the boilerplate grunt work, leaving you with 
 - ✅ Strongly typed
 - ✅ Jest Support
 
+
+## Sponsoring ngneat
+
+[Sponsorships](https://github.com/sponsors/ngneat) aid in the continued development and maintenance of ngneat libraries. Consider asking your company to sponsor ngneat as its core to their business and application development.
+
+### Gold Sponsors
+
+Elevate your support by becoming a Gold Sponsor and have your logo prominently featured on our README in the top 5 repositories.
+
+### Silver Sponsors
+
+Boost your backing by becoming a Gold Sponsor and enjoy the spotlight with your logo prominently showcased in the top 3 repositories on our README.
+
+### Bronze Sponsors
+
+<a href="https://houseofangular.io" target="_blank">
+  <img src="https://github.com/ngrx/platform/blob/main/projects/ngrx.io/src/assets/images/sponsors/house-of-angular.png" width="50px" height="50px" alt="House of Angular" />
+</a>
+
+Become a bronze sponsor and get your logo on our README on GitHub.
+
+
+
 ## Table of Contents
 
 - [Features](#features)
