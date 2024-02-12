@@ -10,7 +10,7 @@ import { SpyObject } from '../mock';
 import { getChildren, setProps } from '../internals/query';
 import { patchElementFocus } from '../internals/element-focus';
 import { createMouseEvent } from '../event-creators';
-import { dispatchFakeEvent, dispatchKeyboardEvent, dispatchMouseEvent, dispatchTouchEvent } from '../dispatch-events';
+import { dispatchFakeEvent, dispatchKeyboardEvent, dispatchMouseEvent, dispatchTouchEvent, dispatchEvent } from '../dispatch-events';
 import { typeInElement } from '../type-in-element';
 import { selectOption } from '../select-option';
 
@@ -216,11 +216,22 @@ export abstract class DomSpectator<I> extends BaseSpectator {
   }
 
   public dispatchMouseEvent(
+    selector: SpectatorElement,
+    typeOrEvent: MouseEvent,
+  )
+  public dispatchMouseEvent(
+    selector: SpectatorElement,
+    typeOrEvent: string,
+    x?: number,
+    y?: number,
+    event?: MouseEvent
+  )
+  public dispatchMouseEvent(
     selector: SpectatorElement = this.element,
-    type: string,
+    typeOrEvent: string | MouseEvent,
     x: number = 0,
     y: number = 0,
-    event: MouseEvent = createMouseEvent(type, x, y)
+    event: MouseEvent = typeof typeOrEvent === 'string' ? createMouseEvent(typeOrEvent, x, y) : typeOrEvent
   ): MouseEvent {
     const element = this.getNativeElement(selector);
 
@@ -228,7 +239,7 @@ export abstract class DomSpectator<I> extends BaseSpectator {
       throw new Error(`Cannot dispatch mouse event: ${selector} is not a node`);
     }
 
-    const dispatchedEvent = dispatchMouseEvent(element, type, x, y, event);
+    const dispatchedEvent = typeof typeOrEvent === 'string' ? dispatchMouseEvent(element, typeOrEvent, x, y, event) : dispatchEvent(element, typeOrEvent);
     this.detectChanges();
 
     return dispatchedEvent;
@@ -254,6 +265,20 @@ export abstract class DomSpectator<I> extends BaseSpectator {
     this.detectChanges();
 
     return event;
+  }
+
+  public dispatchEvent<E extends Event = Event>(selector: SpectatorElement = this.element, event: E): Event {
+    const element = this.getNativeElement(selector);
+
+    if (!(element instanceof Node)) {
+      throw new Error(`Cannot dispatch event: ${selector} is not a node`);
+    }
+
+    const dispatchedEvent = dispatchEvent(element, event);
+
+    this.detectChanges();
+
+    return dispatchedEvent;
   }
 
   public dispatchFakeEvent(selector: SpectatorElement = this.element, type: string, canBubble?: boolean): Event {
@@ -312,9 +337,18 @@ export abstract class DomSpectator<I> extends BaseSpectator {
     };
   }
 
-  public dispatchTouchEvent(selector: SpectatorElement = this.element, type: string, x: number = 0, y: number = 0): void {
-    dispatchTouchEvent(this.getNativeElement(selector), type, x, y);
+  public dispatchTouchEvent(selector: SpectatorElement = this.element, type: string, x: number = 0, y: number = 0): UIEvent {
+    const element = this.getNativeElement(selector);
+
+    if (!(element instanceof Node)) {
+      throw new Error(`Cannot dispatch touch event: ${selector} is not a node`);
+    }
+
+    const dispatchedEvent = dispatchTouchEvent(this.getNativeElement(selector), type, x, y);
+
     this.detectChanges();
+
+    return dispatchedEvent;
   }
 
   public typeInElement(value: string, selector: SpectatorElement = this.element): void {

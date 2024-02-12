@@ -68,6 +68,6 @@ export function dispatchMouseEvent(
  *
  * @publicApi
  */
-export function dispatchTouchEvent(node: HTMLElement | Window | Document, type: string, x: number = 0, y: number = 0): Event {
+export function dispatchTouchEvent(node: HTMLElement | Window | Document, type: string, x: number = 0, y: number = 0): UIEvent {
   return dispatchEvent(node, createTouchEvent(type, x, y));
 }
