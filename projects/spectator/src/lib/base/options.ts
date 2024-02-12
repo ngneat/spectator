@@ -1,4 +1,4 @@
-import {Component, Directive, NgModule, Pipe, Provider, SchemaMetadata, Type} from '@angular/core';
+import { Component, Directive, EnvironmentProviders, NgModule, Pipe, Provider, SchemaMetadata, Type } from '@angular/core';
 import { MetadataOverride, ModuleTeardownOptions } from '@angular/core/testing';
 
 import { merge } from '../internals/merge';
@@ -30,7 +30,7 @@ export interface BaseSpectatorOptions {
  * @internal
  */
 export interface BaseSpectatorOverrides {
-  providers?: Provider[];
+  providers?: (Provider | EnvironmentProviders)[];
 }
 
 const defaultOptions: OptionalsRequired<BaseSpectatorOptions> = {
