@@ -1,10 +1,17 @@
-import { createHostFactory, createServiceFactory, createComponentFactory, Spectator, SpectatorService } from '@ngneat/spectator';
-import { InjectionToken, AbstractType } from '@angular/core';
+import { InjectionToken } from '@angular/core';
+import {
+  Spectator,
+  SpectatorHost,
+  SpectatorService,
+  createComponentFactory,
+  createHostFactory,
+  createServiceFactory,
+} from '@ngneat/spectator';
 
 import { ConsumerService } from './consumer.service';
 import { AbstractQueryService, QueryService } from './query.service';
-import { ZippyComponent } from './zippy/zippy.component';
 import { WidgetService } from './widget.service';
+import { ZippyComponent } from './zippy/zippy.component';
 
 const MY_TOKEN = new InjectionToken<AbstractQueryService>('some-token');
 
@@ -17,13 +24,13 @@ describe('Injection tokens', () => {
         QueryService,
         {
           provide: AbstractQueryService,
-          useExisting: QueryService
+          useExisting: QueryService,
         },
         {
           provide: MY_TOKEN,
-          useExisting: QueryService
-        }
-      ]
+          useExisting: QueryService,
+        },
+      ],
     });
 
     let spectator: Spectator<ZippyComponent>;
@@ -69,16 +76,16 @@ describe('Injection tokens', () => {
         QueryService,
         {
           provide: AbstractQueryService,
-          useExisting: QueryService
+          useExisting: QueryService,
         },
         {
           provide: MY_TOKEN,
-          useExisting: QueryService
-        }
-      ]
+          useExisting: QueryService,
+        },
+      ],
     });
 
-    let host: Spectator<ZippyComponent>;
+    let host: SpectatorHost<ZippyComponent>;
 
     beforeEach(() => (host = createHost('<zippy></zippy>')));
 
@@ -122,13 +129,13 @@ describe('Injection tokens', () => {
         QueryService,
         {
           provide: AbstractQueryService,
-          useExisting: QueryService
+          useExisting: QueryService,
         },
         {
           provide: MY_TOKEN,
-          useExisting: QueryService
-        }
-      ]
+          useExisting: QueryService,
+        },
+      ],
     });
 
     beforeEach(() => (spectator = createService()));
@@ -172,13 +179,13 @@ describe('Injection tokens', () => {
         QueryService,
         {
           provide: AbstractQueryService,
-          useExisting: QueryService
+          useExisting: QueryService,
         },
         {
           provide: MY_TOKEN,
-          useExisting: QueryService
-        }
-      ]
+          useExisting: QueryService,
+        },
+      ],
     });
 
     let spectator: Spectator<ZippyComponent>;
@@ -224,16 +231,16 @@ describe('Injection tokens', () => {
         QueryService,
         {
           provide: AbstractQueryService,
-          useExisting: QueryService
+          useExisting: QueryService,
         },
         {
           provide: MY_TOKEN,
-          useExisting: QueryService
-        }
-      ]
+          useExisting: QueryService,
+        },
+      ],
     });
 
-    let host: Spectator<ZippyComponent>;
+    let host: SpectatorHost<ZippyComponent>;
 
     beforeEach(() => (host = createHost('<zippy></zippy>')));
 
@@ -277,13 +284,13 @@ describe('Injection tokens', () => {
         QueryService,
         {
           provide: AbstractQueryService,
-          useExisting: QueryService
+          useExisting: QueryService,
         },
         {
           provide: MY_TOKEN,
-          useExisting: QueryService
-        }
-      ]
+          useExisting: QueryService,
+        },
+      ],
     });
 
     beforeEach(() => (spectator = createService()));

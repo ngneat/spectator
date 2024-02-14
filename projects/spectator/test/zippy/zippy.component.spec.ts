@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 import { fakeAsync } from '@angular/core/testing';
-import { createHostFactory, SpectatorHost, byText } from '@ngneat/spectator';
+import { SpectatorHost, byText, createHostFactory } from '@ngneat/spectator';
 
-import { QueryService } from '../query.service';
 import { CalcComponent } from '../calc/calc.component';
+import { QueryService } from '../query.service';
 
 import { ZippyComponent } from './zippy.component';
 
@@ -14,7 +14,7 @@ describe('ZippyComponent', () => {
     component: ZippyComponent,
     mocks: [QueryService],
     declarations: [CalcComponent],
-    componentProviders: [{ provide: QueryService, useValue: 'componentProviders' }]
+    componentProviders: [{ provide: QueryService, useValue: 'componentProviders' }],
   });
 
   it('should should have a zippy component', () => {
@@ -35,10 +35,10 @@ describe('ZippyComponent', () => {
   });
 
   it('should display the title from component property', () => {
-    host = createHost(`<zippy></zippy>`, {
-      props: {
-        title: 'ZIPPY'
-      }
+    host = createHost(`<zippy [title]="title"></zippy>`, {
+      hostProps: {
+        title: 'ZIPPY',
+      },
     });
     expect(host.query('.zippy__title')).toHaveText('ZIPPY');
   });
@@ -46,18 +46,18 @@ describe('ZippyComponent', () => {
   it('should display the title from host property', () => {
     host = createHost(`<zippy [title]="title"></zippy>`, {
       hostProps: {
-        title: 'ZIPPY2'
-      }
+        title: 'ZIPPY2',
+      },
     });
     expect(host.query('.zippy__title')).toHaveText('ZIPPY2');
   });
 
   it('should support objects', () => {
-    host = createHost(`<zippy></zippy>`, {
+    host = createHost(`<zippy [options]="options"></zippy>`, {
       detectChanges: true,
-      props: {
-        options: { color: 'blue' }
-      }
+      hostProps: {
+        options: { color: 'blue' },
+      },
     });
 
     expect(host.query('.color')).toHaveText('blue');
@@ -162,14 +162,14 @@ describe('ZippyComponent with default template', () => {
   const createHost = createHostFactory({
     component: ZippyComponent,
     componentProviders: [{ provide: QueryService, useValue: 'componentProviders' }],
-    template: `<zippy [title]="title"></zippy>`
+    template: `<zippy [title]="title"></zippy>`,
   });
 
   it('should display the title from host property', () => {
     host = createHost(undefined, {
       hostProps: {
-        title: 'ZIPPY_DEFAULT'
-      }
+        title: 'ZIPPY_DEFAULT',
+      },
     });
     expect(host.query('.zippy__title')).toHaveText('ZIPPY_DEFAULT');
   });
@@ -187,7 +187,7 @@ describe('With Custom Host Component', () => {
   const createHost = createHostFactory({
     component: ZippyComponent,
     componentProviders: [{ provide: QueryService, useValue: 'componentProviders' }],
-    host: CustomHostComponent
+    host: CustomHostComponent,
   });
 
   it('should display the host component title', () => {

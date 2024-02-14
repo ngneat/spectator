@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, DebugElement, ElementRef, EventEmitter, Type } from '@angular/core';
+import { DebugElement, ElementRef, EventEmitter, Type } from '@angular/core';
 import { ComponentFixture, tick } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { Observable } from 'rxjs';
@@ -7,7 +7,7 @@ import { dispatchFakeEvent, dispatchKeyboardEvent, dispatchMouseEvent, dispatchT
 import { DOMSelector } from '../dom-selectors';
 import { createMouseEvent } from '../event-creators';
 import { patchElementFocus } from '../internals/element-focus';
-import { getChildren, setProps } from '../internals/query';
+import { getChildren } from '../internals/query';
 import { SpyObject } from '../mock';
 import { selectOption } from '../select-option';
 import { Token } from '../token';
@@ -152,17 +152,6 @@ export abstract class DomSpectator<I> extends BaseSpectator {
     }
 
     return null;
-  }
-
-  public setInput<K extends keyof I>(input: Partial<I>): void;
-  public setInput<K extends keyof I>(input: K, inputValue: I[K]): void;
-  public setInput(input: any, value?: any): void {
-    setProps(this.fixture.componentRef, input, value);
-    // Force cd on the tested component
-    this.debugElement.injector.get(ChangeDetectorRef).detectChanges();
-
-    // Force cd on the host component for cases such as: https://github.com/ngneat/spectator/issues/539
-    this.detectChanges();
   }
 
   public output<T, K extends keyof I = keyof I>(output: K): Observable<T> {

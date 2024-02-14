@@ -15,12 +15,12 @@ describe('HighlightDirective', () => {
     host.dispatchMouseEvent(host.element, 'mouseover');
 
     expect(host.element).toHaveStyle({
-      backgroundColor: 'rgba(0,0,0, 0.1)'
+      backgroundColor: 'rgba(0,0,0, 0.1)',
     });
 
     host.dispatchMouseEvent(host.element, 'mouseout');
     expect(host.element).toHaveStyle({
-      backgroundColor: '#fff'
+      backgroundColor: '#fff',
     });
   });
 });
@@ -37,12 +37,12 @@ describe('HighlightDirective (createHostDirectiveFactory)', () => {
     host.dispatchMouseEvent(host.element, 'mouseover');
 
     expect(host.element).toHaveStyle({
-      backgroundColor: 'rgba(0,0,0, 0.1)'
+      backgroundColor: 'rgba(0,0,0, 0.1)',
     });
 
     host.dispatchMouseEvent(host.element, 'mouseout');
     expect(host.element).toHaveStyle({
-      backgroundColor: '#fff'
+      backgroundColor: '#fff',
     });
   });
 });

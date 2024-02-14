@@ -23,7 +23,7 @@ describe('SignalInputComponent', () => {
 
     const createHost = createHostFactory({
       component: SignalInputComponent,
-      template: `<div><app-standalone [show]="true"></app-standalone></div>`,
+      template: `<div><app-signal-input [show]="true"></app-signal-input></div>`,
     });
 
     beforeEach(() => {

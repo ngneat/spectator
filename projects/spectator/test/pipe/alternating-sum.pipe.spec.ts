@@ -1,20 +1,20 @@
 import { SpectatorPipe, createPipeFactory } from '@ngneat/spectator';
 
-import { StatsService } from './stats.service';
 import { AlternatingSumPipe } from './alternating-sum.pipe';
+import { StatsService } from './stats.service';
 
 describe('AlternatingSumPipe', () => {
   let spectator: SpectatorPipe<AlternatingSumPipe>;
   const createPipe = createPipeFactory({
     pipe: AlternatingSumPipe,
-    template: `{{ prop | alternatingSum }}`
+    template: `{{ prop | alternatingSum }}`,
   });
 
   it('should compute the alternating sum of a given list of numbers (prop)', () => {
     spectator = createPipe({
       hostProps: {
-        prop: [1, 2, 3]
-      }
+        prop: [1, 2, 3],
+      },
     });
     expect(spectator.element).toHaveText('2');
   });
@@ -29,9 +29,9 @@ describe('AlternatingSumPipe', () => {
     const provider = { provide: StatsService, useValue: { alternatingSum } };
     spectator = createPipe({
       hostProps: {
-        prop: []
+        prop: [],
       },
-      providers: [provider]
+      providers: [provider],
     });
     expect(spectator.element).toHaveText('42');
   });

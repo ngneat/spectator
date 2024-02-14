@@ -14,15 +14,15 @@ describe('ZippyComponent', () => {
   });
 
   it('should not be visible', () => {
-    host = createHost(`<app-async-input></app-async-input>`);
-    host.setInput('widgets', '');
+    host = createHost(`<app-async-input [widgets]="widgets"></app-async-input>`);
+    host.setHostInput('widgets', '');
     expect(host.query('div')).not.toExist();
   });
 
   it('should be visible', fakeAsync(() => {
-    host = createHost(`<app-async-input></app-async-input>`, {
+    host = createHost(`<app-async-input [widgets]="widgets"></app-async-input>`, {
       detectChanges: true,
-      props: {
+      hostProps: {
         widgets: '',
       },
     });

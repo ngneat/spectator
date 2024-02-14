@@ -1,5 +1,5 @@
-import { createHostFactory, SpectatorHost } from '@ngneat/spectator/jest';
 import { fakeAsync } from '@angular/core/testing';
+import { createHostFactory, SpectatorHost } from '@ngneat/spectator/jest';
 
 import { AsyncInputComponent } from '../../../test/async-input/async-input.component';
 
@@ -15,16 +15,16 @@ describe('ZippyComponent', () => {
 
   it('should not be visible', () => {
     host = createHost(`<app-async-input></app-async-input>`);
-    host.setInput('widgets', '');
+    host.setHostInput('widgets', '');
     expect(host.query('div')).not.toExist();
   });
 
   it('should be visible', fakeAsync(() => {
-    host = createHost(`<app-async-input></app-async-input>`, {
+    host = createHost(`<app-async-input [widgets]="widgets"></app-async-input>`, {
       detectChanges: true,
-      props: {
-        widgets: ''
-      }
+      hostProps: {
+        widgets: '',
+      },
     });
     host.tick();
     host.detectChanges();

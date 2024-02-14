@@ -12,11 +12,11 @@ import {
   overrideDirectives,
   overrideModules,
   overridePipes,
-  SpectatorOverrides,
 } from '../spectator/create-factory';
-import { InferSignalInputs, isType } from '../types';
+import { isType } from '../types';
 
-import { setProps } from '../internals/query';
+import { BaseSpectatorOverrides } from '../base/options';
+import { setHostProps } from '../internals/query';
 import { HostComponent } from './host-component';
 import { initialSpectatorWithHostModule } from './initial-module';
 import { getSpectatorHostDefaultOptions, SpectatorHostOptions } from './options';
@@ -41,7 +41,8 @@ export type PresetSpectatorHostFactory<C, H> = <HP>(
 /**
  * @publicApi
  */
-export interface SpectatorHostOverrides<C, H, HP> extends SpectatorOverrides<C> {
+export interface SpectatorHostOverrides<C, H, HP> extends BaseSpectatorOverrides {
+  detectChanges?: boolean;
   hostProps?: HostComponent extends H ? HP : Partial<H>;
 }
 
@@ -82,8 +83,8 @@ export function createHostFactory<C, H = HostComponent>(typeOrOptions: Type<C> |
   );
 
   return <HP>(template?: string, overrides?: SpectatorHostOverrides<C, H, HP>) => {
-    const defaults: SpectatorHostOverrides<C, H, HP> = { props: {}, hostProps: {} as any, detectChanges: true, providers: [] };
-    const { detectChanges, props, hostProps, providers } = { ...defaults, ...overrides };
+    const defaults: SpectatorHostOverrides<C, H, HP> = { hostProps: {} as any, detectChanges: true, providers: [] };
+    const { detectChanges, hostProps, providers } = { ...defaults, ...overrides };
 
     if (providers && providers.length) {
       providers.forEach((provider: Provider) => {
@@ -97,7 +98,7 @@ export function createHostFactory<C, H = HostComponent>(typeOrOptions: Type<C> |
       });
     }
 
-    const spectator = createSpectatorHost(options, props, hostProps);
+    const spectator = createSpectatorHost(options, hostProps);
 
     if (options.detectChanges && detectChanges) {
       spectator.detectChanges();
@@ -107,11 +108,7 @@ export function createHostFactory<C, H = HostComponent>(typeOrOptions: Type<C> |
   };
 }
 
-function createSpectatorHost<C, H, HP>(
-  options: Required<SpectatorHostOptions<C, H>>,
-  props?: InferSignalInputs<C>,
-  hostProps?: HP
-): SpectatorHost<C, H & HP> {
+function createSpectatorHost<C, H, HP>(options: Required<SpectatorHostOptions<C, H>>, hostProps?: HP): SpectatorHost<C, H & HP> {
   const hostFixture = TestBed.createComponent(options.host);
   const debugElement = hostFixture.debugElement.query(By.directive(options.component)) || hostFixture.debugElement;
   const debugNode = hostFixture.debugElement.queryAllNodes(nodeByDirective(options.component))[0];
@@ -120,9 +117,8 @@ function createSpectatorHost<C, H, HP>(
     throw new Error(`Cannot find component/directive ${options.component} in host template 😔`);
   }
 
-  const hostComponent = setProps(hostFixture.componentRef, hostProps);
-  // TODO: This does not work, as we don't have access to a ComponentRef for the component
-  const component = setProps(debugNode.injector.get(options.component), props);
+  const hostComponent = setHostProps(hostFixture.componentRef, hostProps);
+  const component = debugNode.injector.get(options.component);
 
   return new SpectatorHost(
     hostComponent,

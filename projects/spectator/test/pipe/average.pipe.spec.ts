@@ -5,9 +5,7 @@ import { AveragePipe } from './average.pipe';
 import { StatsService } from './stats.service';
 
 @Component({
-  template: `
-    <div>{{ prop | avg }}</div>
-  `
+  template: ` <div>{{ prop | avg }}</div> `,
 })
 class CustomHostComponent {
   @Input() public prop: number[] = [1, 2, 3];
@@ -18,7 +16,7 @@ describe('AveragePipe', () => {
   const createPipe = createPipeFactory({
     pipe: AveragePipe,
     host: CustomHostComponent,
-    providers: [StatsService]
+    providers: [StatsService],
   });
 
   it('should compute the average of a given list of numbers', () => {
@@ -29,8 +27,8 @@ describe('AveragePipe', () => {
   it('should result to 0 when list of numbers is empty', () => {
     spectator = createPipe({
       hostProps: {
-        prop: []
-      }
+        prop: [],
+      },
     });
     expect(spectator.element).toHaveText('0');
   });
@@ -39,7 +37,7 @@ describe('AveragePipe', () => {
     const avg = () => 42;
     const provider = { provide: StatsService, useValue: { avg } };
     spectator = createPipe({
-      providers: [provider]
+      providers: [provider],
     });
     expect(spectator.element).toHaveText('42');
   });

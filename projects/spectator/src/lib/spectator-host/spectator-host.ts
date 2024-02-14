@@ -1,18 +1,19 @@
-import { DebugElement, Type } from '@angular/core';
+import { ChangeDetectorRef, DebugElement, Type } from '@angular/core';
 import { ComponentFixture } from '@angular/core/testing';
 
 import { DOMSelector } from '../dom-selectors';
-import { getChildren, setProps } from '../internals/query';
-import { Spectator } from '../spectator/spectator';
+import { getChildren, setHostProps } from '../internals/query';
 import { Token } from '../token';
 import { QueryOptions, QueryType, isString } from '../types';
 
+import { DomSpectator } from '../base/dom-spectator';
+import { SpyObject } from '../mock';
 import { HostComponent } from './host-component';
 
 /**
  * @publicApi
  */
-export class SpectatorHost<C, H = HostComponent> extends Spectator<C> {
+export class SpectatorHost<C, H = HostComponent> extends DomSpectator<C> {
   constructor(
     public hostComponent: H,
     public hostDebugElement: DebugElement,
@@ -23,6 +24,26 @@ export class SpectatorHost<C, H = HostComponent> extends Spectator<C> {
     public element: HTMLElement
   ) {
     super(hostFixture, debugElement, componentInstance, element);
+  }
+
+  public get component(): C {
+    return this.instance;
+  }
+
+  public inject<T>(token: Token<T>, fromComponentInjector: boolean = false): SpyObject<T> {
+    if (fromComponentInjector) {
+      return this.debugElement.injector.get(token) as SpyObject<T>;
+    }
+
+    return super.inject(token);
+  }
+
+  public detectComponentChanges(): void {
+    if (this.debugElement) {
+      this.debugElement.injector.get(ChangeDetectorRef).detectChanges();
+    } else {
+      this.detectChanges();
+    }
   }
 
   public queryHost<R extends Element>(selector: string | DOMSelector, options?: { root: boolean }): R | null;
@@ -47,10 +68,10 @@ export class SpectatorHost<C, H = HostComponent> extends Spectator<C> {
     return getChildren<R>(this.hostDebugElement)(directiveOrSelector, options);
   }
 
-  public setHostInput<K extends keyof H>(input: Partial<H>): void;
-  public setHostInput<K extends keyof H>(input: K, inputValue: H[K]): void;
+  public setHostInput<K extends keyof H>(input: H extends HostComponent ? any : Partial<H>): void;
+  public setHostInput<K extends keyof H>(input: H extends HostComponent ? any : K, inputValue: H extends HostComponent ? any : H[K]): void;
   public setHostInput(input: any, value?: any): void {
-    setProps(this.fixture.componentRef, input, value);
+    setHostProps(this.fixture.componentRef, input, value);
     this.detectChanges();
   }
 }

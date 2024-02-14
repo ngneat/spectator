@@ -2,7 +2,7 @@ import { createComponentFactory, createHostFactory, Spectator, SpectatorHost } f
 import { SignalInputComponent } from '../../../test/signal-input/signal-input.component';
 
 describe('SignalInputComponent', () => {
-  fdescribe('with Spectator', () => {
+  describe('with Spectator', () => {
     let spectator: Spectator<SignalInputComponent>;
 
     const createComponent = createComponentFactory({
@@ -24,7 +24,7 @@ describe('SignalInputComponent', () => {
     const createHost = createHostFactory({
       component: SignalInputComponent,
       shallow: true,
-      template: `<div><app-signal-input [show]="true"></app-signal-input></div>`,
+      template: `<div><app-signal-input [show]="show"></app-signal-input></div>`,
     });
 
     beforeEach(() => {
@@ -32,7 +32,8 @@ describe('SignalInputComponent', () => {
     });
 
     it('should render a SignalInputComponent', () => {
-      console.log(host.hostElement.innerHTML);
+      expect(host.query('#text')).not.toExist();
+      host.setHostInput({ show: true });
       expect(host.query('#text')).toContainText('Hello');
     });
   });

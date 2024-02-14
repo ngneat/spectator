@@ -4,14 +4,14 @@ import { BrowserDynamicTestingModule } from '@angular/platform-browser-dynamic/t
 
 import { BaseSpectatorOverrides } from '../base/options';
 import { addMatchers } from '../core';
-import { setProps } from '../internals/query';
+import { setHostProps } from '../internals/query';
 import * as customMatchers from '../matchers';
 import { HostComponent } from '../spectator-host/host-component';
 import { isType } from '../types';
 
 import { overrideModules, overridePipes } from '../spectator/create-factory';
 import { initialSpectatorPipeModule } from './initial-module';
-import { getSpectatorPipeDefaultOptions, SpectatorPipeOptions } from './options';
+import { SpectatorPipeOptions, getSpectatorPipeDefaultOptions } from './options';
 import { SpectatorPipe } from './spectator-pipe';
 
 /**
@@ -85,7 +85,7 @@ function createSpectatorPipe<P, H, HP>(options: Required<SpectatorPipeOptions<P,
   const hostFixture = TestBed.createComponent(options.host);
   const debugElement = hostFixture.debugElement;
 
-  const hostComponent = setProps(hostFixture.componentRef, hostProps);
+  const hostComponent = setHostProps(hostFixture.componentRef, hostProps);
 
   return new SpectatorPipe(hostComponent, hostFixture, hostFixture.debugElement, debugElement.nativeElement);
 }

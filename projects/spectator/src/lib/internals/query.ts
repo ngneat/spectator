@@ -40,3 +40,22 @@ export function setProps(componentRef: ComponentRef<any>, keyOrKeyValues: any, v
 
   return componentRef.instance;
 }
+
+export function setHostProps<T, K extends string | number | symbol, V>(
+  componentRef: ComponentRef<T>,
+  key: K,
+  value: V
+): T & { [KEY in K]: V };
+export function setHostProps<T, KV>(componentRef: ComponentRef<T>, keyValues?: KV): T & KV;
+export function setHostProps(componentRef: ComponentRef<any>, keyOrKeyValues: any, value?: any): any {
+  if (isString(keyOrKeyValues)) {
+    componentRef.instance[keyOrKeyValues] = value;
+  } else {
+    // eslint-disable-next-line guard-for-in
+    for (const p in keyOrKeyValues) {
+      componentRef.instance[p] = keyOrKeyValues[p];
+    }
+  }
+
+  return componentRef.instance;
+}
