@@ -8,8 +8,9 @@ type OptionalPropertyNames<T> = {
 }[keyof T];
 type OptionalProperties<T> = Pick<T, OptionalPropertyNames<T>>;
 
+export type InputSignalInput<T> = T extends InputSignal<infer K> ? K : T;
 export type InferSignalInputs<C> = {
-  [P in keyof C]+?: C[P] extends InputSignal<infer T> ? T : C[P];
+  [P in keyof C]+?: InputSignalInput<C[P]>;
 };
 
 export type OptionalsRequired<T> = Required<OptionalProperties<T>> & Partial<T>;

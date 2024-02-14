@@ -5,6 +5,7 @@ import { DomSpectator } from '../base/dom-spectator';
 import { setProps } from '../internals/query';
 import { SpyObject } from '../mock';
 import { Token } from '../token';
+import { InferSignalInputs, InputSignalInput } from '../types';
 
 /**
  * @publicApi
@@ -34,8 +35,8 @@ export class Spectator<C> extends DomSpectator<C> {
     }
   }
 
-  public setInput<K extends keyof C>(input: Partial<C>): void;
-  public setInput<K extends keyof C>(input: K, inputValue: C[K]): void;
+  public setInput<K extends keyof C>(input: InferSignalInputs<C>): void;
+  public setInput<K extends keyof C>(input: K, inputValue: InputSignalInput<C[K]>): void;
   public setInput(input: any, value?: any): void {
     setProps(this.fixture.componentRef, input, value);
     // Force cd on the tested component
