@@ -23,7 +23,7 @@ describe('SignalInputComponent', () => {
 
     const createHost = createHostFactory({
       component: SignalInputComponent,
-      template: `<div><app-signal-input [show]="true"></app-signal-input></div>`,
+      template: `<div><app-signal-input [show]="show"></app-signal-input></div>`,
     });
 
     beforeEach(() => {
@@ -31,6 +31,8 @@ describe('SignalInputComponent', () => {
     });
 
     it('should render a SignalInputComponent', () => {
+      expect(host.query('#text')).not.toExist();
+      host.setHostInput({ show: true });
       expect(host.query('#text')).toContainText('Hello');
     });
   });
