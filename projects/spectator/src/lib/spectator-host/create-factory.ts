@@ -27,7 +27,7 @@ import { SpectatorHost } from './spectator-host';
  */
 export type SpectatorHostFactory<C, H> = <HP>(
   template: string,
-  overrides?: SpectatorHostOverrides<C, H, HP>
+  overrides?: SpectatorHostOverrides<H, HP>
 ) => SpectatorHost<C, H & (HostComponent extends H ? HP : unknown)>;
 
 /**
@@ -35,13 +35,13 @@ export type SpectatorHostFactory<C, H> = <HP>(
  */
 export type PresetSpectatorHostFactory<C, H> = <HP>(
   template?: string,
-  overrides?: SpectatorHostOverrides<C, H, HP>
+  overrides?: SpectatorHostOverrides<H, HP>
 ) => SpectatorHost<C, H & (HostComponent extends H ? HP : unknown)>;
 
 /**
  * @publicApi
  */
-export interface SpectatorHostOverrides<C, H, HP> extends BaseSpectatorOverrides {
+export interface SpectatorHostOverrides<H, HP> extends BaseSpectatorOverrides {
   detectChanges?: boolean;
   hostProps?: HostComponent extends H ? HP : Partial<H>;
 }
@@ -82,8 +82,8 @@ export function createHostFactory<C, H = HostComponent>(typeOrOptions: Type<C> |
     })
   );
 
-  return <HP>(template?: string, overrides?: SpectatorHostOverrides<C, H, HP>) => {
-    const defaults: SpectatorHostOverrides<C, H, HP> = { hostProps: {} as any, detectChanges: true, providers: [] };
+  return <HP>(template?: string, overrides?: SpectatorHostOverrides<H, HP>) => {
+    const defaults: SpectatorHostOverrides<H, HP> = { hostProps: {} as any, detectChanges: true, providers: [] };
     const { detectChanges, hostProps, providers } = { ...defaults, ...overrides };
 
     if (providers && providers.length) {

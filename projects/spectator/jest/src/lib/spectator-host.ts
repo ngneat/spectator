@@ -1,12 +1,12 @@
 import { Type } from '@angular/core';
 import {
   createHostFactory as baseCreateHostFactory,
-  isType,
-  HostComponent,
   SpectatorHost as BaseSpectatorHost,
+  HostComponent,
+  isType,
   SpectatorHostOptions,
   SpectatorHostOverrides,
-  Token
+  Token,
 } from '@ngneat/spectator';
 
 import { mockProvider, SpyObject } from './mock';
@@ -25,7 +25,7 @@ export class SpectatorHost<C, H = HostComponent> extends BaseSpectatorHost<C, H>
  */
 export type SpectatorHostFactory<C, H> = <HP>(
   template: string,
-  overrides?: SpectatorHostOverrides<C, H, HP>
+  overrides?: SpectatorHostOverrides<H, HP>
 ) => SpectatorHost<C, H & HostComponent extends H ? HP : unknown>;
 
 /**
@@ -33,7 +33,7 @@ export type SpectatorHostFactory<C, H> = <HP>(
  */
 export type PresetSpectatorHostFactory<C, H> = <HP>(
   template?: string,
-  overrides?: SpectatorHostOverrides<C, H, HP>
+  overrides?: SpectatorHostOverrides<H, HP>
 ) => SpectatorHost<C, H & (HostComponent extends H ? HP : unknown)>;
 
 /**
@@ -49,6 +49,6 @@ export function createHostFactory<C, H = HostComponent>(typeOrOptions: Type<C> |
 export function createHostFactory<C, H = HostComponent>(typeOrOptions: Type<C> | SpectatorHostOptions<C, H>): SpectatorHostFactory<C, H> {
   return baseCreateHostFactory({
     mockProvider,
-    ...(isType(typeOrOptions) ? { component: typeOrOptions } : typeOrOptions)
+    ...(isType(typeOrOptions) ? { component: typeOrOptions } : typeOrOptions),
   }) as SpectatorHostFactory<C, H>;
 }

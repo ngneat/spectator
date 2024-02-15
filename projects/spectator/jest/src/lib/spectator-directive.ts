@@ -1,12 +1,12 @@
 import { Type } from '@angular/core';
 import {
   createDirectiveFactory as baseCreateDirectiveFactory,
-  isType,
-  HostComponent,
   SpectatorDirective as BaseSpectatorDirective,
+  HostComponent,
+  isType,
   SpectatorDirectiveOptions,
   SpectatorDirectiveOverrides,
-  Token
+  Token,
 } from '@ngneat/spectator';
 
 import { mockProvider, SpyObject } from './mock';
@@ -25,7 +25,7 @@ export class SpectatorDirective<D, H = HostComponent> extends BaseSpectatorDirec
  */
 export type SpectatorDirectiveFactory<D, H = HostComponent> = <HP>(
   template: string,
-  overrides?: SpectatorDirectiveOverrides<D, H, HP>
+  overrides?: SpectatorDirectiveOverrides<H, HP>
 ) => SpectatorDirective<D, H & HostComponent extends H ? HP : unknown>;
 
 /**
@@ -33,7 +33,7 @@ export type SpectatorDirectiveFactory<D, H = HostComponent> = <HP>(
  */
 export type PresetSpectatorDirectiveFactory<D, H> = <HP>(
   template?: string,
-  overrides?: SpectatorDirectiveOverrides<D, H, HP>
+  overrides?: SpectatorDirectiveOverrides<H, HP>
 ) => SpectatorDirective<D, H & HostComponent extends H ? HP : unknown>;
 
 /**
@@ -53,6 +53,6 @@ export function createDirectiveFactory<D, H = HostComponent>(
 ): SpectatorDirectiveFactory<D, H> {
   return baseCreateDirectiveFactory({
     mockProvider,
-    ...(isType(typeOrOptions) ? { directive: typeOrOptions } : typeOrOptions)
+    ...(isType(typeOrOptions) ? { directive: typeOrOptions } : typeOrOptions),
   }) as SpectatorDirectiveFactory<D, H>;
 }

@@ -21,7 +21,7 @@ import { SpectatorDirective } from './spectator-directive';
  */
 export type SpectatorDirectiveFactory<D, H> = <HP>(
   template: string,
-  overrides?: SpectatorDirectiveOverrides<D, H, HP>
+  overrides?: SpectatorDirectiveOverrides<H, HP>
 ) => SpectatorDirective<D, H & (HostComponent extends H ? HP : unknown)>;
 
 /**
@@ -29,13 +29,13 @@ export type SpectatorDirectiveFactory<D, H> = <HP>(
  */
 export type PresetSpectatorDirectiveFactory<D, H> = <HP>(
   template?: string,
-  overrides?: SpectatorDirectiveOverrides<D, H, HP>
+  overrides?: SpectatorDirectiveOverrides<H, HP>
 ) => SpectatorDirective<D, H & (HostComponent extends H ? HP : unknown)>;
 
 /**
  * @publicApi
  */
-export interface SpectatorDirectiveOverrides<D, H, HP> extends BaseSpectatorOverrides {
+export interface SpectatorDirectiveOverrides<H, HP> extends BaseSpectatorOverrides {
   detectChanges?: boolean;
   hostProps?: HostComponent extends H ? HP : Partial<H>;
   directiveProviders?: Provider[];
@@ -73,8 +73,8 @@ export function createDirectiveFactory<D, H = HostComponent>(
     })
   );
 
-  return <HP>(template?: string, overrides?: SpectatorDirectiveOverrides<D, H, HP>) => {
-    const defaults: SpectatorDirectiveOverrides<D, H, HP> = {
+  return <HP>(template?: string, overrides?: SpectatorDirectiveOverrides<H, HP>) => {
+    const defaults: SpectatorDirectiveOverrides<H, HP> = {
       hostProps: {} as any,
       detectChanges: true,
       providers: [],
