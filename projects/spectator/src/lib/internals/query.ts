@@ -26,6 +26,10 @@ export function getChildren<R>(debugElementRoot: DebugElement): (directiveOrSele
   };
 }
 
+/**
+ * @internal
+ * Set props on a component. This is used in `createComponent` and `createRoutingFactory` since we have direct access to the componentRef.
+ */
 export function setProps<T, K extends string | number | symbol, V>(componentRef: ComponentRef<T>, key: K, value: V): T & { [KEY in K]: V };
 export function setProps<T, KV>(componentRef: ComponentRef<T>, keyValues?: KV): T & KV;
 export function setProps(componentRef: ComponentRef<any>, keyOrKeyValues: any, value?: any): any {
@@ -41,6 +45,12 @@ export function setProps(componentRef: ComponentRef<any>, keyOrKeyValues: any, v
   return componentRef.instance;
 }
 
+/**
+ * @internal
+ * Set props on a host component. This is used in `createHostFactory`, `createDirectiveFactory` and `createPipeFactory`.
+ * As these factories contain a custom host component, we set properties on this host component rather than the tested component itself.
+ * Setting props on the component that's being tested is not possible as we don't have access to its componentRef.
+ */
 export function setHostProps<T, K extends string | number | symbol, V>(
   componentRef: ComponentRef<T>,
   key: K,
