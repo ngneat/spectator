@@ -2,7 +2,7 @@ import { DebugElement } from '@angular/core';
 import { ComponentFixture } from '@angular/core/testing';
 
 import { BaseSpectator } from '../base/base-spectator';
-import { setProps } from '../internals/query';
+import { setHostProps } from '../internals/query';
 import { HostComponent } from '../spectator-host/host-component';
 
 /**
@@ -20,7 +20,7 @@ export class SpectatorPipe<P, H = HostComponent> extends BaseSpectator {
   public setHostInput<K extends keyof H>(input: Partial<H>): void;
   public setHostInput<K extends keyof H>(input: K, inputValue: H[K]): void;
   public setHostInput(input: any, value?: any): void {
-    setProps(this.fixture.componentRef, input, value);
+    setHostProps(this.fixture.componentRef, input, value);
     this.detectChanges();
   }
 }
