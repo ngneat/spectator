@@ -2,6 +2,37 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [17.0.0](https://github.com/ngneat/spectator/compare/v16.0.0...v17.0.0) (2024-02-17)
+
+
+### ⚠ BREAKING CHANGES
+
+* **spectator:** remove 'props' and 'setProps' from host/directive
+factories
+
+* fix: infer input signals when setting inputs on createComponent
+
+* test: align signal input test between jasmine/jest
+
+* refactor: rename input signal types to be aligned
+
+Fixed type names of InferSignalInputs and InputSignalInput (which was a
+typo) to be aligned with Angular's InputSignal type, rather than
+SignalInput
+
+* refactor: remove unnecessary generic params from factories
+
+* fix: setprops behaviour for pipe factory
+
+* docs: update documentation to reflect api Changes
+
+Added disclaimers for createHostFactory, createDirectiveFactory, and
+createPipeFactory as they don't support props/setProps anymore.
+
+### Features
+
+* **spectator:** Support input signals ([#638](https://github.com/ngneat/spectator/issues/638)) ([3f63c68](https://github.com/ngneat/spectator/commit/3f63c68440f2dc11cb251e49d8ebdc8a9a44a5e9))
+
 ## [16.0.0](https://github.com/ngneat/spectator/compare/v15.0.1...v16.0.0) (2023-12-16)
 
 
