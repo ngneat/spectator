@@ -8,11 +8,11 @@ describe('HelloComponent', () => {
   const createHost = createHostFactory(HelloComponent);
 
   it('should display the title', () => {
-    host = createHost(`<hello></hello> `, {
-      props: {
+    host = createHost(`<hello [title]="title" [widthRaw]="widthRaw"></hello> `, {
+      hostProps: {
         title: 'some title',
-        widthRaw: 20
-      }
+        widthRaw: 20,
+      },
     });
 
     expect((host.query('div') as HTMLElement).style.width).toBe('20px');
@@ -31,8 +31,8 @@ describe('HelloComponent', () => {
     expect('div h2').toHaveText(' some title ', true);
 
     expect('div h2').toHaveExactText(' some title ');
-    expect('div h2').toHaveExactText('some title', {trim: true});
-    expect('div h2').not.toHaveExactText('ome title', {trim: true});
+    expect('div h2').toHaveExactText('some title', { trim: true });
+    expect('div h2').not.toHaveExactText('ome title', { trim: true });
 
     expect('div h2').toHaveExactTrimmedText('some title');
     expect('div h2').not.toHaveExactTrimmedText('ome title');

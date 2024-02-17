@@ -14,7 +14,23 @@ describe('StandalonePipe', () => {
       spectator = createPipe();
     });
 
-    it('should render a execute the StandalonePipe', () => {
+    it('should render and execute the StandalonePipe', () => {
+      expect(spectator.element.querySelector('#standalone')).toContainText('This stands alone!');
+    });
+  });
+
+  describe('with host inputs', () => {
+    let spectator: SpectatorPipe<StandalonePipe>;
+
+    const createPipe = createPipeFactory({
+      pipe: StandalonePipe,
+    });
+
+    beforeEach(() => {
+      spectator = createPipe(`<div id="standalone">{{ thisField | standalone }}</div>`, { hostProps: { thisField: 'This' } });
+    });
+
+    it('should render and execute the StandalonePipe', () => {
       expect(spectator.element.querySelector('#standalone')).toContainText('This stands alone!');
     });
   });

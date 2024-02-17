@@ -1,23 +1,26 @@
-import { Provider, Type, NgZone } from '@angular/core';
+import { NgZone, Provider, Type } from '@angular/core';
 import { TestBed, waitForAsync } from '@angular/core/testing';
 import { ActivatedRoute, Router } from '@angular/router';
 
+import { addMatchers } from '../core';
 import { setProps } from '../internals/query';
 import * as customMatchers from '../matchers';
 import {
-  SpectatorOverrides, overrideComponentIfProviderOverridesSpecified,
-  overrideModules, overrideComponents,
-  overrideDirectives, overridePipes
+  overrideComponentIfProviderOverridesSpecified,
+  overrideComponents,
+  overrideDirectives,
+  overrideModules,
+  overridePipes,
+  SpectatorOverrides,
 } from '../spectator/create-factory';
-import { addMatchers } from '../core';
-import { isType } from '../types';
+import { InferInputSignals, isType } from '../types';
 
+import { SpyObject } from '../mock';
 import { ActivatedRouteStub } from './activated-route-stub';
 import { initialRoutingModule } from './initial-module';
 import { getRoutingDefaultOptions, SpectatorRoutingOptions } from './options';
 import { RouteOptions } from './route-options';
 import { SpectatorRouting } from './spectator-routing';
-import { SpyObject } from '../mock';
 
 /**
  * @publicApi
@@ -59,7 +62,7 @@ export function createRoutingFactory<C>(typeOrOptions: Type<C> | SpectatorRoutin
     const defaults: SpectatorRoutingOverrides<C> = {
       props: {},
       detectChanges: true,
-      providers: []
+      providers: [],
     };
 
     const { detectChanges, props, providers } = { ...defaults, ...overrides };
@@ -73,7 +76,7 @@ export function createRoutingFactory<C>(typeOrOptions: Type<C> | SpectatorRoutin
     const { params, queryParams, data, fragment, url, root, parent, children, firstChild } = { ...options, ...overrides };
 
     TestBed.overrideProvider(ActivatedRoute, {
-      useValue: new ActivatedRouteStub({ params, queryParams, data, fragment, url, root, parent, children, firstChild })
+      useValue: new ActivatedRouteStub({ params, queryParams, data, fragment, url, root, parent, children, firstChild }),
     });
     const ngZone = (<any>TestBed).inject ? TestBed.inject(NgZone) : TestBed.get(NgZone);
 
@@ -91,11 +94,11 @@ export function createRoutingFactory<C>(typeOrOptions: Type<C> | SpectatorRoutin
   };
 }
 
-function createSpectatorRouting<C>(options: Required<SpectatorRoutingOptions<C>>, props?: Partial<C>): SpectatorRouting<C> {
+function createSpectatorRouting<C>(options: Required<SpectatorRoutingOptions<C>>, props?: InferInputSignals<C>): SpectatorRouting<C> {
   const fixture = TestBed.createComponent(options.component);
   const debugElement = fixture.debugElement;
 
-  const component = setProps(fixture.componentInstance, props);
+  const component = setProps(fixture.componentRef, props);
 
   /**
    * Back compatibility, angular under 9 version doesnt have a inject function

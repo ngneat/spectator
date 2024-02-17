@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
-import { fakeAsync, tick } from '@angular/core/testing';
-import { createHostFactory, SpectatorHost } from '@ngneat/spectator/jest';
+import { fakeAsync } from '@angular/core/testing';
 import { FormControl } from '@angular/forms';
+import { SpectatorHost, createHostFactory } from '@ngneat/spectator/jest';
 
-import { ZippyComponent } from '../../../test/zippy/zippy.component';
 import { QueryService } from '../../../test/query.service';
+import { ZippyComponent } from '../../../test/zippy/zippy.component';
 
 describe('ZippyComponent', () => {
   let host: SpectatorHost<ZippyComponent>;
@@ -32,15 +32,6 @@ describe('ZippyComponent', () => {
     expect(host.query('.zippy__title')).toHaveText('Zippy title');
   });
 
-  it('should display the title from component property', () => {
-    host = createHost(`<zippy></zippy>`, {
-      props: {
-        title: 'ZIPPY',
-      },
-    });
-    expect(host.query('.zippy__title')).toHaveText('ZIPPY');
-  });
-
   it('should display the title from host property', () => {
     host = createHost(`<zippy [title]="title"></zippy>`, {
       hostProps: {
@@ -49,18 +40,6 @@ describe('ZippyComponent', () => {
       },
     });
     expect(host.query('.zippy__title')).toHaveText('ZIPPY2');
-  });
-
-  it('should support objects', () => {
-    const options = { color: 'blue' };
-    host = createHost(`<zippy></zippy>`, {
-      detectChanges: true,
-      props: {
-        options,
-      },
-    });
-
-    expect(host.query('.color')).toHaveText('blue');
   });
 
   it('should have attribute', () => {

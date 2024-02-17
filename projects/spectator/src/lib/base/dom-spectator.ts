@@ -1,18 +1,18 @@
-import { ChangeDetectorRef, DebugElement, ElementRef, Type, EventEmitter } from '@angular/core';
-import { Observable } from 'rxjs';
+import { DebugElement, ElementRef, EventEmitter, Type } from '@angular/core';
 import { ComponentFixture, tick } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import { Observable } from 'rxjs';
 
-import { Token } from '../token';
-import { DOMSelector } from '../dom-selectors';
-import { isString, QueryOptions, QueryType, SpectatorElement, EventEmitterType, KeysMatching, KeyboardEventOptions } from '../types';
-import { SpyObject } from '../mock';
-import { getChildren, setProps } from '../internals/query';
-import { patchElementFocus } from '../internals/element-focus';
-import { createMouseEvent } from '../event-creators';
 import { dispatchFakeEvent, dispatchKeyboardEvent, dispatchMouseEvent, dispatchTouchEvent } from '../dispatch-events';
-import { typeInElement } from '../type-in-element';
+import { DOMSelector } from '../dom-selectors';
+import { createMouseEvent } from '../event-creators';
+import { patchElementFocus } from '../internals/element-focus';
+import { getChildren } from '../internals/query';
+import { SpyObject } from '../mock';
 import { selectOption } from '../select-option';
+import { Token } from '../token';
+import { typeInElement } from '../type-in-element';
+import { EventEmitterType, KeyboardEventOptions, KeysMatching, QueryOptions, QueryType, SpectatorElement, isString } from '../types';
 
 import { BaseSpectator } from './base-spectator';
 
@@ -152,17 +152,6 @@ export abstract class DomSpectator<I> extends BaseSpectator {
     }
 
     return null;
-  }
-
-  public setInput<K extends keyof I>(input: Partial<I>): void;
-  public setInput<K extends keyof I>(input: K, inputValue: I[K]): void;
-  public setInput(input: any, value?: any): void {
-    setProps(this.instance, input, value, false);
-    // Force cd on the tested component
-    this.debugElement.injector.get(ChangeDetectorRef).detectChanges();
-
-    // Force cd on the host component for cases such as: https://github.com/ngneat/spectator/issues/539
-    this.detectChanges();
   }
 
   public output<T, K extends keyof I = keyof I>(output: K): Observable<T> {

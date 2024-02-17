@@ -62,7 +62,7 @@ describe('TeardownComponent', () => {
           props: { rethrowErrors: true },
         });
         // Assert
-        expect(() => TestBed.resetTestingModule()).not.toThrowError();
+        expect(() => TestBed.resetTestingModule()).not.toThrow();
       });
     });
 
@@ -75,13 +75,13 @@ describe('TeardownComponent', () => {
         },
       });
 
-      it('should not rethrow errors after the fixture is destroyed if `teardown.rethrowErrors` is falsy', () => {
+      it('should rethrow errors after the fixture is destroyed if `teardown.rethrowErrors` is truthy', () => {
         // Arrange & act
         createComponent({
           props: { rethrowErrors: true },
         });
         // Assert
-        expect(() => TestBed.resetTestingModule()).toThrowError(/component threw errors during cleanup/);
+        expect(() => TestBed.resetTestingModule()).toThrow(/component threw errors during cleanup/);
       });
     });
   });

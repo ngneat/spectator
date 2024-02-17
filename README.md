@@ -592,6 +592,9 @@ The host method returns an instance of `SpectatorHost` which extends `Spectator`
 - `queryHost` - Read more about querying in Spectator
 - `queryHostAll` - Read more about querying in Spectator
 
+Setting inputs directly on a component using `setInput` or `props` is not possible when testing with a host component.
+Inputs should be set through `hostProps` or `setHostInput` instead, and passed through to your component in the template.
+
 ### Custom Host Component
 Sometimes it's helpful to pass your own host implementation. We can pass a custom host component to the `createHostFactory()` that will replace the default one:
 
@@ -791,6 +794,9 @@ describe('HighlightDirective', () => {
 });
 ```
 
+Setting inputs directly on a directive using `setInput` or `props` is not possible.
+Inputs should be set through `hostProps` or `setHostInput` instead, and passed through to your directive in the template.
+
 ## Testing Services
 
 The following example shows how to test a service with Spectator:
@@ -909,6 +915,10 @@ The `createPipe()` function returns `SpectatorPipe` with the following propertie
 - `element` - The native element of the host component
 - `detectChanges()` - A proxy for Angular `TestBed.fixture.detectChanges()`
 - `inject()` - A proxy for Angular `TestBed.inject()`
+
+Setting inputs directly on a pipe using `setInput` or `props` is not possible.
+Inputs should be set through `hostProps` or `setHostInput` instead, and passed through to your pipe in the template.
+
 
 ### Using Custom Host Component
 

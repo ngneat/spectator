@@ -3,25 +3,25 @@ import { TestBed, waitForAsync } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { BrowserDynamicTestingModule } from '@angular/platform-browser-dynamic/testing';
 
-import { setProps } from '../internals/query';
-import * as customMatchers from '../matchers';
-import { addMatchers } from '../core';
-import { isType } from '../types';
-import { HostComponent } from '../spectator-host/host-component';
 import { BaseSpectatorOverrides } from '../base/options';
+import { addMatchers } from '../core';
 import { nodeByDirective } from '../internals/node-by-directive';
+import { setHostProps } from '../internals/query';
+import * as customMatchers from '../matchers';
+import { HostComponent } from '../spectator-host/host-component';
+import { isType } from '../types';
 
-import { initialSpectatorDirectiveModule } from './initial-module';
-import { getSpectatorDirectiveDefaultOptions, SpectatorDirectiveOptions } from './options';
-import { SpectatorDirective } from './spectator-directive';
 import { overrideComponents, overrideDirectives, overrideModules, overridePipes } from '../spectator/create-factory';
+import { initialSpectatorDirectiveModule } from './initial-module';
+import { SpectatorDirectiveOptions, getSpectatorDirectiveDefaultOptions } from './options';
+import { SpectatorDirective } from './spectator-directive';
 
 /**
  * @publicApi
  */
 export type SpectatorDirectiveFactory<D, H> = <HP>(
   template: string,
-  overrides?: SpectatorDirectiveOverrides<D, H, HP>
+  overrides?: SpectatorDirectiveOverrides<H, HP>
 ) => SpectatorDirective<D, H & (HostComponent extends H ? HP : unknown)>;
 
 /**
@@ -29,15 +29,14 @@ export type SpectatorDirectiveFactory<D, H> = <HP>(
  */
 export type PresetSpectatorDirectiveFactory<D, H> = <HP>(
   template?: string,
-  overrides?: SpectatorDirectiveOverrides<D, H, HP>
+  overrides?: SpectatorDirectiveOverrides<H, HP>
 ) => SpectatorDirective<D, H & (HostComponent extends H ? HP : unknown)>;
 
 /**
  * @publicApi
  */
-export interface SpectatorDirectiveOverrides<D, H, HP> extends BaseSpectatorOverrides {
+export interface SpectatorDirectiveOverrides<H, HP> extends BaseSpectatorOverrides {
   detectChanges?: boolean;
-  props?: Partial<D>;
   hostProps?: HostComponent extends H ? HP : Partial<H>;
   directiveProviders?: Provider[];
 }
@@ -74,14 +73,13 @@ export function createDirectiveFactory<D, H = HostComponent>(
     })
   );
 
-  return <HP>(template?: string, overrides?: SpectatorDirectiveOverrides<D, H, HP>) => {
-    const defaults: SpectatorDirectiveOverrides<D, H, HP> = {
-      props: {},
+  return <HP>(template?: string, overrides?: SpectatorDirectiveOverrides<H, HP>) => {
+    const defaults: SpectatorDirectiveOverrides<H, HP> = {
       hostProps: {} as any,
       detectChanges: true,
       providers: [],
     };
-    const { detectChanges, props, hostProps, providers } = { ...defaults, ...overrides };
+    const { detectChanges, hostProps, providers } = { ...defaults, ...overrides };
 
     if (providers && providers.length) {
       providers.forEach((provider: Provider) => {
@@ -99,7 +97,7 @@ export function createDirectiveFactory<D, H = HostComponent>(
       });
     }
 
-    const spectator = createSpectatorDirective(options, props, hostProps);
+    const spectator = createSpectatorDirective(options, hostProps);
 
     if (options.detectChanges && detectChanges) {
       spectator.detectChanges();
@@ -111,7 +109,6 @@ export function createDirectiveFactory<D, H = HostComponent>(
 
 function createSpectatorDirective<D, H, HP>(
   options: Required<SpectatorDirectiveOptions<D, H>>,
-  props?: Partial<D>,
   hostProps?: HP
 ): SpectatorDirective<D, H & HP> {
   const hostFixture = TestBed.createComponent(options.host);
@@ -122,8 +119,8 @@ function createSpectatorDirective<D, H, HP>(
     throw new Error(`Cannot find directive ${options.directive} in host template 😔`);
   }
 
-  const hostComponent = setProps(hostFixture.componentInstance, hostProps);
-  const directive = setProps(debugNode.injector.get(options.directive), props);
+  const hostComponent = setHostProps(hostFixture.componentRef, hostProps);
+  const directive = debugNode.injector.get(options.directive);
 
   return new SpectatorDirective(hostComponent, hostFixture, hostFixture.debugElement, directive, debugElement.nativeElement);
 }

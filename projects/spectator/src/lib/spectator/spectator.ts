@@ -1,9 +1,11 @@
-import { ChangeDetectorRef, DebugElement, InjectionToken, Type, AbstractType } from '@angular/core';
+import { ChangeDetectorRef, DebugElement } from '@angular/core';
 import { ComponentFixture } from '@angular/core/testing';
 
+import { DomSpectator } from '../base/dom-spectator';
+import { setProps } from '../internals/query';
 import { SpyObject } from '../mock';
 import { Token } from '../token';
-import { DomSpectator } from '../base/dom-spectator';
+import { InferInputSignal, InferInputSignals } from '../types';
 
 /**
  * @publicApi
@@ -31,5 +33,16 @@ export class Spectator<C> extends DomSpectator<C> {
     } else {
       this.detectChanges();
     }
+  }
+
+  public setInput<K extends keyof C>(input: InferInputSignals<C>): void;
+  public setInput<K extends keyof C>(input: K, inputValue: InferInputSignal<C[K]>): void;
+  public setInput(input: any, value?: any): void {
+    setProps(this.fixture.componentRef, input, value);
+    // Force cd on the tested component
+    this.debugElement.injector.get(ChangeDetectorRef).detectChanges();
+
+    // Force cd on the host component for cases such as: https://github.com/ngneat/spectator/issues/539
+    this.detectChanges();
   }
 }

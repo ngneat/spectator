@@ -13,7 +13,7 @@ describe('DatoAutoFocusDirective', () => {
 
   const createHost = createHostFactory({
     component: AutoFocusDirective,
-    host: CustomHostComponent
+    host: CustomHostComponent,
   });
 
   it('should be focused', () => {
@@ -46,7 +46,7 @@ describe('DatoAutoFocusDirective (createHostDirectiveFactory)', () => {
 
   const createHost = createDirectiveFactory({
     directive: AutoFocusDirective,
-    host: CustomHostComponent
+    host: CustomHostComponent,
   });
 
   it('should be focused', () => {

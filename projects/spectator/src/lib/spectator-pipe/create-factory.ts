@@ -2,17 +2,17 @@ import { Provider, Type } from '@angular/core';
 import { TestBed, waitForAsync } from '@angular/core/testing';
 import { BrowserDynamicTestingModule } from '@angular/platform-browser-dynamic/testing';
 
-import { setProps } from '../internals/query';
-import * as customMatchers from '../matchers';
 import { BaseSpectatorOverrides } from '../base/options';
 import { addMatchers } from '../core';
-import { isType } from '../types';
+import { setHostProps } from '../internals/query';
+import * as customMatchers from '../matchers';
 import { HostComponent } from '../spectator-host/host-component';
+import { isType } from '../types';
 
-import { initialSpectatorPipeModule } from './initial-module';
-import { getSpectatorPipeDefaultOptions, SpectatorPipeOptions } from './options';
-import { SpectatorPipe } from './spectator-pipe';
 import { overrideModules, overridePipes } from '../spectator/create-factory';
+import { initialSpectatorPipeModule } from './initial-module';
+import { SpectatorPipeOptions, getSpectatorPipeDefaultOptions } from './options';
+import { SpectatorPipe } from './spectator-pipe';
 
 /**
  * @publicApi
@@ -85,7 +85,7 @@ function createSpectatorPipe<P, H, HP>(options: Required<SpectatorPipeOptions<P,
   const hostFixture = TestBed.createComponent(options.host);
   const debugElement = hostFixture.debugElement;
 
-  const hostComponent = setProps(hostFixture.componentInstance, hostProps);
+  const hostComponent = setHostProps(hostFixture.componentRef, hostProps);
 
   return new SpectatorPipe(hostComponent, hostFixture, hostFixture.debugElement, debugElement.nativeElement);
 }
