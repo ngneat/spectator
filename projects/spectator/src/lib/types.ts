@@ -30,6 +30,17 @@ export type KeysMatching<T, V> = { [K in keyof T]: T[K] extends V ? K : never }[
 
 export type SelectOptions = string | string[] | HTMLOptionElement | HTMLOptionElement[];
 
+export type NestedDeferBlocks = {
+  deferBlocks: DeferBlocks;
+};
+
+export interface DeferBlocks {
+  renderComplete(deferBlockIndex?: number): Promise<NestedDeferBlocks>;
+  renderPlaceholder(deferBlockIndex?: number): Promise<NestedDeferBlocks>;
+  renderLoading(deferBlockIndex?: number): Promise<NestedDeferBlocks>;
+  renderError(deferBlockIndex?: number): Promise<NestedDeferBlocks>;
+}
+
 export interface KeyboardEventOptions {
   key: string;
   keyCode: number;
