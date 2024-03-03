@@ -9,7 +9,12 @@ import { HostComponent } from '../spectator-host/host-component';
  * @publicApi
  */
 export class SpectatorPipe<P, H = HostComponent> extends BaseSpectator {
-  constructor(public hostComponent: H, public fixture: ComponentFixture<any>, public debugElement: DebugElement, public element: Element) {
+  constructor(
+    public hostComponent: H,
+    public fixture: ComponentFixture<any>,
+    public debugElement: DebugElement,
+    public element: Element,
+  ) {
     super();
   }
 

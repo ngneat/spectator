@@ -9,7 +9,7 @@ describe('IntegrationParentComponent', () => {
   const createComponent = createComponentFactory({
     component: IntegrationParentComponent,
     imports: [IntegrationModule, HttpClientTestingModule],
-    declareComponent: false
+    declareComponent: false,
   });
 
   it('should exist', () => {

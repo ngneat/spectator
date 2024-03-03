@@ -3,7 +3,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 import { StatsService } from './stats.service';
 
 @Pipe({
-  name: 'sum'
+  name: 'sum',
 })
 export class SumPipe implements PipeTransform {
   constructor(private readonly statsService: StatsService) {}

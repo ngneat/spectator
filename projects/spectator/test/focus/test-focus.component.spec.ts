@@ -2,13 +2,12 @@ import { SpectatorHost, createHostFactory } from '@ngneat/spectator';
 import { TestFocusComponent } from './test-focus.component';
 
 describe('SpectatorHost.focus() ', () => {
-
   const createHost = createHostFactory(TestFocusComponent);
   let host: SpectatorHost<TestFocusComponent>;
 
   beforeEach(() => {
     host = createHost('<app-test-focus></app-test-focus>');
-  })
+  });
 
   it('sets document.activeElement', () => {
     host.focus('#button1');
@@ -38,5 +37,4 @@ describe('SpectatorHost.focus() ', () => {
     expect(host.component.focusCount('button1')).toBe(2);
     expect(host.component.blurCount('button1')).toBe(1);
   });
-
 });

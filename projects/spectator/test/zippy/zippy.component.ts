@@ -10,7 +10,7 @@ import { QueryService } from '../query.service';
       :host {
         display: block;
       }
-    `
+    `,
   ],
   template: `
     <div class="zippy" id="zippy">
@@ -23,17 +23,20 @@ import { QueryService } from '../query.service';
       <input type="checkbox" checked="true" class="checkbox" />
       <div class="color">{{ options.color }}</div>
     </div>
-  `
+  `,
 })
 export class ZippyComponent {
   @Input() public title;
   @Input() public options = {
-    color: 'red'
+    color: 'red',
   };
   public visible = false;
   public updatedAsync = false;
 
-  constructor(private readonly queryService: QueryService, private titleService: Title) {}
+  constructor(
+    private readonly queryService: QueryService,
+    private titleService: Title,
+  ) {}
 
   @HostListener('keyup.esc') public onEsc(): void {
     this.toggle();

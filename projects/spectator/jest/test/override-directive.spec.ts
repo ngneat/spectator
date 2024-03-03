@@ -1,9 +1,6 @@
-import {
-  createDirectiveFactory,
-  SpectatorDirective,
-} from '@ngneat/spectator';
+import { createDirectiveFactory, SpectatorDirective } from '@ngneat/spectator';
 import { Directive, Inject, InjectionToken } from '@angular/core';
-import { overrideDirectives } from "../../src/lib/spectator/create-factory";
+import { overrideDirectives } from '../../src/lib/spectator/create-factory';
 
 // Created only for testing purpose
 export const directiveProviderToken = new InjectionToken('DirectiveProviderToken');
@@ -36,7 +33,7 @@ describe('Override Directive', () => {
             },
           ],
         ],
-      } as any)
+      } as any),
     ).toThrowError('Can not override non standalone directive');
   });
 
@@ -54,7 +51,7 @@ describe('Override Directive', () => {
           },
         ],
       ],
-      template: `<div class="default" appStandaloneDirectiveWithDependency>Testing Directive Providers</div>`
+      template: `<div class="default" appStandaloneDirectiveWithDependency>Testing Directive Providers</div>`,
     });
 
     beforeEach(() => {

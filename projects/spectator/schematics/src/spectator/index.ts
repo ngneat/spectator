@@ -40,7 +40,7 @@ export function spectatorComponentSchematic(options: ComponentOptions): Rule {
             ...options,
           }),
           move(movePath),
-        ]
+        ],
       );
 
       return mergeWith(specTemplateRule, MergeStrategy.Default);

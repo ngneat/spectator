@@ -1,7 +1,7 @@
 import { createComponentFactory, createHostFactory, Spectator, SpectatorHost } from '@ngneat/spectator';
 import { Component } from '@angular/core';
-import { QueryService } from "./query.service";
-import { overrideComponents } from "../src/lib/spectator/create-factory";
+import { QueryService } from './query.service';
+import { overrideComponents } from '../src/lib/spectator/create-factory';
 
 // Created only for testing purpose
 @Component({
@@ -16,7 +16,7 @@ export class StandaloneComponentWithDependency {
 @Component({
   selector: `app-standalone-with-import`,
   template: `<div id="standalone">Standalone component with import!</div>
-  <app-standalone-with-dependency></app-standalone-with-dependency>`,
+    <app-standalone-with-dependency></app-standalone-with-dependency>`,
   imports: [StandaloneComponentWithDependency],
   standalone: true,
 })
@@ -52,7 +52,7 @@ describe('Override Component', () => {
             },
           ],
         ],
-      } as any)
+      } as any),
     ).toThrowError('Can not override non standalone component');
   });
 

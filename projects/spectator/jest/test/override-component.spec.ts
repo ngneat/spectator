@@ -52,7 +52,7 @@ describe('Override Component', () => {
             },
           ],
         ],
-      } as any)
+      } as any),
     ).toThrowError('Can not override non standalone component');
   });
 

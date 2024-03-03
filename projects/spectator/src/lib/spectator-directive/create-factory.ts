@@ -21,7 +21,7 @@ import { SpectatorDirective } from './spectator-directive';
  */
 export type SpectatorDirectiveFactory<D, H> = <HP>(
   template: string,
-  overrides?: SpectatorDirectiveOverrides<H, HP>
+  overrides?: SpectatorDirectiveOverrides<H, HP>,
 ) => SpectatorDirective<D, H & (HostComponent extends H ? HP : unknown)>;
 
 /**
@@ -29,7 +29,7 @@ export type SpectatorDirectiveFactory<D, H> = <HP>(
  */
 export type PresetSpectatorDirectiveFactory<D, H> = <HP>(
   template?: string,
-  overrides?: SpectatorDirectiveOverrides<H, HP>
+  overrides?: SpectatorDirectiveOverrides<H, HP>,
 ) => SpectatorDirective<D, H & (HostComponent extends H ? HP : unknown)>;
 
 /**
@@ -45,16 +45,16 @@ export interface SpectatorDirectiveOverrides<H, HP> extends BaseSpectatorOverrid
  * @publicApi
  */
 export function createDirectiveFactory<D, H = HostComponent>(
-  options: SpectatorDirectiveOptions<D, H> & { template: string }
+  options: SpectatorDirectiveOptions<D, H> & { template: string },
 ): PresetSpectatorDirectiveFactory<D, H>;
 /**
  * @publicApi
  */
 export function createDirectiveFactory<D, H = HostComponent>(
-  typeOrOptions: Type<D> | SpectatorDirectiveOptions<D, H>
+  typeOrOptions: Type<D> | SpectatorDirectiveOptions<D, H>,
 ): SpectatorDirectiveFactory<D, H>;
 export function createDirectiveFactory<D, H = HostComponent>(
-  typeOrOptions: Type<D> | SpectatorDirectiveOptions<D, H>
+  typeOrOptions: Type<D> | SpectatorDirectiveOptions<D, H>,
 ): SpectatorDirectiveFactory<D, H> {
   const options = isType(typeOrOptions)
     ? getSpectatorDirectiveDefaultOptions<D, H>({ directive: typeOrOptions })
@@ -62,16 +62,14 @@ export function createDirectiveFactory<D, H = HostComponent>(
 
   const moduleMetadata = initialSpectatorDirectiveModule<D, H>(options);
 
-  beforeEach(
-    waitForAsync(() => {
-      addMatchers(customMatchers);
-      TestBed.configureTestingModule(moduleMetadata);
-      overrideModules(options);
-      overrideComponents(options);
-      overrideDirectives(options);
-      overridePipes(options);
-    })
-  );
+  beforeEach(waitForAsync(() => {
+    addMatchers(customMatchers);
+    TestBed.configureTestingModule(moduleMetadata);
+    overrideModules(options);
+    overrideComponents(options);
+    overrideDirectives(options);
+    overridePipes(options);
+  }));
 
   return <HP>(template?: string, overrides?: SpectatorDirectiveOverrides<H, HP>) => {
     const defaults: SpectatorDirectiveOverrides<H, HP> = {
@@ -109,7 +107,7 @@ export function createDirectiveFactory<D, H = HostComponent>(
 
 function createSpectatorDirective<D, H, HP>(
   options: Required<SpectatorDirectiveOptions<D, H>>,
-  hostProps?: HP
+  hostProps?: HP,
 ): SpectatorDirective<D, H & HP> {
   const hostFixture = TestBed.createComponent(options.host);
   const debugElement = hostFixture.debugElement.query(By.directive(options.directive)) || hostFixture.debugElement;

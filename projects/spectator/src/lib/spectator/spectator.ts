@@ -11,7 +11,12 @@ import { InferInputSignal, InferInputSignals } from '../types';
  * @publicApi
  */
 export class Spectator<C> extends DomSpectator<C> {
-  constructor(public fixture: ComponentFixture<C>, public debugElement: DebugElement, protected instance: C, public element: HTMLElement) {
+  constructor(
+    public fixture: ComponentFixture<C>,
+    public debugElement: DebugElement,
+    protected instance: C,
+    public element: HTMLElement,
+  ) {
     super(fixture, debugElement, instance, element);
   }
 

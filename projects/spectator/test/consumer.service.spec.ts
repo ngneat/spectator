@@ -12,9 +12,9 @@ describe('ConsumerService', () => {
     providers: [
       mockProvider(ProviderService, {
         obs$: new Subject<string>(),
-        method: () => randomNumber
-      })
-    ]
+        method: () => randomNumber,
+      }),
+    ],
   });
 
   beforeEach(() => (spectator = createService()));

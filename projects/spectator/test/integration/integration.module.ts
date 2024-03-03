@@ -11,6 +11,6 @@ import { IntegrationChildComponent } from './integration-child.component';
   imports: [CommonModule],
   providers: [WidgetService, WidgetDataService],
   declarations: [IntegrationParentComponent, IntegrationChildComponent],
-  exports: [IntegrationParentComponent]
+  exports: [IntegrationParentComponent],
 })
 export class IntegrationModule {}

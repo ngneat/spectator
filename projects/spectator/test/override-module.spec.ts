@@ -5,7 +5,7 @@ import {
   createHostFactory,
   Spectator,
   SpectatorDirective,
-  SpectatorHost
+  SpectatorHost,
 } from '@ngneat/spectator';
 
 import { AveragePipe } from './pipe/average.pipe';
@@ -28,7 +28,7 @@ describe('Override Module With Component Factory', () => {
   const createComponent = createComponentFactory({
     component: TestComponent,
     imports: [SomeModule],
-    overrideModules: [[SomeModule, { set: { declarations: [AveragePipe], exports: [AveragePipe] } }]]
+    overrideModules: [[SomeModule, { set: { declarations: [AveragePipe], exports: [AveragePipe] } }]],
   });
 
   beforeEach(() => {
@@ -47,7 +47,7 @@ describe('Override Module With Directive Factory', () => {
     directive: SomeDirective,
     host: TestComponent,
     imports: [SomeModule],
-    overrideModules: [[SomeModule, { set: { declarations: [AveragePipe], exports: [AveragePipe] } }]]
+    overrideModules: [[SomeModule, { set: { declarations: [AveragePipe], exports: [AveragePipe] } }]],
   });
 
   beforeEach(() => {
@@ -65,7 +65,7 @@ describe('Override Module With Host Factory', () => {
   const createHost = createHostFactory({
     component: TestComponent,
     imports: [SomeModule],
-    overrideModules: [[SomeModule, { set: { declarations: [AveragePipe], exports: [AveragePipe] } }]]
+    overrideModules: [[SomeModule, { set: { declarations: [AveragePipe], exports: [AveragePipe] } }]],
   });
 
   beforeEach(() => {

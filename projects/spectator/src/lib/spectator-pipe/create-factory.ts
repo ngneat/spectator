@@ -19,7 +19,7 @@ import { SpectatorPipe } from './spectator-pipe';
  */
 export type SpectatorPipeFactory<P, H> = <HP>(
   templateOrOverrides?: string | SpectatorPipeOverrides<H, HP>,
-  overrides?: SpectatorPipeOverrides<H, HP>
+  overrides?: SpectatorPipeOverrides<H, HP>,
 ) => SpectatorPipe<P, H & (HostComponent extends H ? HP : unknown)>;
 
 /**
@@ -40,14 +40,12 @@ export function createPipeFactory<P, H = HostComponent>(typeOrOptions: Type<P> |
 
   const moduleMetadata = initialSpectatorPipeModule<P, H>(options);
 
-  beforeEach(
-    waitForAsync(() => {
-      addMatchers(customMatchers);
-      TestBed.configureTestingModule(moduleMetadata);
-      overrideModules(options);
-      overridePipes(options);
-    })
-  );
+  beforeEach(waitForAsync(() => {
+    addMatchers(customMatchers);
+    TestBed.configureTestingModule(moduleMetadata);
+    overrideModules(options);
+    overridePipes(options);
+  }));
 
   return <HP>(templateOrOverrides?: string | SpectatorPipeOverrides<H, HP>, overrides?: SpectatorPipeOverrides<H, HP>) => {
     const defaults: SpectatorPipeOverrides<H, HP> = {

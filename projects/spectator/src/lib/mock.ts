@@ -28,13 +28,12 @@ export interface CompatibleSpy extends jasmine.Spy {
 /**
  * @publicApi
  */
-export type SpyObject<T> = T &
-  { [P in keyof T]: T[P] extends Function ? T[P] & CompatibleSpy : T[P] } & {
-    /**
-     * Casts to type without readonly properties
-     */
-    castToWritable(): Writable<T>;
-  };
+export type SpyObject<T> = T & { [P in keyof T]: T[P] extends Function ? T[P] & CompatibleSpy : T[P] } & {
+  /**
+   * Casts to type without readonly properties
+   */
+  castToWritable(): Writable<T>;
+};
 
 /**
  * @internal
@@ -55,9 +54,9 @@ export function installProtoMethods<T>(mock: any, proto: any, createSpyFn: Funct
       mock[key] = createSpyFn(key);
     } else if (descriptor.get && !mock.hasOwnProperty(key)) {
       Object.defineProperty(mock, key, {
-        set: value => (mock[`_${key}`] = value),
+        set: (value) => (mock[`_${key}`] = value),
         get: () => mock[`_${key}`],
-        configurable: true
+        configurable: true,
       });
     }
   }
@@ -73,10 +72,10 @@ export function installProtoMethods<T>(mock: any, proto: any, createSpyFn: Funct
 export function createSpyObject<T>(type: Type<T> | AbstractType<T>, template?: Partial<Record<keyof T, any>>): SpyObject<T> {
   const mock: any = { ...template } || {};
 
-  installProtoMethods<T>(mock, type.prototype, name => {
+  installProtoMethods<T>(mock, type.prototype, (name) => {
     const newSpy: jasmine.Spy & Partial<CompatibleSpy> = jasmine.createSpy(name);
     newSpy.andCallFake = (fn: (...args: any[]) => any) => <any>newSpy.and.callFake(fn);
-    newSpy.andReturn = val => newSpy.and.returnValue(val);
+    newSpy.andReturn = (val) => newSpy.and.returnValue(val);
     newSpy.reset = () => newSpy.calls.reset();
     // revisit return null here (previously needed for rtts_assert).
     newSpy.and.returnValue(null);
@@ -93,7 +92,7 @@ export function createSpyObject<T>(type: Type<T> | AbstractType<T>, template?: P
 export function mockProvider<T>(type: Type<T> | AbstractType<T>, properties?: Partial<Record<keyof T, any>>): FactoryProvider {
   return {
     provide: type,
-    useFactory: () => createSpyObject(type, properties)
+    useFactory: () => createSpyObject(type, properties),
   };
 }
 

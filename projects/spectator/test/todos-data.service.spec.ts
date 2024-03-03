@@ -7,7 +7,7 @@ import { TodosDataService, UserService } from './todos-data.service';
 describe('HttpClient testing', () => {
   const http = createHttpFactory({
     service: TodosDataService,
-    mocks: [UserService]
+    mocks: [UserService],
   });
 
   it('can test HttpClient.get', () => {
@@ -39,10 +39,10 @@ describe('HttpClient testing', () => {
     const spectatorHttp = http();
 
     spectatorHttp.service.concurrentRequests().subscribe();
-    const reqs = spectatorHttp.expectConcurrent(['one', 'two', 'three'].map(url => ({ url, method: HttpMethod.POST })));
+    const reqs = spectatorHttp.expectConcurrent(['one', 'two', 'three'].map((url) => ({ url, method: HttpMethod.POST })));
     spectatorHttp.flushAll(
       reqs,
-      Array.from({ length: 3 }, _ => ({}))
+      Array.from({ length: 3 }, (_) => ({})),
     );
   });
 

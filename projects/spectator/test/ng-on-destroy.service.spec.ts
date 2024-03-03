@@ -10,9 +10,9 @@ describe('NgOnDestroyService', () => {
     service: NgOnDestroyService,
     providers: [
       mockProvider(SubjectService, {
-        subject: subjectAcrossMultipleTests$
-      })
-    ]
+        subject: subjectAcrossMultipleTests$,
+      }),
+    ],
   });
 
   it('should subscribe to subject during', () => {

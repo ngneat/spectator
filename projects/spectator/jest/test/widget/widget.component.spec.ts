@@ -8,7 +8,7 @@ describe('WidgetComponent', () => {
 
   const createHost = createHostFactory({
     component: WidgetComponent,
-    mocks: [WidgetService]
+    mocks: [WidgetService],
   });
 
   it('should work', () => {

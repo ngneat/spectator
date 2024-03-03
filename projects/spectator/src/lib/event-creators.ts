@@ -65,7 +65,7 @@ export function createKeyboardEvent(type: string, keyOrKeyCode: string | number 
       key /* key */,
       0 /* location */,
       modifiersStr /* modifiersList */,
-      false /* repeat */
+      false /* repeat */,
     );
   }
 

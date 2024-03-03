@@ -9,7 +9,7 @@ export interface SpectatorServiceOptions<S = any> extends BaseSpectatorOptions {
 }
 
 const defaultServiceOptions: OptionalsRequired<SpectatorServiceOptions> = {
-  ...getDefaultBaseOptions()
+  ...getDefaultBaseOptions(),
 };
 
 /**

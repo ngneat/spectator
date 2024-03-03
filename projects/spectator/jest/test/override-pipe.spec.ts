@@ -1,12 +1,12 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { createPipeFactory, SpectatorPipe } from "@ngneat/spectator";
-import { overridePipes } from "../../src/lib/spectator/create-factory";
+import { createPipeFactory, SpectatorPipe } from '@ngneat/spectator';
+import { overridePipes } from '../../src/lib/spectator/create-factory';
 
 // Created only for testing purpose
 @Pipe({
   name: `standalonePipe`,
   standalone: true,
-  pure: false
+  pure: false,
 })
 export class StandalonePipe implements PipeTransform {
   public transform(value: number[]): number[] {
@@ -29,12 +29,12 @@ describe('Override Pipe', () => {
           [
             MockNonStandalonePipe,
             {
-              remove: {imports: []},
-              add: {imports: []},
+              remove: { imports: [] },
+              add: { imports: [] },
             },
           ],
         ],
-      } as any)
+      } as any),
     ).toThrowError('Can not override non standalone pipe');
   });
 
@@ -59,8 +59,8 @@ describe('Override Pipe', () => {
     });
 
     it('should render a StandaloneWithImportsComponent', () => {
-      expect(spectator).toBeTruthy()
-      expect(spectator.element).toHaveText('1,2,3')
+      expect(spectator).toBeTruthy();
+      expect(spectator.element).toHaveText('1,2,3');
     });
   });
 });

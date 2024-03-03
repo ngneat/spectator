@@ -42,21 +42,19 @@ export function createRoutingFactory<C>(typeOrOptions: Type<C> | SpectatorRoutin
 
   const moduleMetadata = initialRoutingModule<C>(options);
 
-  beforeEach(
-    waitForAsync(() => {
-      addMatchers(customMatchers);
-      TestBed.configureTestingModule(moduleMetadata);
+  beforeEach(waitForAsync(() => {
+    addMatchers(customMatchers);
+    TestBed.configureTestingModule(moduleMetadata);
 
-      overrideModules(options);
-      overrideComponents(options);
-      overrideDirectives(options);
-      overridePipes(options);
+    overrideModules(options);
+    overrideComponents(options);
+    overrideDirectives(options);
+    overridePipes(options);
 
-      overrideComponentIfProviderOverridesSpecified(options);
+    overrideComponentIfProviderOverridesSpecified(options);
 
-      TestBed.compileComponents();
-    })
-  );
+    TestBed.compileComponents();
+  }));
 
   return (overrides?: SpectatorRoutingOverrides<C>) => {
     const defaults: SpectatorRoutingOverrides<C> = {
@@ -112,6 +110,6 @@ function createSpectatorRouting<C>(options: Required<SpectatorRoutingOptions<C>>
     debugElement,
     component,
     TestBed.inject(Router),
-    TestBed.inject(ActivatedRoute) as SpyObject<ActivatedRouteStub>
+    TestBed.inject(ActivatedRoute) as SpyObject<ActivatedRouteStub>,
   );
 }

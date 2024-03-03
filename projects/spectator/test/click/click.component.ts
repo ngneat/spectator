@@ -7,7 +7,7 @@ import { debounce } from 'helpful-decorators';
     <button (click)="onClick()">Change</button>
     <p>{{ name }}</p>
   `,
-  styles: []
+  styles: [],
 })
 export class ClickComponent {
   public name = 'init';

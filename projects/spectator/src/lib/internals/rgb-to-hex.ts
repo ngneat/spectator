@@ -9,7 +9,7 @@
 export function hex2rgb(hex: string): string {
   const h = hex.replace('#', '');
   const matches = h.match(new RegExp('(.{' + h.length / 3 + '})', 'g'))!;
-  const [r, g, b] = matches.map(match => parseInt(match.length === 1 ? match + match : match, 16));
+  const [r, g, b] = matches.map((match) => parseInt(match.length === 1 ? match + match : match, 16));
 
   return `rgb(${r},${g},${b})`;
 }

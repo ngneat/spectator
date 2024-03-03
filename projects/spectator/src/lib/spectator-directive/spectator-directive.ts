@@ -16,7 +16,7 @@ export class SpectatorDirective<D, H = HostComponent> extends DomSpectator<D> {
     public fixture: ComponentFixture<any>,
     public debugElement: DebugElement,
     protected instance: D,
-    public element: Element
+    public element: Element,
   ) {
     super(fixture, debugElement, instance, element);
   }

@@ -10,7 +10,7 @@ describe('ButtonComponent', () => {
 
   const createComponent = createComponentFactory({
     component: ButtonComponent,
-    componentProviders: [mockProvider(QueryService)]
+    componentProviders: [mockProvider(QueryService)],
   });
 
   beforeEach(() => (spectator = createComponent()));
@@ -27,7 +27,7 @@ describe('ButtonComponent', () => {
 
   it('should set the title according to the [title]', () => {
     spectator = createComponent({
-      props: { title: 'Click' }
+      props: { title: 'Click' },
     });
 
     expect(spectator.query('button')).toHaveText('Click');
@@ -35,7 +35,7 @@ describe('ButtonComponent', () => {
 
   it('should emit the $event on click', () => {
     let output;
-    spectator.output<{ type: string }>('click').subscribe(result => (output = result));
+    spectator.output<{ type: string }>('click').subscribe((result) => (output = result));
 
     spectator.component.onClick({ type: 'click' });
     expect(output).toEqual({ type: 'click' });
@@ -43,7 +43,7 @@ describe('ButtonComponent', () => {
 
   it('should mock the service', () => {
     spectator = createComponent({
-      detectChanges: false
+      detectChanges: false,
     });
     spectator.inject(QueryService, true).selectName.and.returnValue(of('Netanel'));
     spectator.detectChanges();
@@ -71,7 +71,7 @@ describe('ButtonComponent', () => {
   const createComponent = createComponentFactory({
     component: ButtonComponent,
     componentProviders: [mockProvider(QueryService)],
-    detectChanges: false
+    detectChanges: false,
   });
 
   beforeEach(() => (spectator = createComponent()));

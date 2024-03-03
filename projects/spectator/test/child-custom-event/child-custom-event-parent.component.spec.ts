@@ -10,7 +10,7 @@ describe('ChildCustomEventParentComponent', () => {
   const createComponent = createComponentFactory({
     component: ChildCustomEventParentComponent,
     imports: [ChildCustomEventModule],
-    declareComponent: false
+    declareComponent: false,
   });
 
   it('should trigger custom event with directive selector', () => {

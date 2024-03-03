@@ -5,7 +5,7 @@ import { ChildServiceService } from './child-service.service';
 describe('ChildServiceService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [ChildServiceService]
+      providers: [ChildServiceService],
     });
   });
 

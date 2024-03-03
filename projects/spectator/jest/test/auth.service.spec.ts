@@ -11,7 +11,7 @@ describe('AuthService', () => {
   let spectator: SpectatorService<AuthService>;
   const createService = createServiceFactory({
     service: AuthService,
-    mocks: [DateService]
+    mocks: [DateService],
   });
 
   beforeEach(() => (spectator = createService()));

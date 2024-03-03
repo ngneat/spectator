@@ -43,7 +43,10 @@ export class MyPageComponent implements OnInit {
   public children?: ActivatedRoute[];
   public firstChild!: ActivatedRoute | null;
 
-  constructor(private readonly route: ActivatedRoute, private readonly router: Router) {}
+  constructor(
+    private readonly route: ActivatedRoute,
+    private readonly router: Router,
+  ) {}
 
   public ngOnInit(): void {
     this.title = this.route.snapshot.data.title;

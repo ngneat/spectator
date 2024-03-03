@@ -9,7 +9,7 @@ describe('AutoFocusDirectiveModule', () => {
   const createDirective = createDirectiveFactory({
     directive: AutoFocusDirective,
     imports: [AutoFocusModule],
-    declareDirective: false
+    declareDirective: false,
   });
 
   it('should be declare AutoFocusDirective', () => {

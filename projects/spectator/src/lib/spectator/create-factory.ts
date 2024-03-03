@@ -124,21 +124,19 @@ export function createComponentFactory<C>(typeOrOptions: Type<C> | SpectatorOpti
 
   const moduleMetadata = initialSpectatorModule<C>(options);
 
-  beforeEach(
-    waitForAsync(() => {
-      addMatchers(customMatchers);
-      TestBed.configureTestingModule(moduleMetadata).overrideModule(BrowserDynamicTestingModule, {});
+  beforeEach(waitForAsync(() => {
+    addMatchers(customMatchers);
+    TestBed.configureTestingModule(moduleMetadata).overrideModule(BrowserDynamicTestingModule, {});
 
-      overrideModules(options);
-      overrideComponents(options);
-      overrideDirectives(options);
-      overridePipes(options);
+    overrideModules(options);
+    overrideComponents(options);
+    overrideDirectives(options);
+    overridePipes(options);
 
-      overrideComponentIfProviderOverridesSpecified(options);
+    overrideComponentIfProviderOverridesSpecified(options);
 
-      TestBed.compileComponents();
-    })
-  );
+    TestBed.compileComponents();
+  }));
 
   return (overrides?: SpectatorOverrides<C>) => {
     const defaults: SpectatorOverrides<C> = { props: {}, detectChanges: true, providers: [] };

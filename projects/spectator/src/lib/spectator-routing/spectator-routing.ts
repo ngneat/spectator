@@ -17,7 +17,7 @@ export class SpectatorRouting<C> extends Spectator<C> {
     debugElement: DebugElement,
     instance: C,
     public readonly router: Router,
-    public readonly activatedRouteStub?: ActivatedRouteStub
+    public readonly activatedRouteStub?: ActivatedRouteStub,
   ) {
     super(fixture, debugElement, instance, debugElement.nativeElement);
   }
@@ -109,7 +109,7 @@ export class SpectatorRouting<C> extends Spectator<C> {
       // eslint-disable-next-line no-console
       console.warn(
         'No stub for Router present. Set Spectator option "stubsEnabled" to true if you want to use this ' +
-          'helper, or use Router navigation to trigger events.'
+          'helper, or use Router navigation to trigger events.',
       );
 
       return;
@@ -128,7 +128,7 @@ export class SpectatorRouting<C> extends Spectator<C> {
       // eslint-disable-next-line no-console
       console.warn(
         'No stub for ActivatedRoute present. Set Spectator option "stubsEnabled" to true if you want to use this ' +
-          'helper, or use Router to trigger navigation.'
+          'helper, or use Router to trigger navigation.',
       );
 
       return false;

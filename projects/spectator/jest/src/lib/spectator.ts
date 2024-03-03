@@ -5,7 +5,7 @@ import {
   Spectator as BaseSpectator,
   SpectatorOptions,
   SpectatorOverrides,
-  Token
+  Token,
 } from '@ngneat/spectator';
 
 import { mockProvider, SpyObject } from './mock';
@@ -18,7 +18,7 @@ export type SpectatorFactory<C> = (options?: SpectatorOverrides<C>) => Spectator
 export function createComponentFactory<C>(typeOrOptions: SpectatorOptions<C> | Type<C>): SpectatorFactory<C> {
   return baseCreateComponentFactory({
     mockProvider,
-    ...(isType(typeOrOptions) ? { component: typeOrOptions } : typeOrOptions)
+    ...(isType(typeOrOptions) ? { component: typeOrOptions } : typeOrOptions),
   }) as SpectatorFactory<C>;
 }
 

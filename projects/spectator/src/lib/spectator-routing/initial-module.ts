@@ -30,7 +30,7 @@ export function initialRoutingModule<S>(options: Required<SpectatorRoutingOption
       {
         provide: Router,
         useExisting: RouterStub,
-      }
+      },
     );
 
     moduleMetadata.providers.push(
@@ -45,7 +45,7 @@ export function initialRoutingModule<S>(options: Required<SpectatorRoutingOption
       {
         provide: ActivatedRoute,
         useExisting: ActivatedRouteStub,
-      }
+      },
     );
   } else {
     moduleMetadata.imports.push(RouterTestingModule.withRoutes(options.routes));

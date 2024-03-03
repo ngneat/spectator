@@ -4,12 +4,8 @@ import { ChildServiceService } from '../child-service.service';
 
 @Component({
   selector: 'app-child',
-  template: `
-    <p>
-      child works!
-    </p>
-  `,
-  styles: []
+  template: ` <p>child works!</p> `,
+  styles: [],
 })
 export class ChildComponent {
   constructor(private readonly service: ChildServiceService) {}

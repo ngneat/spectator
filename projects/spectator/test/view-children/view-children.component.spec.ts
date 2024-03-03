@@ -11,7 +11,7 @@ describe('ViewChildrenComponent', () => {
   const createComponent = createComponentFactory({
     component: ViewChildrenComponent,
     providers: [ChildServiceService],
-    declarations: [ChildComponent]
+    declarations: [ChildComponent],
   });
 
   beforeEach(() => (spectator = createComponent()));
@@ -25,7 +25,7 @@ describe('ViewChildrenComponent', () => {
     const div = spectator.query('div');
     const component = spectator.query(ChildComponent);
     spectator.query(ChildComponent, {
-      read: ElementRef
+      read: ElementRef,
     });
     const button = spectator.query('button');
 
@@ -53,7 +53,7 @@ describe('ContentChild', () => {
   const createHost = createHostFactory({
     component: ViewChildrenComponent,
     providers: [ChildServiceService],
-    declarations: [ChildComponent]
+    declarations: [ChildComponent],
   });
 
   it('should get also the content childs', () => {

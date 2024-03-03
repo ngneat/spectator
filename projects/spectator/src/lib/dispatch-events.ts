@@ -38,7 +38,7 @@ export function dispatchKeyboardEvent(
   node: Node,
   type: string,
   keyOrKeyCode: string | number | KeyboardEventOptions,
-  target?: Element
+  target?: Element,
 ): KeyboardEvent {
   return dispatchEvent(node, createKeyboardEvent(type, keyOrKeyCode, target));
 }
@@ -56,7 +56,7 @@ export function dispatchMouseEvent(
   type: string,
   x: number = 0,
   y: number = 0,
-  event: MouseEvent = createMouseEvent(type, x, y)
+  event: MouseEvent = createMouseEvent(type, x, y),
 ): MouseEvent {
   return dispatchEvent(node, event);
 }

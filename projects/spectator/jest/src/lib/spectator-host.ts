@@ -25,7 +25,7 @@ export class SpectatorHost<C, H = HostComponent> extends BaseSpectatorHost<C, H>
  */
 export type SpectatorHostFactory<C, H> = <HP>(
   template: string,
-  overrides?: SpectatorHostOverrides<H, HP>
+  overrides?: SpectatorHostOverrides<H, HP>,
 ) => SpectatorHost<C, H & HostComponent extends H ? HP : unknown>;
 
 /**
@@ -33,14 +33,14 @@ export type SpectatorHostFactory<C, H> = <HP>(
  */
 export type PresetSpectatorHostFactory<C, H> = <HP>(
   template?: string,
-  overrides?: SpectatorHostOverrides<H, HP>
+  overrides?: SpectatorHostOverrides<H, HP>,
 ) => SpectatorHost<C, H & (HostComponent extends H ? HP : unknown)>;
 
 /**
  * @publicApi
  */
 export function createHostFactory<C, H = HostComponent>(
-  options: SpectatorHostOptions<C, H> & { template: string }
+  options: SpectatorHostOptions<C, H> & { template: string },
 ): PresetSpectatorHostFactory<C, H>;
 /**
  * @publicApi

@@ -6,7 +6,7 @@ import {
   HttpMethod,
   SpectatorHttp as BaseSpectatorHttp,
   SpectatorHttpOptions,
-  Token
+  Token,
 } from '@ngneat/spectator';
 
 import { mockProvider, SpyObject } from './mock';
@@ -34,6 +34,6 @@ export type SpectatorHttpFactory<S> = (overrides?: CreateHttpOverrides<S>) => Sp
 export function createHttpFactory<S>(typeOrOptions: SpectatorHttpOptions<S> | Type<S>): SpectatorHttpFactory<S> {
   return baseCreateHttpFactory({
     mockProvider,
-    ...(isType(typeOrOptions) ? { service: typeOrOptions } : typeOrOptions)
+    ...(isType(typeOrOptions) ? { service: typeOrOptions } : typeOrOptions),
   }) as SpectatorHttpFactory<S>;
 }
