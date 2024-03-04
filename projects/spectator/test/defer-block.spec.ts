@@ -63,7 +63,7 @@ describe('DeferBlock', () => {
       const spectator = createComponent();
 
       // Act
-      spectator.deferBlocks.renderComplete();
+      await spectator.deferBlock().renderComplete();
 
       // Assert
       expect(spectator.element.outerHTML).toContain('empty defer block');
@@ -127,8 +127,8 @@ describe('DeferBlock', () => {
       const spectator = createComponent();
 
       // Act
-      const parentCompleteState = await spectator.deferBlocks.renderComplete();
-      await parentCompleteState.deferBlocks.renderComplete();
+      const parentCompleteState = await spectator.deferBlock().renderComplete();
+      await parentCompleteState.deferBlock().renderComplete();
 
       // Assert
       expect(spectator.element.outerHTML).toContain('complete state #1.1');
@@ -139,9 +139,9 @@ describe('DeferBlock', () => {
       const spectator = createComponent();
 
       // Act
-      const parentCompleteState = await spectator.deferBlocks.renderComplete();
-      const childrenCompleteState = await parentCompleteState.deferBlocks.renderComplete();
-      await childrenCompleteState.deferBlocks.renderComplete();
+      const parentCompleteState = await spectator.deferBlock().renderComplete();
+      const childrenCompleteState = await parentCompleteState.deferBlock().renderComplete();
+      await childrenCompleteState.deferBlock().renderComplete();
 
       // Assert
       expect(spectator.element.outerHTML).toContain('complete state #1.1.1');
@@ -152,9 +152,9 @@ describe('DeferBlock', () => {
       const spectator = createComponent();
 
       // Act
-      const parentCompleteState = await spectator.deferBlocks.renderComplete();
-      const childrenCompleteState = await parentCompleteState.deferBlocks.renderComplete();
-      await childrenCompleteState.deferBlocks.renderPlaceholder();
+      const parentCompleteState = await spectator.deferBlock().renderComplete();
+      const childrenCompleteState = await parentCompleteState.deferBlock().renderComplete();
+      await childrenCompleteState.deferBlock().renderPlaceholder();
 
       // Assert
       expect(spectator.element.outerHTML).toContain('placeholder state #1.1.1');
@@ -165,9 +165,9 @@ describe('DeferBlock', () => {
       const spectator = createComponent();
 
       // Act
-      const parentCompleteState = await spectator.deferBlocks.renderComplete();
-      const childrenCompleteState = await parentCompleteState.deferBlocks.renderComplete();
-      await childrenCompleteState.deferBlocks.renderComplete(1);
+      const parentCompleteState = await spectator.deferBlock().renderComplete();
+      const childrenCompleteState = await parentCompleteState.deferBlock().renderComplete();
+      await childrenCompleteState.deferBlock(1).renderComplete();
 
       // Assert
       expect(spectator.element.outerHTML).toContain('complete state #1.1.2');
@@ -178,9 +178,9 @@ describe('DeferBlock', () => {
       const spectator = createComponent();
 
       // Act
-      const parentCompleteState = await spectator.deferBlocks.renderComplete();
-      const childrenCompleteState = await parentCompleteState.deferBlocks.renderComplete();
-      await childrenCompleteState.deferBlocks.renderPlaceholder(1);
+      const parentCompleteState = await spectator.deferBlock().renderComplete();
+      const childrenCompleteState = await parentCompleteState.deferBlock().renderComplete();
+      await childrenCompleteState.deferBlock(1).renderPlaceholder();
 
       // Assert
       expect(spectator.element.outerHTML).toContain('placeholder state #1.1.2');
@@ -191,7 +191,7 @@ describe('DeferBlock', () => {
       const spectator = createComponent();
 
       // Act
-      await spectator.deferBlocks.renderPlaceholder();
+      await spectator.deferBlock().renderPlaceholder();
 
       // Assert
       expect(spectator.element.outerHTML).toContain('placeholder state #1');
@@ -202,7 +202,7 @@ describe('DeferBlock', () => {
       const spectator = createComponent();
 
       // Act
-      await spectator.deferBlocks.renderLoading();
+      await spectator.deferBlock().renderLoading();
 
       // Assert
       expect(spectator.element.outerHTML).toContain('loading state #1');
@@ -213,7 +213,7 @@ describe('DeferBlock', () => {
       const spectator = createComponent();
 
       // Act
-      await spectator.deferBlocks.renderError();
+      await spectator.deferBlock().renderError();
 
       // Assert
       expect(spectator.element.outerHTML).toContain('error state #1');

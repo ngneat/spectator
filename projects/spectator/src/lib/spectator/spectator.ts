@@ -51,42 +51,46 @@ export class Spectator<C> extends DomSpectator<C> {
     this.detectChanges();
   }
 
-  public get deferBlocks(): DeferBlocks {
-    return this._deferBlocksForGivenFixture(this.fixture.getDeferBlocks());
+  public deferBlock(deferBlockIndex = 0): DeferBlocks {
+    return this._deferBlocksForGivenFixture(deferBlockIndex, this.fixture.getDeferBlocks());
   }
 
   /**
    *
-   * @param deferBlockFixture Defer block fixture
+   * @param deferBlockFixtures Defer block fixture
    * @returns deferBlock object with methods to access the defer blocks
    */
-  private _deferBlocksForGivenFixture(deferBlockFixture: Promise<DeferBlockFixture[]>): DeferBlocks {
+  private _deferBlocksForGivenFixture(deferBlockIndex = 0, deferBlockFixtures: Promise<DeferBlockFixture[]>): DeferBlocks {
     return {
-      renderComplete: async (deferBlockIndex = 0) => {
+      renderComplete: async () => {
         const renderedDeferFixture = await this._renderDeferStateAndGetFixture(
           DeferBlockState.Complete,
           deferBlockIndex,
-          deferBlockFixture
+          deferBlockFixtures
         );
 
         return this._childrenDeferFixtures(renderedDeferFixture);
       },
-      renderPlaceholder: async (deferBlockIndex = 0) => {
+      renderPlaceholder: async () => {
         const renderedDeferFixture = await this._renderDeferStateAndGetFixture(
           DeferBlockState.Placeholder,
           deferBlockIndex,
-          deferBlockFixture
+          deferBlockFixtures
         );
 
         return this._childrenDeferFixtures(renderedDeferFixture);
       },
-      renderLoading: async (deferBlockIndex = 0) => {
-        const renderedDeferFixture = await this._renderDeferStateAndGetFixture(DeferBlockState.Loading, deferBlockIndex, deferBlockFixture);
+      renderLoading: async () => {
+        const renderedDeferFixture = await this._renderDeferStateAndGetFixture(
+          DeferBlockState.Loading,
+          deferBlockIndex,
+          deferBlockFixtures
+        );
 
         return this._childrenDeferFixtures(renderedDeferFixture);
       },
-      renderError: async (deferBlockIndex = 0) => {
-        const renderedDeferFixture = await this._renderDeferStateAndGetFixture(DeferBlockState.Error, deferBlockIndex, deferBlockFixture);
+      renderError: async () => {
+        const renderedDeferFixture = await this._renderDeferStateAndGetFixture(DeferBlockState.Error, deferBlockIndex, deferBlockFixtures);
 
         return this._childrenDeferFixtures(renderedDeferFixture);
       },
@@ -98,15 +102,15 @@ export class Spectator<C> extends DomSpectator<C> {
    *
    * @param deferBlockState complete, placeholder, loading or error
    * @param deferBlockIndex index of the defer block to render
-   * @param deferBlockFixture Defer block fixture
+   * @param deferBlockFixtures Defer block fixture
    * @returns Defer block fixture
    */
   private async _renderDeferStateAndGetFixture(
     deferBlockState: DeferBlockState,
     deferBlockIndex = 0,
-    deferBlockFixture: Promise<DeferBlockFixture[]>
+    deferBlockFixtures: Promise<DeferBlockFixture[]>
   ): Promise<DeferBlockFixture> {
-    const deferFixture = (await deferBlockFixture)[deferBlockIndex];
+    const deferFixture = (await deferBlockFixtures)[deferBlockIndex];
 
     await deferFixture.render(deferBlockState);
 
@@ -120,9 +124,7 @@ export class Spectator<C> extends DomSpectator<C> {
    */
   private _childrenDeferFixtures(deferFixture: DeferBlockFixture): NestedDeferBlocks {
     return {
-      deferBlocks: {
-        ...this._deferBlocksForGivenFixture(deferFixture.getDeferBlocks()),
-      },
+      deferBlock: (deferBlockIndex = 0) => this._deferBlocksForGivenFixture(deferBlockIndex, deferFixture.getDeferBlocks()),
     };
   }
 }
