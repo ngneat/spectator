@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [17.1.0](https://github.com/ngneat/spectator/compare/v17.0.0...v17.1.0) (2024-03-04)
+
+
+### Features
+
+* **spectator:** support defer block behavior ([#641](https://github.com/ngneat/spectator/issues/641)) ([030ad64](https://github.com/ngneat/spectator/commit/030ad64980db301963faf21d0b2e2ac831bd65a2))
+
 ## [17.0.0](https://github.com/ngneat/spectator/compare/v16.0.0...v17.0.0) (2024-02-17)
 
 
