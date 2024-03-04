@@ -10,7 +10,7 @@ describe('ConsumeDynamicComponent', () => {
   const createHost = createHostFactory({
     declarations: [DynamicComponent],
     entryComponents: [DynamicComponent],
-    component: ConsumeDynamicComponent
+    component: ConsumeDynamicComponent,
   });
 
   it('should work', () => {

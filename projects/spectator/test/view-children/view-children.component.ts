@@ -21,8 +21,8 @@ import { ChildComponent } from '../child/child.component';
       :host {
         display: inline-block;
       }
-    `
-  ]
+    `,
+  ],
 })
 export class ViewChildrenComponent implements OnInit {
   @ViewChild(ChildComponent, { static: true }) public child!: ChildComponent;

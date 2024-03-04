@@ -5,7 +5,7 @@ import {
   SpectatorRouting as BaseSpectatorRouting,
   SpectatorRoutingOptions,
   SpectatorRoutingOverrides,
-  Token
+  Token,
 } from '@ngneat/spectator';
 
 import { mockProvider, SpyObject } from './mock';
@@ -30,6 +30,6 @@ export type SpectatorRoutingFactory<C> = (overrides?: SpectatorRoutingOverrides<
 export function createRoutingFactory<C>(typeOrOptions: SpectatorRoutingOptions<C> | Type<C>): SpectatorRoutingFactory<C> {
   return baseCreateRoutingFactory({
     mockProvider,
-    ...(isType(typeOrOptions) ? { component: typeOrOptions } : typeOrOptions)
+    ...(isType(typeOrOptions) ? { component: typeOrOptions } : typeOrOptions),
   }) as SpectatorRoutingFactory<C>;
 }

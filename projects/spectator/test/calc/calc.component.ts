@@ -12,6 +12,6 @@ import { Component } from '@angular/core';
       <span>b</span>
     </label>
     <p class="result">{{ a.value + b.value }}</p>
-  `
+  `,
 })
 export class CalcComponent {}

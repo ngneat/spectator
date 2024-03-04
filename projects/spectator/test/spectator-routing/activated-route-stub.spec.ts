@@ -21,16 +21,16 @@ describe('ActivatedRouteStub', () => {
 
     const routeOptions: RouteOptions = {
       params: {
-        test: 'test'
+        test: 'test',
       },
       queryParams: {
-        test: 'test'
+        test: 'test',
       },
       data: {
-        test: 'test'
+        test: 'test',
       },
       fragment: 'test',
-      url: [urlSegment]
+      url: [urlSegment],
     };
 
     const activatedRouteStub = new ActivatedRouteStub(routeOptions);
@@ -38,13 +38,13 @@ describe('ActivatedRouteStub', () => {
     const { params, queryParams, data, fragment, url } = activatedRouteStub.snapshot;
 
     expect(params).toEqual({
-      test: 'test'
+      test: 'test',
     });
     expect(queryParams).toEqual({
-      test: 'test'
+      test: 'test',
     });
     expect(data).toEqual({
-      test: 'test'
+      test: 'test',
     });
     expect(fragment).toEqual('test');
     expect(url).toContain(urlSegment);
@@ -54,7 +54,7 @@ describe('ActivatedRouteStub', () => {
     const activatedRouteStub = new ActivatedRouteStub();
 
     activatedRouteStub.setParams({
-      test: 'test'
+      test: 'test',
     });
 
     expect(activatedRouteStub.snapshot).not.toBeNull();
@@ -62,7 +62,7 @@ describe('ActivatedRouteStub', () => {
     const { params } = activatedRouteStub.snapshot;
 
     expect(params).toEqual({
-      test: 'test'
+      test: 'test',
     });
   });
 
@@ -76,7 +76,7 @@ describe('ActivatedRouteStub', () => {
     const { params } = activatedRouteStub.snapshot;
 
     expect(params).toEqual({
-      test: 'test'
+      test: 'test',
     });
   });
 
@@ -84,7 +84,7 @@ describe('ActivatedRouteStub', () => {
     const activatedRouteStub = new ActivatedRouteStub();
 
     activatedRouteStub.setQueryParams({
-      test: 'test'
+      test: 'test',
     });
 
     expect(activatedRouteStub.snapshot).not.toBeNull();
@@ -92,7 +92,7 @@ describe('ActivatedRouteStub', () => {
     const { queryParams } = activatedRouteStub.snapshot;
 
     expect(queryParams).toEqual({
-      test: 'test'
+      test: 'test',
     });
   });
 
@@ -106,7 +106,7 @@ describe('ActivatedRouteStub', () => {
     const { queryParams } = activatedRouteStub.snapshot;
 
     expect(queryParams).toEqual({
-      test: 'test'
+      test: 'test',
     });
   });
 
@@ -114,7 +114,7 @@ describe('ActivatedRouteStub', () => {
     const activatedRouteStub = new ActivatedRouteStub();
 
     activatedRouteStub.setAllData({
-      test: 'test'
+      test: 'test',
     });
 
     expect(activatedRouteStub.snapshot).not.toBeNull();
@@ -122,7 +122,7 @@ describe('ActivatedRouteStub', () => {
     const { data } = activatedRouteStub.snapshot;
 
     expect(data).toEqual({
-      test: 'test'
+      test: 'test',
     });
   });
 
@@ -136,14 +136,14 @@ describe('ActivatedRouteStub', () => {
     const { data } = activatedRouteStub.snapshot;
 
     expect(data).toEqual({
-      test: 'test'
+      test: 'test',
     });
   });
 
   it('should update data in snapshot with any type of value', () => {
     const activatedRouteStub = new ActivatedRouteStub();
 
-    activatedRouteStub.setData('movieName', 'Avengers')
+    activatedRouteStub.setData('movieName', 'Avengers');
     activatedRouteStub.setData('countries', ['USA', 'Canada']);
     activatedRouteStub.setData('animal', { type: 'dog' });
 
@@ -155,10 +155,10 @@ describe('ActivatedRouteStub', () => {
       movieName: 'Avengers',
       countries: ['USA', 'Canada'],
       animal: {
-        type: 'dog'
-      }
+        type: 'dog',
+      },
     });
-  })
+  });
 
   it('should update fragment in snapshot when set', () => {
     const activatedRouteStub = new ActivatedRouteStub();

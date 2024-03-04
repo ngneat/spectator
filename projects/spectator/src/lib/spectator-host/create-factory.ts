@@ -27,7 +27,7 @@ import { SpectatorHost } from './spectator-host';
  */
 export type SpectatorHostFactory<C, H> = <HP>(
   template: string,
-  overrides?: SpectatorHostOverrides<H, HP>
+  overrides?: SpectatorHostOverrides<H, HP>,
 ) => SpectatorHost<C, H & (HostComponent extends H ? HP : unknown)>;
 
 /**
@@ -35,7 +35,7 @@ export type SpectatorHostFactory<C, H> = <HP>(
  */
 export type PresetSpectatorHostFactory<C, H> = <HP>(
   template?: string,
-  overrides?: SpectatorHostOverrides<H, HP>
+  overrides?: SpectatorHostOverrides<H, HP>,
 ) => SpectatorHost<C, H & (HostComponent extends H ? HP : unknown)>;
 
 /**
@@ -50,7 +50,7 @@ export interface SpectatorHostOverrides<H, HP> extends BaseSpectatorOverrides {
  * @publicApi
  */
 export function createHostFactory<C, H = HostComponent>(
-  options: SpectatorHostOptions<C, H> & { template: string }
+  options: SpectatorHostOptions<C, H> & { template: string },
 ): PresetSpectatorHostFactory<C, H>;
 /**
  * @publicApi
@@ -63,24 +63,22 @@ export function createHostFactory<C, H = HostComponent>(typeOrOptions: Type<C> |
 
   const moduleMetadata = initialSpectatorWithHostModule<C, H>(options);
 
-  beforeEach(
-    waitForAsync(() => {
-      addMatchers(customMatchers);
-      TestBed.configureTestingModule(moduleMetadata).overrideModule(BrowserDynamicTestingModule, {});
+  beforeEach(waitForAsync(() => {
+    addMatchers(customMatchers);
+    TestBed.configureTestingModule(moduleMetadata).overrideModule(BrowserDynamicTestingModule, {});
 
-      overrideModules(options);
-      overrideComponents(options);
-      overrideDirectives(options);
-      overridePipes(options);
+    overrideModules(options);
+    overrideComponents(options);
+    overrideDirectives(options);
+    overridePipes(options);
 
-      overrideComponentIfProviderOverridesSpecified(options);
-      if (options.template) {
-        TestBed.overrideComponent(options.host, {
-          set: { template: options.template },
-        });
-      }
-    })
-  );
+    overrideComponentIfProviderOverridesSpecified(options);
+    if (options.template) {
+      TestBed.overrideComponent(options.host, {
+        set: { template: options.template },
+      });
+    }
+  }));
 
   return <HP>(template?: string, overrides?: SpectatorHostOverrides<H, HP>) => {
     const defaults: SpectatorHostOverrides<H, HP> = { hostProps: {} as any, detectChanges: true, providers: [] };
@@ -127,6 +125,6 @@ function createSpectatorHost<C, H, HP>(options: Required<SpectatorHostOptions<C,
     hostFixture,
     debugElement,
     component,
-    debugElement.nativeElement
+    debugElement.nativeElement,
   );
 }

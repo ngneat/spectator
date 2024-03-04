@@ -3,7 +3,7 @@ import { TestModuleMetadata } from '@angular/core/testing';
 let globals: TestModuleMetadata = {
   providers: [],
   declarations: [],
-  imports: []
+  imports: [],
 };
 
 export function defineGlobalsInjections(config: TestModuleMetadata): void {

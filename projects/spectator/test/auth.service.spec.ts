@@ -9,7 +9,7 @@ describe('AuthService', () => {
   const createService = createServiceFactory({
     service: AuthService,
     entryComponents: [DynamicComponent],
-    mocks: [DateService]
+    mocks: [DateService],
   });
 
   beforeEach(() => (spectator = createService()));

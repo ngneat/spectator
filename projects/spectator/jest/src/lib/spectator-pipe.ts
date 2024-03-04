@@ -6,7 +6,7 @@ import {
   SpectatorPipe as BaseSpectatorPipe,
   SpectatorPipeOptions,
   SpectatorPipeOverrides,
-  Token
+  Token,
 } from '@ngneat/spectator';
 
 import { mockProvider, SpyObject } from './mock';
@@ -25,7 +25,7 @@ export class SpectatorPipe<P, H = HostComponent> extends BaseSpectatorPipe<P, H>
  */
 export type SpectatorPipeFactory<P, H> = <HP>(
   templateOrOverrides?: string | SpectatorPipeOverrides<H, HP>,
-  overrides?: SpectatorPipeOverrides<H, HP>
+  overrides?: SpectatorPipeOverrides<H, HP>,
 ) => SpectatorPipe<P, H & (HostComponent extends H ? HP : unknown)>;
 
 /**
@@ -34,6 +34,6 @@ export type SpectatorPipeFactory<P, H> = <HP>(
 export function createPipeFactory<P, H = HostComponent>(typeOrOptions: Type<P> | SpectatorPipeOptions<P, H>): SpectatorPipeFactory<P, H> {
   return baseCreatePipeFactory({
     mockProvider,
-    ...(isType(typeOrOptions) ? { pipe: typeOrOptions } : typeOrOptions)
+    ...(isType(typeOrOptions) ? { pipe: typeOrOptions } : typeOrOptions),
   }) as SpectatorPipeFactory<P, H>;
 }

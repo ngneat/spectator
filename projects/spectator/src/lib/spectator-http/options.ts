@@ -9,7 +9,7 @@ export interface SpectatorHttpOptions<S> extends BaseSpectatorOptions {
 }
 
 const defaultHttpOptions: OptionalsRequired<SpectatorHttpOptions<any>> = {
-  ...getDefaultBaseOptions()
+  ...getDefaultBaseOptions(),
 };
 
 /**

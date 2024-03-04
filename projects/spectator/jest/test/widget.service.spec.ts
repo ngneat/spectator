@@ -7,7 +7,7 @@ describe('WidgetService', () => {
   let spectator: SpectatorService<WidgetService>;
   const createService = createServiceFactory({
     service: WidgetService,
-    mocks: [WidgetDataService]
+    mocks: [WidgetDataService],
   });
 
   beforeEach(() => (spectator = createService()));

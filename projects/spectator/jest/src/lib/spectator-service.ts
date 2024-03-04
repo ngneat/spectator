@@ -5,7 +5,7 @@ import {
   SpectatorServiceOverrides,
   SpectatorServiceOptions,
   SpectatorService as BaseSpectatorService,
-  Token
+  Token,
 } from '@ngneat/spectator';
 
 import { mockProvider, SpyObject } from './mock';
@@ -28,6 +28,6 @@ export type SpectatorServiceFactory<S> = (overrides?: SpectatorServiceOverrides<
 export function createServiceFactory<S>(typeOrOptions: SpectatorServiceOptions<S> | Type<S>): SpectatorServiceFactory<S> {
   return baseCreateServiceFactory({
     mockProvider,
-    ...(isType(typeOrOptions) ? { service: typeOrOptions } : typeOrOptions)
+    ...(isType(typeOrOptions) ? { service: typeOrOptions } : typeOrOptions),
   }) as SpectatorServiceFactory<S>;
 }

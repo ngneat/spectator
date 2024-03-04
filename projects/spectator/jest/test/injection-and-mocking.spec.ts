@@ -4,7 +4,7 @@ import {
   Spectator,
   SpectatorHost,
   SpectatorService,
-  createServiceFactory
+  createServiceFactory,
 } from '@ngneat/spectator/jest';
 import { InjectionToken } from '@angular/core';
 
@@ -24,13 +24,13 @@ describe('Injection tokens', () => {
         QueryService,
         {
           provide: AbstractQueryService,
-          useExisting: QueryService
+          useExisting: QueryService,
         },
         {
           provide: MY_TOKEN,
-          useExisting: QueryService
-        }
-      ]
+          useExisting: QueryService,
+        },
+      ],
     });
 
     let spectator: Spectator<ZippyComponent>;
@@ -76,13 +76,13 @@ describe('Injection tokens', () => {
         QueryService,
         {
           provide: AbstractQueryService,
-          useExisting: QueryService
+          useExisting: QueryService,
         },
         {
           provide: MY_TOKEN,
-          useExisting: QueryService
-        }
-      ]
+          useExisting: QueryService,
+        },
+      ],
     });
 
     let host: SpectatorHost<ZippyComponent>;
@@ -128,13 +128,13 @@ describe('Injection tokens', () => {
         QueryService,
         {
           provide: AbstractQueryService,
-          useExisting: QueryService
+          useExisting: QueryService,
         },
         {
           provide: MY_TOKEN,
-          useExisting: QueryService
-        }
-      ]
+          useExisting: QueryService,
+        },
+      ],
     });
 
     let spectator: SpectatorService<ConsumerService>;

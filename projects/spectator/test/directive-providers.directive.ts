@@ -8,5 +8,8 @@ export const directiveProviderToken = new InjectionToken('DirectiveProviderToken
   providers: [{ provide: directiveProviderToken, useValue: 'test' }],
 })
 export class DirectiveProviderDirective {
-  constructor(@Inject(directiveProviderToken) public provider: string, private fb: FormBuilder) {}
+  constructor(
+    @Inject(directiveProviderToken) public provider: string,
+    private fb: FormBuilder,
+  ) {}
 }

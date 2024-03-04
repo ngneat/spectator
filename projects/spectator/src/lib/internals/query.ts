@@ -11,7 +11,7 @@ export function getChildren<R>(debugElementRoot: DebugElement): (directiveOrSele
     }
 
     const debugElements = debugElementRoot.queryAll(
-      isString(directiveOrSelector) ? By.css(directiveOrSelector) : By.directive(directiveOrSelector)
+      isString(directiveOrSelector) ? By.css(directiveOrSelector) : By.directive(directiveOrSelector),
     );
 
     if (options.read) {
@@ -54,7 +54,7 @@ export function setProps(componentRef: ComponentRef<any>, keyOrKeyValues: any, v
 export function setHostProps<T, K extends string | number | symbol, V>(
   componentRef: ComponentRef<T>,
   key: K,
-  value: V
+  value: V,
 ): T & { [KEY in K]: V };
 export function setHostProps<T, KV>(componentRef: ComponentRef<T>, keyValues?: KV): T & KV;
 export function setHostProps(componentRef: ComponentRef<any>, keyOrKeyValues: any, value?: any): any {

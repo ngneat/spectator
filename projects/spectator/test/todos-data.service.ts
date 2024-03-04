@@ -11,7 +11,10 @@ export class UserService {
 
 @Injectable()
 export class TodosDataService {
-  constructor(private readonly http: HttpClient, private readonly userService: UserService) {}
+  constructor(
+    private readonly http: HttpClient,
+    private readonly userService: UserService,
+  ) {}
 
   public get(): Observable<any> {
     return this.http.get('url');
@@ -25,7 +28,7 @@ export class TodosDataService {
     return this.http.post('one', {}).pipe(
       concatMap(() => {
         return this.http.get('two');
-      })
+      }),
     );
   }
 
@@ -37,7 +40,7 @@ export class TodosDataService {
     return this.userService.getUser().pipe(
       concatMap(() => {
         return this.http.get('two');
-      })
+      }),
     );
   }
 }

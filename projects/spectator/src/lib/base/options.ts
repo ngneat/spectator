@@ -1,4 +1,4 @@
-import {Component, Directive, NgModule, Pipe, Provider, SchemaMetadata, Type} from '@angular/core';
+import { Component, Directive, NgModule, Pipe, Provider, SchemaMetadata, Type } from '@angular/core';
 import { MetadataOverride, ModuleTeardownOptions } from '@angular/core/testing';
 
 import { merge } from '../internals/merge';

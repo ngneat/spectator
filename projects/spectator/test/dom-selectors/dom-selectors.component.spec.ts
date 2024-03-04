@@ -8,7 +8,7 @@ import {
   byValue,
   byRole,
   createComponentFactory,
-  Spectator
+  Spectator,
 } from '@ngneat/spectator';
 
 import { DomSelectorsComponent, DomSelectorsNestedComponent } from './dom-selectors.component';
@@ -17,7 +17,7 @@ describe('DomSelectorsComponent', () => {
   let spectator: Spectator<DomSelectorsComponent>;
   const createComponent = createComponentFactory({
     component: DomSelectorsComponent,
-    imports: [DomSelectorsNestedComponent]
+    imports: [DomSelectorsNestedComponent],
   });
 
   beforeEach(() => {
@@ -70,13 +70,13 @@ describe('DomSelectorsComponent', () => {
       element = spectator.queryAll(DomSelectorsNestedComponent, { parentSelector: '#nested-components-1' });
       expect(element.length).toBe(1);
     });
-  })
+  });
 
   describe('byTextContent', () => {
     describe('with string matcher', () => {
       [
         { description: 'by default', opts: {} },
-        { description: 'with `exact: true`', opts: { exact: true } }
+        { description: 'with `exact: true`', opts: { exact: true } },
       ].forEach(({ description, opts }) => {
         it(`should exactly match text content ${description}`, () => {
           let element = spectator.query(byTextContent('deeply nested', { selector: '#text-content-root', ...opts }));
@@ -102,11 +102,11 @@ describe('DomSelectorsComponent', () => {
 
       it('should support `collapseWhitespace` option', () => {
         let element = spectator.query(
-          byTextContent('deeply NESTED', { selector: '#text-content-span-1', exact: true, collapseWhitespace: false })
+          byTextContent('deeply NESTED', { selector: '#text-content-span-1', exact: true, collapseWhitespace: false }),
         );
         expect(element).toBeNull();
         element = spectator.query(
-          byTextContent('deeply  NESTED', { selector: '#text-content-span-1', exact: true, collapseWhitespace: false })
+          byTextContent('deeply  NESTED', { selector: '#text-content-span-1', exact: true, collapseWhitespace: false }),
         );
         expect(element).toHaveId('text-content-span-1');
       });
@@ -114,11 +114,11 @@ describe('DomSelectorsComponent', () => {
       it('should support custom normalizer', () => {
         const toLowerCase = (text: string) => text.toLowerCase();
         let element = spectator.query(
-          byTextContent('deeply  NESTED', { selector: '#text-content-span-1', exact: true, normalizer: toLowerCase })
+          byTextContent('deeply  NESTED', { selector: '#text-content-span-1', exact: true, normalizer: toLowerCase }),
         );
         expect(element).toBeNull();
         element = spectator.query(
-          byTextContent('deeply  nested', { selector: '#text-content-span-1', exact: true, normalizer: toLowerCase })
+          byTextContent('deeply  nested', { selector: '#text-content-span-1', exact: true, normalizer: toLowerCase }),
         );
         expect(element).toHaveId('text-content-span-1');
       });
@@ -151,7 +151,7 @@ describe('DomSelectorsComponent', () => {
 
       it('should support `collapseWhitespace` option', () => {
         const element = spectator.query(
-          byTextContent(/^deeply\s\sNESTED$/, { selector: '#text-content-span-1', collapseWhitespace: false })
+          byTextContent(/^deeply\s\sNESTED$/, { selector: '#text-content-span-1', collapseWhitespace: false }),
         );
         expect(element).toHaveId('text-content-span-1');
       });

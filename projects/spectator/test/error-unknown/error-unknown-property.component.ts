@@ -6,6 +6,4 @@ import { Component, Input } from '@angular/core';
   selector: 'app-use-unknown-property',
   template: `<span [some-property]="true"></span>`,
 })
-export class ErrorUnknownPropertyComponent {
-
-}
+export class ErrorUnknownPropertyComponent {}

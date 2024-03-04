@@ -27,14 +27,14 @@ const defaultSpectatorRoutingOptions: OptionalsRequired<SpectatorDirectiveOption
   detectChanges: true,
   directiveProviders: [],
   directiveMocks: [],
-  declareDirective: true
+  declareDirective: true,
 };
 
 /**
  * @internal
  */
 export function getSpectatorDirectiveDefaultOptions<D, H>(
-  overrides?: SpectatorDirectiveOptions<D, H>
+  overrides?: SpectatorDirectiveOptions<D, H>,
 ): Required<SpectatorDirectiveOptions<D, H>> {
   return merge(defaultSpectatorRoutingOptions, overrides);
 }

@@ -19,13 +19,16 @@ class SomeViewService {
   selector: 'some-component',
   template: ``,
   providers: [SomeService],
-  viewProviders: [SomeViewService]
+  viewProviders: [SomeViewService],
 })
 export class SomeComponent implements OnInit {
   public foo!: string;
   public viewFoo!: string;
 
-  constructor(private readonly someService: SomeService, private readonly someViewService: SomeViewService) {}
+  constructor(
+    private readonly someService: SomeService,
+    private readonly someViewService: SomeViewService,
+  ) {}
 
   public ngOnInit(): void {
     this.foo = this.someService.getFoo();
@@ -36,7 +39,7 @@ export class SomeComponent implements OnInit {
 describe('SomeComponent', () => {
   describe('without mocking', () => {
     const createComponent = createComponentFactory({
-      component: SomeComponent
+      component: SomeComponent,
     });
 
     it('should create', () => {
@@ -65,10 +68,10 @@ describe('SomeComponent', () => {
         {
           provide: SomeService,
           useValue: {
-            getFoo: () => 'overridden'
-          }
-        }
-      ]
+            getFoo: () => 'overridden',
+          },
+        },
+      ],
     });
 
     it('should create', () => {
@@ -93,7 +96,7 @@ describe('SomeComponent', () => {
   describe('with component mocking', () => {
     const createComponent = createComponentFactory({
       component: SomeComponent,
-      componentMocks: [SomeService]
+      componentMocks: [SomeService],
     });
 
     it('should create', () => {
@@ -104,7 +107,7 @@ describe('SomeComponent', () => {
 
     it('should have mocked foo', () => {
       const spectator = createComponent({
-        detectChanges: false
+        detectChanges: false,
       });
 
       spectator.inject(SomeService, true).getFoo.andReturn('mocked-foo');
@@ -127,10 +130,10 @@ describe('SomeComponent', () => {
         {
           provide: SomeViewService,
           useValue: {
-            getFoo: () => 'overridden'
-          }
-        }
-      ]
+            getFoo: () => 'overridden',
+          },
+        },
+      ],
     });
 
     it('should create', () => {
@@ -155,7 +158,7 @@ describe('SomeComponent', () => {
   describe('with component view mocking', () => {
     const createComponent = createComponentFactory({
       component: SomeComponent,
-      componentViewProvidersMocks: [SomeViewService]
+      componentViewProvidersMocks: [SomeViewService],
     });
 
     it('should create', () => {
@@ -166,7 +169,7 @@ describe('SomeComponent', () => {
 
     it('should have mocked viewFoo', () => {
       const spectator = createComponent({
-        detectChanges: false
+        detectChanges: false,
       });
 
       spectator.inject(SomeViewService, true).getFoo.andReturn('mocked-view-foo');
@@ -189,18 +192,18 @@ describe('SomeComponent', () => {
         {
           provide: SomeService,
           useValue: {
-            getFoo: () => 'overridden'
-          }
-        }
+            getFoo: () => 'overridden',
+          },
+        },
       ],
       componentViewProviders: [
         {
           provide: SomeViewService,
           useValue: {
-            getFoo: () => 'overridden'
-          }
-        }
-      ]
+            getFoo: () => 'overridden',
+          },
+        },
+      ],
     });
 
     it('should have overridden foo', () => {
@@ -220,7 +223,7 @@ describe('SomeComponent', () => {
     const createComponent = createComponentFactory({
       component: SomeComponent,
       componentMocks: [SomeService],
-      componentViewProvidersMocks: [SomeViewService]
+      componentViewProvidersMocks: [SomeViewService],
     });
 
     it('should create', () => {
@@ -231,7 +234,7 @@ describe('SomeComponent', () => {
 
     it('should have mocked foo', () => {
       const spectator = createComponent({
-        detectChanges: false
+        detectChanges: false,
       });
 
       spectator.inject(SomeService, true).getFoo.andReturn('mocked-foo');
@@ -242,7 +245,7 @@ describe('SomeComponent', () => {
 
     it('should have mocked view foo', () => {
       const spectator = createComponent({
-        detectChanges: false
+        detectChanges: false,
       });
 
       spectator.inject(SomeViewService, true).getFoo.andReturn('mocked-view-foo');
@@ -255,7 +258,7 @@ describe('SomeComponent', () => {
   describe('when global mocking', () => {
     const createComponent = createComponentFactory({
       component: SomeComponent,
-      mocks: [SomeService, SomeViewService]
+      mocks: [SomeService, SomeViewService],
     });
 
     it('should create', () => {

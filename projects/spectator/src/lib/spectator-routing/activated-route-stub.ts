@@ -53,7 +53,7 @@ export class ActivatedRouteStub extends ActivatedRoute {
   }
 
   public get paramMap(): Observable<ParamMap> {
-    return this.paramsSubject.asObservable().pipe(map(params => convertToParamMap(params)));
+    return this.paramsSubject.asObservable().pipe(map((params) => convertToParamMap(params)));
   }
 
   public snapshot: ActivatedRouteSnapshot;

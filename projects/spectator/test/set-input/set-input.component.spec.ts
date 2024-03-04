@@ -8,7 +8,7 @@ describe('SetInputComponent', () => {
 
   const createComponent = createComponentFactory({
     component: SetInputComponent,
-    imports: [CommonModule]
+    imports: [CommonModule],
   });
 
   beforeEach(() => {

@@ -29,7 +29,7 @@ import { Component, ChangeDetectionStrategy } from '@angular/core';
       <option [ngValue]="{ id: 6 }">Six</option>
     </select>
   `,
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FormSelectComponent {
   /**

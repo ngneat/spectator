@@ -5,7 +5,7 @@ import { Component } from '@angular/core';
   template: `
     <app-child-custom-event (customEvent)="onCustomEvent($event)"></app-child-custom-event>
     <p>{{ eventValue }}</p>
-  `
+  `,
 })
 export class ChildCustomEventParentComponent {
   public eventValue = '';

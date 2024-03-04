@@ -54,6 +54,6 @@ export class DomSelectorsNestedComponent {}
     </div>
   `,
   standalone: true,
-  imports: [DomSelectorsNestedComponent]
+  imports: [DomSelectorsNestedComponent],
 })
 export class DomSelectorsComponent {}

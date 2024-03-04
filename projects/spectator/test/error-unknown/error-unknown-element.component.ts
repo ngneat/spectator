@@ -6,6 +6,4 @@ import { Component, Input } from '@angular/core';
   selector: 'app-use-unknown-element',
   template: `<some-element></some-element>`,
 })
-export class ErrorUnknownElementComponent {
-
-}
+export class ErrorUnknownElementComponent {}

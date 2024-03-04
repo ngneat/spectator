@@ -3,13 +3,12 @@ import { SpectatorHost, createHostFactory } from '@ngneat/spectator/jest';
 import { TestFocusComponent } from '../../../test/focus/test-focus.component';
 
 describe('SpectatorHost.focus() in jest', () => {
-
   const createHost = createHostFactory(TestFocusComponent);
   let host: SpectatorHost<TestFocusComponent>;
 
   beforeEach(() => {
     host = createHost('<app-test-focus></app-test-focus>');
-  })
+  });
 
   it('sets document.activeElement', () => {
     host.focus('#button1');
@@ -30,7 +29,6 @@ describe('SpectatorHost.focus() in jest', () => {
     expect(host.component.blurCount('button2')).toBe(0);
   });
 
-
   it('calling focus() multiple times does not cause multiple patches', () => {
     host.focus('#button1');
     host.focus();
@@ -40,5 +38,4 @@ describe('SpectatorHost.focus() in jest', () => {
     expect(host.component.focusCount('button1')).toBe(2);
     expect(host.component.blurCount('button1')).toBe(1);
   });
-  
 });

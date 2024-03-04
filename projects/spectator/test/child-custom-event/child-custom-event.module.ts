@@ -7,6 +7,6 @@ import { ChildCustomEventComponent } from './child-custom-event.component';
 @NgModule({
   imports: [CommonModule],
   declarations: [ChildCustomEventParentComponent, ChildCustomEventComponent],
-  exports: [ChildCustomEventParentComponent]
+  exports: [ChildCustomEventParentComponent],
 })
 export class ChildCustomEventModule {}

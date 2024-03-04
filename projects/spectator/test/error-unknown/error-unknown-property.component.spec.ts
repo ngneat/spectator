@@ -13,5 +13,4 @@ describe('ErrorUnknownPropertyComponent', () => {
   it('should throw an error when creating the component', () => {
     expect(() => createComponent()).toThrowError();
   });
-
 });

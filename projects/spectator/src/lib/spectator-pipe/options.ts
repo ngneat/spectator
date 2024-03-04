@@ -19,7 +19,7 @@ const defaultSpectatorPipeOptions: OptionalsRequired<SpectatorPipeOptions<any, a
   ...getDefaultBaseOptions(),
   host: HostComponent,
   detectChanges: true,
-  template: ''
+  template: '',
 };
 
 /**

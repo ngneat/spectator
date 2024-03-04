@@ -42,7 +42,7 @@ describe('FormInputComponent', () => {
           subnetControl: group,
           enableSubnet: true,
         },
-      }))
+      })),
   );
 
   it('should work', () => {

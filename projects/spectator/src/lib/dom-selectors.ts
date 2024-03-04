@@ -6,7 +6,7 @@ import {
   SelectorMatcherOptions,
   queries as DOMQueries,
   getDefaultNormalizer,
-  ByRoleOptions
+  ByRoleOptions,
 } from '@testing-library/dom';
 import { ARIARole } from 'aria-query';
 
@@ -22,13 +22,13 @@ export class DOMSelector {
 export type DOMSelectorFactory<TOptions extends MatcherOptions = MatcherOptions> = (matcher: Matcher, options?: TOptions) => DOMSelector;
 
 export const byLabel: DOMSelectorFactory = (matcher, options) =>
-  new DOMSelector(el => DOMQueries.queryAllByLabelText(el, matcher, options));
+  new DOMSelector((el) => DOMQueries.queryAllByLabelText(el, matcher, options));
 
 export const byPlaceholder: DOMSelectorFactory = (matcher, options) =>
-  new DOMSelector(el => DOMQueries.queryAllByPlaceholderText(el, matcher, options));
+  new DOMSelector((el) => DOMQueries.queryAllByPlaceholderText(el, matcher, options));
 
 export const byText: DOMSelectorFactory<SelectorMatcherOptions> = (matcher, options) =>
-  new DOMSelector(el => DOMQueries.queryAllByText(el, matcher, options));
+  new DOMSelector((el) => DOMQueries.queryAllByText(el, matcher, options));
 
 export const byTextContent = (matcher: Matcher, options: MandatorySelectorMatchingOptions): DOMSelector => {
   let textContentMatcher: Matcher;
@@ -38,11 +38,7 @@ export const byTextContent = (matcher: Matcher, options: MandatorySelectorMatchi
   if (typeof matcher === 'string' || typeof matcher === 'number') {
     textContentMatcher = (_, elem) => {
       if (options?.exact === false) {
-        return (
-          getTextContent(elem)
-            .toLowerCase()
-            .indexOf(matcher.toString().toLowerCase()) >= 0
-        );
+        return getTextContent(elem).toLowerCase().indexOf(matcher.toString().toLowerCase()) >= 0;
       }
 
       return getTextContent(elem) === matcher.toString();
@@ -55,18 +51,19 @@ export const byTextContent = (matcher: Matcher, options: MandatorySelectorMatchi
     throw new Error(`Matcher type not supported: ${typeof matcher}`);
   }
 
-  return new DOMSelector(el => DOMQueries.queryAllByText(el, textContentMatcher, options));
+  return new DOMSelector((el) => DOMQueries.queryAllByText(el, textContentMatcher, options));
 };
 
 export const byAltText: DOMSelectorFactory = (matcher, options) =>
-  new DOMSelector(el => DOMQueries.queryAllByAltText(el, matcher, options));
+  new DOMSelector((el) => DOMQueries.queryAllByAltText(el, matcher, options));
 
-export const byTitle: DOMSelectorFactory = (matcher, options) => new DOMSelector(el => DOMQueries.queryAllByTitle(el, matcher, options));
+export const byTitle: DOMSelectorFactory = (matcher, options) => new DOMSelector((el) => DOMQueries.queryAllByTitle(el, matcher, options));
 
-export const byTestId: DOMSelectorFactory = (matcher, options) => new DOMSelector(el => DOMQueries.queryAllByTestId(el, matcher, options));
+export const byTestId: DOMSelectorFactory = (matcher, options) =>
+  new DOMSelector((el) => DOMQueries.queryAllByTestId(el, matcher, options));
 
 export const byValue: DOMSelectorFactory = (matcher, options) =>
-  new DOMSelector(el => DOMQueries.queryAllByDisplayValue(el, matcher, options));
+  new DOMSelector((el) => DOMQueries.queryAllByDisplayValue(el, matcher, options));
 
 export const byRole = (matcher: ARIARole | MatcherFunction | Omit<string, ARIARole>, options?: ByRoleOptions): DOMSelector =>
-  new DOMSelector(el => DOMQueries.queryAllByRole(el, matcher, options));
+  new DOMSelector((el) => DOMQueries.queryAllByRole(el, matcher, options));

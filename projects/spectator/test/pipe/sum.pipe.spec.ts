@@ -15,8 +15,8 @@ describe('SumPipe', () => {
   it('should sum up the given list of numbers (prop)', () => {
     spectator = createPipe(`{{ prop | sum }}`, {
       hostProps: {
-        prop: [1, 2, 3]
-      }
+        prop: [1, 2, 3],
+      },
     });
     expect(spectator.element).toHaveText('6');
   });
@@ -26,9 +26,9 @@ describe('SumPipe', () => {
     const provider = { provide: StatsService, useValue: { sum } };
     spectator = createPipe(`{{ prop | sum }}`, {
       hostProps: {
-        prop: [2, 40]
+        prop: [2, 40],
       },
-      providers: [provider]
+      providers: [provider],
     });
     expect(spectator.element).toHaveText('42');
   });

@@ -8,6 +8,6 @@ import { OverlayContentComponent } from './overlay-content.component';
 @NgModule({
   imports: [CommonModule, OverlayModule],
   declarations: [OverlayContainerComponent, OverlayContentComponent],
-  exports: [OverlayContainerComponent]
+  exports: [OverlayContainerComponent],
 })
 export class OverlayContainerModule {}

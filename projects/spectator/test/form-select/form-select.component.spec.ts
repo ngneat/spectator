@@ -8,7 +8,7 @@ describe('FormSelectComponent', () => {
 
   const createComponent = createComponentFactory<FormSelectComponent>({
     component: FormSelectComponent,
-    imports: [ReactiveFormsModule]
+    imports: [ReactiveFormsModule],
   });
 
   beforeEach(() => (spectator = createComponent()));

@@ -9,7 +9,7 @@ import { Component, ChangeDetectionStrategy } from '@angular/core';
       <option value="3">3</option>
     </select>
   `,
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FormSelectComponent {
   /**

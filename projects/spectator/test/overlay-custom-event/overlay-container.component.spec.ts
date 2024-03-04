@@ -14,9 +14,9 @@ describe('Overlay container custom event', () => {
   const createComponent = createComponentFactory({
     component: Component({
       selector: 'test-host',
-      template: '<div></div>'
+      template: '<div></div>',
     })(class {}),
-    imports: [OverlayContainerModule]
+    imports: [OverlayContainerModule],
   });
 
   it('should trigger custom event on a component inside an overlay', () => {

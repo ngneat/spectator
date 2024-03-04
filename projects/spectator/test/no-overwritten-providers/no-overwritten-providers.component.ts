@@ -10,9 +10,9 @@ import { DummyService } from './dummy.service';
   providers: [
     {
       provide: DummyService,
-      useValue: new DummyService()
-    }
-  ]
+      useValue: new DummyService(),
+    },
+  ],
 })
 export class ComponentWithoutOverwrittenProvidersComponent {
   constructor(public dummy: DummyService) {}

@@ -55,11 +55,11 @@ import { ZippyComponent } from './zippy/zippy.component';
     ComponentWithoutOverwrittenProvidersComponent,
     FormInputComponent,
     TranslatePipe,
-    EventsComponent
+    EventsComponent,
   ],
   entryComponents: [DynamicComponent],
   imports: [BrowserModule, HttpClientModule, ReactiveFormsModule, IntegrationModule, ChildCustomEventModule],
   providers: [ChildServiceService, WidgetService, WidgetDataService],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
 export class AppModule {}

@@ -6,7 +6,6 @@ const IS_FOCUS_PATCHED_PROP = Symbol('isFocusPatched');
 
 /** Ensures that a single set of matching focus and blur events occur when HTMLElement.focus() is called. */
 class FocusEventWatcher implements EventListenerObject {
-
   private readonly priorActiveElement: Element | null;
 
   /** Set to true when browser sends a blur event for priorActiveElement */
@@ -23,8 +22,7 @@ class FocusEventWatcher implements EventListenerObject {
   public handleEvent({ type }: Event): void {
     if (type === 'focus') {
       this._focused = true;
-    }
-    else if (type === 'blur') {
+    } else if (type === 'blur') {
       this._blurred = true;
     }
   }
@@ -55,9 +53,8 @@ class FocusEventWatcher implements EventListenerObject {
  * patchElementFocus(triggerEl);
  */
 export function patchElementFocus(element: HTMLElement): void {
-
   // https://github.com/ngneat/spectator/issues/373 - Don't patch when using JSDOM, eg in Jest
-  if (!isRunningInJsDom() && (element[IS_FOCUS_PATCHED_PROP] === undefined)) {
+  if (!isRunningInJsDom() && element[IS_FOCUS_PATCHED_PROP] === undefined) {
     const originalFocus = element.focus.bind(element);
     element.focus = (options) => {
       const focusEventWatcher = new FocusEventWatcher(element);
@@ -66,7 +63,7 @@ export function patchElementFocus(element: HTMLElement): void {
       originalFocus(options);
 
       focusEventWatcher.ensureFocusEvents();
-    }
+    };
     element.blur = () => dispatchFakeEvent(element, 'blur');
     element[IS_FOCUS_PATCHED_PROP] = true;
   }

@@ -7,7 +7,7 @@ import { TodosDataService, UserService } from '../../test/todos-data.service';
 describe('HttpClient testing', () => {
   const http = createHttpFactory({
     service: TodosDataService,
-    mocks: [UserService]
+    mocks: [UserService],
   });
 
   it('can test HttpClient.get', () => {

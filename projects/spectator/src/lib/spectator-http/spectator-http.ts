@@ -14,7 +14,7 @@ export enum HttpMethod {
   PATCH = 'PATCH',
   HEAD = 'HEAD',
   JSONP = 'JSONP',
-  OPTIONS = 'OPTIONS'
+  OPTIONS = 'OPTIONS',
 }
 
 export interface HttpExpect {
@@ -26,7 +26,11 @@ export interface HttpExpect {
  * @publicApi
  */
 export class SpectatorHttp<S> extends BaseSpectator {
-  constructor(public service: S, public httpClient: HttpClient, public controller: HttpTestingController) {
+  constructor(
+    public service: S,
+    public httpClient: HttpClient,
+    public controller: HttpTestingController,
+  ) {
     super();
 
     // small workaround to prevent issues if destructuring SpectatorHttp, which was common in Spectator 3
@@ -40,7 +44,7 @@ export class SpectatorHttp<S> extends BaseSpectator {
 
     const req = this.controller.expectOne({
       url,
-      method
+      method,
     });
 
     // assert that there are no outstanding requests.
@@ -53,7 +57,7 @@ export class SpectatorHttp<S> extends BaseSpectator {
     const requests = expectations.map((expectation: HttpExpect) => {
       return this.controller.expectOne({
         url: expectation.url,
-        method: expectation.method
+        method: expectation.method,
       });
     });
 

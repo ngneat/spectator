@@ -22,7 +22,12 @@ const KEY_UP = 'keyup';
  * @internal
  */
 export abstract class DomSpectator<I> extends BaseSpectator {
-  constructor(public fixture: ComponentFixture<any>, public debugElement: DebugElement, protected instance: I, public element: Element) {
+  constructor(
+    public fixture: ComponentFixture<any>,
+    public debugElement: DebugElement,
+    protected instance: I,
+    public element: Element,
+  ) {
     super();
   }
 
@@ -40,7 +45,7 @@ export abstract class DomSpectator<I> extends BaseSpectator {
   public query<R>(directive: Type<R>, options?: { parentSelector?: Type<any> | string }): R | null;
   public query<R>(
     directiveOrSelector: Type<any> | string,
-    options: { read: Token<R>; root?: boolean; parentSelector?: Type<any> | string }
+    options: { read: Token<R>; root?: boolean; parentSelector?: Type<any> | string },
   ): R | null;
   public query<R>(directiveOrSelector: QueryType, options?: QueryOptions<R>): R | Element | null {
     if ((options || {}).root) {
@@ -80,7 +85,7 @@ export abstract class DomSpectator<I> extends BaseSpectator {
   public queryAll<R>(directive: Type<R>, options?: { parentSelector: Type<any> | string }): R[];
   public queryAll<R>(
     directiveOrSelector: Type<any> | string,
-    options: { read: Token<R>; root?: boolean; parentSelector?: Type<any> | string }
+    options: { read: Token<R>; root?: boolean; parentSelector?: Type<any> | string },
   ): R[];
   public queryAll<R>(directiveOrSelector: QueryType, options?: QueryOptions<R>): R[] | Element[] {
     if ((options || {}).root) {
@@ -118,7 +123,7 @@ export abstract class DomSpectator<I> extends BaseSpectator {
   public queryLast<R>(directive: Type<R>, options?: { parentSelector: Type<any> | string }): R | null;
   public queryLast<R>(
     directiveOrSelector: Type<any> | string,
-    options: { read: Token<R>; root?: boolean; parentSelector?: Type<any> | string }
+    options: { read: Token<R>; root?: boolean; parentSelector?: Type<any> | string },
   ): R | null;
   public queryLast<R>(directiveOrSelector: QueryType, options?: QueryOptions<R>): R | Element | null {
     let result: (R | Element)[] = [];
@@ -209,7 +214,7 @@ export abstract class DomSpectator<I> extends BaseSpectator {
     type: string,
     x: number = 0,
     y: number = 0,
-    event: MouseEvent = createMouseEvent(type, x, y)
+    event: MouseEvent = createMouseEvent(type, x, y),
   ): MouseEvent {
     const element = this.getNativeElement(selector);
 
@@ -230,7 +235,7 @@ export abstract class DomSpectator<I> extends BaseSpectator {
     selector: SpectatorElement = this.element,
     type: string,
     keyOrKeyCode: string | number | KeyboardEventOptions,
-    target?: Element
+    target?: Element,
   ): KeyboardEvent {
     const element = this.getNativeElement(selector);
 
@@ -256,7 +261,7 @@ export abstract class DomSpectator<I> extends BaseSpectator {
     directiveOrSelector: Type<C> | string | DebugElement,
     eventName: K,
     eventObj: EventEmitterType<C[K]>,
-    options?: { root: boolean }
+    options?: { root: boolean },
   ) {
     const triggerDebugElement = this.getDebugElement(directiveOrSelector, options);
     if (!triggerDebugElement) {
@@ -314,7 +319,7 @@ export abstract class DomSpectator<I> extends BaseSpectator {
   public selectOption(
     selector: SpectatorElement = this.element,
     options: string | string[] | HTMLOptionElement | HTMLOptionElement[],
-    config: { emitEvents: boolean } = { emitEvents: true }
+    config: { emitEvents: boolean } = { emitEvents: true },
   ): void {
     if (!selector) {
       throw new Error(`Cannot find select: ${selector}`);
@@ -354,7 +359,7 @@ export abstract class DomSpectator<I> extends BaseSpectator {
 
   private getDebugElement(
     directiveOrSelector: string | DebugElement | Type<unknown>,
-    options?: { root: boolean }
+    options?: { root: boolean },
   ): DebugElement | undefined {
     const debugElement = options?.root ? this.getRootDebugElement() : this.debugElement;
 

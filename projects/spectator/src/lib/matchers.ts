@@ -35,7 +35,7 @@ const containsProperty = (actual: string, expected: unknown): boolean => {
 const checkProperty = (
   el: HTMLElement,
   prop: object,
-  predicate: (actual, expected) => boolean
+  predicate: (actual, expected) => boolean,
 ): { pass: boolean; message: () => string } => {
   let pass = false;
   let failing = '';
@@ -88,7 +88,7 @@ const hasSameText = (
   options: {
     exact: boolean;
     trim: boolean;
-  }
+  },
 ) => {
   if (expected && Array.isArray(expected)) {
     let actual: string;
@@ -264,7 +264,7 @@ export const toContainProperty = comparator((el, prop, val) => {
 export const toHaveText = comparator((el, expected, exact = false) => hasSameText(el, expected, { exact, trim: false }));
 
 export const toHaveExactText = comparator((el, expected, options: { trim: boolean } = { trim: false }) =>
-  hasSameText(el, expected, { exact: true, trim: options.trim })
+  hasSameText(el, expected, { exact: true, trim: options.trim }),
 );
 
 export const toHaveExactTrimmedText = comparator((el, expected) => hasSameText(el, expected, { exact: true, trim: true }));
@@ -402,7 +402,7 @@ export const toBePartial = comparator((actual, expected) => {
   const pass = expectedProps.every((expectedProp) => actual[expectedProp] === expected[expectedProp]);
   const message = () =>
     `Expected element${pass ? ' not' : ''} to contain properties: ${JSON.stringify(expectedPropsAndValues)}.`.concat(
-      ` Actual properties: ${JSON.stringify(actualPropsAndValues)}`
+      ` Actual properties: ${JSON.stringify(actualPropsAndValues)}`,
     );
 
   return { pass, message };

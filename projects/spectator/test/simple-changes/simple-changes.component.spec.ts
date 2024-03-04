@@ -8,12 +8,12 @@ describe('SimpleChangesComponent', () => {
 
   const createComponent = createComponentFactory({
     component: SimpleChangesComponent,
-    imports: [CommonModule]
+    imports: [CommonModule],
   });
 
   it('should be sequence of calls is correct', () => {
     spectator = createComponent({
-      props: { value: '1' }
+      props: { value: '1' },
     });
 
     const { hooks } = spectator.component;

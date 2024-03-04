@@ -5,10 +5,10 @@ import { MatcherEnhancementsComponent } from './matcher-enhancements.component';
 describe('Matcher enhancements', () => {
   let spectator: Spectator<MatcherEnhancementsComponent>;
   const createComponent = createComponentFactory({
-    component: MatcherEnhancementsComponent
+    component: MatcherEnhancementsComponent,
   });
 
-  beforeEach(() => spectator = createComponent());
+  beforeEach(() => (spectator = createComponent()));
 
   describe('Text', () => {
     it('should match multiple elements with different text', () => {
@@ -16,7 +16,7 @@ describe('Matcher enhancements', () => {
       expect(el).toHaveText(['It should', 'different text', 'another']);
       expect(el).toContainText(['It should', 'different text', 'another']);
       expect(el).toHaveExactText(['It should have', 'Some different text', ' And another one ']);
-      expect(el).toHaveExactText(['It should have', 'Some different text', 'And another one'], {trim: true});
+      expect(el).toHaveExactText(['It should have', 'Some different text', 'And another one'], { trim: true });
       expect(el).toHaveExactTrimmedText(['It should have', 'Some different text', 'And another one']);
     });
   });
@@ -76,7 +76,7 @@ describe('Matcher enhancements', () => {
     });
 
     it('should return true when expected is same as actual', () => {
-      expect(spectator.component.dummyValue).toBePartial({...spectator.component.dummyValue});
+      expect(spectator.component.dummyValue).toBePartial({ ...spectator.component.dummyValue });
     });
 
     it('should return false when expected is not partial of actual', () => {
@@ -94,5 +94,5 @@ describe('Matcher enhancements', () => {
     it('should match checkbox indeterminate state', () => {
       expect(spectator.query('.checkbox-indeterminate')).toBeIndeterminate();
     });
-  })
+  });
 });

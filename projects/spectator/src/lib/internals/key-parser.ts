@@ -27,7 +27,7 @@ export const parseKeyOptions = (keyOrKeyCode: string | number | KeyboardEventOpt
 
     return {
       ...parsedKey,
-      keyCode: keyOrKeyCode.keyCode
+      keyCode: keyOrKeyCode.keyCode,
     };
   }
 
@@ -67,7 +67,7 @@ const parseKey = (keyStr: string): KeyOptions => {
           throw new Error(`invalid key modifier: ${part ? part : 'undefined'}, keyStr: ${keyStr}`);
       }
     },
-    { alt: false, control: false, shift: false, meta: false }
+    { alt: false, control: false, shift: false, meta: false },
   );
 
   return { key, keyCode: false, modifiers };

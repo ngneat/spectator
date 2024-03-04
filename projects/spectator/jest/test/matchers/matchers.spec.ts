@@ -32,16 +32,19 @@ describe('Matchers', () => {
   let spectator: Spectator<MatchersComponent>;
 
   beforeEach(() => {
-    if(!window.customElements.get("custom-element")) {
-      window.customElements.define("custom-element", class extends HTMLElement {
-        connectedCallback() {
-          if (this.isConnected && !this.shadowRoot) {
-            const el = document.createElement("div")
-            el.id = "shadow-dom"
-            this.attachShadow({ mode: 'open' }).appendChild(el);
+    if (!window.customElements.get('custom-element')) {
+      window.customElements.define(
+        'custom-element',
+        class extends HTMLElement {
+          connectedCallback() {
+            if (this.isConnected && !this.shadowRoot) {
+              const el = document.createElement('div');
+              el.id = 'shadow-dom';
+              this.attachShadow({ mode: 'open' }).appendChild(el);
+            }
           }
-        }
-      })
+        },
+      );
     }
     spectator = createComponent();
   });
@@ -118,9 +121,7 @@ describe('Matchers', () => {
     });
 
     it('should detect elements with hidden parents through shadow DOMs', () => {
-      expect(
-        document.querySelector('custom-element')?.shadowRoot?.querySelector("#shadow-dom")
-      ).toBeHidden();
+      expect(document.querySelector('custom-element')?.shadowRoot?.querySelector('#shadow-dom')).toBeHidden();
     });
 
     it('should detect elements whose computed styles are display: none', () => {

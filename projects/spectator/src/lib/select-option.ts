@@ -13,7 +13,7 @@ import { isString, isHTMLOptionElementArray, SelectOptions } from './types';
 export function selectOption(
   options: SelectOptions,
   element: HTMLElement | HTMLSelectElement | Document | Window,
-  config: { emitEvents: boolean }
+  config: { emitEvents: boolean },
 ): void {
   if (!(element instanceof HTMLSelectElement)) {
     return;
@@ -36,9 +36,9 @@ export function selectOption(
     }
 
     if (isHTMLOptionElementArray(options)) {
-      options.forEach(option => setOptionSelected(option, element, config));
+      options.forEach((option) => setOptionSelected(option, element, config));
     } else {
-      element.querySelectorAll('option').forEach(opt => {
+      element.querySelectorAll('option').forEach((opt) => {
         if (options.includes(opt.value)) {
           setOptionSelected(opt, element, config);
         }

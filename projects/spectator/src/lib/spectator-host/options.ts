@@ -17,7 +17,7 @@ export interface SpectatorHostOptions<C, H> extends SpectatorOptions<C> {
 const defaultSpectatorHostOptions: OptionalsRequired<SpectatorHostOptions<any, any>> = {
   ...getSpectatorDefaultOptions<any>(),
   host: HostComponent,
-  template: ''
+  template: '',
 };
 
 /**
