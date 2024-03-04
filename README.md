@@ -71,6 +71,8 @@ Become a bronze sponsor and get your logo on our README on GitHub.
     - [Testing Select Elements](#testing-select-elements)
     - [Mocking Components](#mocking-components)
     - [Testing Single Component/Directive Angular Modules](#testing-single-componentdirective-angular-modules)
+  - [Deferrable Views](#deferrable-views)
+    - [Nested Deferrable Views](#nested-deferrable-views)
 - [Testing with Host](#testing-with-host)
   - [Custom Host Component](#custom-host-component)
 - [Testing with Routing](#testing-with-routing)
@@ -154,6 +156,7 @@ const createComponent = createComponentFactory({
   declareComponent: false, // Defaults to true
   disableAnimations: false, // Defaults to true
   shallow: true, // Defaults to false
+  deferBlockBehavior: DeferBlockBehavior // Defaults to DeferBlockBehavior.Playthrough
 });
 ```
 
@@ -551,7 +554,107 @@ const createDirective = createDirectiveFactory({
 });
 ```
 
+### Deferrable Views
+The Spectator provides a convenient API to access the deferrable views (`@defer {}`).
 
+Access the desired defer block using the `spectator.deferBlock(optionalIndex)` method. The `optionalIndex` parameter is optional and allows you to specify the index of the defer block you want to access.
+
+- **Accessing the first defer block**: Simply call `spectator.deferBlock()`.
+- **Accessing subsequent defer blocks**: Use the corresponding index as an argument. For example, `spectator.deferBlock(1)` accesses the second block (zero-based indexing).
+
+The `spectator.deferBlock(optionalIndex)` returns four methods for rendering different states of the specified defer block:
+
+- `renderComplete()` - Renders the **complete** state of the defer block.
+- `renderPlaceholder()` - Renders the **placeholder** state of the defer block.
+- `renderLoading()` - Renders the **loading** state of the defer block.
+- `renderError()` - Renders the **error** state of the defer block.
+
+**Example:**
+
+```ts
+    @Component({
+      selector: 'app-cmp',
+      template: `
+        @defer (on viewport) {
+          <div>Complete state of the first defer block</div> <!--Parent Complete State-->
+        } @placeholder {
+          <div>Placeholder</div>
+        }
+      `,
+    })
+    class DummyComponent {}
+
+    const createComponent = createComponentFactory({
+      component: DummyComponent,
+      deferBlockBehavior: DeferBlockBehavior.Manual,
+    });
+
+    it('should render the complete state', async () => {
+      // Arrange
+      const spectator = createComponent();
+
+      // Act
+      await spectator.deferBlock().renderComplete();
+
+      // Assert
+      expect(spectator.element.outerHTML).toContain('first defer block');
+    });
+```
+
+
+#### Nested Deferrable Views
+
+To access states within nested defer blocks, call the `deferBlock` method **chaining** from the returned block state method.
+
+**Example:** Accessing the nested complete state:
+
+```ts
+// Assuming `spectator.deferBlock(0).renderComplete()` renders the complete state of the parent defer block
+const parentCompleteState = await spectator.deferBlock().renderComplete();
+
+// Access the nested complete state of the parent defer block
+const nestedCompleteState = await parentCompleteState.renderComplete().deferBlock();
+```
+
+**Complete Example**:
+
+```ts
+    @Component({
+      selector: 'app-cmp',
+      template: `
+        @defer (on viewport) {
+          <div>Complete state of the first defer block</div> <!--Parent Complete State-->
+
+          @defer {
+            <div>Complete state of the nested defer block</div> <!--Nested Complete State-->
+          }
+        } @placeholder {
+          <div>Placeholder</div>
+        }
+      `,
+    })
+    class DummyComponent {}
+
+    const createComponent = createComponentFactory({
+      component: DummyComponent,
+      deferBlockBehavior: DeferBlockBehavior.Manual,
+    });
+
+    it('should render the first nested complete state', async () => {
+      // Arrange
+      const spectator = createComponent();
+
+      // Act
+      // Renders the parent complete state
+      const parentCompleteState = await spectator.deferBlock().renderComplete();
+
+      // Renders the nested complete state
+      await parentCompleteState.deferBlock().renderComplete();
+
+      // Assert
+      expect(spectator.element.outerHTML).toContain('nested defer block');
+    });
+```
 
 ## Testing with Host
 Testing a component with a host component is a more elegant and powerful technique to test your component.

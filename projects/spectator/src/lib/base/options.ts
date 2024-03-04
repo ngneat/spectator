@@ -1,5 +1,5 @@
 import { Component, Directive, NgModule, Pipe, Provider, SchemaMetadata, Type } from '@angular/core';
-import { MetadataOverride, ModuleTeardownOptions } from '@angular/core/testing';
+import { DeferBlockBehavior, MetadataOverride, ModuleTeardownOptions } from '@angular/core/testing';
 
 import { merge } from '../internals/merge';
 import { mockProvider, MockProvider } from '../mock';
@@ -22,6 +22,7 @@ export interface BaseSpectatorOptions {
   overrideDirectives?: [Type<any>, MetadataOverride<Directive>][];
   overridePipes?: [Type<any>, MetadataOverride<Pipe>][];
   teardown?: ModuleTeardownOptions;
+  deferBlockBehavior?: DeferBlockBehavior;
   errorOnUnknownElements?: boolean;
   errorOnUnknownProperties?: boolean;
 }
@@ -49,6 +50,7 @@ const defaultOptions: OptionalsRequired<BaseSpectatorOptions> = {
   teardown: { destroyAfterEach: false },
   errorOnUnknownElements: false,
   errorOnUnknownProperties: false,
+  deferBlockBehavior: DeferBlockBehavior.Playthrough,
 };
 
 /**

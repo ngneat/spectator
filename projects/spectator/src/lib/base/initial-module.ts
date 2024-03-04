@@ -1,5 +1,5 @@
 import { SchemaMetadata, Type } from '@angular/core';
-import { ModuleTeardownOptions } from '@angular/core/testing';
+import { DeferBlockBehavior, ModuleTeardownOptions } from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 import { getGlobalsInjections } from '../globals-injections';
@@ -16,6 +16,7 @@ export interface ModuleMetadata {
   entryComponents: Type<any>[];
   schemas?: (SchemaMetadata | any[])[];
   teardown?: ModuleTeardownOptions;
+  deferBlockBehavior: DeferBlockBehavior;
   errorOnUnknownElements: boolean;
   errorOnUnknownProperties: boolean;
 }
@@ -36,6 +37,7 @@ export function initialModule(options: Required<BaseSpectatorOptions>): ModuleMe
       // is always defined. If the user calls `defineGlobalsInjections({ teardown: { ... } })` and we merge it with
       // `options.teardown`, then `options.teardown` will always override global options.
       { ...(globals.teardown || options.teardown) },
+    deferBlockBehavior: globals.deferBlockBehavior || options.deferBlockBehavior,
     errorOnUnknownElements: globals.errorOnUnknownElements || options.errorOnUnknownElements,
     errorOnUnknownProperties: globals.errorOnUnknownProperties || options.errorOnUnknownProperties,
   };
