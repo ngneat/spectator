@@ -22,7 +22,7 @@ export interface BaseSpectatorOptions {
   overrideDirectives?: [Type<any>, MetadataOverride<Directive>][];
   overridePipes?: [Type<any>, MetadataOverride<Pipe>][];
   teardown?: ModuleTeardownOptions;
-  deferBlockBehavior?: DeferBlockBehavior;
+  deferBlockBehavior?: DeferBlockBehavior | undefined;
   errorOnUnknownElements?: boolean;
   errorOnUnknownProperties?: boolean;
 }
@@ -50,7 +50,7 @@ const defaultOptions: OptionalsRequired<BaseSpectatorOptions> = {
   teardown: { destroyAfterEach: false },
   errorOnUnknownElements: false,
   errorOnUnknownProperties: false,
-  deferBlockBehavior: DeferBlockBehavior.Playthrough,
+  deferBlockBehavior: DeferBlockBehavior?.Playthrough,
 };
 
 /**
