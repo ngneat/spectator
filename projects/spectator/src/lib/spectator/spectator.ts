@@ -44,11 +44,11 @@ export class Spectator<C> extends DomSpectator<C> {
   public setInput<K extends keyof C>(input: K, inputValue: InferInputSignal<C[K]>): void;
   public setInput(input: any, value?: any): void {
     setProps(this.fixture.componentRef, input, value);
-    // Force cd on the tested component
-    this.debugElement.injector.get(ChangeDetectorRef).detectChanges();
-
     // Force cd on the host component for cases such as: https://github.com/ngneat/spectator/issues/539
     this.detectChanges();
+
+    // Force cd on the tested component
+    this.debugElement.injector.get(ChangeDetectorRef).detectChanges();
   }
 
   public deferBlock(deferBlockIndex = 0): DeferBlocks {
