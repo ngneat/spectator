@@ -12,7 +12,7 @@ import { SpyObject } from '../mock';
 import { selectOption } from '../select-option';
 import { Token } from '../token';
 import { typeInElement } from '../type-in-element';
-import { EventEmitterType, KeyboardEventOptions, KeysMatching, QueryOptions, QueryType, SpectatorElement, isString } from '../types';
+import { OutputType, KeyboardEventOptions, KeysMatching, QueryOptions, QueryType, SpectatorElement, isString } from '../types';
 
 import { BaseSpectator } from './base-spectator';
 
@@ -260,7 +260,7 @@ export abstract class DomSpectator<I> extends BaseSpectator {
   public triggerEventHandler<C = any, K extends KeysMatching<C, EventEmitter<any>> = any>(
     directiveOrSelector: Type<C> | string | DebugElement,
     eventName: K,
-    eventObj: EventEmitterType<C[K]>,
+    eventObj: OutputType<C[K]>,
     options?: { root: boolean },
   ) {
     const triggerDebugElement = this.getDebugElement(directiveOrSelector, options);
