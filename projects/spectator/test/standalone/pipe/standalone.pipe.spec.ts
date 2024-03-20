@@ -30,7 +30,7 @@ describe('StandalonePipe', () => {
       spectator = createPipe(`<div id="standalone">{{ thisField | standalone }}</div>`, { hostProps: { thisField: 'This' } });
     });
 
-    fit('should render and execute the StandalonePipe', () => {
+    it('should render and execute the StandalonePipe', () => {
       expect(spectator.element.querySelector('#standalone')).toContainText('This stands alone!');
     });
   });

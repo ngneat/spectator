@@ -15,7 +15,7 @@ describe('Matcher enhancements', () => {
       const el = spectator.queryAll('.text-check');
       expect(el).toHaveText(['It should', 'different text', 'another']);
       expect(el).toContainText(['It should', 'different text', 'another']);
-      expect(el).toHaveExactText(['It should have', 'Some different text', ' And another one ']);
+      expect(el).toHaveExactText(['It should have', 'Some different text', 'And another one']);
       expect(el).toHaveExactText(['It should have', 'Some different text', 'And another one'], { trim: true });
       expect(el).toHaveExactTrimmedText(['It should have', 'Some different text', 'And another one']);
     });
