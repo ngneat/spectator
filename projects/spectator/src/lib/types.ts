@@ -1,4 +1,4 @@
-import { DebugElement, ElementRef, EventEmitter, InputSignal, OnDestroy, Type } from '@angular/core';
+import { DebugElement, ElementRef, EventEmitter, InputSignalWithTransform, OnDestroy, OutputRef, Type } from '@angular/core';
 
 import { DOMSelector } from './dom-selectors';
 import { Token } from './token';
@@ -8,7 +8,7 @@ type OptionalPropertyNames<T> = {
 }[keyof T];
 type OptionalProperties<T> = Pick<T, OptionalPropertyNames<T>>;
 
-export type InferInputSignal<T> = T extends InputSignal<infer K> ? K : T;
+export type InferInputSignal<T> = T extends InputSignalWithTransform<infer K, infer _> ? K : T;
 export type InferInputSignals<C> = {
   [P in keyof C]+?: InferInputSignal<C[P]>;
 };
@@ -24,7 +24,7 @@ export interface QueryOptions<R> {
   parentSelector?: Type<any> | string;
 }
 
-export type EventEmitterType<P> = P extends EventEmitter<infer T> ? T : never;
+export type OutputType<P> = P extends EventEmitter<infer T> ? T : P extends OutputRef<infer T> ? T : never;
 
 export type KeysMatching<T, V> = { [K in keyof T]: T[K] extends V ? K : never }[keyof T];
 
