@@ -42,6 +42,7 @@ export class Spectator<C> extends DomSpectator<C> {
 
   public setInput<K extends keyof C>(input: InferInputSignals<C>): void;
   public setInput<K extends keyof C>(input: K, inputValue: InferInputSignal<C[K]>): void;
+  public setInput(input: string, inputValue: unknown): void;
   public setInput(input: any, value?: any): void {
     setProps(this.fixture.componentRef, input, value);
     // Force cd on the host component for cases such as: https://github.com/ngneat/spectator/issues/539
@@ -66,7 +67,7 @@ export class Spectator<C> extends DomSpectator<C> {
         const renderedDeferFixture = await this._renderDeferStateAndGetFixture(
           DeferBlockState.Complete,
           deferBlockIndex,
-          deferBlockFixtures
+          deferBlockFixtures,
         );
 
         return this._childrenDeferFixtures(renderedDeferFixture);
@@ -75,7 +76,7 @@ export class Spectator<C> extends DomSpectator<C> {
         const renderedDeferFixture = await this._renderDeferStateAndGetFixture(
           DeferBlockState.Placeholder,
           deferBlockIndex,
-          deferBlockFixtures
+          deferBlockFixtures,
         );
 
         return this._childrenDeferFixtures(renderedDeferFixture);
@@ -84,7 +85,7 @@ export class Spectator<C> extends DomSpectator<C> {
         const renderedDeferFixture = await this._renderDeferStateAndGetFixture(
           DeferBlockState.Loading,
           deferBlockIndex,
-          deferBlockFixtures
+          deferBlockFixtures,
         );
 
         return this._childrenDeferFixtures(renderedDeferFixture);
@@ -108,7 +109,7 @@ export class Spectator<C> extends DomSpectator<C> {
   private async _renderDeferStateAndGetFixture(
     deferBlockState: DeferBlockState,
     deferBlockIndex = 0,
-    deferBlockFixtures: Promise<DeferBlockFixture[]>
+    deferBlockFixtures: Promise<DeferBlockFixture[]>,
   ): Promise<DeferBlockFixture> {
     const deferFixture = (await deferBlockFixtures)[deferBlockIndex];
 
