@@ -2,6 +2,23 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [18.0.0](https://github.com/ngneat/spectator/compare/v17.1.0...v18.0.0) (2024-03-21)
+
+
+### ⚠ BREAKING CHANGES
+
+* using Angular types not available in versions lower
+than 17.3.0
+
+### Features
+
+* 🎸 fix input/output type inference ([#651](https://github.com/ngneat/spectator/issues/651)) ([8cacdda](https://github.com/ngneat/spectator/commit/8cacddac18a2939fbf537bb74f0ca1dbcb1fa6e6))
+
+
+### Bug Fixes
+
+* 🐛 component re-render when updating fields in lifecycle hook ([#646](https://github.com/ngneat/spectator/issues/646)) ([e522c99](https://github.com/ngneat/spectator/commit/e522c995b51b85f3d73349d3d5cfe892f24f3500))
+
 ## [17.1.0](https://github.com/ngneat/spectator/compare/v17.0.0...v17.1.0) (2024-03-04)
 
 
