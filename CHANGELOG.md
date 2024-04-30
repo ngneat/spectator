@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [18.0.2](https://github.com/ngneat/spectator/compare/v18.0.1...v18.0.2) (2024-04-30)
+
+
+### Bug Fixes
+
+* 🏷️ Use generic return type for all jest matchers ([#655](https://github.com/ngneat/spectator/issues/655)) ([f322a65](https://github.com/ngneat/spectator/commit/f322a652f1c82ae96a60da76b3c78c3d555f4713))
+
 ### [18.0.1](https://github.com/ngneat/spectator/compare/v18.0.0...v18.0.1) (2024-03-21)
 
 
