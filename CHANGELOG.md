@@ -2,6 +2,26 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [19.0.0](https://github.com/ngneat/spectator/compare/v18.0.2...v19.0.0) (2024-06-19)
+
+
+### ⚠ BREAKING CHANGES
+
+* 🧨 The library now required a min version of Angular 18.0.0
+
+- npx ng update @angular/core@18 @angular/cli@18 @angular/cdk@18
+  @angular-eslint/schematics@18 --force
+- yarn upgrade jest-preset-angular@14.1.0
+- yarn upgrade @angular-builders/jest@18
+- yarn upgrade browserslist (fix BrowserslistError)
+
+* ci: 🎡 bump @angular peer dependencies to v18
+* 🧨 angular v18
+
+### Features
+
+* 🎸 upgrade to Angular 18 ([#660](https://github.com/ngneat/spectator/issues/660)) ([74f2e0b](https://github.com/ngneat/spectator/commit/74f2e0bdecfaff6c6e587d1b0a2f180e0b0f96c9))
+
 ### [18.0.2](https://github.com/ngneat/spectator/compare/v18.0.1...v18.0.2) (2024-04-30)
 
 
