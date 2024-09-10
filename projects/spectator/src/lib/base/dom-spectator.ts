@@ -162,8 +162,8 @@ export abstract class DomSpectator<I> extends BaseSpectator {
     return null;
   }
 
-  public output<K extends KeysMatchingOutput<I>>(output: K): I[K];
-  public output<T, K extends KeysMatchingOutput<I>>(output: K): Observable<T> | OutputEmitterRef<T>;
+  public output<K extends KeysMatchingOutput<I> = KeysMatchingOutput<I>>(output: K): I[K];
+  public output<T, K extends KeysMatchingOutput<I> = KeysMatchingOutput<I>>(output: K): Observable<T> | OutputEmitterRef<T>;
   public output<T, K extends KeysMatchingOutput<I>>(output: K): I[K] | Observable<T> | OutputEmitterRef<T> {
     const eventEmitter = this.instance[output];
 
