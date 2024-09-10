@@ -18,6 +18,9 @@ import { BaseSpectator } from './base-spectator';
 
 const KEY_UP = 'keyup';
 
+type KeysMatchingOutput<T, V = EventEmitter<any> | OutputEmitterRef<any>> = keyof { [P in keyof T as T[P] extends V ? P : never]: P } &
+  keyof T;
+
 /**
  * @internal
  */
@@ -159,9 +162,9 @@ export abstract class DomSpectator<I> extends BaseSpectator {
     return null;
   }
 
-  public output<K extends keyof I = keyof I>(output: K): I[K];
-  public output<T, K extends keyof I = keyof I>(output: K): Observable<T> | OutputEmitterRef<T>;
-  public output<T, K extends keyof I = keyof I>(output: K): I[K] | Observable<T> | OutputEmitterRef<T> {
+  public output<K extends KeysMatchingOutput<I>>(output: K): I[K];
+  public output<T, K extends KeysMatchingOutput<I>>(output: K): Observable<T> | OutputEmitterRef<T>;
+  public output<T, K extends KeysMatchingOutput<I>>(output: K): I[K] | Observable<T> | OutputEmitterRef<T> {
     const eventEmitter = this.instance[output];
 
     if (!(eventEmitter instanceof Observable) && !(eventEmitter instanceof OutputEmitterRef)) {
