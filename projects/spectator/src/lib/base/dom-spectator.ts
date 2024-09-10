@@ -1,4 +1,4 @@
-import { DebugElement, ElementRef, EventEmitter, Type } from '@angular/core';
+import { DebugElement, ElementRef, EventEmitter, OutputEmitterRef, Type } from '@angular/core';
 import { ComponentFixture, tick } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { Observable } from 'rxjs';
@@ -159,14 +159,16 @@ export abstract class DomSpectator<I> extends BaseSpectator {
     return null;
   }
 
-  public output<T, K extends keyof I = keyof I>(output: K): Observable<T> {
-    const observable = this.instance[output];
+  public output<K extends keyof I = keyof I>(output: K): I[K];
+  public output<T, K extends keyof I = keyof I>(output: K): Observable<T> | OutputEmitterRef<T>;
+  public output<T, K extends keyof I = keyof I>(output: K): I[K] | Observable<T> | OutputEmitterRef<T> {
+    const eventEmitter = this.instance[output];
 
-    if (!(observable instanceof Observable)) {
-      throw new Error(`${String(output)} is not an @Output`);
+    if (!(eventEmitter instanceof Observable) && !(eventEmitter instanceof OutputEmitterRef)) {
+      throw new Error(`${String(output)} is not an @Output or an output function`);
     }
 
-    return observable as Observable<T>;
+    return eventEmitter;
   }
 
   public tick(millis?: number): void {
