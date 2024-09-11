@@ -1,4 +1,4 @@
-import { DebugElement, ElementRef, EventEmitter, Type } from '@angular/core';
+import { DebugElement, ElementRef, EventEmitter, OutputEmitterRef, Type } from '@angular/core';
 import { ComponentFixture, tick } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { Observable } from 'rxjs';
@@ -17,6 +17,11 @@ import { OutputType, KeyboardEventOptions, KeysMatching, QueryOptions, QueryType
 import { BaseSpectator } from './base-spectator';
 
 const KEY_UP = 'keyup';
+
+type KeysMatchingReturnType<T, V> = keyof { [P in keyof T as T[P] extends V ? P : never]: P } & keyof T;
+type KeysMatchingOutputFunction<T> = KeysMatchingReturnType<T, OutputEmitterRef<any>>;
+type KeysMatchingClassicOutput<T> = KeysMatchingReturnType<T, EventEmitter<any>>;
+type KeysMatchingOutput<T> = KeysMatchingOutputFunction<T> | KeysMatchingClassicOutput<T>;
 
 /**
  * @internal
@@ -159,14 +164,17 @@ export abstract class DomSpectator<I> extends BaseSpectator {
     return null;
   }
 
-  public output<T, K extends keyof I = keyof I>(output: K): Observable<T> {
-    const observable = this.instance[output];
+  public output<K extends KeysMatchingOutput<I> = KeysMatchingOutput<I>>(output: K): I[K];
+  public output<T, K extends KeysMatchingClassicOutput<I> = KeysMatchingClassicOutput<I>>(output: K): Observable<T>;
+  public output<T, K extends KeysMatchingOutputFunction<I> = KeysMatchingOutputFunction<I>>(output: K): OutputEmitterRef<T>;
+  public output<T, K extends KeysMatchingOutput<I>>(output: K): I[K] | Observable<T> | OutputEmitterRef<T> {
+    const eventEmitter = this.instance[output];
 
-    if (!(observable instanceof Observable)) {
-      throw new Error(`${String(output)} is not an @Output`);
+    if (!(eventEmitter instanceof Observable) && !(eventEmitter instanceof OutputEmitterRef)) {
+      throw new Error(`${String(output)} is not an @Output or an output function`);
     }
 
-    return observable as Observable<T>;
+    return eventEmitter;
   }
 
   public tick(millis?: number): void {
