@@ -265,7 +265,7 @@ export abstract class DomSpectator<I> extends BaseSpectator {
     return event;
   }
 
-  public triggerEventHandler<C = any, K extends KeysMatching<C, EventEmitter<any>> = any>(
+  public triggerEventHandler<C = any, K extends KeysMatching<C, EventEmitter<any> | OutputEmitterRef<any>> = any>(
     directiveOrSelector: Type<C> | string | DebugElement,
     eventName: K,
     eventObj: OutputType<C[K]>,
