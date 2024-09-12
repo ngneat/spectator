@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [19.1.0](https://github.com/ngneat/spectator/compare/v19.0.0...v19.1.0) (2024-09-12)
+
+
+### Features
+
+* allow `OutputEmitterRef` keys in `triggerEventHandler` ([#672](https://github.com/ngneat/spectator/issues/672)) ([06bc093](https://github.com/ngneat/spectator/commit/06bc0931a1c196d3bacaa8f188469d7d291ac20e))
+* **spectator:** support for Function-based outputs ([#671](https://github.com/ngneat/spectator/issues/671)) ([02ed01d](https://github.com/ngneat/spectator/commit/02ed01d11e0c9a6cc68c2400102449185d605079))
+
 ## [19.0.0](https://github.com/ngneat/spectator/compare/v18.0.2...v19.0.0) (2024-06-19)
 
 
