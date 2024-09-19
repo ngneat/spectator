@@ -69,7 +69,7 @@ export function installProtoMethods<T>(mock: any, proto: any, createSpyFn: Funct
 /**
  * @publicApi
  */
-export function createSpyObject<T>(type: Type<T> | AbstractType<T>, template?: Partial<Record<keyof T, any>>): SpyObject<T> {
+export function createSpyObject<T>(type: Type<T> | AbstractType<T>, template?: Partial<T>): SpyObject<T> {
   const mock: any = { ...template } || {};
 
   installProtoMethods<T>(mock, type.prototype, (name) => {
@@ -89,7 +89,7 @@ export function createSpyObject<T>(type: Type<T> | AbstractType<T>, template?: P
 /**
  * @publicApi
  */
-export function mockProvider<T>(type: Type<T> | AbstractType<T>, properties?: Partial<Record<keyof T, any>>): FactoryProvider {
+export function mockProvider<T>(type: Type<T> | AbstractType<T>, properties?: Partial<T>): FactoryProvider {
   return {
     provide: type,
     useFactory: () => createSpyObject(type, properties),
