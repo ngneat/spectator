@@ -70,7 +70,7 @@ export function installProtoMethods<T>(mock: any, proto: any, createSpyFn: Funct
  * @publicApi
  */
 export function createSpyObject<T>(type: Type<T> | AbstractType<T>, template?: Partial<Record<keyof T, any>>): SpyObject<T> {
-  const mock: any = { ...template } || {};
+  const mock: any = { ...template };
 
   installProtoMethods<T>(mock, type.prototype, (name) => {
     const newSpy: jasmine.Spy & Partial<CompatibleSpy> = jasmine.createSpy(name);

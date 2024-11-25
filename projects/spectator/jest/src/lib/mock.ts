@@ -13,7 +13,7 @@ export type SpyObject<T> = BaseSpyObject<T> & {
  * @publicApi
  */
 export function createSpyObject<T>(type: Type<T> | AbstractType<T>, template?: Partial<Record<keyof T, any>>): SpyObject<T> {
-  const mock: any = { ...template } || {};
+  const mock: any = { ...template };
 
   installProtoMethods(mock, type.prototype, () => {
     const jestFn = jest.fn();
