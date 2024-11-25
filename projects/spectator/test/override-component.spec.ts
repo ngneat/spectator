@@ -18,6 +18,7 @@ export class StandaloneComponentWithDependency {
   template: `<div id="standalone">Standalone component with import!</div>
     <app-standalone-with-dependency></app-standalone-with-dependency>`,
   imports: [StandaloneComponentWithDependency],
+  standalone: true,
 })
 export class StandaloneWithImportsComponent {}
 
