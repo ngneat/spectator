@@ -24,6 +24,7 @@ import { QueryService } from '../query.service';
       <div class="color">{{ options.color }}</div>
     </div>
   `,
+  standalone: false,
 })
 export class ZippyComponent {
   @Input() public title;

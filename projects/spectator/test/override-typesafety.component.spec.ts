@@ -2,7 +2,11 @@ import { createHostFactory, SpectatorHost } from '@ngneat/spectator';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { Component } from '@angular/core';
 
-@Component({ selector: 'my-component', template: '' })
+@Component({
+  selector: 'my-component',
+  template: '',
+  standalone: false,
+})
 class MyComponent {}
 
 describe('Override type-safety', () => {
@@ -48,7 +52,10 @@ describe('Override type-safety', () => {
   });
 
   describe('Custom Host should not allow custom properties', () => {
-    @Component({ template: '' })
+    @Component({
+      template: '',
+      standalone: false,
+    })
     class CustomHostComponent {
       public foo: string = 'bar';
     }
@@ -78,7 +85,10 @@ describe('Override type-safety', () => {
   });
 
   describe('Custom Host should not allow custom properties (type inference)', () => {
-    @Component({ template: '' })
+    @Component({
+      template: '',
+      standalone: false,
+    })
     class CustomHostComponent {
       public foo: string = 'bar';
     }

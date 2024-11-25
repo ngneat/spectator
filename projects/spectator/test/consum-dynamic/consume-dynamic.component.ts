@@ -6,6 +6,7 @@ import { DynamicComponent } from '../dynamic/dynamic.component';
   selector: 'app-consume-dynamic',
   template: ` <p>consume-dynamic works!</p> `,
   styles: [],
+  standalone: false,
 })
 export class ConsumeDynamicComponent implements OnInit {
   constructor(

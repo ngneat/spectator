@@ -7,6 +7,7 @@ import { Component, Output, EventEmitter } from '@angular/core';
     <h1 (click)="onDownloadClick()">Download comp</h1>
     >
   `,
+  standalone: false,
 })
 export class DownloadComponent {
   @Output() selectedFile = new EventEmitter();

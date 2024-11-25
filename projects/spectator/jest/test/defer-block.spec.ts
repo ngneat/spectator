@@ -10,8 +10,9 @@ describe('DeferBlock', () => {
         <button data-test="button--isVisible" (click)="isVisible = !isVisible">Toggle</button>
 
         @defer (when isVisible) {
-        <div>empty defer block</div>
-        } ,
+          <div>empty defer block</div>
+        }
+        ,
       `,
       standalone: true,
     })
@@ -45,15 +46,16 @@ describe('DeferBlock', () => {
       selector: 'app-root',
       template: `
         @defer (on viewport) {
-        <div>empty defer block</div>
+          <div>empty defer block</div>
         } @placeholder {
-        <div>this is the placeholder text</div>
+          <div>this is the placeholder text</div>
         } @loading {
-        <div>this is the loading text</div>
+          <div>this is the loading text</div>
         } @error {
-        <div>this is the error text</div>
+          <div>this is the error text</div>
         }
       `,
+      standalone: false,
     })
     class DummyComponent {}
 
@@ -112,45 +114,44 @@ describe('DeferBlock', () => {
       selector: 'app-root',
       template: `
         @defer (on viewport) {
-        <div>complete state #1</div>
+          <div>complete state #1</div>
 
-        <!-- nested defer block -->
-        @defer {
-        <div>complete state #1.1</div>
+          <!-- nested defer block -->
+          @defer {
+            <div>complete state #1.1</div>
 
-        <!-- Deep nested defer block #1 -->
-        @defer {
-        <div>complete state #1.1.1</div>
+            <!-- Deep nested defer block #1 -->
+            @defer {
+              <div>complete state #1.1.1</div>
+            } @placeholder {
+              <div>placeholder state #1.1.1</div>
+            }
+            <!-- /Deep nested defer block #1-->
+
+            <!-- Deep nested defer block #2 -->
+            @defer {
+              <div>complete state #1.1.2</div>
+            } @placeholder {
+              <div>placeholder state #1.1.2</div>
+            }
+            <!-- /Deep nested defer block #2-->
+          } @placeholder {
+            <div>nested placeholder text</div>
+          } @loading {
+            <div>nested loading text</div>
+          } @error {
+            <div>nested error text</div>
+          }
+          <!-- /nested defer block -->
         } @placeholder {
-        <div>placeholder state #1.1.1</div>
-        }
-        <!-- /Deep nested defer block #1-->
-
-        <!-- Deep nested defer block #2 -->
-        @defer {
-        <div>complete state #1.1.2</div>
-        } @placeholder {
-        <div>placeholder state #1.1.2</div>
-        }
-        <!-- /Deep nested defer block #2-->
-
-        } @placeholder {
-        <div>nested placeholder text</div>
+          <div>placeholder state #1</div>
         } @loading {
-        <div>nested loading text</div>
+          <div>loading state #1</div>
         } @error {
-        <div>nested error text</div>
-        }
-        <!-- /nested defer block -->
-
-        } @placeholder {
-        <div>placeholder state #1</div>
-        } @loading {
-        <div>loading state #1</div>
-        } @error {
-        <div>error state #1</div>
+          <div>error state #1</div>
         }
       `,
+      standalone: false,
     })
     class DummyComponent {}
 

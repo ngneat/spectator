@@ -13,6 +13,7 @@ import { DummyService } from './dummy.service';
       useValue: new DummyService(),
     },
   ],
+  standalone: false,
 })
 export class ComponentWithoutOverwrittenProvidersComponent {
   constructor(public dummy: DummyService) {}

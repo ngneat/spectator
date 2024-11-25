@@ -6,6 +6,7 @@ import { StatsService } from './stats.service';
 
 @Component({
   template: ` <div>{{ prop | avg }}</div> `,
+  standalone: false,
 })
 class CustomHostComponent {
   @Input() public prop: number[] = [1, 2, 3];

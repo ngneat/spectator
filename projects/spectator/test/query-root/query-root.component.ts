@@ -4,7 +4,6 @@ import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-query-root',
-  standalone: true,
   imports: [OverlayModule],
   template: `
     <p id="by-text-p">By text</p>

@@ -5,5 +5,6 @@ import { Component, Input } from '@angular/core';
 @Component({
   selector: 'app-use-unknown-element',
   template: `<some-element></some-element>`,
+  standalone: false,
 })
 export class ErrorUnknownElementComponent {}

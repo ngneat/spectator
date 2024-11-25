@@ -19,6 +19,7 @@ export interface Dummy {
     <div id="attr-check" label="test label"></div>
     <img src="http://localhost:8080/assets/myimg.jpg" />
   `,
+  standalone: false,
 })
 export class MatcherEnhancementsComponent {
   public dummyValue: Dummy = { label: 'this is a dummy value', active: true };

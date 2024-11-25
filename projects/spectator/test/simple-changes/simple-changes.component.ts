@@ -5,6 +5,7 @@ import { Component, Input, OnChanges, OnInit, SimpleChange, SimpleChanges } from
 @Component({
   selector: 'app-simple-changes',
   template: ``,
+  standalone: false,
 })
 export class SimpleChangesComponent implements OnInit, OnChanges {
   @Input() public value;

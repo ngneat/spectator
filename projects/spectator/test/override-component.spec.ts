@@ -18,7 +18,6 @@ export class StandaloneComponentWithDependency {
   template: `<div id="standalone">Standalone component with import!</div>
     <app-standalone-with-dependency></app-standalone-with-dependency>`,
   imports: [StandaloneComponentWithDependency],
-  standalone: true,
 })
 export class StandaloneWithImportsComponent {}
 
@@ -34,6 +33,7 @@ export class MockStandaloneComponentWithDependency {
 @Component({
   selector: `app-non-standalone`,
   template: `<div id="standalone">Non standalone</div>`,
+  standalone: false,
 })
 export class MockNonStandaloneComponent {
   constructor() {}

@@ -16,6 +16,7 @@ export class StandalonePipe implements PipeTransform {
 
 @Pipe({
   name: `app-non-standalone-pipe`,
+  standalone: false,
 })
 export class MockNonStandalonePipe {
   constructor() {}

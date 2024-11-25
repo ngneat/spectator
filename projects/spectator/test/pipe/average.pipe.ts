@@ -2,7 +2,10 @@ import { Pipe, PipeTransform } from '@angular/core';
 
 import { StatsService } from './stats.service';
 
-@Pipe({ name: 'avg' })
+@Pipe({
+  name: 'avg',
+  standalone: false,
+})
 export class AveragePipe implements PipeTransform {
   constructor(private readonly statsService: StatsService) {}
 

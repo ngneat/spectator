@@ -13,6 +13,7 @@ import { FormGroup } from '@angular/forms';
     <p *ngIf="enableSubnet"></p>
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: false,
 })
 export class FormInputComponent {
   @Input() public subnetControl?: FormGroup;

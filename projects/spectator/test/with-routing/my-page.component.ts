@@ -29,6 +29,7 @@ import { map } from 'rxjs/operators';
       Some link With Extras
     </a>
   `,
+  standalone: false,
 })
 export class MyPageComponent implements OnInit {
   public title?: string;

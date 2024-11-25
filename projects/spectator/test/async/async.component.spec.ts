@@ -7,6 +7,7 @@ import { createComponentFactory, Spectator } from '@ngneat/spectator';
   host: {
     '[class.bar]': 'bar',
   },
+  standalone: false,
 })
 class FooComponent {
   @Input() bar!: boolean;

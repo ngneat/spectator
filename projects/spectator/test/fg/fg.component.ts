@@ -9,6 +9,7 @@ import { FormGroup } from '@angular/forms';
     </form>
   `,
   styles: [],
+  standalone: false,
 })
 export class FgComponent {
   @Input() public group?: FormGroup;

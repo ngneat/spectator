@@ -6,6 +6,7 @@ import { Component } from '@angular/core';
     <app-overlay-content (customEvent)="onCustomEvent($event)"></app-overlay-content>
     <p class="value">{{ eventValue }}</p>
   `,
+  standalone: false,
 })
 export class OverlayContainerComponent {
   public eventValue = '';

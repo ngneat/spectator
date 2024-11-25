@@ -30,6 +30,7 @@ import { Component, ChangeDetectionStrategy } from '@angular/core';
     </select>
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: false,
 })
 export class FormSelectComponent {
   /**

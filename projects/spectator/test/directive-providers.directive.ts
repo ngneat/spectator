@@ -6,6 +6,7 @@ export const directiveProviderToken = new InjectionToken('DirectiveProviderToken
 @Directive({
   selector: '[directiveProvider]',
   providers: [{ provide: directiveProviderToken, useValue: 'test' }],
+  standalone: false,
 })
 export class DirectiveProviderDirective {
   constructor(

@@ -5,6 +5,7 @@ import { Component, Input } from '@angular/core';
 @Component({
   selector: 'app-set-input',
   template: ``,
+  standalone: false,
 })
 export class SetInputComponent {
   public another;

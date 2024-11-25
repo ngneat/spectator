@@ -8,6 +8,7 @@ import { debounce } from 'helpful-decorators';
     <p>{{ name }}</p>
   `,
   styles: [],
+  standalone: false,
 })
 export class ClickComponent {
   public name = 'init';

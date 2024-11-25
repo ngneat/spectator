@@ -129,6 +129,7 @@ describe('MyPageComponent', () => {
     @Component({
       selector: 'dummy',
       template: '',
+      standalone: false,
     })
     class DummyComponent {}
 

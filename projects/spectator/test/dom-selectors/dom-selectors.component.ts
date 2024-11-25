@@ -53,7 +53,6 @@ export class DomSelectorsNestedComponent {}
       <app-dom-selectors-nested-components id="last"></app-dom-selectors-nested-components>
     </div>
   `,
-  standalone: true,
   imports: [DomSelectorsNestedComponent],
 })
 export class DomSelectorsComponent {}

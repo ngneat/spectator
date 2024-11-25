@@ -7,5 +7,6 @@ import { Component } from '@angular/core';
     <textarea #b class="b"></textarea>
     <p class="result">{{ a.value + b.value }}</p>
   `,
+  standalone: false,
 })
 export class CalcTextAreaComponent {}

@@ -4,6 +4,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 @Component({
   selector: 'lib-dropzone',
   template: ` <lib-download (selectedFile)="onTemplateSelectedForDownload($event)"></lib-download> `,
+  standalone: false,
 })
 export class DropzoneComponent {
   @Input() allowCSV;

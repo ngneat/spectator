@@ -15,6 +15,7 @@ import { TranslateService } from '../translate.service';
     <div *ngIf="!widthRaw" style="color:red">widthRaw is not set</div>
     <div>Width is: {{ width }}</div>
   `,
+  standalone: false,
 })
 export class HelloComponent implements OnChanges {
   public get width(): string | number | undefined {

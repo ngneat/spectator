@@ -7,6 +7,7 @@ import { QueryService } from '../query.service';
   template: ` <p *ngIf="show$ | async">async works!</p> `,
   changeDetection: ChangeDetectionStrategy.OnPush,
   styles: [],
+  standalone: false,
 })
 export class AsyncComponent implements OnInit {
   public show$;
