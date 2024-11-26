@@ -3,8 +3,6 @@
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
 
-## v.Next
-
 * 🎸 Upgrade to Angular 19 ([7f3eb6c](https://github.com/ngneat/spectator/commit/7f3eb6c541fa9843a8e2f10ab8c77bca33a678c0))
 
 ### Bug Fixes
