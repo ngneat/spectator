@@ -12,7 +12,6 @@ describe('DeferBlock', () => {
         @defer (when isVisible) {
           <div>empty defer block</div>
         }
-        ,
       `,
       standalone: true,
     })
