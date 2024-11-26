@@ -5,11 +5,11 @@ All notable changes to this project will be documented in this file. See [standa
 
 ## v.Next
 
-* 🎸 Upgrade to Angular 19 ([tbd]())
+* 🎸 Upgrade to Angular 19 ([7f3eb6c](https://github.com/ngneat/spectator/commit/7f3eb6c541fa9843a8e2f10ab8c77bca33a678c0))
 
 ### Bug Fixes
 
-* 🐛 `HostComponent` is explicitly set to `standalone: false` ([#682](https://github.com/ngneat/spectator/issues/682)) ([tbd]())
+* 🐛 `HostComponent` is explicitly set to `standalone: false` ([#682](https://github.com/ngneat/spectator/issues/682)) ([57adb46](https://github.com/ngneat/spectator/commit/57adb46c87f05d5024580774f98eff252b9c766c))
 
 
 ## [19.1.0](https://github.com/ngneat/spectator/compare/v19.0.0...v19.1.0) (2024-09-12)
