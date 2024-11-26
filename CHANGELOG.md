@@ -2,8 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
-## [19.1.0](https://github.com/ngneat/spectator/compare/v19.0.0...v19.1.0) (2024-09-12)
 
+## v.Next
+
+* 🎸 Upgrade to Angular 19 ([tbd]())
+
+### Bug Fixes
+
+* 🐛 `HostComponent` is explicitly set to `standalone: false` ([#682](https://github.com/ngneat/spectator/issues/682)) ([tbd]())
+
+
+## [19.1.0](https://github.com/ngneat/spectator/compare/v19.0.0...v19.1.0) (2024-09-12)
 
 ### Features
 
