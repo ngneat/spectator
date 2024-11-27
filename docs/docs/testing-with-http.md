@@ -54,7 +54,7 @@ describe('HttpClient testing', () => {
     spectator.service.collectTodos().subscribe();
     const reqs = spectator.expectConcurrent([
         { url: '/api1/todos', method: HttpMethod.GET },
-        { URL: '/api2/todos', method: HttpMethod.GET }
+        { url: '/api2/todos', method: HttpMethod.GET }
     ]);
 
     spectator.flushAll(reqs, [{}, {}, {}]);
