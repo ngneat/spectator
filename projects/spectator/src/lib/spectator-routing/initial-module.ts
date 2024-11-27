@@ -14,14 +14,15 @@ import { RouterStub } from './router-stub';
  */
 export function initialRoutingModule<S>(options: Required<SpectatorRoutingOptions<S>>): ModuleMetadata {
   const moduleMetadata = initialSpectatorModule(options);
+  const eventsSubject = new Subject<Event>();
 
   if (options.stubsEnabled) {
     moduleMetadata.imports.push(RouterTestingModule);
     moduleMetadata.providers.push(
       options.mockProvider(RouterStub, {
-        events: new Subject<Event>(),
+        events: eventsSubject.asObservable(),
         emitRouterEvent(event: Event): void {
-          this.events.next(event);
+          eventsSubject.next(event);
         },
         serializeUrl(): string {
           return '/';
