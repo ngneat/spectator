@@ -14,6 +14,7 @@ import { QueryService } from '../query.service';
   `,
   providers: [QueryService],
   styles: [],
+  standalone: false,
 })
 export class ButtonComponent {
   @Input() public className = 'success';

@@ -3,7 +3,10 @@ import { createHostFactory, SpectatorHost } from '@ngneat/spectator<% if (jest) 
 
 import { <%= classify(name)%>Component } from './<%= dasherize(name)%>.component';
 
-@Component({ template: '' })
+@Component({
+    template: '',
+    standalone: false
+})
 class CustomHostComponent {
   title = 'Custom HostComponent';
 }

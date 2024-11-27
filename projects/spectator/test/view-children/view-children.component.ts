@@ -23,6 +23,7 @@ import { ChildComponent } from '../child/child.component';
       }
     `,
   ],
+  standalone: false,
 })
 export class ViewChildrenComponent implements OnInit {
   @ViewChild(ChildComponent, { static: true }) public child!: ChildComponent;

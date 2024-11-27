@@ -6,6 +6,7 @@ import { TeardownService } from './teardown.service';
 @Component({
   selector: 'app-teardown',
   template: '',
+  standalone: false,
 })
 export class TeardownComponent implements OnDestroy {
   @Input()

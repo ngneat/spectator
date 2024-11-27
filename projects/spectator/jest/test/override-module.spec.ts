@@ -4,12 +4,19 @@ import { createComponentFactory, createDirectiveFactory, createHostFactory } fro
 
 import { AveragePipe } from '../../test/pipe/average.pipe';
 
-@Component({ selector: 'test-comp', template: '<div someDirective>{{ prop | avg }}</div>' })
+@Component({
+  selector: 'test-comp',
+  template: '<div someDirective>{{ prop | avg }}</div>',
+  standalone: false,
+})
 class TestComponent {
   public prop = [1, 2, 3];
 }
 
-@Directive({ selector: '[someDirective]' })
+@Directive({
+  selector: '[someDirective]',
+  standalone: false,
+})
 class SomeDirective {
   @HostBinding('class') public someClass = 'someClass';
 }

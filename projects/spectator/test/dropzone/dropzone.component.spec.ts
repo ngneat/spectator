@@ -7,6 +7,7 @@ import { createHostFactory, SpectatorHost } from '@ngneat/spectator';
 @Component({
   selector: 'host',
   template: '',
+  standalone: false,
 })
 class HostComponent {
   allowCSV = false;

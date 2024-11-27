@@ -3,6 +3,7 @@ import { Component, NgModule } from '@angular/core';
 @Component({
   selector: 'lib-ngneat-host-component',
   template: '',
+  standalone: false,
 })
 export class HostComponent {}
 

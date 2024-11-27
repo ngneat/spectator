@@ -2,6 +2,7 @@ import { Directive, HostBinding, HostListener } from '@angular/core';
 
 @Directive({
   selector: '[highlight]',
+  standalone: false,
 })
 export class HighlightDirective {
   @HostBinding('style.background-color') public backgroundColor?: string;

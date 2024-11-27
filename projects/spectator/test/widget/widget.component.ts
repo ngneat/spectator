@@ -6,6 +6,7 @@ import { WidgetService } from '../widget.service';
   selector: 'app-widget',
   template: ` <button (click)="onClick()">Click</button> `,
   styles: [],
+  standalone: false,
 })
 export class WidgetComponent implements OnInit {
   constructor(public widgetService: WidgetService) {}

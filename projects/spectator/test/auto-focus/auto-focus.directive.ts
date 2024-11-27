@@ -2,6 +2,7 @@ import { Directive, ElementRef, Input } from '@angular/core';
 
 @Directive({
   selector: '[datoAutoFocus]',
+  standalone: false,
 })
 export class AutoFocusDirective {
   @Input() public set datoAutoFocus(value: boolean) {

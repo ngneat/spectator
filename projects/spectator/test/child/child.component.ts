@@ -6,6 +6,7 @@ import { ChildServiceService } from '../child-service.service';
   selector: 'app-child',
   template: ` <p>child works!</p> `,
   styles: [],
+  standalone: false,
 })
 export class ChildComponent {
   constructor(private readonly service: ChildServiceService) {}

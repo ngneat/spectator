@@ -10,6 +10,7 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
     '(focus)': 'countFocus("app-test-focus")',
     '(blur)': 'countBlur("app-test-focus")',
   },
+  standalone: false,
 })
 export class TestFocusComponent {
   private readonly focusCounts = new Map<string, number>();

@@ -3,6 +3,7 @@ import { Component, Input } from '@angular/core';
 @Component({
   selector: 'app-async-input',
   template: ` <div *ngIf="show">Hello</div> `,
+  standalone: false,
 })
 export class AsyncInputComponent {
   public show;

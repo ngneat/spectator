@@ -15,6 +15,7 @@ export class StandaloneDirectiveWithDependency {
 
 @Directive({
   selector: `app-non-standalone-directive`,
+  standalone: false,
 })
 export class MockNonStandaloneDirective {
   constructor() {}

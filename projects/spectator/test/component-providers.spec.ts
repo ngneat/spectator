@@ -20,6 +20,7 @@ class SomeViewService {
   template: ``,
   providers: [SomeService],
   viewProviders: [SomeViewService],
+  standalone: false,
 })
 export class SomeComponent implements OnInit {
   public foo!: string;

@@ -4,6 +4,7 @@ import { StatsService } from './stats.service';
 
 @Pipe({
   name: 'alternatingSum',
+  standalone: false,
 })
 export class AlternatingSumPipe implements PipeTransform {
   constructor(private readonly statsService: StatsService) {}

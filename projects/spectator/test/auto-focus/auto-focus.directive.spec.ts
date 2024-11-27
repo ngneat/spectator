@@ -3,7 +3,11 @@ import { createHostFactory, createDirectiveFactory, SpectatorDirective, Spectato
 
 import { AutoFocusDirective } from './auto-focus.directive';
 
-@Component({ selector: 'custom-host', template: '' })
+@Component({
+  selector: 'custom-host',
+  template: '',
+  standalone: false,
+})
 class CustomHostComponent {
   public isFocused = false;
 }

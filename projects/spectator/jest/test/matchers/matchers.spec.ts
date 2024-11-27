@@ -21,6 +21,7 @@ interface Dummy {
     <custom-element style="visibility: hidden"></custom-element>
     <div id="computed-style"></div>
   `,
+  standalone: false,
 })
 export class MatchersComponent {}
 

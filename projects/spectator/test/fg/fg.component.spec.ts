@@ -4,7 +4,11 @@ import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 
 import { FgComponent } from './fg.component';
 
-@Component({ selector: 'app-custom-host', template: '' })
+@Component({
+  selector: 'app-custom-host',
+  template: '',
+  standalone: false,
+})
 class CustomHostComponent {
   public group = new FormGroup({
     name: new FormControl('name'),

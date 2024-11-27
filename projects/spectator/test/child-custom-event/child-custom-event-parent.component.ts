@@ -9,6 +9,7 @@ import { Component } from '@angular/core';
     />
     <p>{{ eventValue }}</p>
   `,
+  standalone: false,
 })
 export class ChildCustomEventParentComponent {
   public eventValue = '';

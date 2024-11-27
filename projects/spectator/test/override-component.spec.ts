@@ -34,6 +34,7 @@ export class MockStandaloneComponentWithDependency {
 @Component({
   selector: `app-non-standalone`,
   template: `<div id="standalone">Non standalone</div>`,
+  standalone: false,
 })
 export class MockNonStandaloneComponent {
   constructor() {}

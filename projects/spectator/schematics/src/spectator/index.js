@@ -1,6 +1,9 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.spectatorPipeSchematic = exports.spectatorDirectiveSchematic = exports.spectatorServiceSchematic = exports.spectatorComponentSchematic = void 0;
+exports.spectatorComponentSchematic = spectatorComponentSchematic;
+exports.spectatorServiceSchematic = spectatorServiceSchematic;
+exports.spectatorDirectiveSchematic = spectatorDirectiveSchematic;
+exports.spectatorPipeSchematic = spectatorPipeSchematic;
 const core_1 = require("@angular-devkit/core");
 const schematics_1 = require("@angular-devkit/schematics");
 const workspace_1 = require("@schematics/angular/utility/workspace");
@@ -28,7 +31,6 @@ function spectatorComponentSchematic(options) {
         },
     ]);
 }
-exports.spectatorComponentSchematic = spectatorComponentSchematic;
 function spectatorServiceSchematic(options) {
     return (0, schematics_1.chain)([
         (0, schematics_1.externalSchematic)('@schematics/angular', 'service', {
@@ -52,7 +54,6 @@ function spectatorServiceSchematic(options) {
         },
     ]);
 }
-exports.spectatorServiceSchematic = spectatorServiceSchematic;
 function spectatorDirectiveSchematic(options) {
     return (0, schematics_1.chain)([
         (0, schematics_1.externalSchematic)('@schematics/angular', 'directive', {
@@ -76,7 +77,6 @@ function spectatorDirectiveSchematic(options) {
         },
     ]);
 }
-exports.spectatorDirectiveSchematic = spectatorDirectiveSchematic;
 function spectatorPipeSchematic(options) {
     return (0, schematics_1.chain)([
         (0, schematics_1.externalSchematic)('@schematics/angular', 'pipe', {
@@ -100,7 +100,6 @@ function spectatorPipeSchematic(options) {
         },
     ]);
 }
-exports.spectatorPipeSchematic = spectatorPipeSchematic;
 async function _ensurePath(tree, options) {
     const workspace = await (0, workspace_1.getWorkspace)(tree);
     if (!options.project) {

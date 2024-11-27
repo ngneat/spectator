@@ -13,5 +13,6 @@ import { Component } from '@angular/core';
     </label>
     <p class="result">{{ a.value + b.value }}</p>
   `,
+  standalone: false,
 })
 export class CalcComponent {}
