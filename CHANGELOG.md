@@ -2,6 +2,8 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [19.1.2](https://github.com/ngneat/spectator/compare/v19.1.1...v19.1.2) (2024-11-29)
+
 ### [19.1.1](https://github.com/ngneat/spectator/compare/v19.1.0...v19.1.1) (2024-11-28)
 
 
