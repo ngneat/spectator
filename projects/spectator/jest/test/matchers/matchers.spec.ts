@@ -126,16 +126,16 @@ describe('Matchers', () => {
     });
 
     it('should detect elements whose computed styles are display: none', () => {
-      window.getComputedStyle = () => ({ getPropertyValue: (style) => style == 'display' && 'none' });
+      window.getComputedStyle = () => ({ getPropertyValue: (style) => style == 'display' && 'none' }) as CSSStyleDeclaration;
       expect(document.querySelector('#computed-style')).toBeHidden();
-      window.getComputedStyle = () => ({ getPropertyValue: (style) => style == 'display' && 'block' });
+      window.getComputedStyle = () => ({ getPropertyValue: (style) => style == 'display' && 'block' }) as CSSStyleDeclaration;
       expect(document.querySelector('#computed-style')).toBeVisible();
     });
 
     it('should detect elements whose computed styles are visibility: hidden', () => {
-      window.getComputedStyle = () => ({ getPropertyValue: (style) => style == 'visibility' && 'hidden' });
+      window.getComputedStyle = () => ({ getPropertyValue: (style) => style == 'visibility' && 'hidden' }) as CSSStyleDeclaration;
       expect(document.querySelector('#computed-style')).toBeHidden();
-      window.getComputedStyle = () => ({ getPropertyValue: (style) => style == 'visibility' && 'visible' });
+      window.getComputedStyle = () => ({ getPropertyValue: (style) => style == 'visibility' && 'visible' }) as CSSStyleDeclaration;
       expect(document.querySelector('#computed-style')).toBeVisible();
     });
   });

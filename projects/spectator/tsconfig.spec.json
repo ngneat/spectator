@@ -14,6 +14,9 @@
       "@ngneat/spectator/jest": [
         "jest/src/public_api.ts"
       ],
+      "@ngneat/spectator/vitest": [
+        "vitest/src/public_api.ts"
+      ],
       "@ngneat/spectator/internals": [
         "internals/src/public_api.ts"
       ]
@@ -24,6 +27,6 @@
   ],
   "include": [
     "test/**/*.spec.ts",
-    "src/lib/matchers-types.ts"
+    "src/lib/matchers-types.ts",
   ]
 }

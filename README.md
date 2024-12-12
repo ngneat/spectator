@@ -19,7 +19,7 @@ Spectator helps you get rid of all the boilerplate grunt work, leaving you with 
 - ✅ Easy DOM querying
 - ✅ Clean API for triggering keyboard/mouse/touch events
 - ✅ Testing `ng-content`
-- ✅ Custom Jasmine/Jest Matchers (toHaveClass, toBeDisabled..)
+- ✅ Custom Jasmine/Jest/Vitest Matchers (toHaveClass, toBeDisabled..)
 - ✅ Routing testing support
 - ✅ HTTP testing support
 - ✅ Built-in support for entry components
@@ -27,6 +27,7 @@ Spectator helps you get rid of all the boilerplate grunt work, leaving you with 
 - ✅ Auto-mocking providers
 - ✅ Strongly typed
 - ✅ Jest Support
+- ✅ Vitest Support
 
 
 ## Sponsoring ngneat
@@ -88,6 +89,7 @@ Become a bronze sponsor and get your logo on our README on GitHub.
   - [Mocking OnInit Dependencies](#mocking-oninit-dependencies)
   - [Mocking Constructor Dependencies](#mocking-constructor-dependencies)
 - [Jest Support](#jest-support)
+- [Vitest Support](#vitest-support)
 - [Testing with HTTP](#testing-with-http)
 - [Global Injections](#global-injections)
 - [Component Providers](#component-providers)
@@ -1191,6 +1193,57 @@ When using the component schematic you can specify the `--jest` flag to have the
     "jest": true
   }
 }
+```
+
+## Vitest Support
+Like Jest, Spectator also supports Vitest. 
+
+To use Vitest, update your `vite.config.[m]ts` to inline the Spectator package so it gets transformed with Vite before the tests run.
+
+```ts
+export default defineConfig(({ mode }) => ({
+  /* ... */
+  test: {
+    /* ... */
+    // inline @ngneat/spectator
+    server: {
+      deps: {
+        inline: ['@ngneat/spectator']
+      }
+    }
+  },
+}));
+```
+
+You can then import the functions from `@ngneat/spectator/vitest` instead of `@ngneat/spectator`
+and it will use Vitest instead of Jasmine.
+
+```ts
+import { createServiceFactory, SpectatorService } from '@ngneat/spectator/vitest';
+import { AuthService } from './auth.service';
+import { DateService } from './date.service';
+
+describe('AuthService', () => {
+  let spectator: SpectatorService<AuthService>;
+  const createService = createServiceFactory({
+    service: AuthService,
+    mocks: [DateService]
+  });
+
+  beforeEach(() => spectator = createService());
+
+  it('should not be logged in', () => {
+    const dateService = spectator.inject<DateService>(DateService);
+    dateService.isExpired.mockReturnValue(true);
+    expect(spectator.service.isLoggedIn()).toBeFalsy();
+  });
+
+  it('should be logged in', () => {
+    const dateService = spectator.inject<DateService>(DateService);
+    dateService.isExpired.mockReturnValue(false);
+    expect(spectator.service.isLoggedIn()).toBeTruthy();
+  });
+});
 ```
 
 ## Testing with HTTP
