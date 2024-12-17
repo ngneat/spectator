@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [19.2.0](https://github.com/ngneat/spectator/compare/v19.1.2...v19.2.0) (2024-12-17)
+
+
+### Features
+
+* support Vitest mocking ([#686](https://github.com/ngneat/spectator/issues/686)) ([691c476](https://github.com/ngneat/spectator/commit/691c476e7108eb556c47cab1f449b2f4687ebb23))
+
 ### [19.1.2](https://github.com/ngneat/spectator/compare/v19.1.1...v19.1.2) (2024-11-29)
 
 ### [19.1.1](https://github.com/ngneat/spectator/compare/v19.1.0...v19.1.1) (2024-11-28)
