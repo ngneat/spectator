@@ -45,3 +45,6 @@ testem.log
 # System Files
 .DS_Store
 Thumbs.db
+
+# vitest
+vite.config.mts.timestamp-*.mjs

@@ -1,0 +1,17 @@
+{
+  "extends": "../tsconfig.spec.json",
+  "include": [
+    "./test/**/*.spec.ts",
+    "./src/lib/matchers-types.ts"
+  ],
+  "files": [
+    "../setup-vitest.ts"
+  ],
+  "compilerOptions": {
+    "types": [
+      "node",
+      "vitest",
+      "@vitest/globals"
+    ]
+  }
+}

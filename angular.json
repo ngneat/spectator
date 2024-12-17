@@ -41,6 +41,9 @@
           "builder": "@angular-builders/jest:run",
           "options": {}
         },
+        "test-vitest": {
+          "builder": "@analogjs/vitest-angular:test"
+        },
         "lint": {
           "builder": "@angular-eslint/builder:lint",
           "options": {

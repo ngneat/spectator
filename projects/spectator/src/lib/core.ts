@@ -8,13 +8,13 @@ export function addMatchers(matchers: Record<string, CustomMatcherFactory>): voi
   if (typeof jasmine !== 'undefined') {
     jasmine.addMatchers(matchers);
   } else {
-    // Jest isn't on the global scope when using ESM so we
-    // assume that it's Jest if Jasmine is not defined
-    const jestExpectExtend = {};
+    // Jest (when using ESM) and Vitest aren't on the global scope so we
+    // assume that it's Jest or Vitest if Jasmine is not defined
+    const jestVitestExpectExtend = {};
     for (const key of Object.keys(matchers)) {
-      if (key.startsWith('to')) jestExpectExtend[key] = matchers[key]().compare;
+      if (key.startsWith('to')) jestVitestExpectExtend[key] = matchers[key]().compare;
     }
 
-    (expect as any).extend(jestExpectExtend);
+    (expect as any).extend(jestVitestExpectExtend);
   }
 }
