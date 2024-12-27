@@ -1,4 +1,4 @@
-import { createServiceFactory, SpectatorService } from '@ngneat/spectator<% if (jest) { %>/jest<% } %>';
+import { createServiceFactory, SpectatorService } from '@ngneat/spectator<% if (secondaryEntryPoint) { %>/<%= secondaryEntryPoint%><% } %>';
 import { <%= classify(name)%>Service } from './<%= dasherize(name)%>.service';
 
 describe('<%= classify(name)%>Service', () => {

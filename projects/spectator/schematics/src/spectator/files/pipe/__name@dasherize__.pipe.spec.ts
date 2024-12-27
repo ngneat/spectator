@@ -1,4 +1,4 @@
-import { createPipeFactory, SpectatorPipe } from '@ngneat/spectator<% if (jest) { %>/jest<% } %>';
+import { createPipeFactory, SpectatorPipe } from '@ngneat/spectator<% if (secondaryEntryPoint) { %>/<%= secondaryEntryPoint%><% } %>';
 
 import { <%= classify(name)%>Pipe } from './<%= dasherize(name)%>.pipe';
 

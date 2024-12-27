@@ -1,5 +1,7 @@
 import { ChangeDetection, ViewEncapsulation } from '@angular/cli/lib/config/workspace-schema';
 
+export type UnitTestRunner = 'jasmine' | 'jest' | 'vitest';
+
 export class ComponentOptions {
   name: string;
   path?: string;
@@ -54,9 +56,14 @@ export class ComponentOptions {
    */
   viewEncapsulation?: ViewEncapsulation;
   /**
+   * @deprecated
    * Specifies if Jest is to be used for mocking
    */
   jest?: boolean;
+  /**
+   * Specifies the unit test runner to use
+   */
+  unitTestRunner: UnitTestRunner;
 }
 export class ServiceOptions {
   name: string;
@@ -71,9 +78,14 @@ export class ServiceOptions {
    */
   skipTests?: boolean;
   /**
+   * @deprecated
    * Specifies if a spec file is generated.
    */
   jest?: boolean;
+  /**
+   * Specifies the unit test runner to use
+   */
+  unitTestRunner: UnitTestRunner;
 }
 export class DirectiveOptions {
   name: string;
@@ -107,9 +119,14 @@ export class DirectiveOptions {
    */
   skipTests?: boolean;
   /**
+   * @deprecated
    * Specifies if Jest is to be used for mocking
    */
   jest?: boolean;
+  /**
+   * Specifies the unit test runner to use
+   */
+  unitTestRunner: UnitTestRunner;
 }
 export class PipeOptions {
   name: string;
@@ -135,10 +152,14 @@ export class PipeOptions {
    */
   skipTests?: boolean;
   /**
+   * @deprecated
    * Specifies if Jest is to be used for mocking
    */
   jest?: boolean;
-
+  /**
+   * Specifies the unit test runner to use
+   */
+  unitTestRunner: UnitTestRunner;
   /**
    * Adds a developer-defined type to the filename, in the format "name.type.ts"
    */

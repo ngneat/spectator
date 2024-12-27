@@ -1,4 +1,4 @@
-import { createHttpFactory, HttpMethod, SpectatorHttp } from '@ngneat/spectator';
+import { createHttpFactory, HttpMethod, SpectatorHttp } from '@ngneat/spectator<% if (secondaryEntryPoint) { %>/<%= secondaryEntryPoint%><% } %>';
 import { <%= classify(name)%>Service } from './<%= dasherize(name)%>.service';
 
 describe('<%= classify(name)%>Service', () => {
