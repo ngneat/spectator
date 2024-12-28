@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [19.3.0](https://github.com/ngneat/spectator/compare/v19.2.0...v19.3.0) (2024-12-28)
+
+
+### Features
+
+* **schematics:** introduce unitTestRunner option to support Vitest ([#688](https://github.com/ngneat/spectator/issues/688)) ([c924703](https://github.com/ngneat/spectator/commit/c924703c114f586e104fd72114749dbfb035cf52))
+
 ## [19.2.0](https://github.com/ngneat/spectator/compare/v19.1.2...v19.2.0) (2024-12-17)
 
 
