@@ -16,12 +16,12 @@ import {
 import { buildDefaultPath, getWorkspace } from '@schematics/angular/utility/workspace';
 import { parseName } from '@schematics/angular/utility/parse-name';
 
-import { ComponentOptions, DirectiveOptions, ServiceOptions } from './schema';
+import { ComponentOptions, DirectiveOptions, PipeOptions, ServiceOptions, UnitTestRunner } from './schema';
 
 export function spectatorComponentSchematic(options: ComponentOptions): Rule {
   return chain([
     externalSchematic('@schematics/angular', 'component', {
-      ...omit(options, ['jest', 'withHost', 'withCustomHost']),
+      ...omit(options, ['jest', 'withHost', 'withCustomHost', 'unitTestRunner']),
       skipTests: true,
     }),
     async (tree: Tree, _context: SchematicContext): Promise<Rule> => {
@@ -38,6 +38,7 @@ export function spectatorComponentSchematic(options: ComponentOptions): Rule {
           template({
             ...strings,
             ...options,
+            secondaryEntryPoint: getSecondaryEntryPoint(options),
           }),
           move(movePath),
         ],
@@ -51,7 +52,7 @@ export function spectatorComponentSchematic(options: ComponentOptions): Rule {
 export function spectatorServiceSchematic(options: ServiceOptions): Rule {
   return chain([
     externalSchematic('@schematics/angular', 'service', {
-      ...omit(options, ['jest', 'isDataService']),
+      ...omit(options, ['jest', 'isDataService', 'unitTestRunner']),
       skipTests: true,
     }),
     async (tree: Tree, _context: SchematicContext): Promise<Rule> => {
@@ -65,6 +66,7 @@ export function spectatorServiceSchematic(options: ServiceOptions): Rule {
         template({
           ...strings,
           ...options,
+          secondaryEntryPoint: getSecondaryEntryPoint(options),
         }),
         move(movePath),
       ]);
@@ -77,7 +79,7 @@ export function spectatorServiceSchematic(options: ServiceOptions): Rule {
 export function spectatorDirectiveSchematic(options: DirectiveOptions): Rule {
   return chain([
     externalSchematic('@schematics/angular', 'directive', {
-      ...omit(options, ['jest']),
+      ...omit(options, ['jest', 'unitTestRunner']),
       skipTests: true,
     }),
     async (tree: Tree, _context: SchematicContext): Promise<Rule> => {
@@ -91,6 +93,7 @@ export function spectatorDirectiveSchematic(options: DirectiveOptions): Rule {
         template({
           ...strings,
           ...options,
+          secondaryEntryPoint: getSecondaryEntryPoint(options),
         }),
         move(movePath),
       ]);
@@ -100,10 +103,10 @@ export function spectatorDirectiveSchematic(options: DirectiveOptions): Rule {
   ]);
 }
 
-export function spectatorPipeSchematic(options: DirectiveOptions): Rule {
+export function spectatorPipeSchematic(options: PipeOptions): Rule {
   return chain([
     externalSchematic('@schematics/angular', 'pipe', {
-      ...omit(options, ['jest']),
+      ...omit(options, ['jest', 'unitTestRunner']),
       skipTests: true,
     }),
     async (tree: Tree, _context: SchematicContext): Promise<Rule> => {
@@ -117,6 +120,7 @@ export function spectatorPipeSchematic(options: DirectiveOptions): Rule {
         template({
           ...strings,
           ...options,
+          secondaryEntryPoint: getSecondaryEntryPoint(options),
         }),
         move(movePath),
       ]);
@@ -152,4 +156,17 @@ function omit<T extends Record<PropertyKey, any>>(original: T, keys: (keyof T)[]
 
       return obj;
     }, {});
+}
+
+function getSecondaryEntryPoint(options: { jest?: boolean; unitTestRunner: UnitTestRunner }): string | null {
+  const secondaryEntryPoints: Record<UnitTestRunner, string | null> = {
+    jest: 'jest',
+    vitest: 'vitest',
+    jasmine: null,
+  };
+  if (options.jest) {
+    console.warn('The `jest` option is deprecated and will be removed in the future. Use `unitTestRunner` instead.');
+    return secondaryEntryPoints.jest;
+  }
+  return secondaryEntryPoints[options.unitTestRunner];
 }

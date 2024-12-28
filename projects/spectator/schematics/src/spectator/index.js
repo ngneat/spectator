@@ -11,7 +11,7 @@ const parse_name_1 = require("@schematics/angular/utility/parse-name");
 function spectatorComponentSchematic(options) {
     return (0, schematics_1.chain)([
         (0, schematics_1.externalSchematic)('@schematics/angular', 'component', {
-            ...omit(options, ['jest', 'withHost', 'withCustomHost']),
+            ...omit(options, ['jest', 'withHost', 'withCustomHost', 'unitTestRunner']),
             skipTests: true,
         }),
         async (tree, _context) => {
@@ -24,6 +24,7 @@ function spectatorComponentSchematic(options) {
                 (0, schematics_1.template)({
                     ...core_1.strings,
                     ...options,
+                    secondaryEntryPoint: getSecondaryEntryPoint(options),
                 }),
                 (0, schematics_1.move)(movePath),
             ]);
@@ -34,7 +35,7 @@ function spectatorComponentSchematic(options) {
 function spectatorServiceSchematic(options) {
     return (0, schematics_1.chain)([
         (0, schematics_1.externalSchematic)('@schematics/angular', 'service', {
-            ...omit(options, ['jest', 'isDataService']),
+            ...omit(options, ['jest', 'isDataService', 'unitTestRunner']),
             skipTests: true,
         }),
         async (tree, _context) => {
@@ -47,6 +48,7 @@ function spectatorServiceSchematic(options) {
                 (0, schematics_1.template)({
                     ...core_1.strings,
                     ...options,
+                    secondaryEntryPoint: getSecondaryEntryPoint(options),
                 }),
                 (0, schematics_1.move)(movePath),
             ]);
@@ -57,7 +59,7 @@ function spectatorServiceSchematic(options) {
 function spectatorDirectiveSchematic(options) {
     return (0, schematics_1.chain)([
         (0, schematics_1.externalSchematic)('@schematics/angular', 'directive', {
-            ...omit(options, ['jest']),
+            ...omit(options, ['jest', 'unitTestRunner']),
             skipTests: true,
         }),
         async (tree, _context) => {
@@ -70,6 +72,7 @@ function spectatorDirectiveSchematic(options) {
                 (0, schematics_1.template)({
                     ...core_1.strings,
                     ...options,
+                    secondaryEntryPoint: getSecondaryEntryPoint(options),
                 }),
                 (0, schematics_1.move)(movePath),
             ]);
@@ -80,7 +83,7 @@ function spectatorDirectiveSchematic(options) {
 function spectatorPipeSchematic(options) {
     return (0, schematics_1.chain)([
         (0, schematics_1.externalSchematic)('@schematics/angular', 'pipe', {
-            ...omit(options, ['jest']),
+            ...omit(options, ['jest', 'unitTestRunner']),
             skipTests: true,
         }),
         async (tree, _context) => {
@@ -93,6 +96,7 @@ function spectatorPipeSchematic(options) {
                 (0, schematics_1.template)({
                     ...core_1.strings,
                     ...options,
+                    secondaryEntryPoint: getSecondaryEntryPoint(options),
                 }),
                 (0, schematics_1.move)(movePath),
             ]);
@@ -120,5 +124,17 @@ function omit(original, keys) {
         obj[key] = original[key];
         return obj;
     }, {});
+}
+function getSecondaryEntryPoint(options) {
+    const secondaryEntryPoints = {
+        jest: 'jest',
+        vitest: 'vitest',
+        jasmine: null,
+    };
+    if (options.jest) {
+        console.warn('The `jest` option is deprecated and will be removed in the future. Use `unitTestRunner` instead.');
+        return secondaryEntryPoints.jest;
+    }
+    return secondaryEntryPoints[options.unitTestRunner];
 }
 //# sourceMappingURL=index.js.map

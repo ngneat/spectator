@@ -45,7 +45,15 @@
     "jest": {
       "type": "boolean",
       "default": false,
-      "description": "When true, uses Jest to create mocks."
+      "description": "When true, uses Jest to create mocks. Deprecated: use unitTestRunner instead.",
+      "deprecated": true
+    },
+    "unitTestRunner": {
+      "type": "string",
+      "enum": ["jasmine", "jest", "vitest"],
+      "description": "Test runner to use to create mocks.",
+      "default": "jasmine",
+      "alias": "u"
     }
   },
   "required": [

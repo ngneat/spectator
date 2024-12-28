@@ -1186,14 +1186,16 @@ describe('AuthService', () => {
 });
 ```
 
-When using the component schematic you can specify the `--jest` flag to have the Jest imports used.  In order to Jest imports the default, update `angular.json`:
+When using the component schematic you can specify the `--unitTestRunner` flag to `jest` to have the Jest imports used. In order to Jest imports the default, update `angular.json`:
 ```json
 "schematics": {
   "@ngneat/spectator:spectator-component": {
-    "jest": true
+    "unitTestRunner": "jest"
   }
 }
 ```
+
+Please note that the previous `--jest` flag is deprecated and will be removed in the future.
 
 ## Vitest Support
 Like Jest, Spectator also supports Vitest. 
@@ -1244,6 +1246,15 @@ describe('AuthService', () => {
     expect(spectator.service.isLoggedIn()).toBeTruthy();
   });
 });
+```
+
+When using the component schematic you can specify the `--unitTestRunner` flag to `vitest` to have the Vitest imports used. In order to Vitest imports the default, update `angular.json`:
+```json
+"schematics": {
+  "@ngneat/spectator:spectator-component": {
+    "unitTestRunner": "vitest"
+  }
+}
 ```
 
 ## Testing with HTTP
