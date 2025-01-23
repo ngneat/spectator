@@ -33,6 +33,15 @@ export { SpectatorPipeOptions } from './lib/spectator-pipe/options';
 export { createPipeFactory, SpectatorPipeFactory, SpectatorPipeOverrides } from './lib/spectator-pipe/create-factory';
 export { initialSpectatorPipeModule } from './lib/spectator-pipe/initial-module';
 
+export { SpectatorInjectionContext } from './lib/spectator-injection-context/spectator-injection-context';
+export { SpectatorInjectionContextOptions } from './lib/spectator-injection-context/options';
+export {
+  createInjectionContextFactory,
+  SpectatorInjectionContextFactory,
+  SpectatorInjectionContextOverrides,
+} from './lib/spectator-injection-context/create-factory';
+export { initialInjectionContextModule } from './lib/spectator-injection-context/initial-module';
+
 export * from './lib/dom-selectors';
 export * from './lib/matchers';
 export * from './lib/mock';

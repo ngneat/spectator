@@ -9,3 +9,4 @@ export * from './lib/spectator-service';
 export * from './lib/spectator-host';
 export * from './lib/spectator-routing';
 export * from './lib/spectator-pipe';
+export * from './lib/spectator-injection-context';

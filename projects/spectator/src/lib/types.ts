@@ -15,6 +15,10 @@ export type InferInputSignals<C> = {
 
 export type OptionalsRequired<T> = Required<OptionalProperties<T>> & Partial<T>;
 
+export type AtLeastOneRequired<T> = {
+  [K in keyof T]: Required<Pick<T, K>> & Partial<Omit<T, K>>;
+}[keyof T];
+
 export type SpectatorElement = string | Element | DebugElement | ElementRef | Window | Document | DOMSelector;
 
 export type QueryType = Type<any> | DOMSelector | string;

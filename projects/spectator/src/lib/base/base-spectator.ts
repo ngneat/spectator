@@ -17,4 +17,8 @@ export abstract class BaseSpectator {
   public flushEffects(): void {
     TestBed.flushEffects();
   }
+
+  public runInInjectionContext<T>(fn: () => T): T {
+    return TestBed.runInInjectionContext(fn);
+  }
 }
