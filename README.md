@@ -85,6 +85,7 @@ Become a bronze sponsor and get your logo on our README on GitHub.
   - [Additional Options](#additional-options)
 - [Testing Pipes](#testing-pipes)
   - [Using Custom Host Component](#using-custom-host-component)
+- [Testing DI Functions](#testing-di-functions)
 - [Mocking Providers](#mocking-providers)
   - [Mocking OnInit Dependencies](#mocking-oninit-dependencies)
   - [Mocking Constructor Dependencies](#mocking-constructor-dependencies)
@@ -238,6 +239,7 @@ The `createComponent()` method returns an instance of `Spectator` which exposes 
 - `debugElement` - The tested fixture's debug element
 
 - `flushEffects()` - Provides a wrapper for `TestBed.flushEffects()`
+- `runInInjectionContext()` - Provides a wrapper for `TestBed.runInInjectionContext()`
 - `inject()` - Provides a wrapper for `TestBed.inject()`:
 ```ts
 const service = spectator.inject(QueryService);
@@ -926,6 +928,8 @@ describe('AuthService', () => {
 The `createService()` function returns `SpectatorService` with the following properties:
 - `service` - Get an instance of the service
 - `inject()` - A proxy for Angular `TestBed.inject()`
+- `flushEffects()` - A proxy for Angular `TestBed.flushEffects()`
+- `runInInjectionContext()` - A proxy for Angular `TestBed.runInInjectionContext()`
 
 ### Additional Options
 
@@ -1020,6 +1024,8 @@ The `createPipe()` function returns `SpectatorPipe` with the following propertie
 - `element` - The native element of the host component
 - `detectChanges()` - A proxy for Angular `TestBed.fixture.detectChanges()`
 - `inject()` - A proxy for Angular `TestBed.inject()`
+- `flushEffects()` - A proxy for Angular `TestBed.flushEffects()`
+- `runInInjectionContext()` - A proxy for Angular `TestBed.runInInjectionContext()`
 
 Setting inputs directly on a pipe using `setInput` or `props` is not possible.
 Inputs should be set through `hostProps` or `setHostInput` instead, and passed through to your pipe in the template.
@@ -1074,6 +1080,52 @@ describe('AveragePipe', () => {
   });
 });
 ```
+
+## Testing DI Functions
+
+Every Spectator instance supports testing DI Function by passing them to `runInInjectionContext()` function. There is a dedicated test factory that simplifies such testing by eliminating the need to pass some arbitrary Angular class amongst other factory options. Let's say we have a following function that uses the http module to fetch users:
+
+```ts
+import { HttpClient } from '@angular/common/http';
+import { inject } from '@angular/core';
+
+function getUsers() {
+  return inject(HttpClient).get<User[]>('users');
+}
+```
+
+Let's see how we can test DI Function easily with Spectator:
+
+```ts
+import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
+import { createInjectionContextFactory, SpectatorInjectionContext } from '@ngneat/spectator';
+
+function getUsers() {
+  return inject(HttpClient).get<User[]>('users');
+}
+
+describe('Users', () => {
+  let spectator: SpectatorInjectionContext;
+  const createContext = createInjectionContextFactory({ providers: [provideHttpClientTesting()] });
+
+  it('should fetch users', () => {
+    spectator = createContext();
+    
+    const controller = spectator.inject(HttpTestingController);
+
+    spectator.runInInjectionContext(getUsers).subscribe((users) => {
+      expect(users.length).toBe(1);
+    });
+
+    controller.expectOne('users').flush([{ id: 1 }]);
+  });
+});
+```
+
+The `createContext()` function returns `SpectatorInjectionContext` with the following properties:
+- `inject()` - A proxy for Angular `TestBed.inject()`
+- `flushEffects()` - A proxy for Angular `TestBed.flushEffects()`
+- `runInInjectionContext()` - A proxy for Angular `TestBed.runInInjectionContext()`
 
 ## Mocking Providers
 
@@ -1321,6 +1373,8 @@ We need to create an HTTP factory by using the `createHttpFactory()` function, p
 - `httpClient` - A proxy for Angular `HttpClient`
 - `service` - The service instance
 - `inject()` - A proxy for Angular `TestBed.inject()`
+- `flushEffects()` - A proxy for Angular `TestBed.flushEffects()`
+- `runInInjectionContext()` - A proxy for Angular `TestBed.runInInjectionContext()`
 - `expectOne()` - Expect that a single request was made which matches the given URL and it's method, and return its mock request
 
 
