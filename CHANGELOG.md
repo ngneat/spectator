@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [19.4.0](https://github.com/ngneat/spectator/compare/v19.3.0...v19.4.0) (2025-01-25)
+
+
+### Features
+
+* **spectator:** add support for runInInjectionContext() ([#690](https://github.com/ngneat/spectator/issues/690)) ([b501939](https://github.com/ngneat/spectator/commit/b5019395f448d873898f29394ee50eadaa048317))
+
 ## [19.3.0](https://github.com/ngneat/spectator/compare/v19.2.0...v19.3.0) (2024-12-28)
 
 
