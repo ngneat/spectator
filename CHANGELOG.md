@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [19.4.1](https://github.com/ngneat/spectator/compare/v19.4.0...v19.4.1) (2025-01-28)
+
+
+### Bug Fixes
+
+* **spectator:** setInput with object parameter for alias names ([#692](https://github.com/ngneat/spectator/issues/692)) ([25afec2](https://github.com/ngneat/spectator/commit/25afec2852a7a6147ccfa19ccb24a160934c82de))
+
 ## [19.4.0](https://github.com/ngneat/spectator/compare/v19.3.0...v19.4.0) (2025-01-25)
 
 
