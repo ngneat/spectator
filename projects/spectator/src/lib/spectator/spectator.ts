@@ -41,6 +41,7 @@ export class Spectator<C> extends DomSpectator<C> {
   }
 
   public setInput<K extends keyof C>(input: InferInputSignals<C>): void;
+  public setInput(input: { [inputName: string]: unknown }): void;
   public setInput<K extends keyof C>(input: K, inputValue: InferInputSignal<C[K]>): void;
   public setInput(input: string, inputValue: unknown): void;
   public setInput(input: any, value?: any): void {

@@ -33,6 +33,24 @@ describe('SetInputAliasNames', () => {
       expect(nameElement.innerHTML).toBe('John');
       expect(ageElement.innerHTML).toBe('123');
     });
+
+    it('setInput with object should respect the alias names', () => {
+      // Arrange
+      const spectator = createComponent();
+
+      const nameElement = spectator.query('[data-test="set-input--name"]')!;
+      const ageElement = spectator.query('[data-test="set-input--age"]')!;
+
+      // Act
+      spectator.setInput({
+        userName: 'John',
+        age: '123',
+      });
+
+      // Assert
+      expect(nameElement.innerHTML).toBe('John');
+      expect(ageElement.innerHTML).toBe('123');
+    });
   });
 
   describe('signal inputs', () => {
@@ -63,6 +81,26 @@ describe('SetInputAliasNames', () => {
       // Act
       spectator.setInput('userName', 'John');
       spectator.setInput('age', '123');
+
+      // Assert
+      expect(nameElement.innerHTML).toBe('John');
+      expect(ageElement.innerHTML).toBe('123');
+    });
+
+    it('setInput with object should respect the alias names', () => {
+      // Arrange
+      const spectator = createComponent({
+        detectChanges: false,
+      });
+
+      const nameElement = spectator.query('[data-test="set-input--name"]')!;
+      const ageElement = spectator.query('[data-test="set-input--age"]')!;
+
+      // Act
+      spectator.setInput({
+        userName: 'John',
+        age: '123',
+      });
 
       // Assert
       expect(nameElement.innerHTML).toBe('John');
