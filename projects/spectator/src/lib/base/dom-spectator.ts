@@ -1,7 +1,7 @@
 import { DebugElement, ElementRef, EventEmitter, OutputEmitterRef, Type } from '@angular/core';
 import { ComponentFixture, tick } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 
 import { dispatchFakeEvent, dispatchKeyboardEvent, dispatchMouseEvent, dispatchTouchEvent } from '../dispatch-events';
 import { DOMSelector } from '../dom-selectors';
@@ -20,7 +20,7 @@ const KEY_UP = 'keyup';
 
 type KeysMatchingReturnType<T, V> = keyof { [P in keyof T as T[P] extends V ? P : never]: P } & keyof T;
 type KeysMatchingOutputFunction<T> = KeysMatchingReturnType<T, OutputEmitterRef<any>>;
-type KeysMatchingClassicOutput<T> = KeysMatchingReturnType<T, EventEmitter<any>>;
+type KeysMatchingClassicOutput<T> = KeysMatchingReturnType<T, EventEmitter<any> | Subject<any>>;
 type KeysMatchingOutput<T> = KeysMatchingOutputFunction<T> | KeysMatchingClassicOutput<T>;
 
 /**
