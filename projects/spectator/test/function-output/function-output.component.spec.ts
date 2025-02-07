@@ -1,5 +1,6 @@
 import { createComponentFactory, createHostFactory, Spectator, SpectatorHost } from '@ngneat/spectator';
 import { FunctionOutputComponent } from './function-output.component';
+import { fakeAsync, tick } from '@angular/core/testing';
 
 describe('FunctionOutputComponent', () => {
   describe('with Spectator', () => {
@@ -14,9 +15,26 @@ describe('FunctionOutputComponent', () => {
     });
 
     it('should emit the event on button click', () => {
-      let output;
+      let output = false;
       spectator.output('buttonClick').subscribe((result) => (output = result));
 
+      spectator.click('button');
+
+      expect(output).toEqual(true);
+    });
+
+    it('should emit the event on button click - EventEmitter', () => {
+      let output = false;
+      spectator.output('buttonClickedEvent').subscribe((result) => (output = result));
+
+      spectator.click('button');
+
+      expect(output).toEqual(true);
+    });
+
+    it('should emit the event on button click - Subject', () => {
+      let output = false;
+      spectator.output('buttonClickedSubject').subscribe((result) => (output = result));
       spectator.click('button');
 
       expect(output).toEqual(true);
@@ -36,8 +54,26 @@ describe('FunctionOutputComponent', () => {
     });
 
     it('should emit the event on button click', () => {
-      let output;
+      let output = false;
       host.output('buttonClick').subscribe((result) => (output = result));
+
+      host.click('button');
+
+      expect(output).toEqual(true);
+    });
+
+    it('should emit the event on button click - EventEmitter', () => {
+      let output = false;
+      host.output('buttonClickedEvent').subscribe((result) => (output = result));
+
+      host.click('button');
+
+      expect(output).toEqual(true);
+    });
+
+    it('should emit the event on button click - Subject', () => {
+      let output = false;
+      host.output('buttonClickedSubject').subscribe((result) => (output = result));
 
       host.click('button');
 
