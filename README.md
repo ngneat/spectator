@@ -8,7 +8,8 @@
 [![commitizen](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg?style=flat-square)]()
 [![PRs](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)]()
 [![styled with prettier](https://img.shields.io/badge/styled_with-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
-[![Build Status](https://travis-ci.org/ngneat/spectator.svg?branch=master)](https://travis-ci.org/ngneat/spectator)
+[![Build Status](https://img.shields.io/github/actions/workflow/status/ngneat/spectator/ci.yml?branch=master&style=flat-square
+)](https://github.com/ngneat/spectator/actions/workflows/ci.yml?query=branch%3Amaster)
 
 > A Powerful Tool to Simplify Your Angular Tests
 
