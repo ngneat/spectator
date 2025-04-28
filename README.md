@@ -56,6 +56,10 @@ Become a bronze sponsor and get your logo on our README on GitHub.
 ## Table of Contents
 
 - [Features](#features)
+- [Sponsoring ngneat](#sponsoring-ngneat)
+  - [Gold Sponsors](#gold-sponsors)
+  - [Silver Sponsors](#silver-sponsors)
+  - [Bronze Sponsors](#bronze-sponsors)
 - [Table of Contents](#table-of-contents)
 - [Installation](#installation)
   - [NPM](#npm)
@@ -70,6 +74,7 @@ Become a bronze sponsor and get your logo on our README on GitHub.
     - [String Selector](#string-selector)
     - [Type Selector](#type-selector)
     - [DOM Selector](#dom-selector)
+  - [Parent Selector](#parent-selector)
     - [Testing Select Elements](#testing-select-elements)
     - [Mocking Components](#mocking-components)
     - [Testing Single Component/Directive Angular Modules](#testing-single-componentdirective-angular-modules)
@@ -88,8 +93,8 @@ Become a bronze sponsor and get your logo on our README on GitHub.
   - [Using Custom Host Component](#using-custom-host-component)
 - [Testing DI Functions](#testing-di-functions)
 - [Mocking Providers](#mocking-providers)
-  - [Mocking OnInit Dependencies](#mocking-oninit-dependencies)
-  - [Mocking Constructor Dependencies](#mocking-constructor-dependencies)
+  - [Mocking OnInit dependencies](#mocking-oninit-dependencies)
+  - [Mocking constructor dependencies](#mocking-constructor-dependencies)
 - [Jest Support](#jest-support)
 - [Vitest Support](#vitest-support)
 - [Testing with HTTP](#testing-with-http)
@@ -98,7 +103,7 @@ Become a bronze sponsor and get your logo on our README on GitHub.
 - [Custom Matchers](#custom-matchers)
 - [Schematics](#schematics)
 - [Default Schematics Collection](#default-schematics-collection)
-- [Working Spectator & Jest Sample Repo and Karma Comparison](#working-spectator--jest-sample-repo-and-karma-comparison)
+- [Working Spectator \& Jest Sample Repo and Karma Comparison](#working-spectator--jest-sample-repo-and-karma-comparison)
 - [Core Team](#core-team)
 - [Contributors](#contributors)
 
@@ -149,6 +154,7 @@ const createComponent = createComponentFactory({
   entryComponents: [],
   componentProviders: [], // Override the component's providers
   componentViewProviders: [], // Override the component's view providers
+  componentImports: [], // Override the component's imports in case of testing standalone component
   overrideModules: [], // Override modules
   overrideComponents: [], // Override components in case of testing standalone component
   overrideDirectives: [], // Override directives in case of testing standalone directive
@@ -223,6 +229,52 @@ it('should...', () => {
           remove: { imports: [StandaloneComponentWithDependency] },
           add: { imports: [MockStandaloneComponentWithDependency] },
         },
+      ],
+    ],
+  });
+
+  expect(host.query('#standalone')).toContainText('Standalone component with import!');
+  expect(host.query('#standaloneWithDependency')).toContainText('Standalone component with override dependency!');
+});
+```
+
+By passing `componentImports` config to our `createComponent()` function we can remove and override imports directly in the tested standalone component.
+```ts
+@Component({
+  selector: `app-standalone-with-import`,
+  template: `<div id="standalone">Standalone component with import!</div>
+  <app-standalone-with-dependency></app-standalone-with-dependency>`,
+  imports: [StandaloneComponentWithDependency],
+  standalone: true,
+})
+export class StandaloneWithImportsComponent {}
+
+@Component({
+  selector: `app-standalone-with-dependency`,
+  template: `<div id="standaloneWithDependency">Standalone component with dependency!</div>`,
+  standalone: true,
+})
+export class StandaloneComponentWithDependency {
+  constructor(public query: QueryService) {}
+}
+
+@Component({
+  selector: `app-standalone-with-dependency`,
+  template: `<div id="standaloneWithDependency">Standalone component with override dependency!</div>`,
+  standalone: true,
+})
+export class MockStandaloneComponentWithDependency {
+  constructor() {}
+}
+
+it('should...', () => {
+  const spectator = createHostFactory({
+    component: StandaloneWithImportsComponent,
+    template: `<div><app-standalone-with-import></app-standalone-with-import></div>`,
+    componentImports: [
+      [
+        StandaloneComponentWithDependency,
+        MockStandaloneComponentWithDependency,
       ],
     ],
   });
