@@ -6,6 +6,10 @@ import { SpectatorHost, createHostFactory } from '@ngneat/spectator/vitest';
 import { QueryService } from '../../../test/query.service';
 import { ZippyComponent } from '../../../test/zippy/zippy.component';
 
+import { JSDOM } from 'jsdom';
+const jsdom = new JSDOM();
+window = jsdom.window as any;
+
 describe('ZippyComponent', () => {
   let host: SpectatorHost<ZippyComponent>;
 
