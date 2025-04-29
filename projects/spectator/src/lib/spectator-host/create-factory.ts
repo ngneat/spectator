@@ -8,6 +8,7 @@ import { nodeByDirective } from '../internals/node-by-directive';
 import * as customMatchers from '../matchers';
 import {
   overrideComponentIfProviderOverridesSpecified,
+  overrideComponentImports,
   overrideComponents,
   overrideDirectives,
   overrideModules,
@@ -73,6 +74,8 @@ export function createHostFactory<C, H = HostComponent>(typeOrOptions: Type<C> |
     overridePipes(options);
 
     overrideComponentIfProviderOverridesSpecified(options);
+    overrideComponentImports(options);
+
     if (options.template) {
       TestBed.overrideComponent(options.host, {
         set: { template: options.template },

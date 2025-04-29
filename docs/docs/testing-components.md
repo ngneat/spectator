@@ -39,7 +39,9 @@ const createComponent = createComponentFactory({
   entryComponents: [],
   componentProviders: [], // Override the component's providers
   componentViewProviders: [], // Override the component's view providers
+  componentImports: [], // Override the component's imports in case of testing standalone component
   overrideModules: [], // Override modules
+  overrideComponents: [], // Override components in case of testing standalone 
   mocks: [], // Providers that will automatically be mocked
   componentMocks: [], // Component providers that will automatically be mocked
   componentViewProvidersMocks: [], // Component view providers that will be automatically mocked
@@ -110,6 +112,53 @@ it('should...', () => {
           remove: { imports: [StandaloneComponentWithDependency] },
           add: { imports: [MockStandaloneComponentWithDependency] },
         },
+      ],
+    ],
+  });
+
+  expect(host.query('#standalone')).toContainText('Standalone component with import!');
+  expect(host.query('#standaloneWithDependency')).toContainText('Standalone component with override dependency!');
+});
+
+```
+
+By passing `componentImports` config to our `createComponent()` function we can remove and override imports directly in the tested standalone component. The `componentImports` property accepts an array of overrides. An override is an array of length 2, where the first entry is the original import to be removed from the tested component during the test and the second entry is the replacement import. In the example below, `StandaloneComponentWithDependency` is removed from the tested component, and `MockStandaloneComponentWithDependency` is added to the tested component imports.
+```ts
+@Component({
+  selector: `app-standalone-with-import`,
+  template: `<div id="standalone">Standalone component with import!</div>
+  <app-standalone-with-dependency></app-standalone-with-dependency>`,
+  imports: [StandaloneComponentWithDependency],
+  standalone: true,
+})
+export class StandaloneWithImportsComponent {}
+
+@Component({
+  selector: `app-standalone-with-dependency`,
+  template: `<div id="standaloneWithDependency">Standalone component with dependency!</div>`,
+  standalone: true,
+})
+export class StandaloneComponentWithDependency {
+  constructor(public query: QueryService) {}
+}
+
+@Component({
+  selector: `app-standalone-with-dependency`,
+  template: `<div id="standaloneWithDependency">Standalone component with override dependency!</div>`,
+  standalone: true,
+})
+export class MockStandaloneComponentWithDependency {
+  constructor() {}
+}
+
+it('should...', () => {
+  const spectator = createHostFactory({
+    component: StandaloneWithImportsComponent,
+    template: `<div><app-standalone-with-import></app-standalone-with-import></div>`,
+    componentImports: [
+      [
+        StandaloneComponentWithDependency,
+        MockStandaloneComponentWithDependency,
       ],
     ],
   });

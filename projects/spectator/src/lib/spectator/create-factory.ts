@@ -1,5 +1,5 @@
-import { isStandalone, Provider, reflectComponentType, Type } from '@angular/core';
-import { TestBed, waitForAsync } from '@angular/core/testing';
+import { Component, isStandalone, Provider, reflectComponentType, Type } from '@angular/core';
+import { MetadataOverride, TestBed, waitForAsync } from '@angular/core/testing';
 import { BrowserDynamicTestingModule } from '@angular/platform-browser-dynamic/testing';
 
 import { BaseSpectatorOptions, BaseSpectatorOverrides } from '../base/options';
@@ -48,6 +48,31 @@ export function overrideComponentIfProviderOverridesSpecified<C>(options: Requir
       set: providerConfiguration,
     });
   }
+}
+
+/**
+ * @internal
+ */
+export function overrideComponentImports<C>(options: Required<SpectatorOptions<C>>): void {
+  if (!options.componentImports.length) {
+    return;
+  }
+
+  TestBed.overrideComponent(
+    options.component,
+    options.componentImports.reduce<MetadataOverride<Component>>(
+      (r, [original, override]) => {
+        r.remove!.imports!.push(original);
+
+        if (override) {
+          r.add!.imports!.push(override);
+        }
+
+        return r;
+      },
+      { remove: { imports: [] }, add: { imports: [] } },
+    ),
+  );
 }
 
 /**
@@ -134,6 +159,7 @@ export function createComponentFactory<C>(typeOrOptions: Type<C> | SpectatorOpti
     overridePipes(options);
 
     overrideComponentIfProviderOverridesSpecified(options);
+    overrideComponentImports(options);
 
     TestBed.compileComponents();
   }));
