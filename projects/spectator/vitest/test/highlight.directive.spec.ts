@@ -3,6 +3,10 @@ import { createHostFactory } from '@ngneat/spectator/vitest';
 
 import { HighlightDirective } from '../../test/highlight.directive';
 
+import { JSDOM } from 'jsdom';
+const jsdom = new JSDOM();
+window = jsdom.window as any;
+
 describe('HighlightDirective', () => {
   let host: SpectatorHost<HighlightDirective>;
 

@@ -16,6 +16,7 @@ export default defineConfig(({ mode }) => ({
     environment: 'jsdom',
     include: ['vitest/**/*.{test,spec}.{js,mjs,cjs,ts,mts,cts,jsx,tsx}'],
     reporters: ['default'],
+    pool: 'forks',
   },
   define: {
     'import.meta.vitest': mode !== 'production',
