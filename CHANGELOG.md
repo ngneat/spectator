@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [19.5.0](https://github.com/ngneat/spectator/compare/v19.4.1...v19.5.0) (2025-04-29)
+
+
+### Features
+
+* add support for componentImports config ([#699](https://github.com/ngneat/spectator/issues/699)) ([bd7ce91](https://github.com/ngneat/spectator/commit/bd7ce91bcc39f0aff0f9701bae4478e7ba6d61b3))
+
+
+### Bug Fixes
+
+* 🐛 type check on component outputs ([#693](https://github.com/ngneat/spectator/issues/693)) ([08c9a21](https://github.com/ngneat/spectator/commit/08c9a21aab8e44a34d706a9a017a267bb4e675a3)), closes [#689](https://github.com/ngneat/spectator/issues/689)
+
 ### [19.4.1](https://github.com/ngneat/spectator/compare/v19.4.0...v19.4.1) (2025-01-28)
 
 
