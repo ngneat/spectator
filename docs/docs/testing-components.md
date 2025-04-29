@@ -122,7 +122,7 @@ it('should...', () => {
 
 ```
 
-By passing `componentImports` config to our `createComponent()` function we can remove and override imports directly in the tested standalone component.
+By passing `componentImports` config to our `createComponent()` function we can remove and override imports directly in the tested standalone component. The `componentImports` property accepts an array of overrides. An override is an array of length 2, where the first entry is the original import to be removed from the tested component during the test and the second entry is the replacement import. In the example below, `StandaloneComponentWithDependency` is removed from the tested component, and `MockStandaloneComponentWithDependency` is added to the tested component imports.
 ```ts
 @Component({
   selector: `app-standalone-with-import`,

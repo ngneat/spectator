@@ -1,16 +1,11 @@
-import { Component, Injectable, inject } from '@angular/core';
-
-@Injectable()
-export class SomeService {}
+import { Component } from '@angular/core';
 
 @Component({
   selector: `app-standalone-child`,
   template: `<div id="child-standalone">This stands alone child!</div>`,
   standalone: true,
 })
-export class StandaloneChildComponent {
-  bla = inject(SomeService);
-}
+export class StandaloneChildComponent {}
 
 @Component({
   selector: `app-standalone-child`,
