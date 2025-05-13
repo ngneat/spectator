@@ -7,9 +7,10 @@ import $ from 'jquery';
 
 restoreSetTimeout();
 
+import { DOMSelector } from './dom-selectors';
 import { hex2rgb, isHex, trim } from './internals/rgb-to-hex';
 import { isHTMLOptionElementArray, isObject } from './types';
-import { isRunningInJsDom, coerceArray } from './utils';
+import { coerceArray, isRunningInJsDom } from './utils';
 
 export interface CustomMatcherFactory {
   (): CustomMatcher;
@@ -24,6 +25,13 @@ export interface CustomMatcherResult {
   message: () => string;
 }
 
+const resolveDOMSelector = (
+  el: string | HTMLElement | HTMLElement[] | NodeListOf<HTMLElement> | DOMSelector,
+): string | HTMLElement | HTMLElement[] | NodeListOf<HTMLElement> => {
+  if (el instanceof DOMSelector) return el.execute(document.body);
+  return el;
+};
+
 const hasProperty = (actual: unknown, expected: unknown): boolean => {
   return expected === undefined ? actual !== undefined : actual === expected;
 };
@@ -33,7 +41,7 @@ const containsProperty = (actual: string, expected: unknown): boolean => {
 };
 
 const checkProperty = (
-  el: HTMLElement,
+  el: string | HTMLElement | HTMLElement[] | DOMSelector,
   prop: object,
   predicate: (actual, expected) => boolean,
 ): { pass: boolean; message: () => string } => {
@@ -41,7 +49,7 @@ const checkProperty = (
   let failing = '';
 
   for (const key of Object.keys(prop)) {
-    const actual = $(el).prop(key);
+    const actual = $(resolveDOMSelector(el)).prop(key);
     const addendum = prop[key] !== undefined ? ` with value '${prop[key]}'` : '';
 
     pass = predicate(actual, prop[key]);
@@ -53,10 +61,11 @@ const checkProperty = (
   return { pass, message };
 };
 
-const hasCss = (el: HTMLElement, css: { [key: string]: string }) => {
+const hasCss = (el: string | HTMLElement | HTMLElement[] | DOMSelector, css: { [key: string]: string }) => {
   let prop;
   let value;
-  const $el = $(el);
+  const resolvedEl = resolveDOMSelector(el);
+  const $el = $(resolvedEl);
   for (prop in css) {
     if (css.hasOwnProperty(prop)) {
       value = css[prop];
@@ -71,8 +80,10 @@ const hasCss = (el: HTMLElement, css: { [key: string]: string }) => {
 
       if (
         trim($el.get(0).style[prop]) !== trim(value) &&
-        trim(el.style[prop]) !== trim(value) &&
-        trim(el.style.getPropertyValue(prop)) !== trim(value)
+        typeof resolvedEl !== 'string' &&
+        !('length' in resolvedEl) &&
+        trim(resolvedEl.style[prop]) !== trim(value) &&
+        trim(resolvedEl.style.getPropertyValue(prop)) !== trim(value)
       ) {
         return false;
       }
@@ -83,19 +94,21 @@ const hasCss = (el: HTMLElement, css: { [key: string]: string }) => {
 };
 
 const hasSameText = (
-  el: HTMLElement,
+  el: string | HTMLElement | HTMLElement[] | DOMSelector,
   expected: string | string[] | ((s: string) => boolean),
   options: {
     exact: boolean;
     trim: boolean;
   },
 ) => {
+  const resolvedEl = resolveDOMSelector(el);
+
   if (expected && Array.isArray(expected)) {
     let actual: string;
     let pass = false;
     let failing: string;
 
-    $(el).each((i, e) => {
+    $(resolvedEl).each((i, e) => {
       actual = options.exact && !options.trim ? $(e).text() : $.trim($(e).text());
       pass = options.exact ? actual === expected[i] : actual.includes(expected[i]);
       if (!pass) {
@@ -111,7 +124,7 @@ const hasSameText = (
     return { pass, message };
   }
 
-  const actual = options.exact && !options.trim ? $(el).text() : $.trim($(el).text());
+  const actual = options.exact && !options.trim ? $(resolvedEl).text() : $.trim($(resolvedEl).text());
 
   if (expected && typeof expected !== 'string') {
     const pass = expected(actual);
@@ -138,10 +151,11 @@ const comparator =
  *
  * expect('.zippy__content').not.toExist();
  */
-export const toExist = comparator((el: string | Element) => {
-  const actual = $(el).length;
+export const toExist = comparator((el: string | HTMLElement | HTMLElement[] | DOMSelector) => {
+  const resolvedEl = resolveDOMSelector(el);
+  const actual = $(resolvedEl).length;
   const pass = actual > 0;
-  const message = () => `Expected ${el} element${pass ? ' not' : ''} to exist`;
+  const message = () => `Expected ${resolvedEl} element${pass ? ' not' : ''} to exist`;
 
   return { pass, message };
 });
@@ -150,8 +164,8 @@ export const toExist = comparator((el: string | Element) => {
  *
  * expect('.zippy__content').toHaveLength(3);
  */
-export const toHaveLength = comparator((el: string, expected: number) => {
-  const actual = $(el).length;
+export const toHaveLength = comparator((el: string | HTMLElement | HTMLElement[] | DOMSelector, expected: number) => {
+  const actual = $(resolveDOMSelector(el)).length;
   const pass = actual === expected;
   const message = () => `Expected element${pass ? ' not' : ''} to have length ${expected}, but had ${actual}`;
 
@@ -163,7 +177,7 @@ export const toHaveLength = comparator((el: string, expected: number) => {
  * expect('.zippy__content').toHaveId('ID');
  */
 export const toHaveId = comparator((el, expected) => {
-  const actual = $(el).attr('id');
+  const actual = $(resolveDOMSelector(el)).attr('id');
   const pass = actual === expected;
   const message = () => `Expected element${pass ? ' not' : ''} to have ID '${expected}', but had '${actual}'`;
 
@@ -181,17 +195,19 @@ export const toHaveId = comparator((el, expected) => {
  * expect('.zippy__content').not.toHaveClass(['class-b, class-a'], { strict: true });
  */
 export const toHaveClass = comparator((el, expected: string | string[], options: { strict: boolean } = { strict: true }) => {
+  const resolvedEl = resolveDOMSelector(el);
+
   if (expected && Array.isArray(expected)) {
-    const actual: string = $(el).attr('class');
+    const actual: string = $(resolvedEl).attr('class');
     const expectedClasses = expected.join(' ');
-    const pass = options.strict ? $(el).hasClass(expectedClasses) : expected.every((e) => $(el).hasClass(e));
+    const pass = options.strict ? $(resolvedEl).hasClass(expectedClasses) : expected.every((e) => $(resolvedEl).hasClass(e));
     const message = () => `Expected element${pass ? ' not' : ''} to have value '${expectedClasses}', but had '${actual}'`;
 
     return { pass, message };
   }
 
-  const actual = $(el).attr('class');
-  const pass = $(el).hasClass(expected);
+  const actual = $(resolvedEl).attr('class');
+  const pass = $(resolvedEl).hasClass(expected);
   const message = () => `Expected element${pass ? ' not' : ''} to have class '${expected}', but had '${actual}'`;
 
   return { pass, message };
@@ -201,12 +217,14 @@ export const toHaveClass = comparator((el, expected: string | string[], options:
  * expect(host.query('.zippy')).toHaveAttribute('id', 'zippy');
  */
 export const toHaveAttribute = comparator((el, attr: string | object, val) => {
+  const resolvedEl = resolveDOMSelector(el);
+
   if (isObject(attr)) {
     let pass = false;
     let failing: string;
 
     for (const key of Object.keys(attr)) {
-      const actual = $(el).attr(key);
+      const actual = $(resolvedEl).attr(key);
       const addendum = attr[key] !== undefined ? ` with value '${attr[key]}'` : '';
       pass = hasProperty(actual, attr[key]);
       failing = !pass ? `'${attr}'${addendum}, but had '${actual}'` : '';
@@ -216,7 +234,7 @@ export const toHaveAttribute = comparator((el, attr: string | object, val) => {
     return { pass, message };
   }
 
-  const actual = $(el).attr(attr);
+  const actual = $(resolvedEl).attr(attr);
   const addendum = val !== undefined ? ` with value '${val}'` : '';
   const pass = hasProperty(actual, val);
   const message = () => `Expected element${pass ? ' not' : ''} to have attribute '${attr}'${addendum}, but had '${actual}'`;
@@ -229,11 +247,13 @@ export const toHaveAttribute = comparator((el, attr: string | object, val) => {
  *  expect(host.query('.checkbox')).toHaveProperty({checked: true});
  */
 export const toHaveProperty = comparator((el, prop, val) => {
+  const resolvedEl = resolveDOMSelector(el);
+
   if (isObject(prop)) {
     return checkProperty(el, prop, hasProperty);
   }
 
-  const actual = $(el).prop(prop);
+  const actual = $(resolvedEl).prop(prop);
   const addendum = val !== undefined ? ` with value '${val}'` : '';
   const pass = hasProperty(actual, val);
   const message = () => `Expected element${pass ? ' not' : ''} to have property '${prop}'${addendum}, but had '${actual}'`;
@@ -242,11 +262,13 @@ export const toHaveProperty = comparator((el, prop, val) => {
 });
 
 export const toContainProperty = comparator((el, prop, val) => {
+  const resolvedEl = resolveDOMSelector(el);
+
   if (isObject(prop)) {
     return checkProperty(el, prop, containsProperty);
   }
 
-  const actual = $(el).prop(prop);
+  const actual = $(resolvedEl).prop(prop);
   const addendum = val !== undefined ? ` with value '${val}'` : '';
   const pass = containsProperty(actual, val);
   const message = () => `Expected element${pass ? ' not' : ''} to have property '${prop}'${addendum}, but had '${actual}'`;
@@ -277,12 +299,14 @@ export const toContainText = toHaveText;
  * expect('.zippy__content').toHaveValue(['value a', 'value b']);
  */
 export const toHaveValue = comparator((el, expected) => {
+  const resolvedEl = resolveDOMSelector(el);
+
   if (expected && Array.isArray(expected)) {
     let actual: string;
     let pass = false;
     let failing: string;
 
-    $(el).each((i, e) => {
+    $(resolvedEl).each((i, e) => {
       actual = $(e).val();
       pass = actual === expected[i];
       if (!pass) {
@@ -297,7 +321,7 @@ export const toHaveValue = comparator((el, expected) => {
     return { pass, message };
   }
 
-  const actual = $(el).val();
+  const actual = $(resolvedEl).val();
   const pass = actual === expected;
   const message = () => `Expected element${pass ? ' not' : ''} to have value '${expected}', but had '${actual}'`;
 
@@ -324,7 +348,7 @@ export const toHaveStyle = comparator((el, expected) => {
  * expect('.zippy__content').toHaveData({data: 'role', val: 'admin'});
  */
 export const toHaveData = comparator((el, { data, val }) => {
-  const actual = $(el).data(data);
+  const actual = $(resolveDOMSelector(el)).data(data);
   const addendum = val !== undefined ? ` with value '${val}'` : '';
   const pass = hasProperty(actual, val);
   const message = () => `Expected element${pass ? ' not' : ''} to have data '${data}'${addendum}, but had '${actual}'`;
@@ -337,7 +361,7 @@ export const toHaveData = comparator((el, { data, val }) => {
  * expect('.checkbox').toBeChecked();
  */
 export const toBeChecked = comparator((el) => {
-  const pass = $(el).is(':checked');
+  const pass = $(resolveDOMSelector(el)).is(':checked');
   const message = () => `Expected element${pass ? ' not' : ''} to be checked`;
 
   return { pass, message };
@@ -348,7 +372,7 @@ export const toBeChecked = comparator((el) => {
  * expect('.checkbox').toBeIndeterminate();
  */
 export const toBeIndeterminate = comparator((el) => {
-  const pass = $(el).is(':indeterminate');
+  const pass = $(resolveDOMSelector(el)).is(':indeterminate');
   const message = () => `Expected element${pass ? ' not' : ''} to be indeterminate`;
 
   return { pass, message };
@@ -359,7 +383,7 @@ export const toBeIndeterminate = comparator((el) => {
  * expect('.checkbox').toBeDisabled();
  */
 export const toBeDisabled = comparator((el) => {
-  const pass = $(el).is(':disabled');
+  const pass = $(resolveDOMSelector(el)).is(':disabled');
   const message = () => `Expected element${pass ? ' not' : ''} to be disabled`;
 
   return { pass, message };
@@ -371,7 +395,7 @@ export const toBeDisabled = comparator((el) => {
  * expect('div').toBeEmpty();
  */
 export const toBeEmpty = comparator((el) => {
-  const pass = $(el).is(':empty');
+  const pass = $(resolveDOMSelector(el)).is(':empty');
   const message = () => `Expected element${pass ? ' not' : ''} to be empty`;
 
   return { pass, message };
@@ -417,8 +441,8 @@ export const toBePartial = comparator((actual, expected) => {
  * 5. Type equal to "hidden" (only for form elements)
  * 6. A "hidden" attribute
  */
-function isHidden(elOrSelector: HTMLElement | string): boolean {
-  let el = $(elOrSelector)[0];
+function isHidden(elOrSelector: HTMLElement | HTMLElement[] | string): boolean {
+  let el = $(resolveDOMSelector(elOrSelector))[0];
 
   if (!el) {
     return true;
@@ -479,7 +503,7 @@ export const toBeHidden = comparator((el) => {
  *
  */
 export const toBeSelected = comparator((el) => {
-  const pass = $(el).is(':selected');
+  const pass = $(resolveDOMSelector(el)).is(':selected');
   const message = () => `Expected element${pass ? ' not' : ''} to be selected`;
 
   return { pass, message };
@@ -510,7 +534,7 @@ export const toBeVisible = comparator((el) => {
  * expect('input').toBeFocused();
  */
 export const toBeFocused = comparator((el) => {
-  const element = $(el).get(0);
+  const element = $(resolveDOMSelector(el)).get(0);
   const pass = element === element.ownerDocument.activeElement;
   const message = () => `Expected element${pass ? ' not' : ''} to be focused`;
 
@@ -524,7 +548,7 @@ export const toBeFocused = comparator((el) => {
  * expect('div').toBeMatchedBy('.js-something')
  */
 export const toBeMatchedBy = comparator((el, expected) => {
-  const actual = $(el).filter(expected).length;
+  const actual = $(resolveDOMSelector(el)).filter(expected).length;
   const pass = actual > 0;
   const message = () => `Expected element${pass ? ' not' : ''} to be matched by '${expected}'`;
 
@@ -536,7 +560,7 @@ export const toBeMatchedBy = comparator((el, expected) => {
  * expect('div').toHaveDescendant('.child')
  */
 export const toHaveDescendant = comparator((el, selector) => {
-  const actual = $(el).find(selector).length;
+  const actual = $(resolveDOMSelector(el)).find(selector).length;
   const pass = actual > 0;
   const message = () => `Expected element${pass ? ' not' : ''} to contain child '${selector}'`;
 
@@ -548,7 +572,7 @@ export const toHaveDescendant = comparator((el, selector) => {
  * expect('div').toHaveDescendantWithText({selector: '.child', text: 'text'})
  */
 export const toHaveDescendantWithText = comparator((el, { selector, text }) => {
-  const actual = $.trim($(el).find(selector).text());
+  const actual = $.trim($(resolveDOMSelector(el)).find(selector).text());
   if (text && $.isFunction(text.test)) {
     const pass = text.test(actual);
     const message = () =>
@@ -563,8 +587,10 @@ export const toHaveDescendantWithText = comparator((el, { selector, text }) => {
 });
 
 export const toHaveSelectedOptions = comparator((el, expected) => {
+  const resolvedEl = resolveDOMSelector(el);
+
   if (expected instanceof HTMLOptionElement) {
-    const actual = $(el).find(':selected');
+    const actual = $(resolvedEl).find(':selected');
 
     const pass = actual.is($(expected));
 
@@ -575,7 +601,7 @@ export const toHaveSelectedOptions = comparator((el, expected) => {
   }
 
   if (isHTMLOptionElementArray(expected)) {
-    const actual = $(el).find(':selected');
+    const actual = $(resolvedEl).find(':selected');
 
     const pass = actual.length === expected.length && actual.toArray().every((_, index) => $(actual[index]).is(expected[index]));
 
@@ -595,7 +621,7 @@ export const toHaveSelectedOptions = comparator((el, expected) => {
     return { pass, message };
   }
 
-  const actual: string[] = $(el).val();
+  const actual: string[] = $(resolvedEl).val();
 
   const pass = coerceArray(expected)?.every((v) => actual.includes(v));
 
