@@ -56,6 +56,14 @@ For example, in this following HTML `byText('foobar', {selector: 'div'})` won't 
 </div>
 ```
 
+These DOM selectors are directly supported by our [Custom Matchers](./custom-matchers):
+
+```ts
+expect(byTextContent('By text content', {selector: '#some .selector'})).toExist();
+expect(byPlaceholder('Please enter your email address')).toHaveValue('my-value');
+// ... See the Custom Matchers section for a full list of possible matchers
+```
+
 ### Parent Selector
 Spectator allows you to query for nested elements within a parent element. This is useful when you have multiple instances of the same component on the page and you want to query for children within a specific one. The parent selector is a string selector that is used to find the parent element. The parent selector is passed as the second parameter to the query methods. For example:
 ```ts
