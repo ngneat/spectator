@@ -29,7 +29,7 @@ interface Dummy {
     <div role="article" aria-label="toHaveAttribute" data-id="my-data-id"></div>
     <input type="checkbox" role="article" aria-label="toHaveProperty" checked />
     <div role="article" aria-label="toHaveText">hello goodbye</div>
-    <div role="article" aria-label="toHaveExactText">hello goodbye</div>
+    <div role="article" aria-label="toHaveExactText">{{ ' ' }}hello goodbye</div>
     <div role="article" aria-label="toHaveExactTrimmedText">hello goodbye</div>
     <div role="article" aria-label="toContainText">hello goodbye</div>
     <input type="checkbox" role="article" aria-label="toHaveValue" value="value" />
