@@ -1,6 +1,6 @@
-import { toBeVisible, toBePartial } from '@ngneat/spectator';
-import { createComponentFactory, Spectator } from '@ngneat/spectator/jest';
 import { Component, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { byRole } from '@ngneat/spectator';
+import { createComponentFactory, Spectator } from '@ngneat/spectator/jest';
 
 interface Dummy {
   lorem: string;
@@ -20,6 +20,46 @@ interface Dummy {
     <div id="styles" style="background-color: indianred; color: chocolate; --primary: var(--black)"></div>
     <custom-element style="visibility: hidden"></custom-element>
     <div id="computed-style"></div>
+
+    <div role="article" aria-label="toExist"></div>
+    <div role="article" aria-label="toHaveLength"></div>
+    <div role="article" aria-label="toHaveLength"></div>
+    <div role="article" aria-label="toHaveId" id="my-id"></div>
+    <div role="article" aria-label="toHaveClass" class="my-class"></div>
+    <div role="article" aria-label="toHaveAttribute" data-id="my-data-id"></div>
+    <input type="checkbox" role="article" aria-label="toHaveProperty" checked />
+    <div role="article" aria-label="toHaveText">hello goodbye</div>
+    <div role="article" aria-label="toHaveExactText">{{ ' ' }}hello goodbye</div>
+    <div role="article" aria-label="toHaveExactTrimmedText">hello goodbye</div>
+    <div role="article" aria-label="toContainText">hello goodbye</div>
+    <input type="checkbox" role="article" aria-label="toHaveValue" value="value" />
+    <input type="checkbox" role="article" aria-label="toContainValue" value="value" />
+    <div role="article" aria-label="toHaveStyle" style="background-color: indianred;"></div>
+    <div role="article" aria-label="toHaveData" data-the-data="my-data"></div>
+    <input type="checkbox" role="article" aria-label="toBeChecked" checked />
+    <input type="checkbox" role="article" aria-label="toBeIndeterminate" [indeterminate]="true" />
+    <input type="checkbox" role="article" aria-label="toBeDisabled" disabled />
+    <input type="text" role="article" aria-label="toBeEmpty" value="" />
+    <div role="article" aria-label="toBeHidden" style="display: none;"></div>
+    <select>
+      <option value="1" role="article" aria-label="toBeSelected" selected>1</option>
+      <option value="2">2</option>
+      <option value="3">3</option>
+    </select>
+    <div role="article" aria-label="toBeVisible"></div>
+    <div role="article" aria-label="toBeMatchedBy"></div>
+    <div role="article" aria-label="toHaveDescendant">
+      <div class="descendant"></div>
+    </div>
+    <div role="article" aria-label="toHaveDescendantWithText">
+      <div class="descendant">with text</div>
+    </div>
+    <select multiple role="article" aria-label="toHaveSelectedOptions">
+      <option value="1" selected>1</option>
+      <option value="2" selected>2</option>
+      <option value="3">3</option>
+    </select>
+    <input type="text" role="article" aria-label="toBeFocused" />
   `,
   standalone: false,
 })
@@ -181,6 +221,44 @@ describe('Matchers', () => {
     it('should return false when expected style does not exist on element', () => {
       const element = spectator.query('#styles');
       expect(element).not.toHaveStyle({ height: '100px' });
+    });
+  });
+
+  describe('resolveDOMSelector', () => {
+    describe.each([
+      { matcher: 'toExist', args: [] },
+      { matcher: 'toHaveLength', args: [2] },
+      { matcher: 'toHaveId', args: ['my-id'] },
+      { matcher: 'toHaveClass', args: ['my-class'] },
+      { matcher: 'toHaveAttribute', args: ['data-id', 'my-data-id'] },
+      { matcher: 'toHaveProperty', args: ['checked', true] },
+      { matcher: 'toHaveText', args: ['hello'] },
+      { matcher: 'toHaveExactText', args: [' hello goodbye'] },
+      { matcher: 'toHaveExactTrimmedText', args: ['hello goodbye'] },
+      { matcher: 'toContainText', args: ['hello'] },
+      { matcher: 'toHaveValue', args: ['value'] },
+      { matcher: 'toContainValue', args: ['value'] },
+      { matcher: 'toHaveStyle', args: [{ backgroundColor: 'indianred' }] },
+      { matcher: 'toHaveData', args: [{ data: 'the-data', val: 'my-data' }] },
+      { matcher: 'toBeChecked', args: [] },
+      { matcher: 'toBeIndeterminate', args: [] },
+      { matcher: 'toBeDisabled', args: [] },
+      { matcher: 'toBeEmpty', args: [] },
+      { matcher: 'toBeHidden', args: [] },
+      { matcher: 'toBeSelected', args: [] },
+      { matcher: 'toBeVisible', args: [] },
+      { matcher: 'toBeMatchedBy', args: ['[aria-label="toBeMatchedBy"]'] },
+      { matcher: 'toHaveDescendant', args: ['.descendant'] },
+      { matcher: 'toHaveDescendantWithText', args: [{ selector: '.descendant', text: 'with text' }] },
+      { matcher: 'toHaveSelectedOptions', args: [['1', '2']] },
+      { matcher: 'toBeFocused', args: [], setup: (selector) => spectator.focus(selector) },
+    ])('$matcher', ({ matcher, args, setup }) => {
+      it('should allow string selectors, HTMLElements, and DOMSelectors', () => {
+        setup?.(`[aria-label="${matcher}"]`);
+        expect(`[aria-label="${matcher}"]`)[matcher](...args);
+        expect(spectator.queryAll(`[aria-label="${matcher}"]`))[matcher](...args);
+        expect(byRole('article', { name: matcher }))[matcher](...args);
+      });
     });
   });
 });
