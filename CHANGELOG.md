@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [19.6.0](https://github.com/ngneat/spectator/compare/v19.5.0...v19.6.0) (2025-05-14)
+
+
+### Features
+
+* Allow Direct Usage of DOMSelector Instances in Custom Matchers ([#701](https://github.com/ngneat/spectator/issues/701)) ([15a7c07](https://github.com/ngneat/spectator/commit/15a7c07adc56d04affea665e2589e862e1becbd2))
+
 ## [19.5.0](https://github.com/ngneat/spectator/compare/v19.4.1...v19.5.0) (2025-04-29)
 
 
