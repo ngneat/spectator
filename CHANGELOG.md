@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [19.6.1](https://github.com/ngneat/spectator/compare/v19.6.0...v19.6.1) (2025-05-23)
+
+
+### Bug Fixes
+
+* remove `waitForAsync` (zoneless support) ([#703](https://github.com/ngneat/spectator/issues/703)) ([e817393](https://github.com/ngneat/spectator/commit/e817393b1ec2689aed9161c7f44046f9a15eb0e5))
+
 ## [19.6.0](https://github.com/ngneat/spectator/compare/v19.5.0...v19.6.0) (2025-05-14)
 
 
