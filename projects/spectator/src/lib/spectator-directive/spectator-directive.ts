@@ -33,8 +33,8 @@ export class SpectatorDirective<D, H = HostComponent> extends DomSpectator<D> {
     return super.inject(token);
   }
 
-  public setHostInput<K extends keyof H>(input: Partial<H>): void;
-  public setHostInput<K extends keyof H>(input: K, inputValue: H[K]): void;
+  public setHostInput<K extends keyof H>(input: H extends HostComponent ? any : Partial<H>): void;
+  public setHostInput<K extends keyof H>(input: H extends HostComponent ? any : K, inputValue: H extends HostComponent ? any : H[K]): void;
   public setHostInput(input: any, value?: any): void {
     setHostProps(this.fixture.componentRef, input, value);
     this.detectChanges();
