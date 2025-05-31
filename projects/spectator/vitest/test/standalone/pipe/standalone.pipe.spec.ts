@@ -33,5 +33,15 @@ describe('StandalonePipe', () => {
     it('should render and execute the StandalonePipe', () => {
       expect(spectator.element.querySelector('#standalone')).toContainText('This stands alone!');
     });
+
+    it('should allow updating host input by key', () => {
+      spectator.setHostInput('thisField', 'That');
+      expect(spectator.element.querySelector('#standalone')).toContainText('That stands alone!');
+    });
+
+    it('should allow updating host input by object', () => {
+      spectator.setHostInput({ thisField: 'That' });
+      expect(spectator.element.querySelector('#standalone')).toContainText('That stands alone!');
+    });
   });
 });

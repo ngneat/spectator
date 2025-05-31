@@ -81,3 +81,38 @@ describe('DatoAutoFocusDirective (createHostDirectiveFactory)', () => {
     expect(host.element).toHaveValue('foo');
   });
 });
+
+describe('DatoAutoFocusDirective (createDirectiveFactory)', () => {
+  let host: SpectatorDirective<AutoFocusDirective>;
+
+  const createHost = createDirectiveFactory({
+    directive: AutoFocusDirective,
+  });
+
+  it('should be focused', () => {
+    host = createHost(`<input datoAutoFocus="true">`);
+    const instance1 = host.query(AutoFocusDirective);
+    const instance2 = host.directive;
+    expect(instance1).toBe(instance2);
+    expect(host.element).toBeFocused();
+  });
+
+  it('should NOT be focused', () => {
+    host = createHost(`<input [datoAutoFocus]="false">`);
+    expect(host.element).not.toBeFocused();
+  });
+
+  it('should work with dynamic input', () => {
+    host = createHost(`<input [datoAutoFocus]="isFocused">`, { hostProps: { isFocused: false } });
+    expect(host.element).not.toBeFocused();
+    host.setHostInput('isFocused', true);
+    expect(host.element).toBeFocused();
+  });
+
+  it('should be able to type in input', () => {
+    host = createHost(`<input [datoAutoFocus]="isFocused">`, { hostProps: { isFocused: false } });
+
+    host.typeInElement('foo');
+    expect(host.element).toHaveValue('foo');
+  });
+});
