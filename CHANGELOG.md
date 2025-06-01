@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [19.6.2](https://github.com/ngneat/spectator/compare/v19.6.1...v19.6.2) (2025-06-01)
+
+
+### Bug Fixes
+
+* setHostInput should work the same across all types ([#704](https://github.com/ngneat/spectator/issues/704)) ([e96e174](https://github.com/ngneat/spectator/commit/e96e174665d88f76613684129126d7f0c6a055d4))
+
 ### [19.6.1](https://github.com/ngneat/spectator/compare/v19.6.0...v19.6.1) (2025-05-23)
 
 
