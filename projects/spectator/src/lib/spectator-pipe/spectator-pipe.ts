@@ -22,8 +22,8 @@ export class SpectatorPipe<P, H = HostComponent> extends BaseSpectator {
     this.fixture.detectChanges();
   }
 
-  public setHostInput<K extends keyof H>(input: Partial<H>): void;
-  public setHostInput<K extends keyof H>(input: K, inputValue: H[K]): void;
+  public setHostInput<K extends keyof H>(input: H extends HostComponent ? any : Partial<H>): void;
+  public setHostInput<K extends keyof H>(input: H extends HostComponent ? any : K, inputValue: H extends HostComponent ? any : H[K]): void;
   public setHostInput(input: any, value?: any): void {
     setHostProps(this.fixture.componentRef, input, value);
     this.detectChanges();
