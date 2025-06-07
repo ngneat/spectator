@@ -1,4 +1,0 @@
-projects/spectator/test/**/*.ts
-projects/spectator/jest/test/**/*.ts
-projects/spectator/vitest/test/**/*.ts
-projects/spectator/schematics/**/*.*
