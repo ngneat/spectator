@@ -74,7 +74,8 @@ export function createRoutingFactory<C>(typeOrOptions: Type<C> | SpectatorRoutin
     TestBed.overrideProvider(ActivatedRoute, {
       useValue: new ActivatedRouteStub({ params, queryParams, data, fragment, url, root, parent, children, firstChild }),
     });
-    const ngZone = (<any>TestBed).inject ? TestBed.inject(NgZone) : TestBed.get(NgZone);
+
+    const ngZone = TestBed.inject(NgZone);
 
     return ngZone.run(() => {
       const spectator = createSpectatorRouting(options, props);
@@ -95,13 +96,6 @@ function createSpectatorRouting<C>(options: Required<SpectatorRoutingOptions<C>>
   const debugElement = fixture.debugElement;
 
   const component = setProps(fixture.componentRef, props);
-
-  /**
-   * Back compatibility, angular under 9 version doesnt have a inject function
-   */
-  if (!TestBed.inject) {
-    return new SpectatorRouting(fixture, debugElement, component, TestBed.get(Router), TestBed.get(ActivatedRoute));
-  }
 
   return new SpectatorRouting(
     fixture,

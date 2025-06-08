@@ -35,11 +35,7 @@ export function createHttpFactory<S>(typeOrOptions: Type<S> | SpectatorHttpOptio
   });
 
   afterEach(() => {
-    if (TestBed.inject) {
-      TestBed.inject(HttpTestingController).verify();
-    } else {
-      TestBed.get(HttpTestingController).verify();
-    }
+    TestBed.inject(HttpTestingController).verify();
   });
 
   return (overrides?: CreateHttpOverrides<S>) => {
@@ -50,13 +46,6 @@ export function createHttpFactory<S>(typeOrOptions: Type<S> | SpectatorHttpOptio
       providers.forEach((provider: Provider) => {
         TestBed.overrideProvider((provider as any).provide, provider as any);
       });
-    }
-
-    /**
-     * Back compatibility, angular under 9 version doesnt have a inject function
-     */
-    if (!TestBed.inject) {
-      return new SpectatorHttp<S>(TestBed.get(service), TestBed.get(HttpClient), TestBed.get(HttpTestingController));
     }
 
     return new SpectatorHttp<S>(TestBed.inject(service), TestBed.inject(HttpClient), TestBed.inject(HttpTestingController));

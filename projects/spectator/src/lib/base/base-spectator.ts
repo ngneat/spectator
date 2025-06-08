@@ -8,7 +8,7 @@ import { Token } from '../token';
  */
 export abstract class BaseSpectator {
   public inject<T>(token: Token<T>): SpyObject<T> {
-    return TestBed.inject ? TestBed.inject(token) : TestBed.get(token);
+    return TestBed.inject(token) as SpyObject<T>;
   }
 
   /**
