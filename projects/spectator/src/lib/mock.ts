@@ -3,10 +3,12 @@ import { FactoryProvider, Type, AbstractType } from '@angular/core';
 
 type Writable<T> = { -readonly [P in keyof T]: T[P] };
 
+export declare type UnknownFunction = (...args: Array<unknown>) => unknown & Function;
+
 /**
  * @publicApi
  */
-export interface CompatibleSpy extends jasmine.Spy {
+export interface CompatibleSpy<F extends UnknownFunction = UnknownFunction> extends jasmine.Spy<(...args: Parameters<F>) => ReturnType<F>> {
   /**
    * By chaining the spy with and.returnValue, all calls to the function will return a specific
    * value.
@@ -17,7 +19,7 @@ export interface CompatibleSpy extends jasmine.Spy {
    * By chaining the spy with and.callFake, all calls to the spy will delegate to the supplied
    * function.
    */
-  andCallFake(fn: Function): this;
+  andCallFake(fn: UnknownFunction): this;
 
   /**
    * removes all recorded calls
@@ -28,7 +30,7 @@ export interface CompatibleSpy extends jasmine.Spy {
 /**
  * @publicApi
  */
-export type SpyObject<T> = T & { [P in keyof T]: T[P] extends Function ? T[P] & CompatibleSpy : T[P] } & {
+export type SpyObject<T> = T & { [P in keyof T]: T[P] extends UnknownFunction ? T[P] & CompatibleSpy<T[P]> : T[P] } & {
   /**
    * Casts to type without readonly properties
    */
