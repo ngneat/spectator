@@ -3,7 +3,7 @@ import { FactoryProvider, Type, AbstractType } from '@angular/core';
 
 type Writable<T> = { -readonly [P in keyof T]: T[P] };
 
-export declare type UnknownFunction = (...args: Array<unknown>) => unknown & Function;
+declare type UnknownFunction = (...args: unknown[]) => unknown;
 
 /**
  * @publicApi
@@ -13,7 +13,7 @@ export interface CompatibleSpy<F extends UnknownFunction = UnknownFunction> exte
    * By chaining the spy with and.returnValue, all calls to the function will return a specific
    * value.
    */
-  andReturn(val: any): void;
+  andReturn(val: ReturnType<F>): void;
 
   /**
    * By chaining the spy with and.callFake, all calls to the spy will delegate to the supplied
