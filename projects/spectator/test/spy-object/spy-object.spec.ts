@@ -6,7 +6,23 @@ describe('SpyObject', () => {
   it('should mock all public methods', () => {
     const person = createSpyObject(Person);
 
+    // Check methods without arguments but returns
     person.sayHi.andReturn('Bye!');
+
+    // Check methods with arguments
+    person.saySomething.andReturn('');
+    person.saySomething.withArgs('Testing').and.returnValue('You said: Testing');
+    person.saySomething.andCallFake((something: string) => {
+      return `You said: ${something}`;
+    });
+
+    // Check pure void methods
+    person.voidMethod.andCallFake(() => {});
+
+    // Check void methods with arguments
+    person.voidMethodWithArguments.andCallFake((arg1: string, arg2: number) => {
+      // Do nothing
+    });
   });
 
   it('should enable spying on properties', () => {
