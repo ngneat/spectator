@@ -3,7 +3,7 @@ import { FactoryProvider, Type, AbstractType } from '@angular/core';
 
 type Writable<T> = { -readonly [P in keyof T]: T[P] };
 
-declare type UnknownFunction = (...args: unknown[]) => unknown;
+declare type UnknownFunction = (...args: any[]) => any;
 
 /**
  * @publicApi
@@ -19,7 +19,7 @@ export interface CompatibleSpy<F extends UnknownFunction = UnknownFunction> exte
    * By chaining the spy with and.callFake, all calls to the spy will delegate to the supplied
    * function.
    */
-  andCallFake(fn: UnknownFunction): this;
+  andCallFake(fn: F): this;
 
   /**
    * removes all recorded calls
