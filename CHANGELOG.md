@@ -2,6 +2,27 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [20.0.0](https://github.com/ngneat/spectator/compare/v19.6.2...v20.0.0) (2025-06-22)
+
+
+### ⚠ BREAKING CHANGES
+
+* CompatibleSpy<T> type checks it's methods and
+enables types on inherited jasmine.Spy<T> methods. Existing tests
+may break at build if mocked returns are the wrong types.
+
+* test: add additional tests for type checks
+
+### Features
+
+* add strong typings to function spies on SpyObject ([#707](https://github.com/ngneat/spectator/issues/707)) ([9010a89](https://github.com/ngneat/spectator/commit/9010a8962dc9621187c03dde44d9fb41f7cc6247))
+
+
+### Bug Fixes
+
+* fix void spy regressions, and properly type andCallFake ([#710](https://github.com/ngneat/spectator/issues/710)) ([96f7322](https://github.com/ngneat/spectator/commit/96f732295fd89a93c185d7995a0048d208ca08f0))
+* regression caused by strong typings change ([#708](https://github.com/ngneat/spectator/issues/708)) ([70c3a23](https://github.com/ngneat/spectator/commit/70c3a235b076a4dfbae2ced870dd6e3dea2f6e4e))
+
 ### [19.6.2](https://github.com/ngneat/spectator/compare/v19.6.1...v19.6.2) (2025-06-01)
 
 
