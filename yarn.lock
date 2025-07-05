@@ -44,24 +44,24 @@
   resolved "https://registry.yarnpkg.com/@analogjs/vitest-angular/-/vitest-angular-1.18.0.tgz#b7db3a7d7e2bde4f2aed9bf0b65e93ea00d58e37"
   integrity sha512-G5TVUXK8KVhx46u5BhGECZm//g8ukrzwQ2HVFUUzHxM7O1Mpi5zUqw7ikzeWmlfdAcLTD/s35W5vHygW2lUE9g==
 
-"@angular-builders/common@3.0.1":
-  version "3.0.1"
-  resolved "https://registry.yarnpkg.com/@angular-builders/common/-/common-3.0.1.tgz#6a9cfa466e5011934c8bd494cd4df93273072dea"
-  integrity sha512-AIIqWtlr3sc2+CTEOqbDsrpVvkT6ijfYzvzPk1HLFrcP9Y2tYLXVFc+gGThlE+e1Om0pKminXcINEqm3J/yY5g==
+"@angular-builders/common@4.0.0":
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/@angular-builders/common/-/common-4.0.0.tgz#1354988632eb76501e35bd1aa03178e98b84677f"
+  integrity sha512-bepZI1KdXUVhDGqHOudZQJwucSbZWxfWzM+EHFXUoExUO0u7XEuHTF5bhtQZ+YU+ZK2Ayl26QbI/26Yj72vcFQ==
   dependencies:
-    "@angular-devkit/core" "^19.0.0"
+    "@angular-devkit/core" "^20.0.0"
     ts-node "^10.0.0"
-    tsconfig-paths "^4.1.0"
+    tsconfig-paths "^4.2.0"
 
-"@angular-builders/jest@^19.0.1":
-  version "19.0.1"
-  resolved "https://registry.yarnpkg.com/@angular-builders/jest/-/jest-19.0.1.tgz#cb396598fabc34bd2418490b298c64edae2a6dbd"
-  integrity sha512-mi4HMQkyb1Z+pPRIKt70Uk/EBoDUirPqhv3xlz1/WpPqpxXz8y+Y3ffutot4JJDmzJw2p4h3x2hh6D3Kbocraw==
+"@angular-builders/jest@^20.0.0":
+  version "20.0.0"
+  resolved "https://registry.yarnpkg.com/@angular-builders/jest/-/jest-20.0.0.tgz#1d3e562b7bebcae7472d466fc7c3aac5ac171cbf"
+  integrity sha512-3rnobnIdErtjyM3yAAAOdod79lgbkf1QWMFHiRDHW4tw4f+DLFiM2HMFircCoO5WIe/ILEJE9GNxs/vvYa3gvw==
   dependencies:
-    "@angular-builders/common" "3.0.1"
-    "@angular-devkit/architect" ">=0.1900.0 < 0.2000.0"
-    "@angular-devkit/core" "^19.0.0"
-    jest-preset-angular "14.5.4"
+    "@angular-builders/common" "4.0.0"
+    "@angular-devkit/architect" ">=0.2000.0 < 0.2100.0"
+    "@angular-devkit/core" "^20.0.0"
+    jest-preset-angular "14.6.0"
     lodash "^4.17.15"
 
 "@angular-devkit/architect@0.2000.1", "@angular-devkit/architect@>= 0.2000.0 < 0.2100.0":
@@ -72,30 +72,30 @@
     "@angular-devkit/core" "20.0.1"
     rxjs "7.8.2"
 
-"@angular-devkit/architect@>=0.1900.0 < 0.2000.0":
-  version "0.1902.14"
-  resolved "https://registry.yarnpkg.com/@angular-devkit/architect/-/architect-0.1902.14.tgz#acd1d5816564973e8d65e629acf72c2a358bc9db"
-  integrity sha512-rgMkqOrxedzqLZ8w59T/0YrpWt7LDmGwt+ZhNHE7cn27jZ876yGC2Bhcn58YZh2+R03WEJ9q0ePblaBYz03SMw==
+"@angular-devkit/architect@>=0.2000.0 < 0.2100.0":
+  version "0.2000.5"
+  resolved "https://registry.yarnpkg.com/@angular-devkit/architect/-/architect-0.2000.5.tgz#c4c3f5e90f97aeea03820dbfa4f729bb4c6bfca6"
+  integrity sha512-9aPtMdRiOVP14PkbgxAKh3TivxXTBiOr66xYbxutP0cMBwzRX67ekyEpAxmTEiWnd+qmxV9tddWgGL5sWcEZgQ==
   dependencies:
-    "@angular-devkit/core" "19.2.14"
-    rxjs "7.8.1"
-
-"@angular-devkit/core@19.2.14", "@angular-devkit/core@^19.0.0":
-  version "19.2.14"
-  resolved "https://registry.yarnpkg.com/@angular-devkit/core/-/core-19.2.14.tgz#29c17dd6b1113b23bd668cfef4dc45d363ccab0e"
-  integrity sha512-aaPEnRNIBoYT4XrrYcZlHadX8vFDTUR+4wUgcmr0cNDLeWzWtoPFeVq8TQD6kFDeqovSx/UVEblGgg/28WvHyg==
-  dependencies:
-    ajv "8.17.1"
-    ajv-formats "3.0.1"
-    jsonc-parser "3.3.1"
-    picomatch "4.0.2"
-    rxjs "7.8.1"
-    source-map "0.7.4"
+    "@angular-devkit/core" "20.0.5"
+    rxjs "7.8.2"
 
 "@angular-devkit/core@20.0.1", "@angular-devkit/core@>= 20.0.0 < 21.0.0":
   version "20.0.1"
   resolved "https://registry.yarnpkg.com/@angular-devkit/core/-/core-20.0.1.tgz#60faf2f38d7b5ab22e8eaceb7f20fd85d4800070"
   integrity sha512-Ilafyj8JVwq3NZsaiGw5UDkP4EAkGKiEvZ4TC3WVidZbM4EpKt9/Jd7ZpsTRGDLG429U+fGhay+ZQeCFGqy5rA==
+  dependencies:
+    ajv "8.17.1"
+    ajv-formats "3.0.1"
+    jsonc-parser "3.3.1"
+    picomatch "4.0.2"
+    rxjs "7.8.2"
+    source-map "0.7.4"
+
+"@angular-devkit/core@20.0.5", "@angular-devkit/core@^20.0.0":
+  version "20.0.5"
+  resolved "https://registry.yarnpkg.com/@angular-devkit/core/-/core-20.0.5.tgz#062721c8bc07a6222089d50a811c494d4b78a9d4"
+  integrity sha512-bFaFP984GxqfC1WYlUEFuwkDO657ynxI51cE3J6yfwP92ykyF/MXzV0S9tRBhx5rcLVgCAiohxmzKdxPhoLWSA==
   dependencies:
     ajv "8.17.1"
     ajv-formats "3.0.1"
@@ -6332,20 +6332,6 @@ jest-pnp-resolver@^1.2.2:
   resolved "https://registry.npmjs.org/jest-pnp-resolver/-/jest-pnp-resolver-1.2.2.tgz"
   integrity sha512-olV41bKSMm8BdnuMsewT4jqlZ8+3TCARAXjZGT9jcoSnrfUnRCqnMoF9XEeoWjbzObpqF9dRhHQj0Xb9QdF6/w==
 
-jest-preset-angular@14.5.4:
-  version "14.5.4"
-  resolved "https://registry.yarnpkg.com/jest-preset-angular/-/jest-preset-angular-14.5.4.tgz#88db580a41b6ef1a98f974f7ad47d114ec79e9b3"
-  integrity sha512-vbil9qTrZljzVJNsDIxEhWVb4r6BQumXEgIHCAVkHJjpF1fYkIB4bczPAe58lBZH2gKeRHBSj8/IoGpGBI1qiQ==
-  dependencies:
-    bs-logger "^0.2.6"
-    esbuild-wasm ">=0.15.13"
-    jest-environment-jsdom "^29.7.0"
-    jest-util "^29.7.0"
-    pretty-format "^29.7.0"
-    ts-jest "^29.3.0"
-  optionalDependencies:
-    esbuild ">=0.15.13"
-
 jest-preset-angular@14.6.0:
   version "14.6.0"
   resolved "https://registry.yarnpkg.com/jest-preset-angular/-/jest-preset-angular-14.6.0.tgz#837431accdfae146f6d0ce5bfebc187d97d5b362"
@@ -6692,7 +6678,7 @@ json5@^2.2.1:
   resolved "https://registry.npmjs.org/json5/-/json5-2.2.1.tgz"
   integrity sha512-1hqLFMSrGHRHxav9q9gNjJ5EXznIxGVO09xQRrwplcS8qs28pZ8s8hupZAmqDwZUmVZ2Qb2jnyPOWcDH8m8dlA==
 
-json5@^2.2.3:
+json5@^2.2.2, json5@^2.2.3:
   version "2.2.3"
   resolved "https://registry.yarnpkg.com/json5/-/json5-2.2.3.tgz#78cd6f1a19bdc12b73db5ad0c61efd66c1e29283"
   integrity sha512-XmOWe7eyHYH14cLdVPoyg+GOH3rYX++KpzrylJwSW98t3Nk+U8XOl8FWKOgwtzdb8lXGf6zYwDUzeHMWfxasyg==
@@ -9661,12 +9647,12 @@ tsconfck@^3.0.3:
   resolved "https://registry.yarnpkg.com/tsconfck/-/tsconfck-3.1.4.tgz#de01a15334962e2feb526824339b51be26712229"
   integrity sha512-kdqWFGVJqe+KGYvlSO9NIaWn9jT1Ny4oKVzAJsKii5eoE9snzTJzL4+MMVOMn+fikWGFmKEylcXL710V/kIPJQ==
 
-tsconfig-paths@^4.1.0:
-  version "4.1.1"
-  resolved "https://registry.yarnpkg.com/tsconfig-paths/-/tsconfig-paths-4.1.1.tgz#7f23094ce897fcf4a93f67c4776e813003e48b75"
-  integrity sha512-VgPrtLKpRgEAJsMj5Q/I/mXouC6A/7eJ/X4Nuk6o0cRPwBtznYxTCU4FodbexbzH9somBPEXYi0ZkUViUpJ21Q==
+tsconfig-paths@^4.2.0:
+  version "4.2.0"
+  resolved "https://registry.yarnpkg.com/tsconfig-paths/-/tsconfig-paths-4.2.0.tgz#ef78e19039133446d244beac0fd6a1632e2d107c"
+  integrity sha512-NoZ4roiN7LnbKn9QqE1amc9DJfzvZXxF4xDavcOWt1BPkdx+m+0gJuPM+S0vCe7zTJMYUP0R8pO2XMr+Y8oLIg==
   dependencies:
-    json5 "^2.2.1"
+    json5 "^2.2.2"
     minimist "^1.2.6"
     strip-bom "^3.0.0"
 

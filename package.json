@@ -33,7 +33,7 @@
   "devDependencies": {
     "@analogjs/vite-plugin-angular": "^1.18.0",
     "@analogjs/vitest-angular": "^1.18.0",
-    "@angular-builders/jest": "^19.0.1",
+    "@angular-builders/jest": "^20.0.0",
     "@angular-devkit/schematics": "^20.0.1",
     "@angular/animations": "^20.0.2",
     "@angular/build": "^20.0.1",
