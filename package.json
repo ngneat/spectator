@@ -70,7 +70,7 @@
     "jest": "29.7.0",
     "jest-preset-angular": "14.6.0",
     "jsdom": "^25.0.1",
-    "karma": "6.4.2",
+    "karma": "6.4.4",
     "karma-chrome-launcher": "3.2.0",
     "karma-coverage-istanbul-reporter": "3.0.3",
     "karma-jasmine": "5.1.0",

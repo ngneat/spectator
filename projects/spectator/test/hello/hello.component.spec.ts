@@ -1,11 +1,17 @@
 import { createHostFactory, SpectatorHost } from '@ngneat/spectator';
 
 import { HelloComponent } from './hello.component';
+import { TranslateService } from '../translate.service';
+import { TranslatePipe } from '../translate.pipe';
 
 describe('HelloComponent', () => {
   let host: SpectatorHost<HelloComponent>;
 
-  const createHost = createHostFactory(HelloComponent);
+  const createHost = createHostFactory({
+    component: HelloComponent,
+    declarations: [TranslatePipe],
+    providers: [TranslateService],
+  });
 
   it('should display the title', () => {
     host = createHost(`<hello [title]="title" [widthRaw]="widthRaw"></hello>`, {
