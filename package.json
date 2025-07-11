@@ -31,8 +31,8 @@
     "release:dry": "cd projects/spectator && standard-version --infile ../../CHANGELOG.md --dry-run"
   },
   "devDependencies": {
-    "@analogjs/vite-plugin-angular": "^1.18.0",
-    "@analogjs/vitest-angular": "^1.18.0",
+    "@analogjs/vite-plugin-angular": "^1.19.1",
+    "@analogjs/vitest-angular": "^1.19.1",
     "@angular-builders/jest": "^20.0.0",
     "@angular-devkit/build-angular": "^20.1.0",
     "@angular-devkit/schematics": "^20.1.0",
@@ -85,8 +85,8 @@
     "tslib": "^2.6.2",
     "typescript": "5.8.3",
     "typescript-eslint": "^8.33.1",
-    "vite-tsconfig-paths": "^5.0.1",
-    "vitest": "3.2.2",
+    "vite-tsconfig-paths": "^5.1.4",
+    "vitest": "3.2.4",
     "zone.js": "0.15.0"
   },
   "config": {
