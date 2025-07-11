@@ -9782,10 +9782,10 @@ neo-async@^2.6.0, neo-async@^2.6.2:
   resolved "https://registry.npmjs.org/neo-async/-/neo-async-2.6.2.tgz"
   integrity sha512-Yd3UES5mWCSqR+qNT93S3UoYUkqAZ9lLg8a7g9rimsWmYGK8cVToA4/sF3RrshdyV3sAGMXVUmpMYOw+dLpOuw==
 
-ng-packagr@20.0.0:
-  version "20.0.0"
-  resolved "https://registry.yarnpkg.com/ng-packagr/-/ng-packagr-20.0.0.tgz#5a4ebdb8bd4df02cc25647c3c1a8c29f722935ac"
-  integrity sha512-p4pKkeulFi8wIOE2oLCPuzGLWE3uCNdrovSHGK5/w3+eA3l6DZmdEcvXM8YrEhbi253aB3yp4nKipc1OlK7hvQ==
+ng-packagr@20.1.0:
+  version "20.1.0"
+  resolved "https://registry.yarnpkg.com/ng-packagr/-/ng-packagr-20.1.0.tgz#0aba2b7d7cedf6bb248108220cf154eeec9414f8"
+  integrity sha512-objHk39HWnSSv54KD0Ct4A02rug6HiqbmXo1KJW39npzuVc37QWfiZy94afltH1zIx+mQqollmGaCmwibmagvQ==
   dependencies:
     "@ampproject/remapping" "^2.3.0"
     "@rollup/plugin-json" "^6.1.0"
