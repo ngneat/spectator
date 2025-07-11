@@ -29,9 +29,9 @@
     "tslib": "^2.6.2"
   },
   "peerDependencies": {
-    "@angular/common": ">= 18.0.0",
-    "@angular/router": ">= 18.0.0",
-    "@angular/animations": ">= 18.0.0"
+    "@angular/common": ">= 20.0.0",
+    "@angular/router": ">= 20.0.0",
+    "@angular/animations": ">= 20.0.0"
   },
   "schematics": "./schematics/collection.json"
 }
