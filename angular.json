@@ -34,7 +34,8 @@
             "include": [
               "../test/test.ts",
               "../test/**/*.spec.ts"
-            ]
+            ],
+            "watch": false
           }
         },
         "test-jest": {
