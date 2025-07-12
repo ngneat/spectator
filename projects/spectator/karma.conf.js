@@ -15,6 +15,7 @@ module.exports = function (config) {
       require('@angular-devkit/build-angular/plugins/karma')
     ],
     client: {
+      clearContext: false, // leave Jasmine Spec Runner output visible in browser
       jasmine: {
         // you can add configuration options for Jasmine here
         // the possible options are listed at https://jasmine.github.io/api/edge/Configuration.html
