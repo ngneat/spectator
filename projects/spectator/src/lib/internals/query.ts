@@ -3,6 +3,7 @@ import { By } from '@angular/platform-browser';
 
 import { DOMSelector } from '../dom-selectors';
 import { isString, QueryOptions, QueryType } from '../types';
+import { type Token } from '../token';
 
 export function getChildren<R>(debugElementRoot: DebugElement): (directiveOrSelector: QueryType, options?: QueryOptions<R>) => R[] {
   return (directiveOrSelector: QueryType, options: QueryOptions<R> = { root: false, read: undefined }): R[] => {
@@ -15,7 +16,7 @@ export function getChildren<R>(debugElementRoot: DebugElement): (directiveOrSele
     );
 
     if (options.read) {
-      return debugElements.map((debug) => debug.injector.get(options.read));
+      return debugElements.map((debug) => debug.injector.get(options.read as Token<R>));
     }
 
     if (isString(directiveOrSelector)) {

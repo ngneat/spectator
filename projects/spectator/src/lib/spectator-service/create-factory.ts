@@ -34,12 +34,9 @@ export function createServiceFactory<S>(typeOrOptions: Type<S> | SpectatorServic
   });
 
   afterEach(() => {
-    const testedService = (<any>TestBed).inject
-      ? (<{ inject<T>(token: Type<T>, notFoundValue?: T): T } & TestBedStatic>TestBed).inject<S>(service)
-      : TestBed.get(service);
+    const testedService = (<{ inject<T>(token: Type<T>, notFoundValue?: T): T } & TestBedStatic>TestBed).inject<S>(service) as object;
 
     if (doesServiceImplementsOnDestroy(testedService)) {
-      // eslint-disable-next-line
       testedService.ngOnDestroy();
     }
   });
@@ -54,6 +51,6 @@ export function createServiceFactory<S>(typeOrOptions: Type<S> | SpectatorServic
       });
     }
 
-    return new SpectatorService<S>(TestBed.inject ? TestBed.inject(service) : TestBed.get(service));
+    return new SpectatorService<S>(TestBed.inject(service));
   };
 }

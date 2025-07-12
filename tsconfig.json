@@ -6,7 +6,7 @@
     "sourceMap": true,
     "declaration": false,
     "module": "es2020",
-    "moduleResolution": "node",
+    "moduleResolution": "bundler",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "importHelpers": true,
@@ -35,7 +35,9 @@
         "projects/spectator/internals/src/public_api.ts"
       ],
       // workaround for: https://github.com/rollup/rollup/issues/5199
-      "rollup/parseAst": ["./node_modules/rollup/dist/parseAst"]
+      "rollup/parseAst": [
+        "./node_modules/rollup/dist/parseAst"
+      ]
     },
     "useDefineForClassFields": false
   }
