@@ -2,6 +2,42 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [21.0.0](https://github.com/ngneat/spectator/compare/v20.0.0...v21.0.0) (2025-07-12)
+
+
+### ⚠ BREAKING CHANGES
+
+* 🧨 removed TestBed.get support
+
+* chore: 🤖 fix karma tests
+
+* chore: 🤖 bump @angular-builders/jest to v20
+
+* chore: 🤖 fix karma bug
+
+`NODE_ENV=build yarn test` throws an error:
+
+TypeError [ERR_INVALID_STATE]: Invalid state:
+Controller is already closed
+
+bug: https://github.com/angular/angular-cli/pull/30653
+
+Update Angular to latest version with Karma fix:
+
+npx ng update @angular/core@latest @angular/cli@latest
+@angular/cdk@latest
+
+* chore: 🤖 bump @angular peerDependencies to >= 20.0.0
+* 🧨 peerDependencies @angular/*: >= 20.0.0
+
+* chore: 🤖 fix hanging Karma
+
+"ERROR Some of your tests did a full page reload!"
+
+### Features
+
+* 🎸 upgrade to Angular v20 ([#711](https://github.com/ngneat/spectator/issues/711)) ([460f5be](https://github.com/ngneat/spectator/commit/460f5beef8468c70cf30a98e8adc86747122d5de)), closes [/github.com/karma-runner/karma/issues/3887#issuecomment-2717292474](https://github.com/ngneat//github.com/karma-runner/karma/issues/3887/issues/issuecomment-2717292474)
+
 ## [20.0.0](https://github.com/ngneat/spectator/compare/v19.6.2...v20.0.0) (2025-06-22)
 
 
