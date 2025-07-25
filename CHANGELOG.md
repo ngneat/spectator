@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [21.0.1](https://github.com/ngneat/spectator/compare/v21.0.0...v21.0.1) (2025-07-25)
+
+
+### Bug Fixes
+
+* 🐛 jasmine customer matchers ([#713](https://github.com/ngneat/spectator/issues/713)) ([2fcac6a](https://github.com/ngneat/spectator/commit/2fcac6af83b172909264e8b49af99a9328361d20)), closes [#712](https://github.com/ngneat/spectator/issues/712)
+
 ## [21.0.0](https://github.com/ngneat/spectator/compare/v20.0.0...v21.0.0) (2025-07-12)
 
 
