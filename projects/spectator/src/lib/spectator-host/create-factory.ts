@@ -1,7 +1,6 @@
 import { Provider, Type } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { BrowserDynamicTestingModule } from '@angular/platform-browser-dynamic/testing';
 
 import { addMatchers } from '../core';
 import { nodeByDirective } from '../internals/node-by-directive';
@@ -16,6 +15,7 @@ import {
 } from '../spectator/create-factory';
 import { isType } from '../types';
 
+import { BrowserTestingModule } from '@angular/platform-browser/testing';
 import { BaseSpectatorOverrides } from '../base/options';
 import { setHostProps } from '../internals/query';
 import { HostComponent } from './host-component';
@@ -66,7 +66,7 @@ export function createHostFactory<C, H = HostComponent>(typeOrOptions: Type<C> |
 
   beforeEach(() => {
     addMatchers(customMatchers);
-    TestBed.configureTestingModule(moduleMetadata).overrideModule(BrowserDynamicTestingModule, {});
+    TestBed.configureTestingModule(moduleMetadata).overrideModule(BrowserTestingModule, {});
 
     overrideModules(options);
     overrideComponents(options);

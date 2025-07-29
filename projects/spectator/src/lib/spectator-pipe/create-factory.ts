@@ -1,6 +1,5 @@
 import { Provider, Type } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
-import { BrowserDynamicTestingModule } from '@angular/platform-browser-dynamic/testing';
 
 import { BaseSpectatorOverrides } from '../base/options';
 import { addMatchers } from '../core';
@@ -9,6 +8,7 @@ import * as customMatchers from '../matchers';
 import { HostComponent } from '../spectator-host/host-component';
 import { isType } from '../types';
 
+import { BrowserTestingModule } from '@angular/platform-browser/testing';
 import { overrideModules, overridePipes } from '../spectator/create-factory';
 import { initialSpectatorPipeModule } from './initial-module';
 import { SpectatorPipeOptions, getSpectatorPipeDefaultOptions } from './options';
@@ -64,7 +64,7 @@ export function createPipeFactory<P, H = HostComponent>(typeOrOptions: Type<P> |
     }
 
     if (template) {
-      TestBed.overrideModule(BrowserDynamicTestingModule, {}).overrideComponent(options.host, {
+      TestBed.overrideModule(BrowserTestingModule, {}).overrideComponent(options.host, {
         set: { template },
       });
     }

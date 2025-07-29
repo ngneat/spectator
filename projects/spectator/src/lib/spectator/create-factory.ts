@@ -1,6 +1,5 @@
 import { Component, isStandalone, Provider, reflectComponentType, Type } from '@angular/core';
 import { MetadataOverride, TestBed } from '@angular/core/testing';
-import { BrowserDynamicTestingModule } from '@angular/platform-browser-dynamic/testing';
 
 import { BaseSpectatorOptions, BaseSpectatorOverrides } from '../base/options';
 import { addMatchers } from '../core';
@@ -8,6 +7,7 @@ import { setProps } from '../internals/query';
 import * as customMatchers from '../matchers';
 import { InferInputSignals, isType } from '../types';
 
+import { BrowserTestingModule } from '@angular/platform-browser/testing';
 import { initialSpectatorModule } from './initial-module';
 import { getSpectatorDefaultOptions, SpectatorOptions } from './options';
 import { Spectator } from './spectator';
@@ -151,7 +151,7 @@ export function createComponentFactory<C>(typeOrOptions: Type<C> | SpectatorOpti
 
   beforeEach(() => {
     addMatchers(customMatchers);
-    TestBed.configureTestingModule(moduleMetadata).overrideModule(BrowserDynamicTestingModule, {});
+    TestBed.configureTestingModule(moduleMetadata).overrideModule(BrowserTestingModule, {});
 
     overrideModules(options);
     overrideComponents(options);
