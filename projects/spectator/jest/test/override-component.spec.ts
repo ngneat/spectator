@@ -54,7 +54,7 @@ describe('Override Component', () => {
           ],
         ],
       } as any),
-    ).toThrowError('Can not override non standalone component');
+    ).toThrow('Can not override non standalone component');
   });
 
   describe('with Spectator', () => {
