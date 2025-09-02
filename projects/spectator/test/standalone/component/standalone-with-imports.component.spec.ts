@@ -1,4 +1,11 @@
-import { createComponentFactory, createHostFactory, Spectator, SpectatorHost } from '@ngneat/spectator';
+import {
+  createComponentFactory,
+  createHostFactory,
+  createRoutingFactory,
+  Spectator,
+  SpectatorHost,
+  SpectatorRouting,
+} from '@ngneat/spectator';
 import { StandaloneComponent } from './standalone.component';
 import {
   MockStandaloneChildComponent,
@@ -39,6 +46,23 @@ describe('StandaloneWithImportsComponent', () => {
 
     it('should render a StandaloneComponent', () => {
       expect(host.query('#child-standalone')).toContainText('Mocked!');
+    });
+  });
+
+  describe('with SpectatorRouting', () => {
+    let spectator: SpectatorRouting<StandaloneWithImportsComponent>;
+
+    const createComponent = createRoutingFactory({
+      component: StandaloneWithImportsComponent,
+      componentImports: [[StandaloneChildComponent, MockStandaloneChildComponent]],
+    });
+
+    beforeEach(() => {
+      spectator = createComponent();
+    });
+
+    it('should render a StandaloneComponent', () => {
+      expect(spectator.query('#child-standalone')).toContainText('Mocked!');
     });
   });
 });
