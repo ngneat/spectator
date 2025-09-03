@@ -5,13 +5,13 @@ import {
   Spectator,
   SpectatorHost,
   SpectatorRouting,
-} from '@ngneat/spectator';
-import { StandaloneComponent } from './standalone.component';
+} from '@ngneat/spectator/jest';
+import { StandaloneComponent } from '../../../../test/standalone/component/standalone.component';
 import {
   MockStandaloneChildComponent,
   StandaloneChildComponent,
   StandaloneWithImportsComponent,
-} from './standalone-with-imports.component';
+} from '../../../../test/standalone/component/standalone-with-imports.component';
 
 describe('StandaloneWithImportsComponent', () => {
   describe('with Spectator', () => {

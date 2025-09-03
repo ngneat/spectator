@@ -7,6 +7,7 @@ import { setProps } from '../internals/query';
 import * as customMatchers from '../matchers';
 import {
   overrideComponentIfProviderOverridesSpecified,
+  overrideComponentImports,
   overrideComponents,
   overrideDirectives,
   overrideModules,
@@ -52,6 +53,7 @@ export function createRoutingFactory<C>(typeOrOptions: Type<C> | SpectatorRoutin
     overridePipes(options);
 
     overrideComponentIfProviderOverridesSpecified(options);
+    overrideComponentImports(options);
   });
 
   return (overrides?: SpectatorRoutingOverrides<C>) => {
