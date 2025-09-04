@@ -5,7 +5,7 @@ import { createComponentFactory } from '@ngneat/spectator/jest';
 describe('DeferBlock', () => {
   describe('Playthrough Behavior', () => {
     @Component({
-      selector: 'app-root',
+      selector: 'app-root:not(.NG0912-a)',
       template: `
         <button data-test="button--isVisible" (click)="isVisible = !isVisible">Toggle</button>
 
@@ -42,7 +42,7 @@ describe('DeferBlock', () => {
 
   describe('Manual Behavior', () => {
     @Component({
-      selector: 'app-root',
+      selector: 'app-root:not(.NG0912-b)',
       template: `
         @defer (on viewport) {
           <div>empty defer block</div>
@@ -110,7 +110,7 @@ describe('DeferBlock', () => {
 
   describe('Manual Behavior with nested states', () => {
     @Component({
-      selector: 'app-root',
+      selector: 'app-root:not(.NG0912-c)',
       template: `
         @defer (on viewport) {
           <div>complete state #1</div>
