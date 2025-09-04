@@ -36,7 +36,7 @@ describe('Override Pipe', () => {
           ],
         ],
       } as any),
-    ).toThrowError('Can not override non standalone pipe');
+    ).toThrow('Can not override non standalone pipe');
   });
 
   describe('with Spectator', () => {

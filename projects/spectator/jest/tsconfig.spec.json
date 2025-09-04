@@ -1,5 +1,9 @@
 {
   "extends": "../tsconfig.spec.json",
+  "compilerOptions": {
+    "isolatedModules": true,
+    "emitDecoratorMetadata": false
+  },
   "include": [
     "test/**/*.spec.ts",
     "../src/lib/matchers-types.ts"

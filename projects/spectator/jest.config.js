@@ -7,7 +7,6 @@ module.exports = {
       {
         ...defaultTransformerOptions,
         tsconfig: 'projects/spectator/jest/tsconfig.spec.json',
-        isolatedModules: true,
       },
     ],
   },

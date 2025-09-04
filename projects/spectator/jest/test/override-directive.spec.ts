@@ -35,7 +35,7 @@ describe('Override Directive', () => {
           ],
         ],
       } as any),
-    ).toThrowError('Can not override non standalone directive');
+    ).toThrow('Can not override non standalone directive');
   });
 
   describe('with Spectator', () => {
