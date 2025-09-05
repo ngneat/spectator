@@ -7,7 +7,6 @@
   "allowedNonPeerDependencies": [
     "@testing-library/dom",
     "jquery",
-    "@types/jasmine",
-    "replace-in-file"
+    "@types/jasmine"
   ]
 }

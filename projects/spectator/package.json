@@ -25,7 +25,6 @@
   "dependencies": {
     "@testing-library/dom": "^8.11.0",
     "jquery": "^3.7.1",
-    "replace-in-file": "6.2.0",
     "tslib": "^2.6.2"
   },
   "peerDependencies": {
