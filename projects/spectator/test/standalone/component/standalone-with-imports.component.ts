@@ -8,7 +8,7 @@ import { Component } from '@angular/core';
 export class StandaloneChildComponent {}
 
 @Component({
-  selector: `app-standalone-child`,
+  selector: `app-standalone-child:not(.NG0912)`,
   template: `<div id="child-standalone">Mocked!</div>`,
   standalone: true,
 })

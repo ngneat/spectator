@@ -6,3 +6,13 @@ defineGlobalsInjections({
   providers: [TranslateService],
   declarations: [TranslatePipe],
 });
+
+beforeEach(() => {
+  const mockIntersectionObserver = jest.fn<IntersectionObserver>();
+  mockIntersectionObserver.mockReturnValue({
+    observe: () => null,
+    unobserve: () => null,
+    disconnect: () => null,
+  });
+  window.IntersectionObserver = mockIntersectionObserver;
+});
