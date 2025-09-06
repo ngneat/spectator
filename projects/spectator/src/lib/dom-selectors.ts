@@ -1,14 +1,13 @@
 import {
   Matcher,
-  MatcherFunction,
   MatcherOptions,
   NormalizerFn,
   SelectorMatcherOptions,
   queries as DOMQueries,
   getDefaultNormalizer,
   ByRoleOptions,
+  ByRoleMatcher,
 } from '@testing-library/dom';
-import { ARIARole } from 'aria-query';
 
 interface MandatorySelectorMatchingOptions extends MatcherOptions {
   selector: SelectorMatcherOptions['selector'];
@@ -65,5 +64,5 @@ export const byTestId: DOMSelectorFactory = (matcher, options) =>
 export const byValue: DOMSelectorFactory = (matcher, options) =>
   new DOMSelector((el) => DOMQueries.queryAllByDisplayValue(el, matcher, options));
 
-export const byRole = (matcher: ARIARole | MatcherFunction | Omit<string, ARIARole>, options?: ByRoleOptions): DOMSelector =>
+export const byRole = (matcher: ByRoleMatcher, options?: ByRoleOptions): DOMSelector =>
   new DOMSelector((el) => DOMQueries.queryAllByRole(el, matcher, options));

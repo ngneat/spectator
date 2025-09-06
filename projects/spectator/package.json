@@ -23,7 +23,7 @@
     "angular testing dumb components"
   ],
   "dependencies": {
-    "@testing-library/dom": "^8.11.0",
+    "@testing-library/dom": "^10.4.1",
     "jquery": "^3.7.1",
     "replace-in-file": "6.2.0",
     "tslib": "^2.6.2"
