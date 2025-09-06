@@ -20,7 +20,7 @@ export class DomSelectorsNestedComponent {}
 
     <img src="" alt="By alt text" id="by-alt-text-img" />
 
-    <a href="" title="By title" id="by-title-a"></a>
+    <a href="#" title="By title" id="by-title-a"></a>
 
     <input type="text" value="By value" id="by-value-input" />
 
