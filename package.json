@@ -47,7 +47,6 @@
     "@angular/forms": "^20.1.0",
     "@angular/language-service": "^20.1.0",
     "@angular/platform-browser": "^20.1.0",
-    "@angular/platform-browser-dynamic": "^20.1.0",
     "@angular/router": "20.1.0",
     "@commitlint/cli": "17.3.0",
     "@commitlint/config-angular": "17.3.0",

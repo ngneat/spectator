@@ -1,7 +1,6 @@
 import { Provider, Type } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { BrowserDynamicTestingModule } from '@angular/platform-browser-dynamic/testing';
 
 import { BaseSpectatorOverrides } from '../base/options';
 import { addMatchers } from '../core';
@@ -15,6 +14,7 @@ import { overrideComponents, overrideDirectives, overrideModules, overridePipes 
 import { initialSpectatorDirectiveModule } from './initial-module';
 import { SpectatorDirectiveOptions, getSpectatorDirectiveDefaultOptions } from './options';
 import { SpectatorDirective } from './spectator-directive';
+import { BrowserTestingModule } from '@angular/platform-browser/testing';
 
 /**
  * @publicApi
@@ -85,7 +85,7 @@ export function createDirectiveFactory<D, H = HostComponent>(
       });
     }
 
-    TestBed.overrideModule(BrowserDynamicTestingModule, {}).overrideComponent(options.host, {
+    TestBed.overrideModule(BrowserTestingModule, {}).overrideComponent(options.host, {
       set: { template: template || options.template },
     });
 
