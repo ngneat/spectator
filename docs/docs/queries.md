@@ -44,6 +44,7 @@ spectator.query(byText('By text'));
 spectator.query(byText('By text', {selector: '#some .selector'}));
 spectator.query(byTextContent('By text content', {selector: '#some .selector'}));
 spectator.query(byRole('checkbox', { checked: true }));
+spectator.query(byTestId('someTestId'))
 ```
 
 The difference between `byText` and `byTextContent` is that the former doesn't match text inside a nested elements.
@@ -62,6 +63,14 @@ These DOM selectors are directly supported by our [Custom Matchers](./custom-mat
 expect(byTextContent('By text content', {selector: '#some .selector'})).toExist();
 expect(byPlaceholder('Please enter your email address')).toHaveValue('my-value');
 // ... See the Custom Matchers section for a full list of possible matchers
+```
+
+Configure `@testing-library/dom` to use `byTestId` with a different `testIdAttribute`
+
+```ts
+import { configure } from '@testing-library/dom';
+
+configure({ testIdAttribute: 'data-test' });
 ```
 
 ### Parent Selector

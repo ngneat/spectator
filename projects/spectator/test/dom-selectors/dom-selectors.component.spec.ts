@@ -2,6 +2,7 @@ import {
   byAltText,
   byLabel,
   byPlaceholder,
+  byTestId,
   byText,
   byTextContent,
   byTitle,
@@ -10,6 +11,7 @@ import {
   createComponentFactory,
   Spectator,
 } from '@ngneat/spectator';
+import { configure, getConfig } from '@testing-library/dom';
 
 import { DomSelectorsComponent, DomSelectorsNestedComponent } from './dom-selectors.component';
 
@@ -214,6 +216,25 @@ describe('DomSelectorsComponent', () => {
     it('should allow querying by generic role with byRole matcher options ', () => {
       const element = spectator.query(byRole('checkbox', { checked: true }));
       expect(element).toHaveExactText('Sugar');
+    });
+  });
+
+  describe('byTestId', () => {
+    const { testIdAttribute } = getConfig();
+    beforeEach(() => configure({ testIdAttribute }));
+    afterEach(() => configure({ testIdAttribute }));
+
+    it('should allow querying with byTestId (default: data-testid)', () => {
+      const element = spectator.query(byTestId('by-testid-default'));
+      expect(element).toHaveAttribute('data-testid', 'by-testid-default');
+    });
+
+    it('should allow querying with byTestId and custom testIdAttribute', () => {
+      // configure byTestId to use the custom attribute
+      configure({ testIdAttribute: 'data-testid-custom' });
+
+      const element = spectator.query(byTestId('by-testid-custom'));
+      expect(element).toHaveAttribute('data-testid-custom', 'by-testid-custom');
     });
   });
 });

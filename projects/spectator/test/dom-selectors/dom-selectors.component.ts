@@ -52,6 +52,11 @@ export class DomSelectorsNestedComponent {}
       <app-dom-selectors-nested-components id="first"></app-dom-selectors-nested-components>
       <app-dom-selectors-nested-components id="last"></app-dom-selectors-nested-components>
     </div>
+
+    <div id="testid">
+      <div data-testid="by-testid-default"></div>
+      <div data-testid-custom="by-testid-custom"></div>
+    </div>
   `,
   standalone: false,
   imports: [DomSelectorsNestedComponent],

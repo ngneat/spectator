@@ -8,7 +8,9 @@ import {
   byTitle,
   byValue,
   byTextContent,
+  byTestId,
 } from '@ngneat/spectator/jest';
+import { configure, getConfig } from '@testing-library/dom';
 
 import { DomSelectorsComponent, DomSelectorsNestedComponent } from '../../../test/dom-selectors/dom-selectors.component';
 
@@ -168,6 +170,25 @@ describe('DomSelectorsComponent', () => {
         const element = spectator.query(byTextContent(matcher, { selector: '#text-content-root [id^="text-content-span"]' }));
         expect(element).toHaveId('text-content-span-2');
       });
+    });
+  });
+
+  describe('byTestId', () => {
+    const { testIdAttribute } = getConfig();
+    beforeEach(() => configure({ testIdAttribute }));
+    afterEach(() => configure({ testIdAttribute }));
+
+    it('should allow querying with byTestId (default: data-testid)', () => {
+      const element = spectator.query(byTestId('by-testid-default'));
+      expect(element).toHaveAttribute('data-testid', 'by-testid-default');
+    });
+
+    it('should allow querying with byTestId and custom testIdAttribute', () => {
+      // configure byTestId to use the custom attribute
+      configure({ testIdAttribute: 'data-testid-custom' });
+
+      const element = spectator.query(byTestId('by-testid-custom'));
+      expect(element).toHaveAttribute('data-testid-custom', 'by-testid-custom');
     });
   });
 });
