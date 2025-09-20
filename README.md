@@ -152,6 +152,7 @@ const createComponent = createComponentFactory({
   providers: [],
   declarations: [],
   entryComponents: [],
+  bindings: [], // Component bindings (inputBinding, outputBinding, twoWayBinding) forwarded to TestBed.createComponent
   componentProviders: [], // Override the component's providers
   componentViewProviders: [], // Override the component's view providers
   componentImports: [], // Override the component's imports in case of testing standalone component
@@ -186,6 +187,70 @@ it('should...', () => {
   });
 
   expect(spectator.query('button')).toHaveText('Click');
+});
+```
+
+The `createComponentFactory()` function supports Angular's component bindings using the `bindings` option. This allows you to bind signals and other reactive values to component inputs, outputs, and two-way bindings using Angular's `inputBinding()`, `outputBinding()`, and `twoWayBinding()` functions.
+
+```ts
+import { signal, inputBinding, outputBinding, twoWayBinding } from '@angular/core';
+
+describe('Component with Bindings', () => {
+  it('should bind to component inputs', () => {
+    const value = signal(1);
+    
+    const createComponent = createComponentFactory({
+      component: MyComponent,
+      bindings: [inputBinding('value', value)]
+    });
+    
+    const spectator = createComponent();
+    
+    expect(spectator.component.value).toBe(1);
+    
+    // Update the signal and detect changes
+    value.set(2);
+    spectator.detectChanges();
+    
+    expect(spectator.component.value).toBe(2);
+  });
+
+  it('should bind to component outputs', () => {
+    let count = 0;
+    
+    const createComponent = createComponentFactory({
+      component: MyComponent,
+      bindings: [outputBinding('change', () => count++)]
+    });
+    
+    const spectator = createComponent();
+    
+    spectator.component.change.emit();
+    expect(count).toBe(1);
+  });
+
+  it('should bind two-way bindings', () => {
+    const value = signal('initial');
+    
+    const createComponent = createComponentFactory({
+      component: MyComponent,
+      bindings: [twoWayBinding('value', value)]
+    });
+    
+    const spectator = createComponent();
+    
+    expect(value()).toBe('initial');
+    
+    // Update from outside
+    value.set('updated');
+    spectator.detectChanges();
+    expect(spectator.component.value).toBe('updated');
+    
+    // Update from inside
+    spectator.component.value = 'changed';
+    spectator.component.valueChange.emit('changed');
+    expect(value()).toBe('changed');
+  });
 });
 ```
 

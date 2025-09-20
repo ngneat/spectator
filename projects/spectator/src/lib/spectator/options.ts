@@ -1,4 +1,4 @@
-import { Type } from '@angular/core';
+import { Type, Binding } from '@angular/core';
 
 import { getDefaultBaseOptions, BaseSpectatorOptions } from '../base/options';
 import { merge } from '../internals/merge';
@@ -10,6 +10,8 @@ import { OptionalsRequired } from '../types';
 export interface SpectatorOptions<C> extends BaseSpectatorOptions {
   component: Type<C>;
   shallow?: boolean;
+  /** set options for TestBed.createComponent(component, options: TestComponentOptions)  */
+  bindings?: Binding[]; // TestComponentOptions['bindings'];
   componentProviders?: any[];
   componentViewProviders?: any[];
   componentImports?: any[];
@@ -29,6 +31,7 @@ const defaultSpectatorOptions: OptionalsRequired<SpectatorOptions<any>> = {
   componentImports: [],
   componentMocks: [],
   componentViewProvidersMocks: [],
+  bindings: [],
 };
 
 /**
