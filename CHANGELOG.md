@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [22.0.0](https://github.com/ngneat/spectator/compare/v21.0.1...v22.0.0) (2025-10-08)
+
+
+### ⚠ BREAKING CHANGES
+
+* 🧨 byRole: only allow string as a role
+
+* test: 💍 fix byRole test due to stricter aria-query
+* 🧨 stricter aria-query
+
+### Features
+
+* 🎸 add componentImports for SpectatorRouting ([#718](https://github.com/ngneat/spectator/issues/718)) ([d59e4c0](https://github.com/ngneat/spectator/commit/d59e4c0c49c325e3065ab312a36568540bb13a06)), closes [#715](https://github.com/ngneat/spectator/issues/715)
+* 🎸 support for bindings ([#731](https://github.com/ngneat/spectator/issues/731)) ([3a5f11f](https://github.com/ngneat/spectator/commit/3a5f11f823b5479ad9e8041207c1124269570740))
+* 🎸 upgrade @testing-library/dom to v10 ([#722](https://github.com/ngneat/spectator/issues/722)) ([1942f5f](https://github.com/ngneat/spectator/commit/1942f5f1ba2e44d8b95df0c7f2131b8b0c7edd8a))
+
 ### [21.0.1](https://github.com/ngneat/spectator/compare/v21.0.0...v21.0.1) (2025-07-25)
 
 
