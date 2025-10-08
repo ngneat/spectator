@@ -183,7 +183,7 @@ export function createComponentFactory<C>(typeOrOptions: Type<C> | SpectatorOpti
 }
 
 function createSpectator<C>(options: Required<SpectatorOptions<C>>, props?: InferInputSignals<C>): Spectator<C> {
-  const fixture = TestBed.createComponent(options.component);
+  const fixture = TestBed.createComponent(options.component, { bindings: options.bindings });
   const debugElement = fixture.debugElement;
 
   const component = setProps(fixture.componentRef, props);

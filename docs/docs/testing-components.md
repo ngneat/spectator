@@ -37,6 +37,7 @@ const createComponent = createComponentFactory({
   providers: [],
   declarations: [],
   entryComponents: [],
+  bindings: [], // Forward to Angular TestComponentOptions in TestBed.createComponent(ButtonComponent, { bindings})
   componentProviders: [], // Override the component's providers
   componentViewProviders: [], // Override the component's view providers
   componentImports: [], // Override the component's imports in case of testing standalone component
@@ -302,3 +303,43 @@ createComponentFactory({
 ```
 
 cf. https://angular.io/api/core/testing/TestBed#overrideModule
+
+## Angular TestComponentOptions: `bindings`
+
+Configure `bindings` to set TestComponentOptions in `TestBed.createComponent(ButtonComponent, { bindings })`.
+
+Use `bindings` to apply `Bindings` to the root component. An alternative to `createHostFactory`, avoiding the need to create a wrapper component.
+
+```ts
+@Component({
+  selector: 'my-component',
+  template: `
+    <h1>{{ title }}</h1>
+    <button (click)="onClick()">{{ value }}</button>
+  `,
+})
+export class MyComponent {
+  @Input() title = '';
+  @Output() clicked = new EventEmitter<void>();
+  @Input() value = 'initial';
+  @Output() valueChange = new EventEmitter<string>();
+
+  onClick() {
+    this.clicked.emit();
+  }
+}
+
+let clicks = 0;
+const value = signal('initial');
+
+const createComponent = createComponentFactory({
+  component: MyComponent,
+  bindings: [
+    inputBinding('title', signal('Hello')),
+    outputBinding('clicked', () => clicks++),
+    twoWayBinding('value', value),
+  ],
+});
+```
+
+cf. https://angular.dev/api/core/testing/TestComponentOptions
