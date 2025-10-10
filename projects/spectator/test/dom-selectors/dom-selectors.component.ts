@@ -1,11 +1,13 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-dom-selectors-nested-components',
   template: `<p id="by-text-p">Nested Component</p>`,
   standalone: true,
 })
-export class DomSelectorsNestedComponent {}
+export class DomSelectorsNestedComponent {
+  @Input() id: string = '';
+}
 
 @Component({
   selector: 'app-dom-selectors',
@@ -45,10 +47,10 @@ export class DomSelectorsNestedComponent {}
       </section>
     </div>
 
-    <div id="nested-components-1">
+    <div id="nested-components-1" data-testid="nested-parent-1">
       <app-dom-selectors-nested-components id="alone-in-group"></app-dom-selectors-nested-components>
     </div>
-    <div id="nested-components-2">
+    <div id="nested-components-2" data-testid="nested-parent-2">
       <app-dom-selectors-nested-components id="first"></app-dom-selectors-nested-components>
       <app-dom-selectors-nested-components id="last"></app-dom-selectors-nested-components>
     </div>
