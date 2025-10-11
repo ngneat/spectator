@@ -71,6 +71,35 @@ describe('DomSelectorsComponent', () => {
       element = spectator.queryAll(DomSelectorsNestedComponent, { parentSelector: '#nested-components-1' });
       expect(element.length).toBe(1);
     });
+
+    it('should allow querying multiple element by parent testId', () => {
+      let element = spectator.queryAll(DomSelectorsNestedComponent, { parentSelector: byTestId('nested-parent-2') });
+      expect(element.length).toBe(2);
+      element = spectator.queryAll(DomSelectorsNestedComponent, { parentSelector: byTestId('nested-parent-1') });
+      expect(element.length).toBe(1);
+    });
+
+    it('should allow querying first element by parent selector', () => {
+      {
+        let element = spectator.query(DomSelectorsNestedComponent, { parentSelector: byTestId('nested-parent-1') });
+        expect(element).toHaveId('alone-in-group');
+      }
+      {
+        let element = spectator.query(DomSelectorsNestedComponent, { parentSelector: byTestId('nested-parent-2') });
+        expect(element).toHaveId('first');
+      }
+    });
+
+    it('should allow querying last element by parent selector', () => {
+      {
+        let element = spectator.queryLast(DomSelectorsNestedComponent, { parentSelector: byTestId('nested-parent-1') });
+        expect(element).toHaveId('alone-in-group');
+      }
+      {
+        let element = spectator.queryLast(DomSelectorsNestedComponent, { parentSelector: byTestId('nested-parent-2') });
+        expect(element).toHaveId('last');
+      }
+    });
   });
 
   describe('byTextContent', () => {

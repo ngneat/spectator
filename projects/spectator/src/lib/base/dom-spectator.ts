@@ -46,11 +46,11 @@ export abstract class DomSpectator<I> extends BaseSpectator {
 
   public query<R extends Element>(selector: string | DOMSelector, options?: { root: boolean }): R | null;
   public query<R>(directive: Type<R>, options?: { root: boolean }): R | null;
-  public query<R extends Element>(selector: string | DOMSelector, options?: { parentSelector: Type<any> | string }): R | null;
-  public query<R>(directive: Type<R>, options?: { parentSelector?: Type<any> | string }): R | null;
+  public query<R extends Element>(selector: string | DOMSelector, options?: { parentSelector: Type<any> | string | DOMSelector }): R | null;
+  public query<R>(directive: Type<R>, options?: { parentSelector?: Type<any> | string | DOMSelector }): R | null;
   public query<R>(
     directiveOrSelector: Type<any> | string,
-    options: { read: Token<R>; root?: boolean; parentSelector?: Type<any> | string },
+    options: { read: Token<R>; root?: boolean; parentSelector?: Type<any> | string | DOMSelector },
   ): R | null;
   public query<R>(directiveOrSelector: QueryType, options?: QueryOptions<R>): R | Element | null {
     if ((options || {}).root) {
@@ -86,11 +86,11 @@ export abstract class DomSpectator<I> extends BaseSpectator {
 
   public queryAll<R extends Element>(selector: string | DOMSelector, options?: { root: boolean }): R[];
   public queryAll<R>(directive: Type<R>, options?: { root: boolean }): R[];
-  public queryAll<R extends Element>(selector: string | DOMSelector, options?: { parentSelector: Type<any> | string }): R[];
-  public queryAll<R>(directive: Type<R>, options?: { parentSelector: Type<any> | string }): R[];
+  public queryAll<R extends Element>(selector: string | DOMSelector, options?: { parentSelector: Type<any> | string | DOMSelector }): R[];
+  public queryAll<R>(directive: Type<R>, options?: { parentSelector: Type<any> | string | DOMSelector }): R[];
   public queryAll<R>(
     directiveOrSelector: Type<any> | string,
-    options: { read: Token<R>; root?: boolean; parentSelector?: Type<any> | string },
+    options: { read: Token<R>; root?: boolean; parentSelector?: Type<any> | string | DOMSelector },
   ): R[];
   public queryAll<R>(directiveOrSelector: QueryType, options?: QueryOptions<R>): R[] | Element[] {
     if ((options || {}).root) {
@@ -124,11 +124,14 @@ export abstract class DomSpectator<I> extends BaseSpectator {
 
   public queryLast<R extends Element>(selector: string | DOMSelector, options?: { root: boolean }): R | null;
   public queryLast<R>(directive: Type<R>, options?: { root: boolean }): R | null;
-  public queryLast<R extends Element>(selector: string | DOMSelector, options?: { parentSelector: Type<any> | string }): R | null;
-  public queryLast<R>(directive: Type<R>, options?: { parentSelector: Type<any> | string }): R | null;
+  public queryLast<R extends Element>(
+    selector: string | DOMSelector,
+    options?: { parentSelector: Type<any> | string | DOMSelector },
+  ): R | null;
+  public queryLast<R>(directive: Type<R>, options?: { parentSelector: Type<any> | string | DOMSelector }): R | null;
   public queryLast<R>(
     directiveOrSelector: Type<any> | string,
-    options: { read: Token<R>; root?: boolean; parentSelector?: Type<any> | string },
+    options: { read: Token<R>; root?: boolean; parentSelector?: Type<any> | string | DOMSelector },
   ): R | null;
   public queryLast<R>(directiveOrSelector: QueryType, options?: QueryOptions<R>): R | Element | null {
     let result: (R | Element)[] = [];
@@ -366,13 +369,15 @@ export abstract class DomSpectator<I> extends BaseSpectator {
   }
 
   private getDebugElement(
-    directiveOrSelector: string | DebugElement | Type<unknown>,
+    directiveOrSelector: string | DebugElement | Type<unknown> | DOMSelector,
     options?: { root: boolean },
   ): DebugElement | undefined {
     const debugElement = options?.root ? this.getRootDebugElement() : this.debugElement;
 
     if (isString(directiveOrSelector)) {
       return debugElement.query(By.css(directiveOrSelector));
+    } else if (directiveOrSelector instanceof DOMSelector) {
+      return new DebugElement(directiveOrSelector.execute(document as unknown as HTMLElement)[0]);
     } else if (directiveOrSelector instanceof DebugElement) {
       return directiveOrSelector;
     } else {

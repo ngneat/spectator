@@ -25,7 +25,7 @@ export type QueryType = Type<any> | DOMSelector | string;
 export interface QueryOptions<R> {
   read?: Token<R>;
   root?: boolean;
-  parentSelector?: Type<any> | string;
+  parentSelector?: Type<any> | string | DOMSelector;
 }
 
 export type OutputType<P> = P extends EventEmitter<infer T> ? T : P extends OutputRef<infer T> ? T : never;
