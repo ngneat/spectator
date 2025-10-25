@@ -168,7 +168,10 @@ export function createComponentFactory<C>(typeOrOptions: Type<C> | SpectatorOpti
 
     if (providers && providers.length) {
       providers.forEach((provider: Provider) => {
-        TestBed.overrideProvider((provider as any).provide, provider as any);
+        const token = (provider as any).provide;
+        if (token) {
+          TestBed.overrideProvider(token, provider as any);
+        }
       });
     }
 
