@@ -4,6 +4,8 @@ import { Provider, Type } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 
 import { BaseSpectatorOverrides } from '../base/options';
+import { addMatchers } from '../core';
+import * as customMatchers from '../matchers';
 import { isType } from '../types';
 
 import { initialHttpModule } from './initial-module';
@@ -30,6 +32,7 @@ export function createHttpFactory<S>(typeOrOptions: Type<S> | SpectatorHttpOptio
   const moduleMetadata = initialHttpModule(options);
 
   beforeEach(() => {
+    addMatchers(customMatchers);
     TestBed.configureTestingModule(moduleMetadata);
     overrideModules(options);
   });

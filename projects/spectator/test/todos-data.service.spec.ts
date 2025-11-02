@@ -57,4 +57,16 @@ describe('HttpClient testing', () => {
 
     spectatorHttp.expectOne('two', HttpMethod.GET);
   }));
+
+  it('should work wih custom matchers', () => {
+    const spectatorHttp = http();
+
+    spectatorHttp.service.get().subscribe((res) => {
+      expect(res).toHaveProperty('id');
+      expect(res).toHaveProperty('id', '1234');
+    });
+
+    const req = spectatorHttp.expectOne('url', HttpMethod.GET);
+    req.flush({ id: '1234' });
+  });
 });
