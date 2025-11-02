@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [22.1.0](https://github.com/ngneat/spectator/compare/v22.0.0...v22.1.0) (2025-11-02)
+
+
+### Features
+
+* 🎸 DOMSelector support for query parentSelector ([#732](https://github.com/ngneat/spectator/issues/732)) ([e5616a2](https://github.com/ngneat/spectator/commit/e5616a2d9556c75cfe399052ecb310281318e80a))
+
+
+### Bug Fixes
+
+* custom matchers are not available when using createHttpFactory ([#736](https://github.com/ngneat/spectator/issues/736)) ([bbf63eb](https://github.com/ngneat/spectator/commit/bbf63eb6aa3c711c97cd60b2d8a6c959f5a46acf))
+* **spectator:** resolve injection token override issue ([#734](https://github.com/ngneat/spectator/issues/734)) ([d7daf1c](https://github.com/ngneat/spectator/commit/d7daf1ca148f384dd3ac80a4d7b2111b36f31cd8)), closes [#337](https://github.com/ngneat/spectator/issues/337)
+
 ## [22.0.0](https://github.com/ngneat/spectator/compare/v21.0.1...v22.0.0) (2025-10-08)
 
 
