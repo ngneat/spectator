@@ -17,7 +17,9 @@ export interface SpectatorOptions<C> extends BaseSpectatorOptions {
   componentImports?: any[];
   detectChanges?: boolean;
   declareComponent?: boolean;
+  /** Component providers that will automatically be mocked */
   componentMocks?: Type<any>[];
+  /** Component view providers that will be automatically mocked */
   componentViewProvidersMocks?: Type<any>[];
 }
 
