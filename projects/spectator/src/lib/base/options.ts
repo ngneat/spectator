@@ -9,6 +9,7 @@ import { OptionalsRequired } from '../types';
  * @internal
  */
 export interface BaseSpectatorOptions {
+  /** @default true */
   disableAnimations?: boolean;
   entryComponents?: Type<any>[];
   /** Providers that will automatically be mocked */
