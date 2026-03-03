@@ -11,6 +11,7 @@ import { OptionalsRequired } from '../types';
 export interface BaseSpectatorOptions {
   disableAnimations?: boolean;
   entryComponents?: Type<any>[];
+  /** Providers that will automatically be mocked */
   mocks?: Type<any>[];
   mockProvider?: MockProvider;
   providers?: any[];
@@ -18,8 +19,11 @@ export interface BaseSpectatorOptions {
   imports?: any[];
   schemas?: (SchemaMetadata | any[])[];
   overrideModules?: [Type<any>, MetadataOverride<NgModule>][];
+  /** Override the component's providers */
   overrideComponents?: [Type<any>, MetadataOverride<Component>][];
+  /** Override directives in case of testing standalone directive */
   overrideDirectives?: [Type<any>, MetadataOverride<Directive>][];
+  /** Override pipes in case of testing standalone pipe */
   overridePipes?: [Type<any>, MetadataOverride<Pipe>][];
   teardown?: ModuleTeardownOptions;
   deferBlockBehavior?: DeferBlockBehavior;
