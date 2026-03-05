@@ -12,7 +12,11 @@ import {
 } from '@ngneat/spectator/jest';
 import { configure, getConfig } from '@testing-library/dom';
 
-import { DomSelectorsComponent, DomSelectorsNestedComponent } from '../../../test/dom-selectors/dom-selectors.component';
+import {
+  DomSelectorsComponent,
+  DomSelectorsNestedComponent,
+  DomSelectorsNestedDummyChildComponent,
+} from '../../../test/dom-selectors/dom-selectors.component';
 
 describe('DomSelectorsComponent', () => {
   let spectator: Spectator<DomSelectorsComponent>;
@@ -218,6 +222,11 @@ describe('DomSelectorsComponent', () => {
 
       const element = spectator.query(byTestId('by-testid-custom'));
       expect(element).toHaveAttribute('data-testid-custom', 'by-testid-custom');
+    });
+
+    it('should allow querying with byTestId and reading the component instance', () => {
+      const element = spectator.query(byTestId('by-testid-nested-dummy-child'), { read: DomSelectorsNestedDummyChildComponent });
+      expect(element).toHaveAttribute('data-testid', 'by-testid-nested-dummy-child');
     });
   });
 });
