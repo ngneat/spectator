@@ -269,7 +269,7 @@ export abstract class DomSpectator<I> extends BaseSpectator {
   }
 
   public triggerEventHandler<C = any, K extends KeysMatching<C, EventEmitter<any> | OutputEmitterRef<any>> = any>(
-    directiveOrSelector: Type<C> | string | DebugElement,
+    directiveOrSelector: Type<C> | string | DebugElement | DOMSelector,
     eventName: K,
     eventObj: OutputType<C[K]>,
     options?: { root: boolean },

@@ -54,6 +54,10 @@ spectator.triggerEventHandler(MyChildComponent, 'myCustomEvent', 'eventValue', {
 
 spectator.triggerEventHandler('app-child-component', 'myCustomEvent', 'eventValue');
 spectator.triggerEventHandler('app-child-component', 'myCustomEvent', 'eventValue', { root: true});
+
+
+spectator.triggerEventHandler(byTestId('some-id'), 'myCustomEvent', 'eventValue');
+spectator.triggerEventHandler(byTestId('some-id'), 'myCustomEvent', 'eventValue', { root: true});
 ```
 
 ## Event Creators
