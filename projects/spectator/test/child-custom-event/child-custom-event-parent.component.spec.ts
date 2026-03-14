@@ -1,4 +1,4 @@
-import { Spectator, createComponentFactory } from '@ngneat/spectator';
+import { Spectator, byTestId, createComponentFactory } from '@ngneat/spectator';
 
 import { ChildCustomEventParentComponent } from './child-custom-event-parent.component';
 import { ChildCustomEventModule } from './child-custom-event.module';
@@ -25,6 +25,12 @@ describe('ChildCustomEventParentComponent', () => {
       spectator.triggerEventHandler('app-child-custom-event', 'customEventUsingEventEmitter', 'hello');
       expect(spectator.query(byText('hello'))).toExist();
     });
+
+    it('should trigger custom event with DomSelector', () => {
+      spectator = createComponent();
+      spectator.triggerEventHandler(byTestId('child-custom-event'), 'customEventUsingEventEmitter', 'hello');
+      expect(spectator.query(byText('hello'))).toExist();
+    });
   });
 
   describe('output()', () => {
@@ -37,6 +43,12 @@ describe('ChildCustomEventParentComponent', () => {
     it('should trigger custom event with string selector', () => {
       spectator = createComponent();
       spectator.triggerEventHandler('app-child-custom-event', 'customEventUsingOutputEmitter', 'hello');
+      expect(spectator.query(byText('hello'))).toExist();
+    });
+
+    it('should trigger custom event with DomSelector', () => {
+      spectator = createComponent();
+      spectator.triggerEventHandler(byTestId('child-custom-event'), 'customEventUsingOutputEmitter', 'hello');
       expect(spectator.query(byText('hello'))).toExist();
     });
   });

@@ -4,6 +4,7 @@ import { Component } from '@angular/core';
   selector: 'app-child-custom-event-parent',
   template: `
     <app-child-custom-event
+      data-testid="child-custom-event"
       (customEventUsingEventEmitter)="onCustomEventUsingEventEmitter($event)"
       (customEventUsingOutputEmitter)="onCustomEventUsingOutputEmitter($event)"
     />
