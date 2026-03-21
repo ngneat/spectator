@@ -1,6 +1,13 @@
 import { Component, Input } from '@angular/core';
 
 @Component({
+  selector: 'app-dom-selectors-nested-dummy-child',
+  template: `<p id="by-text-p">Nested Dummy Child Component</p>`,
+  standalone: true,
+})
+export class DomSelectorsNestedDummyChildComponent {}
+
+@Component({
   selector: 'app-dom-selectors-nested-components',
   template: `<p id="by-text-p">Nested Component</p>`,
   standalone: true,
@@ -58,6 +65,8 @@ export class DomSelectorsNestedComponent {
     <div id="testid">
       <div data-testid="by-testid-default"></div>
       <div data-testid-custom="by-testid-custom"></div>
+
+      <app-dom-selectors-nested-dummy-child data-testid="by-testid-nested-dummy-child"></app-dom-selectors-nested-dummy-child>
     </div>
   `,
   standalone: false,

@@ -49,7 +49,7 @@ export abstract class DomSpectator<I> extends BaseSpectator {
   public query<R extends Element>(selector: string | DOMSelector, options?: { parentSelector: Type<any> | string | DOMSelector }): R | null;
   public query<R>(directive: Type<R>, options?: { parentSelector?: Type<any> | string | DOMSelector }): R | null;
   public query<R>(
-    directiveOrSelector: Type<any> | string,
+    directiveOrSelector: Type<any> | string | DOMSelector,
     options: { read: Token<R>; root?: boolean; parentSelector?: Type<any> | string | DOMSelector },
   ): R | null;
   public query<R>(directiveOrSelector: QueryType, options?: QueryOptions<R>): R | Element | null {
@@ -89,7 +89,7 @@ export abstract class DomSpectator<I> extends BaseSpectator {
   public queryAll<R extends Element>(selector: string | DOMSelector, options?: { parentSelector: Type<any> | string | DOMSelector }): R[];
   public queryAll<R>(directive: Type<R>, options?: { parentSelector: Type<any> | string | DOMSelector }): R[];
   public queryAll<R>(
-    directiveOrSelector: Type<any> | string,
+    directiveOrSelector: Type<any> | string | DOMSelector,
     options: { read: Token<R>; root?: boolean; parentSelector?: Type<any> | string | DOMSelector },
   ): R[];
   public queryAll<R>(directiveOrSelector: QueryType, options?: QueryOptions<R>): R[] | Element[] {
@@ -130,7 +130,7 @@ export abstract class DomSpectator<I> extends BaseSpectator {
   ): R | null;
   public queryLast<R>(directive: Type<R>, options?: { parentSelector: Type<any> | string | DOMSelector }): R | null;
   public queryLast<R>(
-    directiveOrSelector: Type<any> | string,
+    directiveOrSelector: Type<any> | string | DOMSelector,
     options: { read: Token<R>; root?: boolean; parentSelector?: Type<any> | string | DOMSelector },
   ): R | null;
   public queryLast<R>(directiveOrSelector: QueryType, options?: QueryOptions<R>): R | Element | null {
